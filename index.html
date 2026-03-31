@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎯 Show do Saber — Simulado CESGRANRIO</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#06061a; color:#fff; font-family:'Segoe UI',Tahoma,sans-serif; min-height:100vh; }
+
+#estrelas { position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:0; }
+.estrela { position:absolute;background:#fff;border-radius:50%;animation:piscar 3s infinite alternate; }
+@keyframes piscar{from{opacity:.1}to{opacity:.5}}
+.holofote{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(255,200,0,.05),transparent 70%);pointer-events:none;z-index:0;}
+
+header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px solid #FFD700;padding:12px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.titulo-show{font-size:20px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#FFD700,#FFA500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stats-bar{display:flex;gap:14px;flex-wrap:wrap;}
+.stat{display:flex;flex-direction:column;align-items:center;}
+.stat-valor{font-size:20px;font-weight:bold;color:#FFD700;}
+.stat-label{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:1px;}
+/* Afobamento em vermelho quando alto */
+.stat-afob .stat-valor{color:#ff6666;}
+.stat-afob.alerta .stat-valor{color:#ff3333;animation:pulso 1s infinite;}
+@keyframes pulso{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}
+
+.container{position:relative;z-index:5;max-width:820px;width:92%;margin:0 auto;padding:26px 0 60px;}
+
+/* TELA INICIAL */
+#tela-inicial{text-align:center;padding:30px 10px;}
+.logo-gigante{font-size:48px;font-weight:900;line-height:1;margin-bottom:8px;background:linear-gradient(135deg,#FFD700,#FFA500,#FF6600);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.subtitulo-ini{color:#777;font-size:15px;margin-bottom:30px;}
+.caixa-regras{background:rgba(255,255,255,.03);border:1px solid #1a1a5a;border-radius:14px;padding:22px 26px;max-width:640px;margin:0 auto 30px;text-align:left;}
+.caixa-regras h3{color:#FFD700;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+.regra{display:flex;gap:10px;margin-bottom:11px;font-size:14px;color:#bbb;line-height:1.5;}
+.regra-icon{font-size:18px;flex-shrink:0;}
+.btn-comecar{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;border:none;padding:15px 50px;border-radius:50px;font-size:18px;font-weight:bold;cursor:pointer;box-shadow:0 0 35px rgba(255,215,0,.35);transition:all .2s;}
+.btn-comecar:hover{transform:scale(1.06);box-shadow:0 0 55px rgba(255,215,0,.5);}
+
+/* QUIZ */
+#tela-quiz{display:none;}
+
+/* Timer */
+.bloco-timer{margin-bottom:14px;}
+.timer-txt{text-align:center;font-size:13px;color:#777;margin-bottom:6px;}
+.timer-barra{width:100%;height:5px;background:#12124a;border-radius:3px;overflow:hidden;}
+.timer-fill{height:100%;background:linear-gradient(90deg,#FFD700,#FFA500);border-radius:3px;width:100%;}
+
+/* Aviso afobamento */
+.aviso-afob{display:none;background:rgba(255,50,50,.12);border:1px solid #ff3232;border-radius:8px;padding:9px 16px;font-size:13px;color:#ff8888;text-align:center;margin-bottom:12px;}
+.aviso-afob.visivel{display:block;}
+
+/* Indicador intuição */
+.ind-int{display:none;background:rgba(130,0,255,.18);border:1px solid #8800ff;border-radius:8px;padding:8px 16px;font-size:13px;color:#cc77ff;text-align:center;margin-bottom:12px;}
+.ind-int.ativo{display:block;}
+
+/* Caixa questão */
+.caixa-questao{background:linear-gradient(145deg,#0c0c35,#090925);border:2px solid #181870;border-radius:16px;padding:24px;margin-bottom:14px;box-shadow:0 0 50px rgba(0,0,100,.15);}
+.badges{margin-bottom:10px;}
+.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;margin-right:5px;}
+.badge-disc{background:rgba(255,215,0,.12);border:1px solid #FFD700;color:#FFD700;}
+.badge-tema{background:rgba(80,80,255,.12);border:1px solid #6666ff;color:#aaaaff;}
+.badge-conf{background:rgba(0,200,100,.1);border:1px solid #00c864;color:#00e87a;}
+.num-q{font-size:12px;color:#444;margin-bottom:10px;}
+.texto-base{background:rgba(255,255,255,.03);border-left:3px solid #FFD700;padding:14px 16px;border-radius:0 8px 8px 0;font-size:14px;line-height:1.75;color:#bbb;font-style:italic;margin-bottom:16px;}
+.enunciado{font-size:17px;line-height:1.65;color:#eee;}
+
+/* ===== ETAPA DE IDENTIFICAÇÃO DE TEMA ===== */
+#bloco-identifica{
+  display:none;
+  background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(255,165,0,.04));
+  border:2px solid rgba(255,215,0,.4);
+  border-radius:14px;
+  padding:20px 22px;
+  margin-bottom:14px;
+  animation:slidein .3s ease;
+}
+#bloco-identifica.visivel{display:block;}
+.id-titulo{color:#FFD700;font-size:14px;font-weight:bold;margin-bottom:6px;}
+.id-sub{color:#888;font-size:13px;margin-bottom:16px;}
+.id-opcoes{display:flex;flex-wrap:wrap;gap:10px;}
+.btn-id{
+  background:rgba(255,255,255,.05);
+  border:2px solid #2a2a7a;
+  border-radius:10px;
+  padding:10px 18px;
+  color:#ccc;
+  font-size:14px;
+  cursor:pointer;
+  transition:all .18s;
+  flex:1;
+  min-width:140px;
+  text-align:center;
+}
+.btn-id:hover{background:rgba(255,215,0,.1);border-color:#FFD700;color:#fff;}
+.btn-id.certo{background:rgba(0,200,100,.2);border-color:#00c864;color:#00ff88;}
+.btn-id.errado{background:rgba(255,50,50,.2);border-color:#ff3232;color:#ff8888;}
+.btn-id:disabled{cursor:not-allowed;}
+.id-feedback{display:none;font-size:13px;margin-top:12px;padding:10px 14px;border-radius:8px;line-height:1.5;}
+.id-feedback.visivel{display:block;animation:slidein .2s ease;}
+.id-feedback.ok{background:rgba(0,200,100,.1);border:1px solid #00c864;color:#aaffcc;}
+.id-feedback.nok{background:rgba(255,165,0,.1);border:1px solid #FFA500;color:#ffcc88;}
+.btn-liberar{margin-top:12px;background:rgba(255,215,0,.15);border:2px solid #FFD700;color:#FFD700;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;transition:all .18s;display:none;}
+.btn-liberar:hover{background:rgba(255,215,0,.3);}
+
+/* Alternativas */
+.alternativas{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.btn-alt{background:rgba(255,255,255,.04);border:2px solid #181870;border-radius:11px;padding:12px 18px;color:#ddd;font-size:15px;cursor:pointer;text-align:left;transition:all .18s;display:flex;gap:12px;align-items:flex-start;width:100%;}
+.btn-alt:hover:not(:disabled){background:rgba(255,215,0,.08);border-color:#FFD700;color:#fff;transform:translateX(5px);}
+.btn-alt:disabled{cursor:not-allowed;opacity:.55;}
+.alt-letra{background:#181870;color:#FFD700;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;flex-shrink:0;}
+.btn-alt.correta{background:rgba(0,200,100,.18);border-color:#00c864;color:#00ff88;}
+.btn-alt.errada{background:rgba(255,50,50,.18);border-color:#ff3232;color:#ff8888;}
+.btn-alt.correta .alt-letra{background:#00c864;color:#fff;}
+.btn-alt.errada  .alt-letra{background:#ff3232;color:#fff;}
+
+/* Botões de ação */
+.acoes{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+.btn-acao{padding:10px 20px;border-radius:10px;font-size:14px;font-weight:bold;cursor:pointer;transition:all .18s;border:2px solid;}
+.btn-ns{background:rgba(255,150,0,.15);border-color:#FFA500;color:#FFA500;}
+.btn-ns:hover:not(:disabled){background:rgba(255,150,0,.3);transform:scale(1.03);}
+.btn-int{background:rgba(130,0,255,.15);border-color:#8800ff;color:#bb66ff;}
+.btn-int:hover:not(:disabled){background:rgba(130,0,255,.3);transform:scale(1.03);}
+.btn-int.ativo{background:rgba(130,0,255,.35);border-color:#cc77ff;box-shadow:0 0 15px rgba(130,0,255,.35);}
+.btn-acao:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ===== PAINEL PÓS-ERRO: AFOBAMENTO OU NÃO SABIA ===== */
+#bloco-tipo-erro{
+  display:none;
+  background:rgba(255,50,50,.07);
+  border:1px solid #552222;
+  border-radius:12px;
+  padding:16px 20px;
+  margin-bottom:10px;
+  animation:slidein .3s ease;
+}
+#bloco-tipo-erro.visivel{display:block;}
+.tipo-erro-titulo{font-size:13px;color:#ff8888;margin-bottom:12px;font-weight:bold;}
+.opcoes-tipo-erro{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-tipo-erro{padding:10px 18px;border-radius:10px;font-size:13px;font-weight:bold;cursor:pointer;transition:all .18s;border:2px solid;flex:1;min-width:160px;text-align:center;}
+.btn-afob{background:rgba(255,100,0,.15);border-color:#ff6600;color:#ff9955;}
+.btn-afob:hover{background:rgba(255,100,0,.3);transform:scale(1.02);}
+.btn-nao-sabia{background:rgba(80,80,255,.15);border-color:#6666ff;color:#aaaaff;}
+.btn-nao-sabia:hover{background:rgba(80,80,255,.3);transform:scale(1.02);}
+
+/* Painel de dicas */
+.painel-dica{display:none;border-radius:14px;margin-top:6px;}
+.painel-dica.aberto{display:block;animation:slidein .3s ease;}
+@keyframes slidein{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.bloco-n1{background:#0d0d30;border:2px solid #FFD700;border-radius:12px;padding:18px 20px;margin-bottom:10px;}
+.n1-titulo{color:#FFD700;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.n1-linha{display:flex;gap:10px;margin-bottom:9px;font-size:14px;}
+.n1-label{color:#555;width:120px;flex-shrink:0;font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding-top:2px;}
+.n1-valor{color:#ddd;line-height:1.5;}
+.n1-valor strong{color:#FFD700;}
+.bloco-n2{display:none;background:rgba(80,80,255,.08);border:1px solid #6666ff;border-radius:10px;padding:15px 18px;margin-bottom:10px;}
+.bloco-n2.visivel{display:block;animation:slidein .25s ease;}
+.n2-titulo{color:#aaaaff;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;}
+.n2-texto{font-size:14px;color:#ccc;line-height:1.65;white-space:pre-line;}
+.bloco-n3{display:none;background:rgba(0,100,60,.1);border:1px solid #00c864;border-radius:10px;padding:15px 18px;margin-bottom:10px;}
+.bloco-n3.visivel{display:block;animation:slidein .25s ease;}
+.n3-titulo{color:#00ff88;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;}
+.n3-texto{font-size:14px;color:#ccc;line-height:1.65;white-space:pre-line;}
+.acoes-dica{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px;}
+.btn-mais{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;transition:all .18s;border:2px solid;}
+.btn-mais-2{background:rgba(80,80,255,.15);border-color:#6666ff;color:#aaaaff;}
+.btn-mais-2:hover{background:rgba(80,80,255,.3);transform:scale(1.02);}
+.btn-mais-3{background:rgba(0,100,60,.15);border-color:#00c864;color:#00ff88;}
+.btn-mais-3:hover{background:rgba(0,100,60,.3);transform:scale(1.02);}
+
+/* Resultado acerto/dominado/intuição */
+.bloco-resultado{display:none;border-radius:12px;padding:15px 18px;margin-bottom:10px;}
+.bloco-resultado.visivel{display:block;animation:slidein .25s ease;}
+.bloco-acerto{background:rgba(0,200,100,.1);border:2px solid #00c864;}
+.bloco-dominado{background:rgba(255,215,0,.1);border:2px solid #FFD700;}
+.bloco-intuicao{background:rgba(130,0,255,.1);border:2px solid #8800ff;}
+.resultado-titulo{font-size:15px;font-weight:bold;margin-bottom:5px;}
+.bloco-acerto   .resultado-titulo{color:#00ff88;}
+.bloco-dominado .resultado-titulo{color:#FFD700;}
+.bloco-intuicao .resultado-titulo{color:#cc77ff;}
+.resultado-sub{font-size:13px;color:#888;}
+
+#div-proxima{text-align:center;margin-top:18px;display:none;}
+.btn-proxima{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;border:none;padding:12px 34px;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;transition:all .2s;}
+.btn-proxima:hover{transform:scale(1.05);box-shadow:0 0 25px rgba(255,215,0,.45);}
+
+/* Progresso */
+.painel-prog{background:rgba(255,255,255,.025);border:1px solid #181870;border-radius:14px;padding:14px 18px;margin-bottom:18px;}
+.prog-titulo{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.prog-item{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.prog-nome{width:170px;font-size:13px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.prog-fundo{flex:1;height:6px;background:#12124a;border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#FFD700,#00ff88);border-radius:3px;transition:width .6s;}
+.prog-pct{width:33px;text-align:right;font-size:12px;color:#FFD700;}
+
+/* Conclusão */
+#tela-conclusao{display:none;text-align:center;padding:38px 10px;}
+.titulo-conclusao{font-size:38px;font-weight:900;color:#FFD700;text-shadow:0 0 30px rgba(255,215,0,.5);margin-bottom:10px;}
+.grade-res{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:24px 0;}
+.card-res{background:rgba(255,255,255,.04);border:1px solid #222;border-radius:12px;padding:16px;}
+.card-num{font-size:38px;font-weight:bold;color:#FFD700;}
+.card-num.afob-num{color:#ff6666;}
+.card-desc{font-size:11px;color:#666;margin-top:3px;}
+.tag-rev{display:inline-block;background:rgba(255,50,50,.1);border:1px solid #ff3232;border-radius:6px;padding:4px 10px;margin:3px;font-size:12px;color:#ff8888;}
+</style>
+</head>
+<body>
+
+<div id="estrelas"></div>
+<div class="holofote"></div>
+
+<header>
+  <div class="titulo-show">🎯 SHOW DO SABER</div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-valor" id="st-a">0</span><span class="stat-label">Acertos</span></div>
+    <div class="stat"><span class="stat-valor" id="st-e">0</span><span class="stat-label">Erros</span></div>
+    <div class="stat stat-afob" id="stat-afob-div"><span class="stat-valor" id="st-afob">0</span><span class="stat-label">Afobamentos</span></div>
+    <div class="stat"><span class="stat-valor" id="st-d">0</span><span class="stat-label">Dominadas</span></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- TELA INICIAL -->
+  <div id="tela-inicial">
+    <div class="logo-gigante">SHOW DO SABER</div>
+    <div class="subtitulo-ini">Método Socrático · CESGRANRIO 2026 · Sua mente, seu ritmo</div>
+    <div class="caixa-regras">
+      <h3>📋 Como Funciona</h3>
+      <div class="regra"><span class="regra-icon">⏱️</span><span><strong>Timer de leitura:</strong> tempo obrigatório antes de responder. Treina sua calma.</span></div>
+      <div class="regra"><span class="regra-icon">🧠</span><span><strong>Identifique o tema:</strong> antes das alternativas, você diz de que assunto se trata. Parte da habilidade da prova é saber isso!</span></div>
+      <div class="regra"><span class="regra-icon">🔥</span><span><strong>Afobamento:</strong> errou por pressa? Registre. O sistema aumenta o timer e cobra mais questões do mesmo estilo.</span></div>
+      <div class="regra"><span class="regra-icon">🆘</span><span><strong>Não Sei:</strong> recebe a ponta da corda — área, matéria e raciocínio. As contas são por sua conta.</span></div>
+      <div class="regra"><span class="regra-icon">🏆</span><span><strong>Tema dominado:</strong> 4 acertos consecutivos com convicção = arquivado.</span></div>
+    </div>
+    <button class="btn-comecar" onclick="iniciar()">▶ Começar</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="tela-quiz">
+
+    <div class="painel-prog">
+      <div class="prog-titulo">Progresso por Disciplina</div>
+      <div id="barras"></div>
+    </div>
+
+    <div class="bloco-timer">
+      <div class="timer-txt" id="timer-txt">📖 Leia o enunciado com atenção...</div>
+      <div class="timer-barra"><div class="timer-fill" id="timer-fill"></div></div>
+    </div>
+
+    <!-- Aviso de afobamento frequente -->
+    <div class="aviso-afob" id="aviso-afob">
+      ⚠️ Você tem se afobado bastante — respire fundo antes de clicar!
+    </div>
+
+    <div class="ind-int" id="ind-int">🤔 Intuição ativada — feeling. A questão voltará logo.</div>
+
+    <div class="caixa-questao">
+      <div class="badges">
+        <span class="badge badge-disc" id="b-disc">Disciplina</span>
+        <span class="badge badge-tema" id="b-tema">Tema</span>
+        <span class="badge badge-conf" id="b-conf">○○○○ 0/4</span>
+      </div>
+      <div class="num-q" id="num-q">Questão #1</div>
+      <div class="texto-base" id="txt-base" style="display:none;"></div>
+      <div class="enunciado" id="enunciado"></div>
+    </div>
+
+    <!-- ETAPA DE IDENTIFICAÇÃO DE TEMA -->
+    <div id="bloco-identifica">
+      <div class="id-titulo">🧠 Antes de responder — do que se trata esta questão?</div>
+      <div class="id-sub">Identificar o tema é parte da habilidade. Escolha e depois responda com calma.</div>
+      <div class="id-opcoes" id="id-opcoes"></div>
+      <div class="id-feedback" id="id-feedback"></div>
+      <button class="btn-liberar" id="btn-liberar" onclick="liberarRespostas()">Entendido — Responder agora →</button>
+    </div>
+
+    <div class="alternativas" id="alternativas"></div>
+
+    <div class="acoes" id="acoes">
+      <button class="btn-acao btn-ns"  id="btn-ns"  onclick="naoSei()">🆘 Não Sei</button>
+      <button class="btn-acao btn-int" id="btn-int" onclick="toggleInt()">🤔 Intuição</button>
+    </div>
+
+    <!-- PÓS-ERRO: afobamento ou não sabia -->
+    <div id="bloco-tipo-erro">
+      <div class="tipo-erro-titulo">❌ Como você errou esta questão?</div>
+      <div class="opcoes-tipo-erro">
+        <button class="btn-tipo-erro btn-afob"     onclick="registrarAfobamento()">🔥 Fui afobado — eu sabia, li errado</button>
+        <button class="btn-tipo-erro btn-nao-sabia" onclick="registrarNaoSabia()">📚 Realmente não sabia — preciso estudar</button>
+      </div>
+    </div>
+
+    <!-- Dicas progressivas -->
+    <div class="painel-dica" id="painel-dica">
+      <div class="bloco-n1" id="bloco-n1">
+        <div class="n1-titulo">🧭 Ponta da Corda — por onde começar</div>
+        <div class="n1-linha"><span class="n1-label">📚 Área</span><span class="n1-valor" id="n1-area">—</span></div>
+        <div class="n1-linha"><span class="n1-label">📖 Matéria</span><span class="n1-valor" id="n1-materia">—</span></div>
+        <div class="n1-linha"><span class="n1-label">🔎 Raciocínio</span><span class="n1-valor" id="n1-rac">—</span></div>
+        <div class="acoes-dica" style="margin-top:12px;">
+          <button class="btn-mais btn-mais-2" id="btn-d2" onclick="mostrarN2()">➕ Um pouco mais</button>
+        </div>
+      </div>
+      <div class="bloco-n2" id="bloco-n2">
+        <div class="n2-titulo">💡 Mais um passo...</div>
+        <div class="n2-texto" id="n2-txt">—</div>
+        <div class="acoes-dica" style="margin-top:10px;">
+          <button class="btn-mais btn-mais-3" id="btn-d3" onclick="mostrarN3()">📖 Ver solução completa</button>
+        </div>
+      </div>
+      <div class="bloco-n3" id="bloco-n3">
+        <div class="n3-titulo">✅ Solução Completa</div>
+        <div class="n3-texto" id="n3-txt">—</div>
+      </div>
+    </div>
+
+    <!-- Resultado positivo -->
+    <div class="bloco-resultado" id="bloco-resultado">
+      <div class="resultado-titulo" id="res-titulo"></div>
+      <div class="resultado-sub"   id="res-sub"></div>
+    </div>
+
+    <div id="div-proxima">
+      <button class="btn-proxima" onclick="proxima()">Próxima Questão →</button>
+    </div>
+  </div>
+
+  <!-- CONCLUSÃO -->
+  <div id="tela-conclusao">
+    <div class="titulo-conclusao">🏆 Sessão Encerrada!</div>
+    <p style="color:#666;font-size:14px;">Seu desempenho:</p>
+    <div class="grade-res">
+      <div class="card-res"><div class="card-num" id="r-a">0</div><div class="card-desc">Acertos com Convicção</div></div>
+      <div class="card-res"><div class="card-num" id="r-i">0</div><div class="card-desc">Intuições</div></div>
+      <div class="card-res"><div class="card-num" id="r-e">0</div><div class="card-desc">Erros</div></div>
+      <div class="card-res"><div class="card-num afob-num" id="r-afob">0</div><div class="card-desc">Afobamentos</div></div>
+      <div class="card-res"><div class="card-num" id="r-d">0</div><div class="card-desc">Temas Dominados</div></div>
+    </div>
+    <div id="div-afob-msg"></div>
+    <div id="div-rev"></div>
+    <button class="btn-proxima" onclick="novaSessao()" style="margin-top:22px;">🔄 Nova Sessão</button>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   BANCO DE QUESTÕES
+   Cada questão tem:
+     assunto      — o tema real (para a etapa de identificação)
+     outrosAssuntos — 3 distratores plausíveis
+     dica1        — ponta da corda {area, materia, raciocinio}
+     dica2        — um fio a mais
+     explicacao   — solução completa
+   ============================================================ */
+const banco = [
+  {
+    id:1, disciplina:"Língua Portuguesa", tema:"Interpretação de Texto",
+    assunto:"Interpretação — Ideia Principal",
+    outrosAssuntos:["Concordância Verbal","Tipos de Argumento","Inferência e Pressuposto"],
+    textoBase:"A tecnologia, ao automatizar processos repetitivos, não elimina o trabalho humano, mas o transforma. Funções que exigem criatividade, empatia e julgamento crítico ganham ainda mais relevância em um mundo dominado por máquinas.",
+    enunciado:"De acordo com o texto, qual é o principal efeito da automação tecnológica sobre o trabalho humano?",
+    alts:{A:"Elimina completamente as funções humanas.",B:"Substitui profissões que envolvem criatividade.",C:"Transforma o trabalho, valorizando habilidades insubstituíveis.",D:"Reduz a importância do julgamento crítico.",E:"Torna a empatia desnecessária nos ambientes profissionais."},
+    gabarito:"C",
+    dica1:{area:"Linguagens — Língua Portuguesa",materia:"Compreensão e Interpretação de Texto",raciocinio:"O texto usa uma estrutura de <strong>contraste</strong> ('não... mas'). Localize essa expressão e identifique o que o autor afirma versus o que ele nega. A resposta está explícita — não exige inferência."},
+    dica2:"Sublinhe mentalmente: 'não elimina... mas transforma' e 'ganham mais relevância'. A alternativa correta é quase uma paráfrase direta dessas duas frases. Compare cada opção com o que o texto literalmente diz.",
+    explicacao:"O texto nega a eliminação ('não elimina') e afirma a transformação ('mas o transforma'). Acrescenta que funções criativas 'ganham mais relevância'.\n✅ C resume exatamente isso.\n\n❌ A nega o que o texto diz.\n❌ B inverte — criatividade é valorizada, não substituída.\n❌ D e E contradizem diretamente o texto."
+  },
+  {
+    id:2, disciplina:"Língua Portuguesa", tema:"Concordância Verbal",
+    assunto:"Concordância Verbal — Verbos Impessoais",
+    outrosAssuntos:["Regência Verbal","Interpretação de Texto","Crase"],
+    enunciado:"Assinale a alternativa com concordância verbal CORRETA conforme a norma culta:",
+    alts:{A:"Faz dois anos que não o vejo.",B:"Fazem dois anos que não o vejo.",C:"Houveram muitos erros na prova.",D:"Haviam muitas vagas disponíveis.",E:"Existem muito problema nesta empresa."},
+    gabarito:"A",
+    dica1:{area:"Linguagens — Língua Portuguesa / Gramática",materia:"Concordância Verbal — Verbos sem Sujeito (Impessoais)",raciocinio:"Para cada verbo em destaque, pergunte: <strong>quem realiza a ação?</strong> Se não houver sujeito identificável, o verbo é impessoal e fica no singular. Teste FAZER, HAVER e EXISTIR nesta questão."},
+    dica2:"Regra direta:\n• FAZER (tempo decorrido) = impessoal → singular sempre\n• HAVER (existir) = impessoal → singular sempre\n• EXISTIR = pessoal → concorda com o sujeito\n\nQual alternativa segue exatamente essa regra?",
+    explicacao:"✅ 'Faz dois anos' — FAZER impessoal → singular. Correto.\n\n❌ 'Fazem' — errado pelo mesmo motivo.\n❌ 'Houveram erros' — HAVER é impessoal: 'Houve erros'.\n❌ 'Haviam vagas' — idem: 'Havia vagas'.\n❌ 'Existem muito problema' — sujeito singular: 'Existe muito problema'."
+  },
+  {
+    id:3, disciplina:"Língua Portuguesa", tema:"Regência Verbal",
+    assunto:"Regência Verbal — Transitivos Indiretos",
+    outrosAssuntos:["Concordância Nominal","Crase","Pontuação"],
+    enunciado:"Assinale a alternativa em que o verbo está empregado corretamente conforme a norma culta:",
+    alts:{A:"Todos assistiram o jogo na televisão.",B:"Aspiramos à conquista do primeiro lugar.",C:"Ela prefere o café do que o chá.",D:"O aluno obedeceu as instruções do professor.",E:"Avisou os funcionários do atraso e pediu calma."},
+    gabarito:"B",
+    dica1:{area:"Linguagens — Língua Portuguesa / Gramática",materia:"Regência Verbal — Verbos Transitivos Indiretos",raciocinio:"Para cada verbo, pergunte: ele precisa de <strong>preposição</strong> para ligar ao complemento? O verbo ASPIRAR (almejar) exige qual preposição? Verifique se as demais usam a preposição certa ou errada."},
+    dica2:"Regências dos verbos mais cobrados pela CESGRANRIO:\n• ASSISTIR (presenciar) → 'a': assistiu AO jogo\n• ASPIRAR (almejar) → 'a': aspira À vaga\n• OBEDECER → 'a': obedeceu ÀS regras\n• PREFERIR → rejeita 'do que': prefere X A Y\n\nAgora analise cada alternativa.",
+    explicacao:"✅ B — 'Aspiramos À conquista' = aspiramos + a(prep.) + a(artigo) + conquista.\n\n❌ A — 'assistiram O jogo' → deve ser 'assistiram AO jogo'.\n❌ C — 'prefere... DO QUE' → deve ser 'prefere o café AO chá'.\n❌ D — 'obedeceu AS' → deve ser 'obedeceu ÀS instruções'."
+  },
+  {
+    id:4, disciplina:"Língua Portuguesa", tema:"Crase",
+    assunto:"Crase — Regras de Uso e Proibição",
+    outrosAssuntos:["Regência Verbal","Concordância Verbal","Pontuação"],
+    enunciado:"Em qual alternativa o uso da crase está CORRETO?",
+    alts:{A:"Ele se referiu à ela com respeito.",B:"Entregue o formulário à qualquer funcionário.",C:"As propostas foram apresentadas às diretorias regionais.",D:"Ela chegou à pé na empresa.",E:"Assistimos à um documentário interessante."},
+    gabarito:"C",
+    dica1:{area:"Linguagens — Língua Portuguesa / Gramática",materia:"Crase — Fusão de Preposição + Artigo",raciocinio:"A crase ocorre quando há preposição 'a' + artigo definido 'a' antes de substantivo feminino. Para cada alternativa, pergunte: <strong>o que vem depois do 'à' aceita o artigo 'a'?</strong> Pronomes pessoais, indefinidos e artigos indefinidos aceitam artigo?"},
+    dica2:"Casos proibidos (veja nas alternativas erradas):\n• Antes de pronome pessoal (ela, você...)\n• Antes de pronome indefinido (qualquer, algum, nenhum)\n• Antes de artigo indefinido (um, uma)\n• Em locuções sem artigo: a pé, a prazo\n\nNa alternativa correta, qual substantivo feminino aceita 'as'?",
+    explicacao:"✅ C — 'ÀS diretorias' = a(prep.) + as(artigo) + diretorias. Correto.\n\n❌ A — 'à ela': pronomes pessoais não aceitam artigo.\n❌ B — 'à qualquer': indefinido não leva crase.\n❌ D — 'à pé': locução sem artigo.\n❌ E — 'à um': artigo indefinido não forma crase."
+  },
+  {
+    id:5, disciplina:"Matemática", tema:"Porcentagem Encadeada",
+    assunto:"Porcentagem — Operações em Cascata",
+    outrosAssuntos:["Juros Compostos","Regra de Três","Probabilidade"],
+    enunciado:"Um produto custava R$ 600,00. Foi aplicado um desconto de 20%. Sobre o valor com desconto, cobrou-se uma taxa de serviço de 5%. Qual o valor final pago?",
+    alts:{A:"R$ 456,00",B:"R$ 480,00",C:"R$ 504,00",D:"R$ 510,00",E:"R$ 540,00"},
+    gabarito:"C",
+    dica1:{area:"Matemática",materia:"Porcentagem — Operações Encadeadas",raciocinio:"São <strong>duas operações separadas e em sequência</strong>. O resultado da primeira vira a base da segunda. Não some nem subtraia as porcentagens — aplique uma de cada vez."},
+    dica2:"Operação 1: aplique o desconto de 20% sobre R$600. Use o fator multiplicador: (1 - taxa).\nOperação 2: aplique a taxa de 5% sobre o resultado da operação 1. Use o fator: (1 + taxa).\n\nSe você somou 20%-5%=15% e aplicou direto no original, recalcule — esse é o erro clássico desta questão.",
+    explicacao:"Passo 1: 600 × (1 - 0,20) = 600 × 0,80 = R$480,00\nPasso 2: 480 × (1 + 0,05) = 480 × 1,05 = R$504,00\n\n✅ Resposta: C — R$504,00\n\n⚠️ Porcentagens em cascata NUNCA se somam diretamente."
+  },
+  {
+    id:6, disciplina:"Matemática", tema:"Juros Compostos",
+    assunto:"Juros Compostos — Fórmula M = C(1+i)ⁿ",
+    outrosAssuntos:["Juros Simples","Porcentagem Encadeada","Progressão Geométrica"],
+    enunciado:"Um capital de R$ 1.000,00 é aplicado a juros compostos de 10% ao período durante 3 períodos. Qual o montante ao final?",
+    alts:{A:"R$ 1.300,00",B:"R$ 1.310,00",C:"R$ 1.320,00",D:"R$ 1.330,10",E:"R$ 1.331,00"},
+    gabarito:"E",
+    dica1:{area:"Matemática — Matemática Financeira",materia:"Juros Compostos — Montante",raciocinio:"Existe uma fórmula específica: <strong>M = C × (1 + i)ⁿ</strong>. Identifique C (capital), i (taxa em decimal) e n (períodos). O diferencial dos juros compostos é que os juros rendem sobre os juros anteriores — o resultado não é linear."},
+    dica2:"C=1000, i=0,10, n=3.\nVocê precisa calcular (1,10)³.\nFaça por partes:\n• 1,10 × 1,10 = ?\n• resultado × 1,10 = ?\nDepois multiplique pelo capital.\n\nA alternativa A (R$1.300) corresponde a juros SIMPLES — é o principal distrator.",
+    explicacao:"M = 1.000 × (1,10)³\n1,10 × 1,10 = 1,21\n1,21 × 1,10 = 1,331\nM = 1.000 × 1,331 = R$1.331,00\n\n✅ Resposta: E\n\n❌ A (R$1.300) = juros simples: 10%×3=30% → 1000×1,3=1300.\nDiferença: juros compostos rendem juros sobre juros — R$31 a mais."
+  },
+  {
+    id:7, disciplina:"Matemática", tema:"Probabilidade Clássica",
+    assunto:"Probabilidade — P = favoráveis ÷ total",
+    outrosAssuntos:["Combinatória","Estatística","Porcentagem"],
+    enunciado:"Uma urna contém 3 bolas vermelhas, 4 azuis e 5 brancas. Retirando-se uma bola ao acaso, qual a probabilidade de ser azul?",
+    alts:{A:"1/4",B:"1/3",C:"5/12",D:"1/2",E:"4/3"},
+    gabarito:"B",
+    dica1:{area:"Matemática — Probabilidade",materia:"Probabilidade Clássica (Laplace)",raciocinio:"A fórmula é simples: <strong>P = casos favoráveis ÷ total de casos possíveis</strong>. Conte o total de bolas na urna. Conte quantas são azuis. Divida e simplifique a fração."},
+    dica2:"Total = vermelhas + azuis + brancas = ?\nFavoráveis (azuis) = ?\nDivida e simplifique.\n\nDica extra: probabilidade nunca pode ser maior que 1. Isso elimina imediatamente uma das alternativas sem cálculo.",
+    explicacao:"Total = 3+4+5 = 12 bolas\nFavoráveis = 4 (azuis)\nP(azul) = 4/12 = 1/3\n\n✅ Resposta: B\n\n❌ E (4/3 > 1) = impossível, probabilidade máxima é 1.\n❌ C (5/12) = probabilidade das bolas brancas."
+  },
+  {
+    id:8, disciplina:"Matemática", tema:"Estatística — Mediana",
+    assunto:"Mediana — Valor Central dos Dados",
+    outrosAssuntos:["Média Aritmética","Moda","Desvio Padrão"],
+    enunciado:"As notas de 5 alunos foram: 6, 7, 8, 8 e 9. Qual o valor da MEDIANA?",
+    alts:{A:"6",B:"7",C:"8",D:"7,6",E:"9"},
+    gabarito:"C",
+    dica1:{area:"Matemática — Estatística",materia:"Medidas de Tendência Central — Mediana",raciocinio:"Mediana = <strong>valor que ocupa a posição central</strong> dos dados ordenados. Com 5 valores, qual posição é o centro exato? Localize o valor nessa posição. Não some, não divida — apenas encontre o do meio."},
+    dica2:"Com n valores em ordem crescente:\n• n ímpar: posição central = (n+1)/2\n• n par: média dos dois valores centrais\n\nAqui n=5. Calcule a posição e localize o valor.\n\n⚠️ A alternativa D (7,6) é a MÉDIA ARITMÉTICA — colada no gabarito para confundir. A CESGRANRIO faz isso propositalmente.",
+    explicacao:"Dados ordenados: 6, 7, 8, 8, 9\nn=5 → posição central = (5+1)/2 = 3ª posição\n6(1°) 7(2°) 8(3°) ← MEDIANA!\n\n✅ Mediana = 8 (C)\n\n❌ D (7,6) = média aritmética: 38÷5=7,6. Distrator clássico!"
+  },
+  {
+    id:9, disciplina:"Raciocínio Lógico", tema:"Negação de Implicação",
+    assunto:"Lógica — Negação de 'Se... Então...'",
+    outrosAssuntos:["Tabela Verdade — OU","Silogismo","Equivalência Lógica"],
+    enunciado:"A proposição 'Se chover, então não farei exercícios.' tem como negação correta:",
+    alts:{A:"Se não chover, então farei exercícios.",B:"Choverá ou farei exercícios.",C:"Choverá e farei exercícios.",D:"Não choverá e não farei exercícios.",E:"Se chover, então farei exercícios."},
+    gabarito:"C",
+    dica1:{area:"Matemática — Raciocínio Lógico",materia:"Lógica Proposicional — Negação da Implicação (P → Q)",raciocinio:"Quando uma implicação 'Se P então Q' é <strong>falsa</strong>? Somente quando a hipótese é verdadeira e a conclusão é falsa. A negação expressa exatamente esse único caso em que ela falha."},
+    dica2:"Regra: Neg(P → Q) = P ∧ ¬Q\n\nIdentifique:\n• P = ?\n• Q = ? (atenção: Q já contém uma negação!)\n\nAo negar Q, a dupla negação cancela. Qual alternativa expressa 'P E não-Q'?",
+    explicacao:"P = 'chover' | Q = 'não farei exercícios'\n\nNeg(P→Q) = P ∧ ¬Q\n= 'chover' E ¬('não farei exercícios')\n= 'chover' E 'farei exercícios'\n\n✅ Resposta: C\n\n📌 REGRA: Neg(Se P então Q) = P e não-Q — memorize!"
+  },
+  {
+    id:10, disciplina:"Raciocínio Lógico", tema:"Disjunção — Conectivo OU",
+    assunto:"Lógica — Tabela Verdade do Conectivo OU",
+    outrosAssuntos:["Negação de Implicação","Conectivo E (conjunção)","Lei de De Morgan"],
+    enunciado:"A proposição (P ∨ Q) é FALSA somente quando:",
+    alts:{A:"P é verdadeiro e Q é verdadeiro.",B:"P é verdadeiro e Q é falso.",C:"P é falso e Q é verdadeiro.",D:"P e Q são ambos falsos.",E:"P é verdadeiro, independentemente de Q."},
+    gabarito:"D",
+    dica1:{area:"Matemática — Raciocínio Lógico",materia:"Lógica Proposicional — Tabela Verdade da Disjunção (∨)",raciocinio:"Monte a tabela verdade completa do OU com 4 combinações (VV, VF, FV, FF). Para cada linha, determine se P∨Q é verdadeiro ou falso. Em quantas linhas o resultado é falso?"},
+    dica2:"O OU é um conectivo 'generoso': basta UMA das proposições ser verdadeira para o resultado ser verdadeiro.\n\nTabela (complete você):\n• V ∨ V = ?\n• V ∨ F = ?\n• F ∨ V = ?\n• F ∨ F = ?\n\nQual é o único caso que dá falso?",
+    explicacao:"Tabela completa:\n• V ∨ V = V\n• V ∨ F = V\n• F ∨ V = V\n• F ∨ F = F ← único falso!\n\n✅ Resposta: D — ambas falsas.\n\n📌 MACETE: OU é falso APENAS quando as duas são falsas."
+  },
+  {
+    id:11, disciplina:"Raciocínio Lógico", tema:"Diagrama de Venn",
+    assunto:"Conjuntos — Princípio da Inclusão-Exclusão",
+    outrosAssuntos:["Probabilidade","Análise Combinatória","Tabela Verdade"],
+    enunciado:"Em um grupo de 40 pessoas, 24 gostam de futebol, 18 gostam de vôlei e 10 gostam dos dois. Quantas não gostam de nenhum?",
+    alts:{A:"6",B:"8",C:"10",D:"12",E:"14"},
+    gabarito:"B",
+    dica1:{area:"Matemática — Raciocínio Lógico / Teoria dos Conjuntos",materia:"Diagrama de Venn — Inclusão-Exclusão",raciocinio:"Desenhe dois círculos sobrepostos. Preencha primeiro a <strong>interseção</strong> (quem está nos dois). Depois calcule o exclusivo de cada grupo. Some tudo e compare com o total — quem sobrar não está em nenhum."},
+    dica2:"Fórmula: |A ∪ B| = |A| + |B| - |A ∩ B|\n\nCalcule |A ∪ B| primeiro (quem gosta de pelo menos um esporte).\nDepois: quem não gosta de nenhum = total - |A ∪ B|.\n\nVerificação: some as 4 partes do diagrama e veja se fecha 40.",
+    explicacao:"|F ∪ V| = 24 + 18 - 10 = 32\nNão gosta de nenhum = 40 - 32 = 8\n\n✅ Resposta: B\n\nVerificação:\n• Só futebol: 24-10=14\n• Só vôlei: 18-10=8\n• Os dois: 10\n• Nenhum: 8\n• Total: 14+8+10+8=40 ✓"
+  },
+  {
+    id:12, disciplina:"Informática", tema:"Excel — Função SE",
+    assunto:"Excel — Função Condicional SE",
+    outrosAssuntos:["Excel — Referência Absoluta","Excel — Função SOMA","Excel — PROCV"],
+    enunciado:"No Excel, A1=8 e B1=5. Qual o resultado de =SE(A1>B1; A1*B1; A1+B1)?",
+    alts:{A:"13",B:"40",C:"3",D:"8",E:"Erro de sintaxe"},
+    gabarito:"B",
+    dica1:{area:"Tecnologia da Informação — Informática",materia:"Planilha Eletrônica — Função SE (condicional)",raciocinio:"Quebre a fórmula em 3 partes: <strong>teste / se verdadeiro / se falso</strong>. Primeiro avalie o teste. Depois execute apenas a parte correspondente ao resultado do teste."},
+    dica2:"Estrutura: =SE(teste; valor_se_verdadeiro; valor_se_falso)\n\n1. Teste: A1 > B1 → 8 > 5 → Verdadeiro ou Falso?\n2. Se Verdadeiro: executa A1*B1 = ?\n3. Se Falso: executa A1+B1 = ?\n\n⚠️ A CESGRANRIO coloca o 'se_falso' (13) como alternativa A para pegar quem lê rápido demais.",
+    explicacao:"Teste: 8>5 → VERDADEIRO\nExecuta: A1*B1 = 8×5 = 40\n\n✅ Resposta: B (40)\n\n❌ A (13) = A1+B1 = resultado do 'se_falso' — distrator para afobados!\n❌ E — a sintaxe está correta."
+  },
+  {
+    id:13, disciplina:"Informática", tema:"Excel — Referência Absoluta",
+    assunto:"Excel — Diferença entre Referência Relativa e Absoluta",
+    outrosAssuntos:["Excel — Função SE","Atalhos de Teclado","Excel — PROCV"],
+    enunciado:"No Excel, ao copiar a fórmula =A1*$B$1 da célula C1 para C2, qual a fórmula em C2?",
+    alts:{A:"=A1*$B$1",B:"=A2*$B$1",C:"=A2*$B$2",D:"=B1*$B$1",E:"=$A$1*$B$1"},
+    gabarito:"B",
+    dica1:{area:"Tecnologia da Informação — Informática",materia:"Planilha Eletrônica — Referência Relativa vs Absoluta ($)",raciocinio:"Na fórmula, identifique quais referências têm $ (absolutas) e quais não têm (relativas). <strong>Relativas mudam ao copiar; absolutas não mudam.</strong> Ao copiar para baixo (C1→C2), a linha aumenta em 1. A coluna não muda porque não foi para o lado."},
+    dica2:"=A1*$B$1\n• A1: sem $ → relativa → muda ao copiar\n• $B$1: com $ → absoluta → fica igual\n\nAo copiar de C1 para C2 (uma linha abaixo):\n• A1 → a linha muda de 1 para ?\n• $B$1 → permanece como?",
+    explicacao:"A1 (relativa) → linha +1 → A2\n$B$1 (absoluta) → permanece $B$1\n\nFórmula em C2: =A2*$B$1\n\n✅ Resposta: B\n\nCifrões:\n• $B$1 = coluna+linha fixas\n• B$1 = só linha fixa\n• $B1 = só coluna fixa\n• B1 = totalmente relativa"
+  },
+  {
+    id:14, disciplina:"Informática", tema:"Segurança da Informação",
+    assunto:"Segurança — Tipos de Ataque (Phishing, Ransomware...)",
+    outrosAssuntos:["Backup — Tipos","Redes de Computadores","Sistemas Operacionais"],
+    enunciado:"Funcionário recebe e-mail do 'banco' pedindo dados para 'atualização urgente'. Ao clicar, é levado a site falso. Esse ataque chama-se:",
+    alts:{A:"Ransomware",B:"Worm",C:"Phishing",D:"Keylogger",E:"DDoS"},
+    gabarito:"C",
+    dica1:{area:"Tecnologia da Informação — Segurança da Informação",materia:"Ataques Cibernéticos — Engenharia Social",raciocinio:"O cenário descreve alguém que <strong>se passa por uma entidade confiável</strong> para enganar o usuário e roubar dados. Pense: qual ataque tem nome que vem de 'pescar' (fishing em inglês)?"},
+    dica2:"Elimine pelas características de cada ataque:\n• Sequestra dados e exige resgate → ?\n• Malware que se replica pela rede sozinho → ?\n• Registra tudo que você digita → ?\n• Sobrecarrega servidor com acessos → ?\n• Finge ser entidade confiável para capturar dados → ?",
+    explicacao:"✅ C — Phishing: simula entidade confiável para capturar dados.\n\n❌ A Ransomware: sequestra e exige resgate.\n❌ B Worm: se replica automaticamente.\n❌ D Keylogger: registra teclas digitadas.\n❌ E DDoS: sobrecarrega servidor com requisições."
+  },
+  {
+    id:15, disciplina:"Informática", tema:"Backup — Tipos",
+    assunto:"Backup — Diferencial vs Incremental",
+    outrosAssuntos:["Segurança da Informação","Sistemas Operacionais","Redes de Computadores"],
+    enunciado:"Empresa faz backup completo toda segunda. De terça a sexta, copia apenas arquivos alterados DESDE O ÚLTIMO BACKUP COMPLETO. Esse backup diário é do tipo:",
+    alts:{A:"Incremental",B:"Diferencial",C:"Espelhado",D:"Parcial",E:"Seletivo"},
+    gabarito:"B",
+    dica1:{area:"Tecnologia da Informação — Infraestrutura",materia:"Tipos de Backup — Diferencial e Incremental",raciocinio:"A frase-chave é <strong>'desde o último backup completo'</strong>. Um dos tipos de backup acumula tudo desde o completo. O outro copia apenas o que mudou desde o último backup (de qualquer tipo). Qual desses é descrito na questão?"},
+    dica2:"Compare:\n• Tipo X: na quarta-feira, copia mudanças de terça E quarta (acumula desde o completo)\n• Tipo Y: na quarta-feira, copia APENAS mudanças de quarta\n\nA questão descreve qual? Pense: se cada dia copia 'desde a segunda', o arquivo de sexta é maior ou menor que o de terça?",
+    explicacao:"Diferencial = sempre desde o COMPLETO (acumula ao longo da semana).\nIncremental = desde o ÚLTIMO backup (não acumula, mas precisa de todos para restaurar).\n\n✅ Resposta: B (Diferencial)\n\nRestauração:\n• Diferencial: completo + último diferencial (2 passos)\n• Incremental: completo + todos os incrementais (vários passos)"
+  },
+  {
+    id:16, disciplina:"Informática", tema:"Atalhos de Teclado",
+    assunto:"Windows — Atalhos de Teclado (Ctrl+Z, Ctrl+Y...)",
+    outrosAssuntos:["Excel — Função SE","Sistemas Operacionais — Windows","Segurança da Informação"],
+    enunciado:"No Windows, qual combinação de teclas permite DESFAZER a última ação?",
+    alts:{A:"Ctrl + Y",B:"Ctrl + Z",C:"Ctrl + S",D:"Alt + F4",E:"Ctrl + A"},
+    gabarito:"B",
+    dica1:{area:"Tecnologia da Informação — Informática Básica",materia:"Sistema Operacional Windows — Atalhos de Teclado",raciocinio:"Pense no nome em inglês da ação 'desfazer'. Em inglês: 'Undo'. A convenção de teclado não usa a letra U — usa a letra no final do alfabeto que simboliza 'voltar atrás'. Qual seria?"},
+    dica2:"Ctrl + Z = Desfazer (Undo)\nCtrl + Y = Refazer (o oposto)\n\nA alternativa A é o principal distrator — quem não tem certeza tende a marcar Y ou Z sem saber qual é qual. Pense: Y vem antes de Z. 'Undo' vem antes de 'Redo' na ordem de ações.",
+    explicacao:"✅ Ctrl + Z = Desfazer\n\nPrincipais atalhos:\n• Ctrl+Z = Desfazer\n• Ctrl+Y = Refazer\n• Ctrl+S = Salvar\n• Ctrl+C = Copiar\n• Ctrl+V = Colar\n• Ctrl+X = Recortar\n• Ctrl+A = Selecionar tudo\n• Ctrl+P = Imprimir\n• Ctrl+F = Localizar\n• Alt+F4 = Fechar"
+  }
+];
+
+/* ============================================================
+   ESTADO
+   ============================================================ */
+function carregarEstado(){
+  try{const s=localStorage.getItem('sds_v3');return s?JSON.parse(s):{};} catch(e){return{};}
+}
+function salvarEstado(){
+  try{localStorage.setItem('sds_v3',JSON.stringify(estado));}catch(e){}
+}
+
+let estado = carregarEstado();
+let sessao = {acertos:0, erros:0, intuicoes:0, naoSei:0, afobamentos:0};
+let fila = [];
+let qAtual = null;
+let modoInt = false;
+let timer = null;
+let respondeu = false;
+let identificouTema = false;
+let acertouIdentificacao = false;
+
+/* ============================================================
+   INICIAR
+   ============================================================ */
+function iniciar(){
+  // Incorpora questões erradas vindas do simulado semanal
+  try{
+    const extras=JSON.parse(localStorage.getItem('sds_extras')||'[]');
+    extras.forEach(q=>{if(!banco.find(b=>b.id===q.id))banco.push(q);});
+  }catch(e){}
+  banco.forEach(q=>{
+    if(!estado[q.id]) estado[q.id]={confianca:0,acertos:0,erros:0,afobamentos:0,estiloAfob:0};
+  });
+  salvarEstado();
+  document.getElementById('tela-inicial').style.display='none';
+  document.getElementById('tela-quiz').style.display='block';
+  montarFila();
+  atualizarBarras();
+  proxima();
+}
+
+function montarFila(){
+  const ativos = banco.filter(q=>(estado[q.id]?.confianca||0)<4);
+  if(ativos.length===0){
+    banco.forEach(q=>{estado[q.id].confianca=2;estado[q.id].acertos=0;});
+    salvarEstado();
+  }
+  // Prioridade: menor confiança + mais afobamentos (cobra mais essas)
+  fila = [...banco].sort((a,b)=>{
+    const ca=estado[a.id]?.confianca||0, cb=estado[b.id]?.confianca||0;
+    if(ca!==cb) return ca-cb;
+    const aa=estado[a.id]?.afobamentos||0, ab=estado[b.id]?.afobamentos||0;
+    if(aa!==ab) return ab-aa; // mais afobamentos → maior prioridade
+    return Math.random()-.5;
+  }).filter(q=>(estado[q.id]?.confianca||0)<4).map(q=>q.id);
+}
+
+/* ============================================================
+   EXIBIR QUESTÃO
+   ============================================================ */
+function proxima(){
+  // Limpa tudo
+  ['painel-dica','bloco-tipo-erro'].forEach(id=>document.getElementById(id).classList.remove('aberto','visivel'));
+  document.getElementById('bloco-n2').classList.remove('visivel');
+  document.getElementById('bloco-n3').classList.remove('visivel');
+  document.getElementById('bloco-resultado').classList.remove('visivel');
+  document.getElementById('bloco-resultado').className='bloco-resultado';
+  document.getElementById('bloco-identifica').classList.remove('visivel');
+  document.getElementById('id-feedback').classList.remove('visivel');
+  document.getElementById('btn-liberar').style.display='none';
+  document.getElementById('div-proxima').style.display='none';
+  document.getElementById('acoes').style.display='flex';
+  document.getElementById('ind-int').classList.remove('ativo');
+  document.getElementById('btn-int').classList.remove('ativo');
+  modoInt=false; respondeu=false; identificouTema=false; acertouIdentificacao=false;
+
+  if(fila.length===0) montarFila();
+  if(fila.length===0){encerrar();return;}
+
+  const id=fila.shift();
+  qAtual=banco.find(q=>q.id===id);
+  if(!qAtual){proxima();return;}
+
+  exibir(qAtual);
+  verificarAvisoAfobamento();
+  atualizarStats();
+  atualizarBarras();
+}
+
+function exibir(q){
+  const est=estado[q.id];
+  const conf=est?.confianca||0;
+  document.getElementById('b-disc').textContent=q.disciplina;
+  document.getElementById('b-tema').textContent=q.tema;
+  document.getElementById('b-conf').textContent=`${'⭐'.repeat(conf)||'○○○○'} ${conf}/4`;
+  document.getElementById('num-q').textContent=`Questão #${q.id}`;
+
+  const elBase=document.getElementById('txt-base');
+  if(q.textoBase){elBase.innerHTML=q.textoBase;elBase.style.display='block';}
+  else{elBase.style.display='none';}
+  document.getElementById('enunciado').textContent=q.enunciado;
+
+  // Alternativas (todas bloqueadas — liberam após identificação)
+  const div=document.getElementById('alternativas');
+  div.innerHTML='';
+  Object.entries(q.alts).forEach(([letra,texto])=>{
+    const btn=document.createElement('button');
+    btn.className='btn-alt';
+    btn.disabled=true;
+    btn.innerHTML=`<span class="alt-letra">${letra}</span><span>${texto}</span>`;
+    btn.onclick=()=>responder(letra);
+    div.appendChild(btn);
+  });
+
+  document.getElementById('btn-ns').disabled=true;
+  document.getElementById('btn-int').disabled=true;
+
+  // Timer — aumentado para questões com muitos afobamentos
+  const tempoBase=20;
+  const afobExtra=Math.min((est?.afobamentos||0)*5, 20);
+  const tempo=tempoBase+afobExtra;
+
+  iniciarTimer(tempo);
+}
+
+/* ============================================================
+   TIMER
+   ============================================================ */
+function iniciarTimer(T){
+  let rest=T;
+  const fill=document.getElementById('timer-fill');
+  const txt=document.getElementById('timer-txt');
+  fill.style.transition='none'; fill.style.width='100%';
+  setTimeout(()=>{fill.style.transition=`width ${T}s linear`;fill.style.width='0%';},80);
+  if(timer) clearInterval(timer);
+  timer=setInterval(()=>{
+    rest--;
+    txt.textContent=rest>0?`📖 Leia com atenção... ${rest}s`:'🧠 Agora: identifique o tema!';
+    if(rest<=0){clearInterval(timer);mostrarIdentificacao();}
+  },1000);
+}
+
+/* ============================================================
+   ETAPA DE IDENTIFICAÇÃO DE TEMA
+   ============================================================ */
+function mostrarIdentificacao(){
+  const q=qAtual;
+  const div=document.getElementById('id-opcoes');
+  div.innerHTML='';
+
+  // Junta assunto correto + 3 distratores, embaralha
+  const opcoes=[q.assunto,...q.outrosAssuntos].sort(()=>Math.random()-.5);
+
+  opcoes.forEach(op=>{
+    const btn=document.createElement('button');
+    btn.className='btn-id';
+    btn.textContent=op;
+    btn.onclick=()=>selecionarTema(op, btn, opcoes);
+    div.appendChild(btn);
+  });
+
+  document.getElementById('bloco-identifica').classList.add('visivel');
+}
+
+function selecionarTema(escolha, btnClicado, todasOpcoes){
+  if(identificouTema) return;
+  identificouTema=true;
+  acertouIdentificacao=(escolha===qAtual.assunto);
+
+  // Desabilita todos os botões
+  document.querySelectorAll('.btn-id').forEach(b=>b.disabled=true);
+
+  // Destaca correto/errado
+  document.querySelectorAll('.btn-id').forEach(b=>{
+    if(b.textContent===qAtual.assunto) b.classList.add('certo');
+    else if(b===btnClicado) b.classList.add('errado');
+  });
+
+  // Feedback
+  const fb=document.getElementById('id-feedback');
+  if(acertouIdentificacao){
+    fb.className='id-feedback visivel ok';
+    fb.textContent=`✅ Correto! É sobre "${qAtual.assunto}". Ótimo — agora você já sabe por qual caminho de raciocínio seguir.`;
+  } else {
+    fb.className='id-feedback visivel nok';
+    fb.textContent=`⚠️ Era sobre "${qAtual.assunto}". Você marcou "${escolha}". Isso acontece — agora que sabe, responda com esse direcionamento.`;
+  }
+
+  // Libera botão para ir às alternativas
+  const btnLib=document.getElementById('btn-liberar');
+  btnLib.style.display='inline-block';
+  btnLib.textContent=acertouIdentificacao?'Entendido — Responder agora →':'Ok, entendi — Responder agora →';
+}
+
+function liberarRespostas(){
+  document.getElementById('bloco-identifica').classList.remove('visivel');
+  document.querySelectorAll('.btn-alt').forEach(b=>b.disabled=false);
+  document.getElementById('btn-ns').disabled=false;
+  document.getElementById('btn-int').disabled=false;
+}
+
+/* ============================================================
+   RESPONDER
+   ============================================================ */
+function responder(escolha){
+  if(respondeu) return;
+  respondeu=true;
+  if(timer) clearInterval(timer);
+
+  const q=qAtual;
+  const est=estado[q.id];
+  const acertou=escolha===q.gabarito;
+
+  document.querySelectorAll('.btn-alt').forEach(btn=>{
+    btn.disabled=true;
+    const l=btn.querySelector('.alt-letra').textContent;
+    if(l===q.gabarito) btn.classList.add('correta');
+    if(l===escolha&&!acertou) btn.classList.add('errada');
+  });
+  document.getElementById('acoes').style.display='none';
+
+  if(acertou){
+    if(modoInt){
+      est.acertos=0; est.confianca=Math.min(est.confianca,1); sessao.intuicoes++;
+      mostrarResultado('bloco-intuicao','🤔 Acertou por Intuição!','A questão voltará logo para confirmar.');
+      reinserir(2);
+    } else {
+      est.acertos++; est.confianca=Math.min(4,est.confianca+1); sessao.acertos++;
+      if(est.confianca>=4){
+        mostrarResultado('bloco-dominado','🏆 TEMA DOMINADO!',`${est.acertos} acertos consecutivos com convicção. Arquivado!`);
+      } else {
+        const faltam=4-est.confianca;
+        mostrarResultado('bloco-acerto',`✅ Correto! ${'⭐'.repeat(est.confianca)} ${est.confianca}/4`,`Faltam ${faltam} acerto(s) consecutivo(s) para dominar.`);
+        reinserir(est.confianca*4);
+      }
+    }
+    salvarEstado(); atualizarStats();
+    document.getElementById('div-proxima').style.display='block';
+  } else {
+    // Erro — primeiro pergunta se foi afobamento
+    sessao.erros++;
+    mostrarResultado('bloco-resultado','',''); // limpa
+    document.getElementById('bloco-tipo-erro').classList.add('visivel');
+    reinserir(2);
+    salvarEstado(); atualizarStats();
+  }
+}
+
+/* ============================================================
+   CLASSIFICAÇÃO DO ERRO
+   ============================================================ */
+function registrarAfobamento(){
+  const est=estado[qAtual.id];
+  est.afobamentos=(est.afobamentos||0)+1;
+  est.acertos=0;
+  est.confianca=Math.max(0,est.confianca-1);
+  sessao.afobamentos++;
+  salvarEstado();
+
+  document.getElementById('bloco-tipo-erro').classList.remove('visivel');
+
+  // Mensagem específica para afobamento
+  const div=document.createElement('div');
+  div.className='bloco-resultado visivel bloco-erro';
+  div.style.cssText='display:block;border-radius:12px;padding:15px 18px;margin-bottom:10px;background:rgba(255,100,0,.1);border:2px solid #ff6600;';
+  div.innerHTML=`<div style="color:#ff9955;font-weight:bold;font-size:15px;margin-bottom:5px;">🔥 Afobamento registrado!</div>
+    <div style="font-size:13px;color:#ccc;">O timer desta questão será aumentado nas próximas vezes. Ela voltará logo — leia com calma.<br><br>
+    <strong>Dica anti-afobamento:</strong> antes de clicar, leia o enunciado de novo só para confirmar o que ele pede — leva 5 segundos e evita esse tipo de erro.</div>`;
+  document.getElementById('bloco-resultado').replaceWith(div);
+
+  atualizarStats();
+  document.getElementById('div-proxima').style.display='block';
+}
+
+function registrarNaoSabia(){
+  const est=estado[qAtual.id];
+  est.acertos=0;
+  est.confianca=Math.max(0,est.confianca-1);
+  salvarEstado();
+
+  document.getElementById('bloco-tipo-erro').classList.remove('visivel');
+  abrirDicaN1();
+  document.getElementById('div-proxima').style.display='block';
+}
+
+/* ============================================================
+   NÃO SEI
+   ============================================================ */
+function naoSei(){
+  if(respondeu) return;
+  respondeu=true;
+  if(timer) clearInterval(timer);
+
+  const est=estado[qAtual.id];
+  est.acertos=0; sessao.naoSei++;
+
+  document.querySelectorAll('.btn-alt').forEach(btn=>{
+    btn.disabled=true;
+    if(btn.querySelector('.alt-letra').textContent===qAtual.gabarito) btn.classList.add('correta');
+  });
+  document.getElementById('acoes').style.display='none';
+
+  abrirDicaN1();
+  reinserir(2);
+  salvarEstado(); atualizarStats();
+  document.getElementById('div-proxima').style.display='block';
+}
+
+/* ============================================================
+   DICAS PROGRESSIVAS
+   ============================================================ */
+function abrirDicaN1(){
+  const q=qAtual;
+  document.getElementById('n1-area').innerHTML=q.dica1.area;
+  document.getElementById('n1-materia').innerHTML=q.dica1.materia;
+  document.getElementById('n1-rac').innerHTML=q.dica1.raciocinio;
+  document.getElementById('painel-dica').classList.add('aberto');
+  document.getElementById('bloco-n2').classList.remove('visivel');
+  document.getElementById('bloco-n3').classList.remove('visivel');
+  document.getElementById('btn-d2').style.display='inline-block';
+}
+
+function mostrarN2(){
+  document.getElementById('n2-txt').textContent=qAtual.dica2;
+  document.getElementById('bloco-n2').classList.add('visivel');
+  document.getElementById('btn-d2').style.display='none';
+  document.getElementById('btn-d3').style.display='inline-block';
+}
+
+function mostrarN3(){
+  document.getElementById('n3-txt').textContent=qAtual.explicacao;
+  document.getElementById('bloco-n3').classList.add('visivel');
+  document.getElementById('btn-d3').style.display='none';
+}
+
+/* ============================================================
+   UTILITÁRIOS
+   ============================================================ */
+function mostrarResultado(tipo,titulo,sub){
+  const el=document.getElementById('bloco-resultado');
+  el.className=`bloco-resultado visivel ${tipo}`;
+  document.getElementById('res-titulo').textContent=titulo;
+  document.getElementById('res-sub').textContent=sub;
+}
+
+function toggleInt(){
+  modoInt=!modoInt;
+  document.getElementById('btn-int').classList.toggle('ativo',modoInt);
+  document.getElementById('ind-int').classList.toggle('ativo',modoInt);
+}
+
+function reinserir(pos){
+  fila.splice(Math.min(pos,fila.length),0,qAtual.id);
+}
+
+function verificarAvisoAfobamento(){
+  // Avisa quando há padrão de afobamento na sessão
+  const aviso=document.getElementById('aviso-afob');
+  if(sessao.afobamentos>=2){
+    aviso.classList.add('visivel');
+    document.getElementById('stat-afob-div').classList.add('alerta');
+  } else {
+    aviso.classList.remove('visivel');
+    document.getElementById('stat-afob-div').classList.remove('alerta');
+  }
+}
+
+function atualizarStats(){
+  document.getElementById('st-a').textContent=sessao.acertos;
+  document.getElementById('st-e').textContent=sessao.erros;
+  document.getElementById('st-afob').textContent=sessao.afobamentos;
+  const dom=Object.values(estado).filter(e=>e.confianca>=4).length;
+  document.getElementById('st-d').textContent=dom;
+  verificarAvisoAfobamento();
+}
+
+function atualizarBarras(){
+  const discs=[...new Set(banco.map(q=>q.disciplina))];
+  document.getElementById('barras').innerHTML=discs.map(disc=>{
+    const qs=banco.filter(q=>q.disciplina===disc);
+    const soma=qs.reduce((a,q)=>a+(estado[q.id]?.confianca||0),0);
+    const pct=Math.round((soma/(qs.length*4))*100);
+    return `<div class="prog-item"><div class="prog-nome">${disc}</div><div class="prog-fundo"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-pct">${pct}%</div></div>`;
+  }).join('');
+}
+
+/* ============================================================
+   ENCERRAR
+   ============================================================ */
+function encerrar(){
+  document.getElementById('tela-quiz').style.display='none';
+  document.getElementById('tela-conclusao').style.display='block';
+  document.getElementById('r-a').textContent=sessao.acertos;
+  document.getElementById('r-i').textContent=sessao.intuicoes;
+  document.getElementById('r-e').textContent=sessao.erros;
+  document.getElementById('r-afob').textContent=sessao.afobamentos;
+  document.getElementById('r-d').textContent=Object.values(estado).filter(e=>e.confianca>=4).length;
+
+  // Mensagem de afobamento
+  const divAfob=document.getElementById('div-afob-msg');
+  if(sessao.afobamentos>0){
+    divAfob.innerHTML=`<p style="color:#ff9955;margin:12px 0;font-size:14px;">🔥 Você se afobou <strong>${sessao.afobamentos}x</strong> nesta sessão. O timer será maior nessas questões nas próximas vezes. Respire fundo!</p>`;
+  }
+
+  const revisar=banco.filter(q=>estado[q.id]?.erros>0&&(estado[q.id]?.confianca||0)<4);
+  document.getElementById('div-rev').innerHTML=revisar.length
+    ?'<p style="color:#ff6666;margin:8px 0;">📋 Temas para revisar:</p>'+revisar.map(q=>`<span class="tag-rev">${q.disciplina} — ${q.tema}</span>`).join('')
+    :'<p style="color:#00ff88;margin:12px 0;">🎉 Nenhum tema crítico pendente!</p>';
+}
+
+function novaSessao(){
+  sessao={acertos:0,erros:0,intuicoes:0,naoSei:0,afobamentos:0};
+  document.getElementById('tela-conclusao').style.display='none';
+  document.getElementById('tela-quiz').style.display='block';
+  montarFila(); atualizarBarras(); atualizarStats(); proxima();
+}
+
+/* ============================================================
+   ESTRELAS
+   ============================================================ */
+(function(){
+  const c=document.getElementById('estrelas');
+  for(let i=0;i<90;i++){
+    const e=document.createElement('div');
+    e.className='estrela';
+    const s=Math.random()*2+1;
+    e.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${s}px;height:${s}px;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s;`;
+    c.appendChild(e);
+  }
+})();
+</script>
+</body>
+</html>

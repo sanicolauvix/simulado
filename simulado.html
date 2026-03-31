@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📝 Simulado Semanal — CESGRANRIO</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#06061a;color:#fff;font-family:'Segoe UI',Tahoma,sans-serif;min-height:100vh;}
+.oculto{display:none!important;}
+@keyframes slidein{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulso{0%{opacity:1}50%{opacity:.4}100%{opacity:1}}
+.fade{animation:slidein .3s ease;}
+
+/* HEADER */
+header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px solid #FFD700;
+  padding:12px 20px;display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;}
+.titulo-header{font-size:18px;font-weight:900;letter-spacing:2px;
+  background:linear-gradient(135deg,#FFD700,#FFA500);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.link-btn{background:none;border:1px solid #2a2a5a;border-radius:8px;color:#666;
+  padding:6px 12px;font-size:12px;cursor:pointer;text-decoration:none;transition:all .2s;}
+.link-btn:hover{border-color:#FFD700;color:#FFD700;}
+
+/* CONTAINER */
+.container{max-width:820px;width:92%;margin:0 auto;padding:24px 0 60px;}
+
+/* BOTÕES */
+.btn{padding:12px 24px;border-radius:10px;font-size:15px;font-weight:bold;
+  cursor:pointer;transition:all .18s;border:2px solid;}
+.btn-ouro{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;
+  border-color:transparent;box-shadow:0 0 25px rgba(255,215,0,.25);}
+.btn-ouro:hover{transform:scale(1.04);box-shadow:0 0 40px rgba(255,215,0,.4);}
+.btn-ouro:disabled{background:#1a1a3a;color:#444;box-shadow:none;cursor:not-allowed;transform:none;border-color:#2a2a4a;}
+.btn-ghost{background:rgba(255,255,255,.04);border-color:#2a2a5a;color:#888;}
+.btn-ghost:hover{border-color:#FFD700;color:#FFD700;}
+.btn-perigo{background:rgba(255,50,50,.08);border-color:#552222;color:#f87171;}
+.btn-perigo:hover{background:rgba(255,50,50,.2);border-color:#ff3232;}
+.btn-bloco{width:100%;text-align:center;}
+.btn-lg{padding:15px 36px;font-size:17px;}
+
+/* ══════════════════════════════════
+   TELA CONFIG
+══════════════════════════════════ */
+#tela-config{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.config-box{max-width:460px;width:100%;text-align:center;}
+.config-logo{font-size:44px;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,#FFD700,#FFA500,#FF6600);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+.config-sub{color:#555;font-size:14px;margin-bottom:32px;}
+.campo-grupo{text-align:left;margin-bottom:20px;}
+.campo-label{font-size:12px;color:#777;display:block;margin-bottom:6px;letter-spacing:.5px;}
+.campo-input{width:100%;background:#0d0d25;border:2px solid #1a1a5a;border-radius:10px;
+  padding:12px 16px;color:#eee;font-size:13px;font-family:monospace;outline:none;transition:border-color .2s;}
+.campo-input:focus{border-color:#FFD700;}
+.config-hint{font-size:12px;color:#444;margin-top:8px;line-height:1.6;}
+.config-hint a{color:#7c3aed;}
+
+/* ══════════════════════════════════
+   TELA DASHBOARD
+══════════════════════════════════ */
+#tela-dashboard{}
+.nivel-banner{background:linear-gradient(135deg,rgba(255,215,0,.07),rgba(255,165,0,.04));
+  border:2px solid rgba(255,215,0,.25);border-radius:16px;padding:20px;margin-bottom:18px;}
+.nivel-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.nivel-badge{font-size:11px;color:#FFD700;text-transform:uppercase;letter-spacing:1px;}
+.nivel-nome{font-size:22px;font-weight:bold;}
+.nivel-num{font-size:13px;color:#555;}
+.nivel-barra-fundo{height:7px;background:#12124a;border-radius:4px;overflow:hidden;margin-bottom:6px;}
+.nivel-barra-fill{height:100%;background:linear-gradient(90deg,#FFD700,#00ff88);border-radius:4px;transition:width .8s;}
+.nivel-meta{font-size:12px;color:#555;}
+.countdown-box{text-align:center;background:#0d0d25;border:1px solid #1a1a5a;
+  border-radius:12px;padding:16px;margin-bottom:18px;}
+.countdown-label{font-size:11px;color:#444;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.countdown-timer{font-size:30px;font-weight:bold;color:#FFD700;
+  font-variant-numeric:tabular-nums;letter-spacing:2px;}
+.countdown-timer.liberado{color:#4ade80;}
+.botoes-dash{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+.botoes-dash .btn{flex:1;min-width:140px;text-align:center;}
+.grid-notas{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:24px;}
+.nota-card{background:rgba(255,255,255,.03);border:1px solid #1a1a5a;border-radius:10px;padding:12px;text-align:center;}
+.nota-disc{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.nota-pct{font-size:22px;font-weight:bold;}
+.verde{color:#4ade80;} .amarelo{color:#FFD700;} .vermelho{color:#f87171;} .cinza{color:#333;}
+.dash-link{text-align:center;}
+
+/* ══════════════════════════════════
+   TELA LOADING
+══════════════════════════════════ */
+#tela-loading{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;}
+.loading-box{text-align:center;max-width:380px;padding:20px;}
+.spinner{width:56px;height:56px;border:4px solid #1a1a5a;border-top-color:#FFD700;
+  border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 24px;}
+.loading-txt{font-size:16px;color:#aaa;margin-bottom:6px;}
+.loading-sub{font-size:13px;color:#444;}
+.loading-erro{background:rgba(255,50,50,.08);border:1px solid #552222;border-radius:10px;
+  padding:14px;margin-top:20px;font-size:13px;color:#f87171;text-align:left;line-height:1.6;}
+
+/* ══════════════════════════════════
+   TELA SIMULADO
+══════════════════════════════════ */
+.sim-topo{display:flex;align-items:center;justify-content:space-between;
+  background:#0d0d25;border:1px solid #1a1a5a;border-radius:12px;
+  padding:14px 18px;margin-bottom:18px;gap:12px;flex-wrap:wrap;}
+.timer-display{font-size:22px;font-weight:bold;color:#FFD700;
+  font-variant-numeric:tabular-nums;letter-spacing:2px;flex-shrink:0;}
+.timer-display.urgente{color:#f87171;animation:pulso 1s infinite;}
+.prog-wrap{flex:1;min-width:120px;}
+.prog-txt{font-size:11px;color:#444;text-align:right;margin-bottom:4px;}
+.prog-fundo{height:4px;background:#12124a;border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#FFD700,#FFA500);transition:width .4s;}
+.btn-encerrar{padding:7px 14px;border:1px solid #2a2a5a;border-radius:8px;
+  background:none;color:#555;font-size:12px;cursor:pointer;flex-shrink:0;}
+.btn-encerrar:hover{border-color:#f87171;color:#f87171;}
+.caixa-q{background:linear-gradient(145deg,#0c0c35,#090925);border:2px solid #181870;
+  border-radius:16px;padding:24px;margin-bottom:16px;}
+.q-disciplina{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;
+  background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.4);color:#FFD700;margin-bottom:10px;}
+.q-num{font-size:12px;color:#333;margin-bottom:10px;}
+.q-textbase{background:rgba(255,255,255,.03);border-left:3px solid #FFD700;
+  padding:14px 16px;border-radius:0 8px 8px 0;font-size:14px;line-height:1.75;
+  color:#bbb;font-style:italic;margin-bottom:16px;}
+.q-enunciado{font-size:16px;line-height:1.65;color:#eee;}
+.alts{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+.btn-alt{background:rgba(255,255,255,.04);border:2px solid #181870;border-radius:11px;
+  padding:12px 18px;color:#ddd;font-size:15px;cursor:pointer;text-align:left;
+  transition:all .18s;display:flex;gap:12px;align-items:flex-start;width:100%;}
+.btn-alt:hover{background:rgba(255,215,0,.08);border-color:rgba(255,215,0,.5);color:#fff;}
+.btn-alt.sel{background:rgba(255,215,0,.15);border-color:#FFD700;color:#fff;}
+.alt-letra{background:#181870;color:#FFD700;width:27px;height:27px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;flex-shrink:0;}
+.btn-alt.sel .alt-letra{background:#FFD700;color:#000;}
+.sim-nav{display:flex;justify-content:flex-end;margin-top:14px;}
+.aviso-treino{background:rgba(130,0,255,.1);border:1px solid #4a0080;border-radius:8px;
+  padding:8px 14px;font-size:12px;color:#bb77ff;text-align:center;margin-bottom:14px;}
+
+/* ══════════════════════════════════
+   TELA CORREÇÃO
+══════════════════════════════════ */
+.corr-topo{text-align:center;padding:24px 0 20px;}
+.nota-geral{font-size:56px;font-weight:900;color:#FFD700;
+  text-shadow:0 0 30px rgba(255,215,0,.4);}
+.nota-geral-sub{color:#555;font-size:14px;margin-top:4px;}
+.nivel-up-box{background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,165,0,.08));
+  border:2px solid #FFD700;border-radius:16px;padding:20px;text-align:center;margin-bottom:20px;}
+.nivel-up-titulo{font-size:20px;font-weight:bold;color:#FFD700;margin-bottom:6px;}
+.nivel-up-sub{font-size:13px;color:#aaa;margin-bottom:16px;}
+.nivel-up-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.tabela-discs{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.tabela-discs th{font-size:11px;color:#444;text-transform:uppercase;letter-spacing:.5px;
+  padding:8px 12px;text-align:left;border-bottom:1px solid #1a1a3a;}
+.tabela-discs td{padding:10px 12px;border-bottom:1px solid #0d0d25;font-size:14px;color:#ccc;}
+.barra-d{height:5px;background:#12124a;border-radius:3px;overflow:hidden;margin-top:5px;}
+.barra-d-fill{height:100%;border-radius:3px;}
+.barra-verde{background:linear-gradient(90deg,#4ade80,#00ff88);}
+.barra-amarelo{background:linear-gradient(90deg,#FFD700,#FFA500);}
+.barra-vermelho{background:linear-gradient(90deg,#f87171,#ff3232);}
+.revisao-header{font-size:12px;color:#444;text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px;}
+.q-rev{border:1px solid #1a1a3a;border-radius:12px;margin-bottom:8px;overflow:hidden;}
+.qr-topo{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;
+  background:rgba(255,255,255,.02);transition:background .15s;}
+.qr-topo:hover{background:rgba(255,255,255,.04);}
+.qr-status{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:bold;flex-shrink:0;}
+.qr-status.ok{background:#166534;color:#4ade80;}
+.qr-status.err{background:#7f1d1d;color:#f87171;}
+.qr-txt{font-size:13px;color:#888;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.qr-seta{font-size:10px;color:#333;transition:transform .2s;}
+.qr-seta.aberta{transform:rotate(90deg);}
+.qr-corpo{display:none;padding:14px;background:#0a0a1f;border-top:1px solid #1a1a3a;}
+.qr-corpo.vis{display:block;}
+.qr-resp{font-size:13px;margin-bottom:6px;}
+.qr-resp.certa{color:#4ade80;} .qr-resp.errada{color:#f87171;}
+.qr-exp{font-size:13px;color:#777;line-height:1.6;white-space:pre-line;margin-top:6px;}
+.corr-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px;}
+
+/* ══════════════════════════════════
+   TELA PLANO + HISTÓRICO
+══════════════════════════════════ */
+.tabs{display:flex;gap:4px;background:#0d0d25;border-radius:10px;padding:4px;margin-bottom:20px;}
+.tab-btn{flex:1;padding:10px;border:none;background:none;color:#555;font-size:14px;
+  cursor:pointer;border-radius:8px;transition:all .2s;font-weight:600;}
+.tab-btn.ativo{background:rgba(255,215,0,.12);color:#FFD700;}
+.plano-card{background:#0d0d25;border:1px solid #1a1a5a;border-radius:14px;padding:20px;margin-bottom:14px;}
+.plano-card-titulo{font-size:11px;color:#FFD700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+.foco-item{display:flex;gap:12px;margin-bottom:10px;padding:12px;
+  background:rgba(255,255,255,.02);border-radius:8px;align-items:flex-start;}
+.foco-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-size:11px;font-weight:bold;}
+.f1{background:#7f1d1d;color:#f87171;} .f2{background:#78350f;color:#FFA500;} .f3{background:#1e3a5f;color:#60a5fa;}
+.foco-cont h4{font-size:13px;color:#eee;margin-bottom:3px;}
+.foco-cont p{font-size:12px;color:#777;line-height:1.5;}
+.semana-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;}
+.dia-card{background:rgba(255,255,255,.02);border:1px solid #1a1a3a;border-radius:8px;padding:10px;}
+.dia-nome{font-size:11px;color:#FFD700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.dia-cont{font-size:12px;color:#888;line-height:1.5;}
+.hist-item{display:flex;align-items:center;gap:12px;padding:12px 14px;
+  background:rgba(255,255,255,.02);border:1px solid #1a1a3a;border-radius:10px;margin-bottom:8px;}
+.hist-data{font-size:12px;color:#444;width:84px;flex-shrink:0;}
+.hist-nota-txt{font-size:20px;font-weight:bold;width:56px;flex-shrink:0;}
+.hist-discs{flex:1;display:flex;gap:6px;flex-wrap:wrap;}
+.disc-tag{font-size:11px;padding:2px 7px;border-radius:8px;background:#12124a;color:#666;}
+.disc-tag.ok{background:#052e16;color:#4ade80;}
+.disc-tag.nok{background:#2d0a0a;color:#f87171;}
+.hist-nivel-tag{font-size:11px;padding:2px 8px;border-radius:8px;
+  background:rgba(255,215,0,.08);color:#FFD700;flex-shrink:0;}
+.grafico-box{background:#0d0d25;border:1px solid #1a1a5a;border-radius:14px;padding:20px;margin-bottom:20px;}
+.grafico-titulo{font-size:12px;color:#444;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+.sem-dados{text-align:center;color:#333;padding:40px 20px;font-size:14px;}
+.hist-btns{display:flex;justify-content:flex-end;margin-bottom:16px;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;
+  display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.oculto{display:none!important;}
+.modal-box{background:#0d0d25;border:2px solid #1a1a5a;border-radius:16px;
+  padding:28px;max-width:440px;width:100%;text-align:center;}
+.modal-titulo{font-size:18px;font-weight:bold;color:#FFD700;margin-bottom:8px;}
+.modal-sub{font-size:14px;color:#888;margin-bottom:20px;line-height:1.6;}
+.modal-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="titulo-header">📝 SIMULADO SEMANAL</div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <a href="index.html" class="link-btn">🎯 Show do Saber</a>
+    <button class="link-btn" onclick="irParaConfig()">⚙️ API</button>
+  </div>
+</header>
+
+<!-- ══ TELA CONFIG ══ -->
+<div id="tela-config" class="oculto">
+  <div class="config-box fade">
+    <div class="config-logo">SIMULADO</div>
+    <div class="config-sub">Configure sua chave da API Anthropic para gerar questões inéditas toda semana</div>
+    <div class="campo-grupo">
+      <label class="campo-label">CHAVE API ANTHROPIC (sk-ant-...)</label>
+      <input type="password" id="input-chave" class="campo-input" placeholder="sk-ant-api03-..." autocomplete="off">
+      <div class="config-hint">
+        Obtenha em <strong>console.anthropic.com</strong> → API Keys.<br>
+        A chave fica salva apenas no seu navegador (localStorage). Nunca sai do dispositivo.
+      </div>
+    </div>
+    <button class="btn btn-ouro btn-bloco btn-lg" onclick="salvarChave()">Salvar e Continuar</button>
+  </div>
+</div>
+
+<!-- ══ TELA DASHBOARD ══ -->
+<div id="tela-dashboard" class="oculto">
+  <div class="container">
+
+    <!-- Banner de nível -->
+    <div class="nivel-banner fade">
+      <div class="nivel-row">
+        <div>
+          <div class="nivel-badge">Nível atual</div>
+          <div class="nivel-nome" id="dash-nivel-nome">Aprendizado</div>
+        </div>
+        <div class="nivel-num" id="dash-nivel-num">1 / 5</div>
+      </div>
+      <div class="nivel-barra-fundo">
+        <div class="nivel-barra-fill" id="dash-nivel-barra" style="width:0%"></div>
+      </div>
+      <div class="nivel-meta" id="dash-nivel-meta">Atinja 80% para avançar para o próximo nível</div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-box fade">
+      <div class="countdown-label" id="countdown-label">Próximo simulado oficial</div>
+      <div class="countdown-timer" id="countdown-timer">--:--:--</div>
+    </div>
+
+    <!-- Botões -->
+    <div class="botoes-dash fade">
+      <button id="btn-iniciar-oficial" class="btn btn-ouro" onclick="iniciarSimulado(false)" disabled>
+        📋 Iniciar Simulado
+      </button>
+      <button class="btn btn-ghost" onclick="iniciarSimulado(true)">
+        🏋️ Modo Treino
+      </button>
+      <button class="btn btn-ghost" onclick="mostrarTela('tela-plano')">
+        📊 Histórico
+      </button>
+    </div>
+
+    <!-- Últimas notas por disciplina -->
+    <div id="grid-notas" class="grid-notas fade"></div>
+
+  </div>
+</div>
+
+<!-- ══ TELA LOADING ══ -->
+<div id="tela-loading" class="oculto">
+  <div class="loading-box fade">
+    <div class="spinner"></div>
+    <div class="loading-txt" id="loading-txt">Gerando sua prova com IA...</div>
+    <div class="loading-sub" id="loading-sub">Isso leva alguns segundos</div>
+    <div id="loading-erro" class="loading-erro oculto"></div>
+  </div>
+</div>
+
+<!-- ══ TELA SIMULADO ══ -->
+<div id="tela-simulado" class="oculto">
+  <div class="container">
+
+    <div id="aviso-treino" class="aviso-treino oculto">
+      🏋️ Modo Treino — Não conta para o histórico oficial
+    </div>
+
+    <!-- Topo: timer + progresso -->
+    <div class="sim-topo">
+      <div class="timer-display" id="timer-display">03:00:00</div>
+      <div class="prog-wrap">
+        <div class="prog-txt" id="prog-txt">1 / 40</div>
+        <div class="prog-fundo"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      </div>
+      <button class="btn-encerrar" onclick="confirmarEncerrar()">Encerrar ▸</button>
+    </div>
+
+    <!-- Questão -->
+    <div class="caixa-q fade" id="caixa-questao">
+      <div class="q-disciplina" id="q-disciplina">Língua Portuguesa</div>
+      <div class="q-num" id="q-num">Questão 1 de 40</div>
+      <div class="q-textbase oculto" id="q-textbase"></div>
+      <div class="q-enunciado" id="q-enunciado"></div>
+      <div class="alts" id="alts"></div>
+    </div>
+
+    <!-- Navegação -->
+    <div class="sim-nav">
+      <button class="btn btn-ouro" id="btn-proxima" onclick="proximaQuestao()" disabled>
+        Próxima →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ TELA CORREÇÃO ══ -->
+<div id="tela-correcao" class="oculto">
+  <div class="container fade">
+
+    <!-- Nota geral -->
+    <div class="corr-topo">
+      <div class="nota-geral" id="nota-geral-txt">-- / 40</div>
+      <div class="nota-geral-sub" id="nota-geral-sub"></div>
+    </div>
+
+    <!-- Banner de sobe de nível -->
+    <div id="nivel-up-box" class="nivel-up-box oculto">
+      <div class="nivel-up-titulo">🏆 Parabéns! Você atingiu 80%+</div>
+      <div class="nivel-up-sub" id="nivel-up-sub">Você está pronto para o próximo nível de dificuldade!</div>
+      <div class="nivel-up-btns">
+        <button class="btn btn-ouro" onclick="confirmarNivelUp()">Subir para Nível <span id="nivel-up-novo"></span></button>
+        <button class="btn btn-ghost" onclick="document.getElementById('nivel-up-box').classList.add('oculto')">
+          Agora não
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabela de disciplinas -->
+    <table class="tabela-discs">
+      <thead><tr><th>Disciplina</th><th>Acertos</th><th>%</th><th style="min-width:100px"></th></tr></thead>
+      <tbody id="tabela-discs-body"></tbody>
+    </table>
+
+    <!-- Revisão das questões -->
+    <div class="revisao-header">Revisão das questões</div>
+    <div id="lista-revisao"></div>
+
+    <!-- Botões -->
+    <div class="corr-btns">
+      <button class="btn btn-ouro" onclick="irParaPlano()">Ver Plano da Semana →</button>
+      <button class="btn btn-ghost" onclick="mostrarTela('tela-dashboard')">← Dashboard</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ TELA PLANO + HISTÓRICO ══ -->
+<div id="tela-plano" class="oculto">
+  <div class="container fade">
+
+    <div class="tabs">
+      <button class="tab-btn ativo" id="tab-plano-btn" onclick="trocarTab('plano')">📚 Plano da Semana</button>
+      <button class="tab-btn" id="tab-hist-btn" onclick="trocarTab('historico')">📈 Histórico</button>
+    </div>
+
+    <!-- ABA PLANO -->
+    <div id="aba-plano">
+      <div id="plano-conteudo"></div>
+      <div style="text-align:center;margin-top:20px;">
+        <button class="btn btn-ghost" onclick="mostrarTela('tela-dashboard')">← Dashboard</button>
+      </div>
+    </div>
+
+    <!-- ABA HISTÓRICO -->
+    <div id="aba-historico" class="oculto">
+      <div class="hist-btns">
+        <button class="btn btn-perigo" style="padding:8px 14px;font-size:12px;" onclick="limparHistorico()">
+          🗑 Limpar histórico
+        </button>
+      </div>
+      <div class="grafico-box">
+        <div class="grafico-titulo">Evolução — Nota Geral (%)</div>
+        <canvas id="grafico-evolucao" height="120"></canvas>
+        <div id="sem-dados-grafico" class="sem-dados oculto">Nenhum simulado registrado ainda.</div>
+      </div>
+      <div id="lista-historico"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ MODAL CONFIRMAÇÃO ENCERRAR ══ -->
+<div id="modal-encerrar" class="modal-overlay oculto">
+  <div class="modal-box fade">
+    <div class="modal-titulo">Encerrar prova?</div>
+    <div class="modal-sub">Você respondeu <span id="modal-respondidas"></span> de 40 questões.<br>As não respondidas serão contadas como erradas.</div>
+    <div class="modal-btns">
+      <button class="btn btn-ouro" onclick="encerrarSimulado()">Sim, encerrar</button>
+      <button class="btn btn-ghost" onclick="fecharModal()">Continuar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONSTANTES — NÍVEIS DE DIFICULDADE
+   ============================================================ */
+const NIVEIS = [
+  {
+    num: 1, nome: "Aprendizado", timer: 4.5 * 3600,
+    prompt: "Questões introdutórias com enunciados curtos e claros. Alternativas diretas, sem ambiguidade. Temas fundamentais e bem delimitados."
+  },
+  {
+    num: 2, nome: "Familiar", timer: 4 * 3600,
+    prompt: "Questões de dificuldade moderada, estilo de provas reais simplificadas. Alguns distratores plausíveis mas identificáveis."
+  },
+  {
+    num: 3, nome: "Intermediário", timer: 3.5 * 3600,
+    prompt: "Questões no estilo CESGRANRIO com distratores técnicos plausíveis. Inclua alguns textos de apoio para Português."
+  },
+  {
+    num: 4, nome: "Avançado", timer: 10 * 3600 / 3,
+    prompt: "Questões CESGRANRIO completas com distratores sofisticados. Textos de apoio de 5+ linhas em Português. Matemática com contexto de situação-problema."
+  },
+  {
+    num: 5, nome: "Realista 🎯", timer: 3 * 3600,
+    prompt: "Réplica exata do estilo CESGRANRIO: textos jornalísticos/científicos de apoio com 6-8 linhas em Português, dupla negação em Lógica, distratores que parecem corretos mas têm um detalhe errado, situações-problema reais em Matemática. Pressão máxima."
+  }
+];
+
+/* ============================================================
+   MAPA DE TÓPICOS — para gerar o plano de estudos
+   ============================================================ */
+const TEMAS_MAP = {
+  "Língua Portuguesa": {
+    criticos: ["Interpretação de Texto", "Ideias Principal e Secundária", "Inferência e Conclusão", "Coesão e Coerência", "Referência Pronominal"],
+    importantes: ["Concordância Verbal (haver, fazer, sujeito composto)", "Regência Verbal (assistir, visar, aspirar)", "Crase", "Pontuação — vírgula"],
+    complementares: ["Figuras de Linguagem", "Funções da Linguagem", "Variação Linguística"]
+  },
+  "Matemática": {
+    criticos: ["Porcentagem Simples e Encadeada", "Juros Simples J=C.i.t", "Juros Compostos M=C(1+i)^n", "Regra de Três"],
+    importantes: ["Média, Mediana e Moda", "Probabilidade Clássica", "Geometria Plana — Área e Perímetro"],
+    complementares: ["PA e PG Básicas", "Análise Combinatória", "Equações 1° e 2° grau"]
+  },
+  "Informática": {
+    criticos: ["Excel — Fórmulas SE, SOMA, MÉDIA, PROCV", "Excel — Referência Absoluta ($)", "Segurança — Phishing e Ransomware", "Word — Formatação e Mala Direta"],
+    importantes: ["HTTP vs HTTPS", "DNS, IP, URL", "Windows — Gerenciador de Tarefas e Painel de Controle", "Backup — Diferencial vs Incremental"],
+    complementares: ["Redes — LAN/WAN, Switch, Roteador", "Cloud — IaaS, PaaS, SaaS", "Hardware Básico"]
+  },
+  "Raciocínio Lógico": {
+    criticos: ["Conectivos Lógicos (∧ ∨ → ↔ ¬)", "Tabela Verdade", "Negação de Proposições — Lei de Morgan", "Modus Ponens e Modus Tollens"],
+    importantes: ["Diagramas de Venn — 2 e 3 conjuntos", "Silogismo Válido vs Inválido"],
+    complementares: ["Sequências Numéricas", "Raciocínio Analítico"]
+  },
+  "Conhecimentos Específicos": {
+    criticos: ["NR-10 — Segurança em Instalações Elétricas", "Lei de Ohm V=R.I", "Leis de Kirchhoff", "Associação de Resistores — Série e Paralelo"],
+    importantes: ["Potência Elétrica P=V.I=R.I²=V²/R", "Transformadores — Relação de Transformação", "Motores Elétricos — Tipos e Princípio"],
+    complementares: ["Fator de Potência", "Grandezas: Volt, Ampere, Ohm, Watt, kWh"]
+  }
+};
+
+/* ============================================================
+   BANCO DE QUESTÕES FALLBACK (40 questões — usado sem API)
+   ============================================================ */
+const BANCO_FALLBACK = [
+  {disciplina:"Língua Portuguesa",tema:"Interpretação de Texto",textoBase:"A água é essencial para a vida. Sem ela, organismos complexos não sobreviveriam. Estima-se que 70% do corpo humano seja composto por água, que participa de praticamente todos os processos metabólicos.",enunciado:"De acordo com o texto, a água é considerada essencial à vida porque:",alts:{A:"compõe exatamente 70% de todo ser vivo",B:"é o único elemento que garante a sobrevivência",C:"participa de praticamente todos os processos metabólicos",D:"está presente apenas em organismos complexos",E:"é encontrada exclusivamente no corpo humano"},gabarito:"C",explicacao:"✅ C — O texto afirma que a água 'participa de praticamente todos os processos metabólicos'.\n❌ A — '70%' refere-se ao corpo humano, não a todo ser vivo.\n❌ D — O texto não restringe a água a organismos complexos."},
+  {disciplina:"Língua Portuguesa",tema:"Coesão e Coerência",textoBase:null,enunciado:"Assinale a alternativa em que o emprego do conectivo NÃO rompe a coerência da frase:",alts:{A:"Estudou muito, portanto não passou na prova.",B:"Estava cansado, mas dormiu bem.",C:"Chegou cedo, porém perdeu o trem.",D:"Não comeu nada, logo estava faminto.",E:"Era rico, embora comprasse muito."},gabarito:"D",explicacao:"✅ D — 'Não comeu nada, logo estava faminto' — causa e consequência coerentes.\n❌ A — 'estudou muito' + 'portanto não passou' — contradição.\n❌ C — 'chegou cedo' + 'porém perdeu o trem' — porém indica oposição, mas a ideia é de causa/consequência."},
+  {disciplina:"Língua Portuguesa",tema:"Concordância Verbal",textoBase:null,enunciado:"Assinale a frase com concordância verbal CORRETA:",alts:{A:"Faz dez anos que não nos vemos.",B:"Fazem dez anos que não nos vemos.",C:"Havia muitas pessoas esperando.",D:"Haviam muitas pessoas esperando.",E:"As opções A e C estão corretas."},gabarito:"E",explicacao:"✅ E — 'Fazer' e 'Haver' no sentido de tempo/existência são impessoais — ficam no singular.\n❌ B — 'fazem' está incorreto.\n❌ D — 'haviam' está incorreto."},
+  {disciplina:"Língua Portuguesa",tema:"Crase",textoBase:null,enunciado:"Em qual alternativa o uso da crase está CORRETO?",alts:{A:"Entreguei o documento à ela.",B:"Refiro-me à qualquer candidato.",C:"Fui à farmácia comprar remédio.",D:"Cheguei à pé no trabalho.",E:"Falei à um colega sobre isso."},gabarito:"C",explicacao:"✅ C — 'à farmácia': preposição 'a' + artigo 'a' antes de substantivo feminino.\n❌ A — Pronomes pessoais (ela, você) não admitem crase.\n❌ B — Pronomes indefinidos não admitem crase.\n❌ D — 'a pé' é locução adverbial sem artigo.\n❌ E — Artigo indefinido não forma crase."},
+  {disciplina:"Língua Portuguesa",tema:"Regência Verbal",textoBase:null,enunciado:"Assinale a frase em que o verbo ASSISTIR está usado com a regência correta:",alts:{A:"Assistimos o filme ontem à noite.",B:"Ele não assistiu a partida.",C:"Assistimos ao show com entusiasmo.",D:"Eles assistiram o jogo todo.",E:"Nunca assistimos os noticiários."},gabarito:"C",explicacao:"✅ C — 'Assistir' no sentido de ver/presenciar é transitivo indireto: exige preposição 'a'.\n❌ A, B, D, E — usam o verbo sem a preposição obrigatória."},
+  {disciplina:"Matemática",tema:"Porcentagem",textoBase:null,enunciado:"Um produto custava R$ 200,00. Sofreu um aumento de 15% e depois um desconto de 10%. Qual o preço final?",alts:{A:"R$ 207,00",B:"R$ 210,00",C:"R$ 213,00",D:"R$ 205,00",E:"R$ 220,00"},gabarito:"A",explicacao:"Passo 1: 200 × 1,15 = R$ 230,00\nPasso 2: 230 × 0,90 = R$ 207,00\n✅ Resposta: A\n⚠️ Não some 15% - 10% = 5% diretamente — isso é erro clássico!"},
+  {disciplina:"Matemática",tema:"Juros Compostos",textoBase:null,enunciado:"Aplica-se R$ 2.000,00 a juros compostos de 5% ao mês durante 2 meses. O montante será:",alts:{A:"R$ 2.200,00",B:"R$ 2.205,00",C:"R$ 2.210,00",D:"R$ 2.100,00",E:"R$ 2.250,00"},gabarito:"B",explicacao:"M = 2000 × (1,05)²\n= 2000 × 1,1025\n= R$ 2.205,00\n✅ Resposta: B\n❌ A — juros simples: 2000 × (1 + 0,05×2) = 2200."},
+  {disciplina:"Matemática",tema:"Probabilidade",textoBase:null,enunciado:"Uma urna tem 5 bolas verdes, 3 azuis e 2 vermelhas. A probabilidade de retirar uma bola NÃO verde é:",alts:{A:"1/2",B:"2/5",C:"3/10",D:"1/3",E:"5/10"},gabarito:"A",explicacao:"Total = 10 bolas. Não verdes = 3 + 2 = 5.\nP(não verde) = 5/10 = 1/2\n✅ Resposta: A"},
+  {disciplina:"Matemática",tema:"Estatística",textoBase:null,enunciado:"As notas de uma turma foram: 4, 6, 6, 7, 8, 9, 10. A MODA e a MEDIANA são, respectivamente:",alts:{A:"6 e 7",B:"7 e 6",C:"6 e 6",D:"7 e 7",E:"6 e 8"},gabarito:"A",explicacao:"Moda = valor que mais aparece = 6 (aparece 2 vezes)\nMediana: 7 valores → posição central = 4ª = 7\n✅ Resposta: A (Moda=6, Mediana=7)"},
+  {disciplina:"Matemática",tema:"Regra de Três",textoBase:null,enunciado:"Se 6 funcionários concluem um trabalho em 12 dias, quantos dias 9 funcionários levarão para concluir o mesmo trabalho?",alts:{A:"6",B:"8",C:"10",D:"12",E:"18"},gabarito:"B",explicacao:"Grandezas inversamente proporcionais (mais funcionários → menos dias).\n6 × 12 = 9 × x\nx = 72 / 9 = 8 dias\n✅ Resposta: B"},
+  {disciplina:"Informática",tema:"Excel — Função SE",textoBase:null,enunciado:"No Excel, A1=15 e B1=20. Qual o resultado de =SE(A1>=B1; 'Maior'; 'Menor')?",alts:{A:"Maior",B:"Menor",C:"Erro de sintaxe",D:"VERDADEIRO",E:"0"},gabarito:"B",explicacao:"Teste: 15 >= 20 → FALSO\nRetorna o valor do 'se_falso': 'Menor'\n✅ Resposta: B"},
+  {disciplina:"Informática",tema:"Excel — Referência Absoluta",textoBase:null,enunciado:"Na fórmula =$A1+B$2, ao copiar para a célula da direita (uma coluna à frente), qual parte muda?",alts:{A:"Somente B2",B:"Somente A1",C:"Ambas mudam",D:"B2 muda para C2",E:"A1 muda para B1"},gabarito:"D",explicacao:"$A1: coluna A fixada ($) — não muda; linha 1 é relativa.\nB$2: coluna B é relativa — muda ao copiar para direita; linha 2 fixada ($).\nAo copiar uma coluna à direita: B$2 → C$2\n✅ Resposta: D"},
+  {disciplina:"Informática",tema:"Segurança da Informação",textoBase:null,enunciado:"Um malware que criptografa os arquivos da vítima e exige pagamento para desbloqueá-los é chamado de:",alts:{A:"Worm",B:"Spyware",C:"Ransomware",D:"Trojan",E:"Adware"},gabarito:"C",explicacao:"✅ C — Ransomware: sequestra dados via criptografia e exige resgate.\n❌ A — Worm: se replica pela rede sem precisar de arquivo hospedeiro.\n❌ B — Spyware: monitora e envia dados sem consentimento.\n❌ D — Trojan: se disfarça de programa legítimo.\n❌ E — Adware: exibe propagandas indesejadas."},
+  {disciplina:"Informática",tema:"Protocolos de Internet",textoBase:null,enunciado:"A diferença entre HTTP e HTTPS é que o HTTPS:",alts:{A:"é mais rápido que o HTTP",B:"usa criptografia SSL/TLS para proteger os dados",C:"funciona apenas em redes internas",D:"não permite o uso de cookies",E:"exige autenticação de usuário obrigatória"},gabarito:"B",explicacao:"✅ B — HTTPS usa certificado SSL/TLS para criptografar a comunicação entre navegador e servidor.\n❌ A — HTTPS é ligeiramente mais lento devido à criptografia.\n❌ C, D, E — Afirmações incorretas."},
+  {disciplina:"Informática",tema:"Backup",textoBase:null,enunciado:"No backup INCREMENTAL, cada cópia diária contém:",alts:{A:"todos os dados do sistema",B:"apenas os dados alterados desde o último backup completo",C:"apenas os dados alterados desde o último backup de qualquer tipo",D:"uma cópia espelhada do sistema",E:"os dados compactados desde a última semana"},gabarito:"C",explicacao:"✅ C — Incremental: copia apenas o que mudou desde o ÚLTIMO backup (completo ou incremental).\n❌ B — Essa é a definição do backup DIFERENCIAL (acumula desde o completo).\nRestauração Incremental: completo + todos os incrementais.\nRestauração Diferencial: completo + último diferencial."},
+  {disciplina:"Raciocínio Lógico",tema:"Negação de Implicação",textoBase:null,enunciado:"A negação de 'Se João estudar, então passará na prova' é:",alts:{A:"Se João não estudar, não passará na prova.",B:"João estudará ou não passará na prova.",C:"João estudou e não passou na prova.",D:"João não estudará e passará na prova.",E:"Se João estudar, não passará na prova."},gabarito:"C",explicacao:"Regra: Neg(P → Q) = P ∧ ¬Q\nP = 'João estudar' | Q = 'passará na prova'\nNeg = 'João estudou E não passou na prova'\n✅ Resposta: C"},
+  {disciplina:"Raciocínio Lógico",tema:"Lei de Morgan",textoBase:null,enunciado:"Pela Lei de De Morgan, a negação de (P ∧ Q) é equivalente a:",alts:{A:"¬P ∧ ¬Q",B:"¬P ∨ ¬Q",C:"P ∨ Q",D:"¬P → ¬Q",E:"P ∧ ¬Q"},gabarito:"B",explicacao:"Lei de De Morgan:\n• Neg(P ∧ Q) = ¬P ∨ ¬Q\n• Neg(P ∨ Q) = ¬P ∧ ¬Q\n✅ Resposta: B\nMacete: negação de 'E' vira 'OU', negação de 'OU' vira 'E'."},
+  {disciplina:"Raciocínio Lógico",tema:"Diagrama de Venn",textoBase:null,enunciado:"Numa sala de 50 alunos, 30 gostam de Matemática, 25 de Português e 10 gostam dos dois. Quantos não gostam de nenhuma das duas?",alts:{A:"3",B:"5",C:"7",D:"10",E:"15"},gabarito:"B",explicacao:"|M ∪ P| = 30 + 25 - 10 = 45\nNenhuma = 50 - 45 = 5\n✅ Resposta: B\nVerificação: Só Mat.=20, Só Port.=15, Dois=10, Nenhum=5 → 20+15+10+5=50 ✓"},
+  {disciplina:"Raciocínio Lógico",tema:"Modus Ponens",textoBase:null,enunciado:"Dados: (1) Se o sistema está atualizado, então está seguro. (2) O sistema está atualizado. Podemos concluir:",alts:{A:"O sistema não está seguro.",B:"O sistema está seguro.",C:"O sistema não está atualizado.",D:"Nada pode ser concluído.",E:"O sistema pode ou não estar seguro."},gabarito:"B",explicacao:"Modus Ponens: Se P → Q e P, então Q.\nP = 'sistema atualizado' (dado verdadeiro)\nQ = 'sistema seguro' (concluído)\n✅ Resposta: B"},
+  {disciplina:"Raciocínio Lógico",tema:"Tabela Verdade — Condicional",textoBase:null,enunciado:"A proposição P → Q é FALSA somente quando:",alts:{A:"P é falso e Q é falso",B:"P é falso e Q é verdadeiro",C:"P é verdadeiro e Q é verdadeiro",D:"P é verdadeiro e Q é falso",E:"Ambas têm valores diferentes"},gabarito:"D",explicacao:"Tabela Verdade P → Q:\n• V → V = V\n• V → F = F ← único caso falso\n• F → V = V\n• F → F = V\n✅ Resposta: D"},
+  {disciplina:"Raciocínio Lógico",tema:"Conectivo OU",textoBase:null,enunciado:"A disjunção (P ∨ Q) é verdadeira em quantas linhas da tabela verdade?",alts:{A:"1",B:"2",C:"3",D:"4",E:"0"},gabarito:"C",explicacao:"Tabela P ∨ Q:\n• V ∨ V = V\n• V ∨ F = V\n• F ∨ V = V\n• F ∨ F = F\nVerdadeira em 3 das 4 linhas.\n✅ Resposta: C"},
+  {disciplina:"Conhecimentos Específicos",tema:"Lei de Ohm",textoBase:null,enunciado:"Um resistor de 10 Ω é ligado a uma fonte de 120 V. A corrente que circula pelo circuito é:",alts:{A:"10 A",B:"12 A",C:"120 A",D:"1200 A",E:"0,12 A"},gabarito:"B",explicacao:"V = R × I → I = V / R\nI = 120 / 10 = 12 A\n✅ Resposta: B"},
+  {disciplina:"Conhecimentos Específicos",tema:"Potência Elétrica",textoBase:null,enunciado:"Um chuveiro de 220 V consome uma corrente de 50 A. Sua potência é:",alts:{A:"4,4 W",B:"270 W",C:"4,4 kW",D:"11 kW",E:"22 kW"},gabarito:"D",explicacao:"P = V × I = 220 × 50 = 11.000 W = 11 kW\n✅ Resposta: D"},
+  {disciplina:"Conhecimentos Específicos",tema:"Circuito em Série",textoBase:null,enunciado:"Três resistores de 4 Ω, 6 Ω e 10 Ω estão associados em série. A resistência equivalente é:",alts:{A:"10 Ω",B:"6 Ω",C:"20 Ω",D:"2 Ω",E:"12 Ω"},gabarito:"C",explicacao:"Série: R_eq = R1 + R2 + R3 = 4 + 6 + 10 = 20 Ω\n✅ Resposta: C\nEm série: corrente igual em todos, tensão se divide."},
+  {disciplina:"Conhecimentos Específicos",tema:"Circuito em Paralelo",textoBase:null,enunciado:"Dois resistores de 6 Ω cada estão em paralelo. A resistência equivalente é:",alts:{A:"12 Ω",B:"6 Ω",C:"3 Ω",D:"1 Ω",E:"0,5 Ω"},gabarito:"C",explicacao:"Paralelo (iguais): R_eq = R/n = 6/2 = 3 Ω\nOu: 1/R_eq = 1/6 + 1/6 = 2/6 → R_eq = 3 Ω\n✅ Resposta: C"},
+  {disciplina:"Conhecimentos Específicos",tema:"NR-10",textoBase:null,enunciado:"De acordo com a NR-10, ao trabalhar em instalações elétricas energizadas, é OBRIGATÓRIO:",alts:{A:"usar apenas luvas de borracha simples",B:"desligar o disjuntor principal antes de qualquer serviço",C:"usar Equipamentos de Proteção Individual adequados à tensão de trabalho",D:"trabalhar sempre acompanhado por um engenheiro eletricista",E:"avisar os colegas verbalmente antes de iniciar o serviço"},gabarito:"C",explicacao:"✅ C — NR-10 exige EPI compatível com a tensão (luvas isolantes, capacete, óculos).\n❌ B — Trabalho em instalações energizadas pode ser necessário; o correto é usar EPI, não apenas desligar.\n❌ A — 'Luvas de borracha simples' sem especificação de classe de tensão é incompleto e incorreto."},
+  {disciplina:"Língua Portuguesa",tema:"Interpretação de Texto",textoBase:"A inteligência artificial (IA) está transformando rapidamente o mercado de trabalho. Funções repetitivas e baseadas em padrões tendem a ser automatizadas, enquanto habilidades como criatividade, pensamento crítico e inteligência emocional ganham maior valorização.",enunciado:"Segundo o texto, o avanço da IA no mercado de trabalho tende a:",alts:{A:"eliminar completamente os empregos existentes",B:"automatizar apenas trabalhos intelectuais",C:"valorizar habilidades humanas como criatividade e pensamento crítico",D:"substituir todas as funções repetitivas imediatamente",E:"reduzir a importância da inteligência emocional"},gabarito:"C",explicacao:"✅ C — O texto afirma que 'habilidades como criatividade, pensamento crítico e inteligência emocional ganham maior valorização'.\n❌ A — O texto não afirma eliminação completa.\n❌ E — Contradiz diretamente o texto."},
+  {disciplina:"Matemática",tema:"Geometria Plana",textoBase:null,enunciado:"Um quadrado tem diagonal de 10 cm. Sua área é:",alts:{A:"50 cm²",B:"100 cm²",C:"25 cm²",D:"70,7 cm²",E:"200 cm²"},gabarito:"A",explicacao:"Diagonal d = L√2 → L = d/√2 = 10/√2 = 5√2\nÁrea = L² = (5√2)² = 50 cm²\n✅ Resposta: A\nOu use a fórmula direta: A = d²/2 = 100/2 = 50"},
+  {disciplina:"Matemática",tema:"Juros Simples",textoBase:null,enunciado:"Um capital de R$ 3.000,00 rende R$ 360,00 de juros simples em 4 meses. Qual a taxa mensal?",alts:{A:"2%",B:"3%",C:"4%",D:"5%",E:"6%"},gabarito:"B",explicacao:"J = C × i × t\n360 = 3000 × i × 4\ni = 360 / 12.000 = 0,03 = 3% ao mês\n✅ Resposta: B"},
+  {disciplina:"Informática",tema:"Windows — Atalhos",textoBase:null,enunciado:"No Windows, qual atalho abre o Gerenciador de Tarefas diretamente (sem passar pela tela de segurança)?",alts:{A:"Ctrl + Alt + Del",B:"Ctrl + Shift + Esc",C:"Alt + F4",D:"Windows + D",E:"Ctrl + Alt + T"},gabarito:"B",explicacao:"✅ B — Ctrl+Shift+Esc abre o Gerenciador de Tarefas diretamente.\n❌ A — Ctrl+Alt+Del abre a tela de segurança do Windows, onde se pode escolher o Gerenciador."},
+  {disciplina:"Conhecimentos Específicos",tema:"Transformadores",textoBase:null,enunciado:"Um transformador tem 500 espiras no primário e 100 no secundário. Se a tensão primária é 220 V, a tensão secundária é:",alts:{A:"44 V",B:"110 V",C:"1100 V",D:"440 V",E:"22 V"},gabarito:"A",explicacao:"Relação de transformação: V1/V2 = N1/N2\n220/V2 = 500/100\nV2 = 220 × 100/500 = 44 V\n✅ Resposta: A (transformador abaixador)"},
+  {disciplina:"Língua Portuguesa",tema:"Pontuação",textoBase:null,enunciado:"Assinale a frase em que a vírgula está empregada CORRETAMENTE:",alts:{A:"O aluno, estudou toda a semana.",B:"Pedro foi ao mercado, e voltou cedo.",C:"Sebastião, que mora no Rio, pediu transferência.",D:"Compramos pão, queijo, e manteiga.",E:"Maria, foi ao banco e voltou tarde."},gabarito:"C",explicacao:"✅ C — Oração subordinada adjetiva explicativa entre vírgulas — uso correto.\n❌ A — Não se separa sujeito do verbo com vírgula.\n❌ E — Não se separa sujeito do predicado.\n❌ D — Antes do último elemento de enumeração com 'e', a vírgula é desnecessária."},
+  {disciplina:"Matemática",tema:"Média Ponderada",textoBase:null,enunciado:"Um aluno tirou nota 6 (peso 2), nota 8 (peso 3) e nota 7 (peso 5). Sua média ponderada é:",alts:{A:"7,0",B:"7,1",C:"7,2",D:"7,3",E:"6,9"},gabarito:"B",explicacao:"MP = (6×2 + 8×3 + 7×5) / (2+3+5)\n= (12 + 24 + 35) / 10\n= 71 / 10 = 7,1\n✅ Resposta: B"},
+  {disciplina:"Raciocínio Lógico",tema:"Equivalência Lógica",textoBase:null,enunciado:"A proposição P → Q é logicamente equivalente a:",alts:{A:"Q → P",B:"¬P → ¬Q",C:"¬Q → ¬P",D:"¬P ∨ ¬Q",E:"P ∧ ¬Q"},gabarito:"C",explicacao:"Contrapositiva: P → Q ≡ ¬Q → ¬P\nEssa é a equivalência fundamental do condicional.\n✅ Resposta: C\n❌ A — Recíproca (não equivale).\n❌ B — Inversa (não equivale)."},
+  {disciplina:"Conhecimentos Específicos",tema:"Grandezas Elétricas",textoBase:null,enunciado:"Um ferro elétrico de 1.000 W é usado por 2 horas. O consumo em kWh é:",alts:{A:"0,5 kWh",B:"1 kWh",C:"2 kWh",D:"2.000 kWh",E:"500 kWh"},gabarito:"C",explicacao:"E = P × t = 1.000 W × 2 h = 2.000 Wh = 2 kWh\n✅ Resposta: C"},
+  {disciplina:"Informática",tema:"LGPD",textoBase:null,enunciado:"A Lei Geral de Proteção de Dados (LGPD — Lei 13.709/2018) tem como objetivo principal:",alts:{A:"regulamentar o uso de inteligência artificial no Brasil",B:"proteger os direitos fundamentais de liberdade e privacidade no tratamento de dados pessoais",C:"proibir o compartilhamento de dados entre empresas privadas",D:"obrigar todas as empresas a criptografar seus bancos de dados",E:"criar o cadastro nacional de usuários de internet"},gabarito:"B",explicacao:"✅ B — A LGPD visa proteger direitos fundamentais de privacidade e liberdade no tratamento de dados pessoais.\n❌ A — A LGPD não é específica sobre IA.\n❌ C — A LGPD não proíbe compartilhamento; regulamenta as condições para fazê-lo."},
+  {disciplina:"Língua Portuguesa",tema:"Vocabulário Contextual",textoBase:"O avanço tecnológico, embora traga inúmeros benefícios, também impõe desafios éticos que não podem ser negligenciados pela sociedade.",enunciado:"No contexto da frase, a palavra 'negligenciados' pode ser substituída, sem alteração de sentido, por:",alts:{A:"amplificados",B:"ignorados",C:"valorizados",D:"investigados",E:"combatidos"},gabarito:"B",explicacao:"✅ B — 'Negligenciar' significa ignorar, descuidar, não dar a devida atenção.\n'Não podem ser negligenciados' = 'não podem ser ignorados'.\n❌ A, C, D, E — alteram o sentido."},
+  {disciplina:"Matemática",tema:"Combinatória",textoBase:null,enunciado:"Quantas senhas de 3 dígitos distintos podem ser formadas com os algarismos 1, 2, 3, 4 e 5?",alts:{A:"10",B:"20",C:"60",D:"120",E:"125"},gabarito:"C",explicacao:"Arranjo: A(5,3) = 5!/(5-3)! = 5×4×3 = 60\n✅ Resposta: C\nNota: Ordem importa (senha), algarismos distintos → Arranjo, não Combinação."},
+  {disciplina:"Conhecimentos Específicos",tema:"Kirchhoff",textoBase:null,enunciado:"Segundo a Lei de Kirchhoff das Correntes (LKC), em um nó de um circuito:",alts:{A:"a soma das tensões é igual a zero",B:"a soma das correntes que chegam é igual à soma das que saem",C:"a corrente é inversamente proporcional à resistência",D:"a tensão é diretamente proporcional à corrente",E:"a potência total é a soma das potências individuais"},gabarito:"B",explicacao:"✅ B — LKC (1ª Lei de Kirchhoff): soma das correntes que chegam a um nó = soma das que saem. (Conservação de carga)\n❌ A — Essa é a LKT (2ª Lei): soma das tensões em uma malha fechada = 0.\n❌ C, D — Descrevem a Lei de Ohm."},
+  {disciplina:"Informática",tema:"Nuvem — Cloud Computing",textoBase:null,enunciado:"O modelo de serviço em nuvem que fornece infraestrutura (servidores, armazenamento, rede) como serviço é denominado:",alts:{A:"SaaS — Software as a Service",B:"PaaS — Platform as a Service",C:"IaaS — Infrastructure as a Service",D:"DaaS — Desktop as a Service",E:"FaaS — Function as a Service"},gabarito:"C",explicacao:"✅ C — IaaS: fornece infraestrutura virtualizada (VMs, armazenamento, rede).\n❌ A — SaaS: software pronto para uso (ex: Gmail, Office 365).\n❌ B — PaaS: plataforma para desenvolver aplicações (ex: Google App Engine)."}
+];
+
+/* ============================================================
+   ESTADO — carrega e salva no localStorage
+   ============================================================ */
+let st = {}; // estado global
+
+function carregarEstado() {
+  st = {
+    apiKey:         localStorage.getItem('simulado_api_key') || '',
+    nivel:          parseInt(localStorage.getItem('simulado_nivel') || '1'),
+    historico:      JSON.parse(localStorage.getItem('simulado_historico') || '[]'),
+    temasVistos:    JSON.parse(localStorage.getItem('simulado_temas_vistos') || '[]'),
+    nivelHistorico: JSON.parse(localStorage.getItem('simulado_nivel_hist') || '[]')
+  };
+}
+
+function salvarEstado() {
+  localStorage.setItem('simulado_api_key',    st.apiKey);
+  localStorage.setItem('simulado_nivel',       String(st.nivel));
+  localStorage.setItem('simulado_historico',   JSON.stringify(st.historico));
+  localStorage.setItem('simulado_temas_vistos',JSON.stringify(st.temasVistos));
+  localStorage.setItem('simulado_nivel_hist',  JSON.stringify(st.nivelHistorico));
+}
+
+/* ============================================================
+   SESSÃO ATUAL (não persiste entre refreshes)
+   ============================================================ */
+let sessao = {
+  questoes:    [],  // 40 questões geradas
+  respostas:   [],  // respostas do usuário (letra ou null)
+  atual:       0,   // índice da questão atual
+  modoTreino:  false,
+  timerSeg:    0,
+  timerInt:    null,
+  correcaoFeita: false,
+  ultimoResultado: null  // {notas, totalAcertos}
+};
+
+/* ============================================================
+   NAVEGAÇÃO ENTRE TELAS
+   ============================================================ */
+const TELAS = ['tela-config','tela-dashboard','tela-loading','tela-simulado','tela-correcao','tela-plano'];
+
+function mostrarTela(id) {
+  TELAS.forEach(t => {
+    const el = document.getElementById(t);
+    if (el) el.classList.toggle('oculto', t !== id);
+  });
+}
+
+/* ============================================================
+   TELA CONFIG — chave API
+   ============================================================ */
+function irParaConfig() {
+  mostrarTela('tela-config');
+}
+
+function salvarChave() {
+  const val = document.getElementById('input-chave').value.trim();
+  if (!val.startsWith('sk-ant-')) {
+    alert('Chave inválida. Deve começar com sk-ant-');
+    return;
+  }
+  st.apiKey = val;
+  salvarEstado();
+  renderDashboard();
+  mostrarTela('tela-dashboard');
+}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+function renderDashboard() {
+  const nivel = NIVEIS[st.nivel - 1];
+
+  // Banner de nível
+  document.getElementById('dash-nivel-nome').textContent = nivel.nome;
+  document.getElementById('dash-nivel-num').textContent = `Nível ${st.nivel} de 5`;
+
+  // Barra de progresso baseada na última nota
+  const ultimaNota = ultimaNotaGeral();
+  const pct = st.nivel >= 5 ? 100 : Math.min(100, Math.round((ultimaNota / 80) * 100));
+  document.getElementById('dash-nivel-barra').style.width = pct + '%';
+
+  if (st.nivel >= 5) {
+    document.getElementById('dash-nivel-meta').textContent = '🎯 Nível máximo — estilo idêntico à prova real!';
+  } else {
+    document.getElementById('dash-nivel-meta').textContent =
+      ultimaNota > 0
+        ? `Sua última nota: ${ultimaNota}% — Atinja 80% para avançar de nível`
+        : 'Atinja 80% num simulado para avançar de nível';
+  }
+
+  // Último resultado por disciplina
+  renderGridNotas();
+
+  // Inicializa countdown
+  atualizarCountdown();
+}
+
+function ultimaNotaGeral() {
+  if (st.historico.length === 0) return 0;
+  return st.historico[st.historico.length - 1].totalPct || 0;
+}
+
+function renderGridNotas() {
+  const grid = document.getElementById('grid-notas');
+  const ultimo = st.historico.length > 0 ? st.historico[st.historico.length - 1] : null;
+
+  const discs = Object.keys(TEMAS_MAP);
+  grid.innerHTML = discs.map(d => {
+    const abrev = d.split(' ').slice(-1)[0]; // última palavra
+    const pct = ultimo && ultimo.notas[d] !== undefined ? ultimo.notas[d] : -1;
+    const cls = pct < 0 ? 'cinza' : pct >= 70 ? 'verde' : pct >= 50 ? 'amarelo' : 'vermelho';
+    const txt = pct < 0 ? '—' : pct + '%';
+    return `<div class="nota-card"><div class="nota-disc">${abrev}</div><div class="nota-pct ${cls}">${txt}</div></div>`;
+  }).join('');
+}
+
+/* ── Countdown até domingo 14h ── */
+let countdownInt = null;
+
+function atualizarCountdown() {
+  if (countdownInt) clearInterval(countdownInt);
+  countdownInt = setInterval(_tickCountdown, 1000);
+  _tickCountdown();
+}
+
+function _tickCountdown() {
+  const agora = new Date();
+  const liberado = simuladoLiberado();
+  const btnOficial = document.getElementById('btn-iniciar-oficial');
+  const timerEl = document.getElementById('countdown-timer');
+  const labelEl = document.getElementById('countdown-label');
+
+  if (liberado) {
+    timerEl.textContent = '✅ ABERTO';
+    timerEl.classList.add('liberado');
+    labelEl.textContent = 'Simulado disponível até as 17h';
+    if (btnOficial) btnOficial.disabled = false;
+  } else {
+    timerEl.classList.remove('liberado');
+    labelEl.textContent = 'Próximo simulado oficial';
+    if (btnOficial) btnOficial.disabled = !st.apiKey;
+
+    // Calcula próximo domingo 14h
+    const proximo = proximoDomingo14h();
+    const diff = proximo - agora;
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    timerEl.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+}
+
+function simuladoLiberado() {
+  const agora = new Date();
+  return agora.getDay() === 0 && agora.getHours() >= 14 && agora.getHours() < 17;
+}
+
+function proximoDomingo14h() {
+  const agora = new Date();
+  const diasAteDom = (7 - agora.getDay()) % 7 || 7;
+  const d = new Date(agora);
+  d.setDate(d.getDate() + diasAteDom);
+  d.setHours(14, 0, 0, 0);
+  if (d <= agora) d.setDate(d.getDate() + 7);
+  return d;
+}
+
+/* ============================================================
+   INICIAR SIMULADO — gera questões via API ou fallback
+   ============================================================ */
+async function iniciarSimulado(modoTreino) {
+  sessao.modoTreino = modoTreino;
+
+  // Verifica chave
+  if (!st.apiKey && !modoTreino) {
+    alert('Configure sua chave API primeiro.');
+    irParaConfig();
+    return;
+  }
+
+  mostrarTela('tela-loading');
+  document.getElementById('loading-erro').classList.add('oculto');
+
+  // Tenta gerar via API
+  if (st.apiKey) {
+    try {
+      document.getElementById('loading-txt').textContent = 'Gerando 40 questões inéditas com IA...';
+      document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome}`;
+      const questoes = await gerarQuestoesAPI();
+      comecarSimulado(questoes, modoTreino);
+    } catch (e) {
+      console.error('Erro API:', e);
+      // Fallback
+      document.getElementById('loading-txt').textContent = 'API indisponível — usando banco offline...';
+      document.getElementById('loading-sub').textContent = 'As questões podem se repetir';
+      const errEl = document.getElementById('loading-erro');
+      errEl.classList.remove('oculto');
+      errEl.textContent = `Erro: ${e.message || e}`;
+      setTimeout(() => comecarSimulado(sorteiarFallback(), modoTreino), 2000);
+    }
+  } else {
+    // Sem chave: usa fallback
+    document.getElementById('loading-txt').textContent = 'Carregando banco de questões offline...';
+    document.getElementById('loading-sub').textContent = 'Configure a API para questões sempre novas';
+    setTimeout(() => comecarSimulado(sorteiarFallback(), modoTreino), 800);
+  }
+}
+
+/* ── Gera questões via Claude API ── */
+async function gerarQuestoesAPI() {
+  const nivel = NIVEIS[st.nivel - 1];
+  const temasRecentes = st.temasVistos.slice(-60); // evita repetir temas recentes
+
+  const prompt = `Você é um especialista em concursos públicos brasileiros, especializado na banca CESGRANRIO.
+
+Gere exatamente 40 questões de múltipla escolha para um simulado de concurso nível médio.
+
+Distribuição OBRIGATÓRIA:
+- Língua Portuguesa: 12 questões
+- Matemática: 8 questões
+- Informática: 6 questões
+- Raciocínio Lógico: 6 questões
+- Conhecimentos Específicos (Elétrica/Técnico): 8 questões
+
+${temasRecentes.length > 0 ? `Evite repetir estes temas usados recentemente: ${temasRecentes.join(', ')}.` : ''}
+
+Inclua obrigatoriamente pelo menos 2 questões sobre temas contemporâneos como: IA generativa, LGPD, nova NR-1 (revisada em 2025).
+
+Nível de dificuldade — ${nivel.nome}: ${nivel.prompt}
+
+Retorne SOMENTE um array JSON válido. Sem texto antes ou depois. Sem markdown. Sem \`\`\`json.
+Cada objeto deve ter EXATAMENTE estes campos:
+{
+  "disciplina": "nome da disciplina",
+  "tema": "tema específico da questão",
+  "textoBase": null ou "texto de apoio se houver (obrigatório para questões de interpretação de texto)",
+  "enunciado": "enunciado completo da questão",
+  "alts": {"A": "...", "B": "...", "C": "...", "D": "...", "E": "..."},
+  "gabarito": "letra correta (A, B, C, D ou E)",
+  "explicacao": "explicação completa indicando por que cada alternativa está certa ou errada"
+}`;
+
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': st.apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 16000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+
+  if (!resp.ok) {
+    const txt = await resp.text();
+    throw new Error(`HTTP ${resp.status}: ${txt.slice(0, 200)}`);
+  }
+
+  const data = await resp.json();
+  let texto = data.content[0].text.trim();
+
+  // Remove marcadores markdown se presentes
+  texto = texto.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '').trim();
+
+  // Encontra o início do array JSON
+  const inicio = texto.indexOf('[');
+  const fim = texto.lastIndexOf(']');
+  if (inicio === -1 || fim === -1) throw new Error('Resposta da API não contém JSON válido.');
+  texto = texto.slice(inicio, fim + 1);
+
+  const questoes = JSON.parse(texto);
+  if (!Array.isArray(questoes) || questoes.length === 0) throw new Error('Array de questões vazio.');
+
+  return questoes;
+}
+
+/* ── Sorteia 40 questões do banco fallback ── */
+function sorteiarFallback() {
+  const copia = [...BANCO_FALLBACK];
+  // Embaralha
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia.slice(0, 40);
+}
+
+/* ── Começa o simulado com as questões geradas ── */
+function comecarSimulado(questoes, modoTreino) {
+  // Registra temas vistos
+  questoes.forEach(q => {
+    if (q.tema && !st.temasVistos.includes(q.tema)) {
+      st.temasVistos.push(q.tema);
+    }
+  });
+  salvarEstado();
+
+  sessao.questoes  = questoes;
+  sessao.respostas = new Array(questoes.length).fill(null);
+  sessao.atual     = 0;
+  sessao.modoTreino = modoTreino;
+
+  // Timer: segundos do nível atual
+  sessao.timerSeg = NIVEIS[st.nivel - 1].timer;
+
+  mostrarTela('tela-simulado');
+  document.getElementById('aviso-treino').classList.toggle('oculto', !modoTreino);
+
+  renderQuestao();
+  iniciarTimer();
+}
+
+/* ============================================================
+   TIMER
+   ============================================================ */
+function iniciarTimer() {
+  if (sessao.timerInt) clearInterval(sessao.timerInt);
+  sessao.timerInt = setInterval(() => {
+    sessao.timerSeg--;
+    atualizarTimerDisplay();
+    if (sessao.timerSeg <= 0) {
+      clearInterval(sessao.timerInt);
+      encerrarSimulado();
+    }
+  }, 1000);
+  atualizarTimerDisplay();
+}
+
+function atualizarTimerDisplay() {
+  const h = Math.floor(sessao.timerSeg / 3600);
+  const m = Math.floor((sessao.timerSeg % 3600) / 60);
+  const s = sessao.timerSeg % 60;
+  const txt = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const el = document.getElementById('timer-display');
+  el.textContent = txt;
+  el.classList.toggle('urgente', sessao.timerSeg <= 300); // vermelho nos últimos 5 min
+}
+
+/* ============================================================
+   FLUXO DO SIMULADO — renderizar questão
+   ============================================================ */
+function renderQuestao() {
+  const q = sessao.questoes[sessao.atual];
+  const i = sessao.atual;
+  const total = sessao.questoes.length;
+
+  // Progresso
+  document.getElementById('prog-txt').textContent = `${i + 1} / ${total}`;
+  document.getElementById('prog-fill').style.width = ((i + 1) / total * 100) + '%';
+
+  // Disciplina e número
+  document.getElementById('q-disciplina').textContent = q.disciplina;
+  document.getElementById('q-num').textContent = `Questão ${i + 1} de ${total} — ${q.tema}`;
+
+  // Texto base
+  const tbEl = document.getElementById('q-textbase');
+  if (q.textoBase) {
+    tbEl.textContent = q.textoBase;
+    tbEl.classList.remove('oculto');
+  } else {
+    tbEl.classList.add('oculto');
+  }
+
+  // Enunciado
+  document.getElementById('q-enunciado').textContent = q.enunciado;
+
+  // Alternativas
+  const altsEl = document.getElementById('alts');
+  altsEl.innerHTML = '';
+  ['A','B','C','D','E'].forEach(letra => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-alt' + (sessao.respostas[i] === letra ? ' sel' : '');
+    btn.innerHTML = `<span class="alt-letra">${letra}</span><span>${q.alts[letra]}</span>`;
+    btn.onclick = () => selecionarAlternativa(letra);
+    altsEl.appendChild(btn);
+  });
+
+  // Botão próxima
+  const btnProx = document.getElementById('btn-proxima');
+  const naUltima = i === total - 1;
+  btnProx.textContent = naUltima ? 'Encerrar ▸' : 'Próxima →';
+  btnProx.disabled = sessao.respostas[i] === null;
+}
+
+function selecionarAlternativa(letra) {
+  sessao.respostas[sessao.atual] = letra;
+  // Atualiza visual
+  document.querySelectorAll('.btn-alt').forEach((btn, idx) => {
+    btn.classList.toggle('sel', idx === 'ABCDE'.indexOf(letra));
+  });
+  document.getElementById('btn-proxima').disabled = false;
+}
+
+function proximaQuestao() {
+  if (sessao.atual < sessao.questoes.length - 1) {
+    sessao.atual++;
+    renderQuestao();
+    window.scrollTo(0, 0);
+  } else {
+    encerrarSimulado();
+  }
+}
+
+/* ============================================================
+   ENCERRAR SIMULADO
+   ============================================================ */
+function confirmarEncerrar() {
+  const respondidas = sessao.respostas.filter(r => r !== null).length;
+  document.getElementById('modal-respondidas').textContent = respondidas;
+  document.getElementById('modal-encerrar').classList.remove('oculto');
+}
+
+function fecharModal() {
+  document.getElementById('modal-encerrar').classList.add('oculto');
+}
+
+function encerrarSimulado() {
+  fecharModal();
+  if (sessao.timerInt) clearInterval(sessao.timerInt);
+  calcularCorrecao();
+  mostrarTela('tela-correcao');
+}
+
+/* ============================================================
+   CORREÇÃO
+   ============================================================ */
+function calcularCorrecao() {
+  const questoes  = sessao.questoes;
+  const respostas = sessao.respostas;
+
+  // Conta acertos por disciplina
+  const discMap = {};
+  questoes.forEach((q, i) => {
+    const d = q.disciplina;
+    if (!discMap[d]) discMap[d] = { total: 0, acertos: 0, erradas: [] };
+    discMap[d].total++;
+    if (respostas[i] === q.gabarito) {
+      discMap[d].acertos++;
+    } else {
+      discMap[d].erradas.push({ idx: i, resposta: respostas[i] });
+    }
+  });
+
+  const totalAcertos = questoes.filter((q, i) => respostas[i] === q.gabarito).length;
+  const totalPct = Math.round(totalAcertos / questoes.length * 100);
+
+  // Notas por disciplina em %
+  const notas = {};
+  Object.entries(discMap).forEach(([d, v]) => {
+    notas[d] = Math.round(v.acertos / v.total * 100);
+  });
+
+  sessao.ultimoResultado = { discMap, totalAcertos, totalPct, notas };
+
+  // Salva questões erradas no banco do Show do Saber
+  salvarErrosNoSDS(questoes, respostas);
+
+  // Salva no histórico (só se não for modo treino)
+  if (!sessao.modoTreino) {
+    const entrada = {
+      data: new Date().toLocaleDateString('pt-BR'),
+      nivel: st.nivel,
+      totalAcertos,
+      totalPct,
+      notas,
+      modo: 'oficial'
+    };
+    st.historico.push(entrada);
+    salvarEstado();
+  }
+
+  renderCorrecao();
+}
+
+function renderCorrecao() {
+  const { discMap, totalAcertos, totalPct, notas } = sessao.ultimoResultado;
+  const total = sessao.questoes.length;
+
+  // Nota geral
+  document.getElementById('nota-geral-txt').textContent = `${totalAcertos} / ${total}`;
+  const cls = totalPct >= 70 ? 'verde' : totalPct >= 50 ? 'amarelo' : 'vermelho';
+  document.getElementById('nota-geral-txt').className = 'nota-geral ' + cls;
+  document.getElementById('nota-geral-sub').textContent =
+    `${totalPct}% de aproveitamento${sessao.modoTreino ? ' (Modo Treino)' : ''}`;
+
+  // Banner de nível up
+  const nivelUpBox = document.getElementById('nivel-up-box');
+  if (!sessao.modoTreino && totalPct >= 80 && st.nivel < 5) {
+    const proximo = NIVEIS[st.nivel]; // índice nivel, que é nivel+1-1 = nivel
+    document.getElementById('nivel-up-sub').textContent =
+      `Avance para o Nível ${st.nivel + 1} — ${proximo.nome}`;
+    document.getElementById('nivel-up-novo').textContent = st.nivel + 1;
+    nivelUpBox.classList.remove('oculto');
+  } else {
+    nivelUpBox.classList.add('oculto');
+  }
+
+  // Tabela de disciplinas
+  const tbody = document.getElementById('tabela-discs-body');
+  tbody.innerHTML = Object.entries(discMap).map(([d, v]) => {
+    const pct = Math.round(v.acertos / v.total * 100);
+    const cls = pct >= 70 ? 'barra-verde' : pct >= 50 ? 'barra-amarelo' : 'barra-vermelho';
+    const corTxt = pct >= 70 ? '#4ade80' : pct >= 50 ? '#FFD700' : '#f87171';
+    return `<tr>
+      <td>${d}</td>
+      <td>${v.acertos}/${v.total}</td>
+      <td style="color:${corTxt};font-weight:bold">${pct}%</td>
+      <td><div class="barra-d"><div class="barra-d-fill ${cls}" style="width:${pct}%"></div></div></td>
+    </tr>`;
+  }).join('');
+
+  // Lista de revisão
+  const lista = document.getElementById('lista-revisao');
+  lista.innerHTML = sessao.questoes.map((q, i) => {
+    const resp = sessao.respostas[i];
+    const acertou = resp === q.gabarito;
+    return `
+    <div class="q-rev">
+      <div class="qr-topo" onclick="toggleRevisao(${i})">
+        <div class="qr-status ${acertou ? 'ok' : 'err'}">${acertou ? '✓' : '✗'}</div>
+        <div class="qr-txt">${i+1}. ${q.enunciado.slice(0, 80)}${q.enunciado.length > 80 ? '...' : ''}</div>
+        <div class="qr-seta" id="seta-${i}">▶</div>
+      </div>
+      <div class="qr-corpo" id="corpo-${i}">
+        ${resp ? `<div class="qr-resp ${acertou?'certa':'errada'}">Sua resposta: ${resp} — ${q.alts[resp]}</div>` : '<div class="qr-resp errada">Não respondida</div>'}
+        ${!acertou ? `<div class="qr-resp certa">Gabarito: ${q.gabarito} — ${q.alts[q.gabarito]}</div>` : ''}
+        <div class="qr-exp">${q.explicacao || ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleRevisao(i) {
+  const corpo = document.getElementById(`corpo-${i}`);
+  const seta  = document.getElementById(`seta-${i}`);
+  const aberto = corpo.classList.toggle('vis');
+  seta.classList.toggle('aberta', aberto);
+}
+
+/* ── Sobe de nível ── */
+function confirmarNivelUp() {
+  const entrada = {
+    data: new Date().toLocaleDateString('pt-BR'),
+    nivelAntes: st.nivel,
+    nivelDepois: st.nivel + 1,
+    nota: sessao.ultimoResultado.totalPct
+  };
+  st.nivelHistorico.push(entrada);
+  st.nivel = Math.min(5, st.nivel + 1);
+  salvarEstado();
+  document.getElementById('nivel-up-box').classList.add('oculto');
+  alert(`🎯 Parabéns! Você avançou para o Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome}`);
+}
+
+/* ── Salva questões erradas para o Show do Saber ── */
+function salvarErrosNoSDS(questoes, respostas) {
+  const erradas = questoes
+    .map((q, i) => ({ q, resp: respostas[i] }))
+    .filter(({ q, resp }) => resp !== q.gabarito);
+
+  if (erradas.length === 0) return;
+
+  // Formato compatível com o banco do index.html
+  const extras = erradas.map(({ q, resp }, idx) => ({
+    id: Date.now() + idx,
+    disciplina: q.disciplina,
+    tema: q.tema,
+    assunto: q.tema,
+    outrosAssuntos: [],
+    textoBase: q.textoBase || null,
+    enunciado: q.enunciado,
+    alts: q.alts,
+    gabarito: q.gabarito,
+    dica1: {
+      area: q.disciplina,
+      materia: q.tema,
+      raciocinio: `Você errou esta questão no simulado. Sua resposta foi ${resp || 'nenhuma'}. Revise o tema e tente novamente com atenção.`
+    },
+    dica2: q.explicacao || 'Revise o tema desta questão.',
+    explicacao: q.explicacao || ''
+  }));
+
+  // Mescla com extras já existentes (evita duplicatas por id)
+  const existentes = JSON.parse(localStorage.getItem('sds_extras') || '[]');
+  const idsExist = new Set(existentes.map(e => e.id));
+  const novos = extras.filter(e => !idsExist.has(e.id));
+  localStorage.setItem('sds_extras', JSON.stringify([...existentes, ...novos]));
+}
+
+/* ============================================================
+   PLANO DE ESTUDOS
+   ============================================================ */
+function irParaPlano() {
+  trocarTab('plano');
+  mostrarTela('tela-plano');
+  gerarPlano();
+}
+
+function gerarPlano() {
+  const res = sessao.ultimoResultado;
+  if (!res) {
+    // Sem resultado: mostra plano genérico baseado em histórico
+    document.getElementById('plano-conteudo').innerHTML =
+      '<div class="sem-dados">Complete um simulado para gerar seu plano personalizado.</div>';
+    return;
+  }
+
+  // Ordena disciplinas do pior para o melhor
+  const discs = Object.entries(res.notas).sort((a, b) => a[1] - b[1]);
+  const focos = discs.slice(0, 3); // 3 disciplinas mais fracas
+
+  let html = '<div class="plano-card">';
+  html += '<div class="plano-card-titulo">🎯 Focos da Semana — baseado nos seus erros</div>';
+
+  focos.forEach(([disc, pct], idx) => {
+    const mapa = TEMAS_MAP[disc] || { criticos: [], importantes: [], complementares: [] };
+    const topicos = [...mapa.criticos.slice(0,2), ...mapa.importantes.slice(0,1)].join(', ');
+    const classes = ['f1','f2','f3'];
+    html += `
+    <div class="foco-item">
+      <div class="foco-num ${classes[idx]}">${idx+1}</div>
+      <div class="foco-cont">
+        <h4>${disc} — ${pct}% de acerto</h4>
+        <p>Tópicos prioritários: ${topicos}</p>
+      </div>
+    </div>`;
+  });
+
+  html += '</div>';
+
+  // Distribuição semanal
+  const dias = [
+    { nome: 'Segunda', conteudo: '' },
+    { nome: 'Terça', conteudo: '' },
+    { nome: 'Quarta', conteudo: '' },
+    { nome: 'Quinta', conteudo: '' },
+    { nome: 'Sexta', conteudo: '' },
+    { nome: 'Sábado', conteudo: '' }
+  ];
+
+  // Distribui focos + revisão geral
+  const sugestoes = [
+    `${focos[0]?.[0] || 'Estudo'} — teoria`,
+    `${focos[0]?.[0] || 'Estudo'} — exercícios`,
+    `${focos[1]?.[0] || 'Revisão'} — teoria`,
+    `${focos[1]?.[0] || 'Revisão'} — exercícios`,
+    `${focos[2]?.[0] || 'Geral'} + revisão`,
+    'Revisão geral + Show do Saber'
+  ];
+
+  dias.forEach((d, i) => { d.conteudo = sugestoes[i] || 'Revisão livre'; });
+
+  html += '<div class="plano-card"><div class="plano-card-titulo">📅 Distribuição Semanal Sugerida</div>';
+  html += '<div class="semana-grid">';
+  dias.forEach(d => {
+    html += `<div class="dia-card"><div class="dia-nome">${d.nome}</div><div class="dia-cont">${d.conteudo}</div></div>`;
+  });
+  html += '</div></div>';
+
+  document.getElementById('plano-conteudo').innerHTML = html;
+}
+
+/* ============================================================
+   HISTÓRICO
+   ============================================================ */
+function renderHistorico() {
+  const lista = document.getElementById('lista-historico');
+
+  if (st.historico.length === 0) {
+    lista.innerHTML = '<div class="sem-dados">Nenhum simulado oficial realizado ainda.<br>O Modo Treino não conta para o histórico.</div>';
+    renderGrafico([]);
+    return;
+  }
+
+  // Lista reversa (mais recente primeiro)
+  const hist = [...st.historico].reverse();
+  lista.innerHTML = hist.map(h => {
+    const cls = h.totalPct >= 70 ? 'verde' : h.totalPct >= 50 ? 'amarelo' : 'vermelho';
+    const tags = Object.entries(h.notas || {}).map(([d, p]) => {
+      const ok = p >= 70;
+      const abrev = d.split(' ').slice(-1)[0];
+      return `<span class="disc-tag ${ok?'ok':'nok'}">${abrev} ${p}%</span>`;
+    }).join('');
+    return `
+    <div class="hist-item">
+      <div class="hist-data">${h.data}</div>
+      <div class="hist-nota-txt ${cls}">${h.totalPct}%</div>
+      <div class="hist-discs">${tags}</div>
+      <div class="hist-nivel-tag">N${h.nivel}</div>
+    </div>`;
+  }).join('');
+
+  renderGrafico(st.historico);
+}
+
+let chartInstance = null;
+
+function renderGrafico(historico) {
+  const canvas = document.getElementById('grafico-evolucao');
+  const semDados = document.getElementById('sem-dados-grafico');
+
+  if (historico.length === 0) {
+    canvas.style.display = 'none';
+    semDados.classList.remove('oculto');
+    return;
+  }
+
+  canvas.style.display = '';
+  semDados.classList.add('oculto');
+
+  const labels = historico.map(h => h.data);
+  const data   = historico.map(h => h.totalPct);
+
+  if (chartInstance) chartInstance.destroy();
+
+  chartInstance = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Nota geral (%)',
+        data,
+        borderColor: '#FFD700',
+        backgroundColor: 'rgba(255,215,0,.1)',
+        tension: 0.3,
+        pointBackgroundColor: data.map(v => v >= 70 ? '#4ade80' : v >= 50 ? '#FFD700' : '#f87171'),
+        pointRadius: 5
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: '#666' } } },
+      scales: {
+        x: { ticks: { color: '#555' }, grid: { color: '#1a1a3a' } },
+        y: { min: 0, max: 100, ticks: { color: '#555' }, grid: { color: '#1a1a3a' } }
+      }
+    }
+  });
+}
+
+function limparHistorico() {
+  if (!confirm('Apagar todo o histórico? Esta ação não pode ser desfeita.')) return;
+  st.historico = [];
+  salvarEstado();
+  renderHistorico();
+}
+
+/* ============================================================
+   TABS DA TELA PLANO
+   ============================================================ */
+function trocarTab(tab) {
+  const plano = document.getElementById('aba-plano');
+  const hist  = document.getElementById('aba-historico');
+  const btnP  = document.getElementById('tab-plano-btn');
+  const btnH  = document.getElementById('tab-hist-btn');
+
+  if (tab === 'plano') {
+    plano.classList.remove('oculto');
+    hist.classList.add('oculto');
+    btnP.classList.add('ativo');
+    btnH.classList.remove('ativo');
+  } else {
+    plano.classList.add('oculto');
+    hist.classList.remove('oculto');
+    btnP.classList.remove('ativo');
+    btnH.classList.add('ativo');
+    renderHistorico();
+  }
+}
+
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
+function init() {
+  carregarEstado();
+
+  if (!st.apiKey) {
+    mostrarTela('tela-config');
+  } else {
+    renderDashboard();
+    mostrarTela('tela-dashboard');
+  }
+}
+
+init();
+</script>
+</body>
+</html>
