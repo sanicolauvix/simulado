@@ -212,6 +212,32 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 .sem-dados{text-align:center;color:#333;padding:40px 20px;font-size:14px;}
 .hist-btns{display:flex;justify-content:flex-end;margin-bottom:16px;}
 
+/* BANCO STATUS */
+.banco-status{background:#0d0d25;border:1px solid #1a1a5a;border-radius:12px;
+  padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.banco-num{font-size:26px;font-weight:bold;color:#FFD700;}
+.banco-info{flex:1;}
+.banco-info-titulo{font-size:12px;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.banco-info-sub{font-size:13px;color:#888;}
+.banco-btns{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* TELA IMPORTAR */
+.imp-secao{background:#0d0d25;border:1px solid #1a1a5a;border-radius:14px;padding:20px;margin-bottom:16px;}
+.imp-titulo{font-size:11px;color:#FFD700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+.imp-tabs{display:flex;gap:4px;background:#06061a;border-radius:8px;padding:3px;margin-bottom:14px;}
+.imp-tab{flex:1;padding:8px;border:none;background:none;color:#555;font-size:13px;cursor:pointer;border-radius:6px;transition:all .2s;}
+.imp-tab.ativo{background:rgba(255,215,0,.1);color:#FFD700;font-weight:bold;}
+.area-texto{width:100%;background:#06061a;border:2px solid #1a1a5a;border-radius:10px;
+  padding:14px;color:#ccc;font-size:13px;line-height:1.6;resize:vertical;outline:none;
+  min-height:160px;font-family:'Segoe UI',sans-serif;transition:border-color .2s;}
+.area-texto:focus{border-color:#FFD700;}
+.imp-hint{font-size:12px;color:#444;margin-top:8px;line-height:1.6;}
+.preview-questao{background:rgba(255,255,255,.02);border:1px solid #1a1a5a;border-radius:10px;
+  padding:14px;margin-bottom:8px;}
+.preview-q-disc{font-size:11px;color:#FFD700;margin-bottom:4px;}
+.preview-q-txt{font-size:13px;color:#bbb;line-height:1.5;}
+.preview-q-gab{font-size:12px;color:#4ade80;margin-top:6px;}
+
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;
   display:flex;align-items:center;justify-content:center;padding:20px;}
@@ -273,6 +299,19 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
     <div class="countdown-box fade">
       <div class="countdown-label" id="countdown-label">Próximo simulado oficial</div>
       <div class="countdown-timer" id="countdown-timer">--:--:--</div>
+    </div>
+
+    <!-- Status do banco local -->
+    <div class="banco-status fade">
+      <div class="banco-num" id="banco-num">—</div>
+      <div class="banco-info">
+        <div class="banco-info-titulo">Questões no banco local</div>
+        <div class="banco-info-sub" id="banco-sub">Carregando...</div>
+      </div>
+      <div class="banco-btns">
+        <button class="btn btn-ghost" style="padding:8px 14px;font-size:12px;" onclick="mostrarTela('tela-importar')">📥 Importar PDF</button>
+        <button class="btn btn-ghost" style="padding:8px 14px;font-size:12px;" onclick="resetarDominadas()">🔄 Resetar</button>
+      </div>
     </div>
 
     <!-- Botões -->
@@ -412,6 +451,85 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
         <div id="sem-dados-grafico" class="sem-dados oculto">Nenhum simulado registrado ainda.</div>
       </div>
       <div id="lista-historico"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ TELA IMPORTAR PDF ══ -->
+<div id="tela-importar" class="oculto">
+  <div class="container fade">
+
+    <div class="imp-secao">
+      <div class="imp-titulo">📥 Importar questões de prova</div>
+      <p style="font-size:13px;color:#666;margin-bottom:16px;line-height:1.6;">
+        Cole o texto de uma prova da CESGRANRIO (copiado do PDF) ou faça upload do arquivo.
+        A IA vai extrair as questões e adicionar ao seu banco de treino.
+      </p>
+
+      <!-- Tabs: colar texto / upload arquivo -->
+      <div class="imp-tabs">
+        <button class="imp-tab ativo" id="imp-tab-texto" onclick="trocarImpTab('texto')">✏️ Colar texto</button>
+        <button class="imp-tab" id="imp-tab-arquivo" onclick="trocarImpTab('arquivo')">📄 Upload PDF</button>
+      </div>
+
+      <!-- Painel: colar texto -->
+      <div id="imp-painel-texto">
+        <textarea id="imp-textarea" class="area-texto"
+          placeholder="Cole aqui o texto da prova (Ctrl+A, Ctrl+C no PDF aberto no navegador)..."></textarea>
+        <div class="imp-hint">
+          Dica: Abra o PDF no Chrome/Edge, pressione <strong>Ctrl+A</strong> para selecionar tudo e <strong>Ctrl+C</strong> para copiar. Depois cole aqui.
+        </div>
+      </div>
+
+      <!-- Painel: upload arquivo -->
+      <div id="imp-painel-arquivo" class="oculto">
+        <label style="display:block;background:#06061a;border:2px dashed #2a2a5a;border-radius:10px;
+          padding:30px;text-align:center;cursor:pointer;transition:border-color .2s;"
+          onmouseover="this.style.borderColor='#FFD700'" onmouseout="this.style.borderColor='#2a2a5a'">
+          <div style="font-size:32px;margin-bottom:8px;">📄</div>
+          <div style="color:#888;font-size:14px;">Clique para selecionar o arquivo PDF</div>
+          <div style="color:#444;font-size:12px;margin-top:4px;">Funciona melhor com PDFs de texto (não escaneados)</div>
+          <input type="file" id="imp-file-input" accept=".pdf,.txt" style="display:none" onchange="lerArquivo(this)">
+        </label>
+        <div id="imp-arquivo-status" style="font-size:13px;color:#888;margin-top:10px;text-align:center;"></div>
+      </div>
+    </div>
+
+    <!-- Botão extrair -->
+    <div style="text-align:center;margin-bottom:20px;">
+      <button class="btn btn-ouro btn-lg" id="btn-extrair" onclick="extrairQuestoes()">
+        🤖 Extrair questões com IA
+      </button>
+      <div style="font-size:12px;color:#444;margin-top:8px;">
+        Usa sua chave API. Cada extração custa ~$0,02–0,05.
+      </div>
+    </div>
+
+    <!-- Preview das questões extraídas -->
+    <div id="imp-preview" class="oculto">
+      <div class="imp-secao">
+        <div class="imp-titulo">Questões extraídas — revise antes de adicionar</div>
+        <div id="imp-preview-lista"></div>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;">
+          <button class="btn btn-ouro" onclick="adicionarAoBanco()">
+            ✅ Adicionar ao banco (<span id="imp-count">0</span> questões)
+          </button>
+          <button class="btn btn-ghost" onclick="document.getElementById('imp-preview').classList.add('oculto')">
+            Descartar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Questões já no banco -->
+    <div class="imp-secao">
+      <div class="imp-titulo">Banco atual</div>
+      <div id="imp-banco-lista" style="font-size:13px;color:#666;"></div>
+    </div>
+
+    <div style="text-align:center;">
+      <button class="btn btn-ghost" onclick="mostrarTela('tela-dashboard')">← Voltar</button>
     </div>
 
   </div>
@@ -571,15 +689,74 @@ let sessao = {
 };
 
 /* ============================================================
+   BANCO LOCAL — helpers para questões fixas + dominadas
+   ============================================================ */
+
+// Identificador estável de uma questão (primeiros 80 chars do enunciado)
+function idQ(q) {
+  return (q.enunciado || '').trim().slice(0, 80);
+}
+
+// Carrega banco completo: fallback + PDFs importados + erros do simulado
+function carregarBancoLocal() {
+  const pdf    = JSON.parse(localStorage.getItem('simulado_banco_pdf') || '[]');
+  const extras = JSON.parse(localStorage.getItem('sds_extras') || '[]');
+  const todos  = [...BANCO_FALLBACK, ...pdf, ...extras];
+  // Remove duplicatas pelo enunciado
+  const visto = new Set();
+  return todos.filter(q => {
+    const k = idQ(q);
+    if (visto.has(k)) return false;
+    visto.add(k);
+    return true;
+  });
+}
+
+// Conjunto de questões já respondidas corretamente no Modo Treino
+function carregarDominadas() {
+  return new Set(JSON.parse(localStorage.getItem('simulado_dominadas') || '[]'));
+}
+
+// Marca as questões respondidas corretamente como dominadas
+function marcarDominadas(questoes, respostas) {
+  const dominadas = carregarDominadas();
+  questoes.forEach((q, i) => {
+    if (respostas[i] === q.gabarito) dominadas.add(idQ(q));
+  });
+  localStorage.setItem('simulado_dominadas', JSON.stringify([...dominadas]));
+}
+
+// Reseta questões dominadas (permite revisar tudo de novo)
+function resetarDominadas() {
+  const dominadas = carregarDominadas();
+  if (dominadas.size === 0) { alert('Nenhuma questão dominada ainda.'); return; }
+  if (!confirm(`Resetar ${dominadas.size} questões dominadas? Elas voltarão ao Modo Treino.`)) return;
+  localStorage.removeItem('simulado_dominadas');
+  renderBancoStatus();
+}
+
+// Atualiza o card de status do banco no dashboard
+function renderBancoStatus() {
+  const banco     = carregarBancoLocal();
+  const dominadas = carregarDominadas();
+  const disponiveis = banco.filter(q => !dominadas.has(idQ(q))).length;
+  document.getElementById('banco-num').textContent = disponiveis;
+  document.getElementById('banco-sub').textContent =
+    `${banco.length} total · ${dominadas.size} dominadas · ${disponiveis} disponíveis para treino`;
+}
+
+/* ============================================================
    NAVEGAÇÃO ENTRE TELAS
    ============================================================ */
-const TELAS = ['tela-config','tela-dashboard','tela-loading','tela-simulado','tela-correcao','tela-plano'];
+const TELAS = ['tela-config','tela-dashboard','tela-loading','tela-simulado','tela-correcao','tela-plano','tela-importar'];
 
 function mostrarTela(id) {
   TELAS.forEach(t => {
     const el = document.getElementById(t);
     if (el) el.classList.toggle('oculto', t !== id);
   });
+  // Ao abrir a tela de importar, atualiza o resumo do banco
+  if (id === 'tela-importar') renderImpBancoInfo();
 }
 
 /* ============================================================
@@ -630,6 +807,8 @@ function renderDashboard() {
 
   // Inicializa countdown
   atualizarCountdown();
+  // Atualiza status do banco
+  renderBancoStatus();
 }
 
 function ultimaNotaGeral() {
@@ -708,8 +887,38 @@ function proximoDomingo14h() {
 async function iniciarSimulado(modoTreino) {
   sessao.modoTreino = modoTreino;
 
-  // Verifica chave
-  if (!st.apiKey && !modoTreino) {
+  // ── MODO TREINO: usa banco local, exclui questões dominadas ──
+  if (modoTreino) {
+    const banco     = carregarBancoLocal();
+    const dominadas = carregarDominadas();
+    const disponiveis = banco.filter(q => !dominadas.has(idQ(q)));
+
+    if (disponiveis.length === 0) {
+      const ok = confirm(
+        `Parabéns! Você já dominou todas as ${banco.length} questões do banco.\n\n` +
+        `Resetar para treinar tudo de novo?`
+      );
+      if (ok) {
+        localStorage.removeItem('simulado_dominadas');
+        iniciarSimulado(true);
+      }
+      return;
+    }
+
+    // Embaralha e pega até 40
+    const pool = [...disponiveis].sort(() => Math.random() - 0.5).slice(0, 40);
+
+    mostrarTela('tela-loading');
+    document.getElementById('loading-erro').classList.add('oculto');
+    document.getElementById('loading-txt').textContent = 'Preparando seu treino...';
+    document.getElementById('loading-sub').textContent =
+      `${disponiveis.length} questões disponíveis · ${dominadas.size} já dominadas`;
+    setTimeout(() => comecarSimulado(pool, true), 600);
+    return;
+  }
+
+  // ── SIMULADO OFICIAL: gera questões novas via API ──
+  if (!st.apiKey) {
     alert('Configure sua chave API primeiro.');
     irParaConfig();
     return;
@@ -718,28 +927,19 @@ async function iniciarSimulado(modoTreino) {
   mostrarTela('tela-loading');
   document.getElementById('loading-erro').classList.add('oculto');
 
-  // Tenta gerar via API
-  if (st.apiKey) {
-    try {
-      document.getElementById('loading-txt').textContent = 'Gerando 40 questões inéditas com IA...';
-      document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome}`;
-      const questoes = await gerarQuestoesAPI();
-      comecarSimulado(questoes, modoTreino);
-    } catch (e) {
-      console.error('Erro API:', e);
-      // Fallback
-      document.getElementById('loading-txt').textContent = 'API indisponível — usando banco offline...';
-      document.getElementById('loading-sub').textContent = 'As questões podem se repetir';
-      const errEl = document.getElementById('loading-erro');
-      errEl.classList.remove('oculto');
-      errEl.textContent = `Erro: ${e.message || e}`;
-      setTimeout(() => comecarSimulado(sorteiarFallback(), modoTreino), 2000);
-    }
-  } else {
-    // Sem chave: usa fallback
-    document.getElementById('loading-txt').textContent = 'Carregando banco de questões offline...';
-    document.getElementById('loading-sub').textContent = 'Configure a API para questões sempre novas';
-    setTimeout(() => comecarSimulado(sorteiarFallback(), modoTreino), 800);
+  try {
+    document.getElementById('loading-txt').textContent = 'Gerando 40 questões inéditas com IA...';
+    document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome}`;
+    const questoes = await gerarQuestoesAPI();
+    comecarSimulado(questoes, false);
+  } catch (e) {
+    console.error('Erro API:', e);
+    document.getElementById('loading-txt').textContent = 'API indisponível — usando banco offline...';
+    document.getElementById('loading-sub').textContent = 'As questões podem se repetir';
+    const errEl = document.getElementById('loading-erro');
+    errEl.classList.remove('oculto');
+    errEl.textContent = `Erro: ${e.message || e}`;
+    setTimeout(() => comecarSimulado(sorteiarFallback(), false), 2000);
   }
 }
 
@@ -995,6 +1195,12 @@ function calcularCorrecao() {
 
   // Salva questões erradas no banco do Show do Saber
   salvarErrosNoSDS(questoes, respostas);
+
+  // No Modo Treino: marca questões certas como dominadas
+  if (sessao.modoTreino) {
+    marcarDominadas(questoes, respostas);
+    renderBancoStatus();
+  }
 
   // Salva no histórico (só se não for modo treino)
   if (!sessao.modoTreino) {
@@ -1307,6 +1513,191 @@ function trocarTab(tab) {
     btnH.classList.add('ativo');
     renderHistorico();
   }
+}
+
+/* ============================================================
+   TELA IMPORTAR — extração de questões de PDF/texto
+   ============================================================ */
+
+// Variável temporária com questões extraídas antes de confirmar
+let questoesExtraidas = [];
+
+function trocarImpTab(tab) {
+  const isTexto = tab === 'texto';
+  document.getElementById('imp-painel-texto').classList.toggle('oculto', !isTexto);
+  document.getElementById('imp-painel-arquivo').classList.toggle('oculto', isTexto);
+  document.getElementById('imp-tab-texto').classList.toggle('ativo', isTexto);
+  document.getElementById('imp-tab-arquivo').classList.toggle('ativo', !isTexto);
+}
+
+// Lê arquivo PDF ou TXT via FileReader
+function lerArquivo(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const status = document.getElementById('imp-arquivo-status');
+  status.textContent = `Lendo: ${file.name}...`;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    // FileReader retorna texto puro (funciona bem para PDFs de texto)
+    const texto = e.target.result;
+    // Copia para o textarea para que extrairQuestoes() use
+    document.getElementById('imp-textarea').value = texto;
+    trocarImpTab('texto'); // troca para mostrar o texto
+    status.textContent = `✅ Arquivo lido (${Math.round(texto.length/1000)}kb). Clique em Extrair.`;
+  };
+  reader.onerror = () => { status.textContent = '❌ Erro ao ler arquivo. Tente copiar e colar o texto.'; };
+  reader.readAsText(file, 'utf-8');
+}
+
+async function extrairQuestoes() {
+  if (!st.apiKey) {
+    alert('Configure a chave API primeiro (botão ⚙️ API no topo).');
+    return;
+  }
+
+  const texto = document.getElementById('imp-textarea').value.trim();
+  if (texto.length < 100) {
+    alert('Cole pelo menos um trecho da prova antes de extrair.');
+    return;
+  }
+
+  const btn = document.getElementById('btn-extrair');
+  btn.disabled = true;
+  btn.textContent = '⏳ Extraindo...';
+  document.getElementById('imp-preview').classList.add('oculto');
+
+  const prompt = `Você é um especialista em concursos públicos CESGRANRIO.
+Analise o texto abaixo, que é um trecho de prova, e extraia TODAS as questões de múltipla escolha que encontrar.
+
+Para cada questão, retorne um objeto JSON com:
+{
+  "disciplina": "Língua Portuguesa" | "Matemática" | "Informática" | "Raciocínio Lógico" | "Conhecimentos Específicos",
+  "tema": "tema específico da questão",
+  "textoBase": null ou "texto de apoio se houver",
+  "enunciado": "enunciado completo",
+  "alts": {"A": "...", "B": "...", "C": "...", "D": "...", "E": "..."},
+  "gabarito": "letra correta se encontrada no texto, senão null",
+  "explicacao": "deixe em branco por enquanto"
+}
+
+Retorne SOMENTE um array JSON válido, sem texto antes ou depois, sem markdown.
+Se não encontrar questões completas, retorne [].
+
+TEXTO DA PROVA:
+${texto.slice(0, 12000)}`; // limita para não estourar tokens
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': st.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 8000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    let retorno = data.content[0].text.trim()
+      .replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '').trim();
+
+    const inicio = retorno.indexOf('[');
+    const fim = retorno.lastIndexOf(']');
+    if (inicio === -1) throw new Error('IA não retornou questões.');
+    retorno = retorno.slice(inicio, fim + 1);
+
+    questoesExtraidas = JSON.parse(retorno);
+
+    if (questoesExtraidas.length === 0) {
+      alert('Nenhuma questão encontrada no texto. Tente colar mais conteúdo da prova.');
+    } else {
+      renderPreviewQuestoes();
+    }
+  } catch (e) {
+    alert(`Erro na extração: ${e.message}`);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🤖 Extrair questões com IA';
+  }
+}
+
+function renderPreviewQuestoes() {
+  const lista = document.getElementById('imp-preview-lista');
+  document.getElementById('imp-count').textContent = questoesExtraidas.length;
+
+  lista.innerHTML = questoesExtraidas.map((q, i) => `
+    <div class="preview-questao">
+      <div class="preview-q-disc">${q.disciplina} — ${q.tema}</div>
+      <div class="preview-q-txt">${(q.enunciado || '').slice(0, 120)}${q.enunciado?.length > 120 ? '...' : ''}</div>
+      ${q.gabarito ? `<div class="preview-q-gab">Gabarito: ${q.gabarito}</div>` : '<div style="font-size:12px;color:#555;">Gabarito não encontrado</div>'}
+    </div>
+  `).join('');
+
+  document.getElementById('imp-preview').classList.remove('oculto');
+  renderImpBancoInfo();
+}
+
+function adicionarAoBanco() {
+  if (questoesExtraidas.length === 0) return;
+
+  // Adiciona ao banco de PDFs no localStorage
+  const bancoAtual = JSON.parse(localStorage.getItem('simulado_banco_pdf') || '[]');
+  const idsExist = new Set(bancoAtual.map(q => idQ(q)));
+  const novas = questoesExtraidas.filter(q => !idsExist.has(idQ(q)));
+
+  localStorage.setItem('simulado_banco_pdf', JSON.stringify([...bancoAtual, ...novas]));
+  questoesExtraidas = [];
+
+  document.getElementById('imp-preview').classList.add('oculto');
+  document.getElementById('imp-textarea').value = '';
+  renderBancoStatus();
+  renderImpBancoInfo();
+
+  alert(`✅ ${novas.length} questões adicionadas ao banco!\n(${questoesExtraidas.length > novas.length ? 'Duplicatas ignoradas.' : ''})`);
+}
+
+// Mostra resumo do banco na tela de importar
+function renderImpBancoInfo() {
+  const fallback = BANCO_FALLBACK.length;
+  const pdf      = JSON.parse(localStorage.getItem('simulado_banco_pdf') || '[]').length;
+  const extras   = JSON.parse(localStorage.getItem('sds_extras') || '[]').length;
+  const dom      = carregarDominadas().size;
+
+  document.getElementById('imp-banco-lista').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:8px;">
+      <div style="text-align:center;padding:10px;background:rgba(255,255,255,.02);border-radius:8px;">
+        <div style="font-size:22px;color:#FFD700;font-weight:bold;">${fallback}</div>
+        <div style="font-size:11px;color:#555;margin-top:2px;">Banco base</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:rgba(255,255,255,.02);border-radius:8px;">
+        <div style="font-size:22px;color:#60a5fa;font-weight:bold;">${pdf}</div>
+        <div style="font-size:11px;color:#555;margin-top:2px;">Importadas de PDF</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:rgba(255,255,255,.02);border-radius:8px;">
+        <div style="font-size:22px;color:#f87171;font-weight:bold;">${extras}</div>
+        <div style="font-size:11px;color:#555;margin-top:2px;">Erros do simulado</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:rgba(255,255,255,.02);border-radius:8px;">
+        <div style="font-size:22px;color:#4ade80;font-weight:bold;">${dom}</div>
+        <div style="font-size:11px;color:#555;margin-top:2px;">Dominadas</div>
+      </div>
+    </div>
+    ${pdf > 0 ? `<div style="text-align:right;margin-top:10px;"><button class="btn btn-perigo" style="padding:6px 12px;font-size:11px;" onclick="limparBancoPDF()">🗑 Remover PDFs importados</button></div>` : ''}
+  `;
+}
+
+function limparBancoPDF() {
+  if (!confirm('Remover todas as questões importadas de PDF?')) return;
+  localStorage.removeItem('simulado_banco_pdf');
+  renderBancoStatus();
+  renderImpBancoInfo();
 }
 
 /* ============================================================
