@@ -26,16 +26,48 @@ header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#0
 
 .container{position:relative;z-index:5;max-width:820px;width:92%;margin:0 auto;padding:26px 0 60px;}
 
-/* TELA INICIAL */
+/* TELA INICIAL / MENU */
 #tela-inicial{text-align:center;padding:30px 10px;}
 .logo-gigante{font-size:48px;font-weight:900;line-height:1;margin-bottom:8px;background:linear-gradient(135deg,#FFD700,#FFA500,#FF6600);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.subtitulo-ini{color:#777;font-size:15px;margin-bottom:30px;}
+.subtitulo-ini{color:#777;font-size:15px;margin-bottom:40px;}
+
+/* Grade do menu principal */
+.menu-grade{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;max-width:780px;margin:0 auto;}
+.menu-card{background:linear-gradient(145deg,#0c0c35,#090925);border:2px solid #181870;border-radius:18px;padding:32px 28px;width:220px;cursor:pointer;transition:all .22s;text-align:center;text-decoration:none;color:inherit;}
+.menu-card:hover{transform:translateY(-6px);border-color:#FFD700;box-shadow:0 0 40px rgba(255,215,0,.2);}
+.menu-card-icone{font-size:42px;margin-bottom:14px;}
+.menu-card-titulo{font-size:17px;font-weight:bold;color:#FFD700;margin-bottom:8px;}
+.menu-card-desc{font-size:13px;color:#666;line-height:1.5;}
+
+/* TELA DE CARDS */
+#tela-cards{display:none;padding:10px 0;}
+.cards-voltar{background:none;border:1px solid #333;color:#666;padding:7px 16px;border-radius:8px;font-size:13px;cursor:pointer;margin-bottom:24px;transition:all .18s;}
+.cards-voltar:hover{border-color:#FFD700;color:#FFD700;}
+.cards-titulo{font-size:22px;font-weight:bold;color:#FFD700;margin-bottom:6px;}
+.cards-sub{font-size:13px;color:#555;margin-bottom:28px;}
+.cards-grade{display:flex;flex-direction:column;gap:12px;}
+.card-item{background:linear-gradient(145deg,#0c0c35,#090925);border:1px solid #181870;border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .18s;text-decoration:none;color:inherit;}
+.card-item:hover{border-color:#FFD700;background:linear-gradient(145deg,#0e0e40,#0b0b30);transform:translateX(5px);}
+.card-item-icone{font-size:28px;flex-shrink:0;}
+.card-item-info{flex:1;text-align:left;}
+.card-item-nome{font-size:15px;font-weight:bold;color:#eee;margin-bottom:3px;}
+.card-item-desc{font-size:12px;color:#555;}
+.card-item-seta{color:#333;font-size:18px;}
+.card-item:hover .card-item-seta{color:#FFD700;}
+
+/* Tela de visualização de texto (para .txt) */
+#tela-txt{display:none;padding:10px 0;}
+.txt-voltar{background:none;border:1px solid #333;color:#666;padding:7px 16px;border-radius:8px;font-size:13px;cursor:pointer;margin-bottom:20px;transition:all .18s;}
+.txt-voltar:hover{border-color:#FFD700;color:#FFD700;}
+.txt-titulo{font-size:20px;font-weight:bold;color:#FFD700;margin-bottom:16px;}
+.txt-conteudo{background:#0c0c25;border:1px solid #1a1a5a;border-radius:12px;padding:22px;font-size:14px;color:#ccc;line-height:1.8;white-space:pre-wrap;max-height:70vh;overflow-y:auto;}
+
+.btn-comecar{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;border:none;padding:15px 50px;border-radius:50px;font-size:18px;font-weight:bold;cursor:pointer;box-shadow:0 0 35px rgba(255,215,0,.35);transition:all .2s;}
+.btn-comecar:hover{transform:scale(1.06);box-shadow:0 0 55px rgba(255,215,0,.5);}
 .caixa-regras{background:rgba(255,255,255,.03);border:1px solid #1a1a5a;border-radius:14px;padding:22px 26px;max-width:640px;margin:0 auto 30px;text-align:left;}
 .caixa-regras h3{color:#FFD700;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
 .regra{display:flex;gap:10px;margin-bottom:11px;font-size:14px;color:#bbb;line-height:1.5;}
 .regra-icon{font-size:18px;flex-shrink:0;}
-.btn-comecar{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;border:none;padding:15px 50px;border-radius:50px;font-size:18px;font-weight:bold;cursor:pointer;box-shadow:0 0 35px rgba(255,215,0,.35);transition:all .2s;}
-.btn-comecar:hover{transform:scale(1.06);box-shadow:0 0 55px rgba(255,215,0,.5);}
 
 /* QUIZ */
 #tela-quiz{display:none;}
@@ -221,22 +253,62 @@ header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#0
 
 <div class="container">
 
-  <!-- TELA INICIAL -->
+  <!-- TELA INICIAL / MENU PRINCIPAL -->
   <div id="tela-inicial">
     <div class="logo-gigante">SHOW DO SABER</div>
     <div class="subtitulo-ini">Método Socrático · CESGRANRIO 2026 · Sua mente, seu ritmo</div>
+
+    <div class="menu-grade">
+      <!-- Treino -->
+      <div class="menu-card" onclick="mostrarTreino()">
+        <div class="menu-card-icone">🧠</div>
+        <div class="menu-card-titulo">Treino</div>
+        <div class="menu-card-desc">Questões com repetição espaçada, dicas e controle de afobamento</div>
+      </div>
+
+      <!-- Simulado Semanal -->
+      <a class="menu-card" href="simulado.html">
+        <div class="menu-card-icone">📝</div>
+        <div class="menu-card-titulo">Simulado Semanal</div>
+        <div class="menu-card-desc">Prova cronometrada no estilo CESGRANRIO</div>
+      </a>
+
+      <!-- Cards de Estudo -->
+      <div class="menu-card" onclick="mostrarCards()">
+        <div class="menu-card-icone">📚</div>
+        <div class="menu-card-titulo">Cards</div>
+        <div class="menu-card-desc">Tabelas, macetes e resumos para consulta rápida</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA DE CARDS -->
+  <div id="tela-cards">
+    <button class="cards-voltar" onclick="voltarMenu()">← Voltar ao Menu</button>
+    <div class="cards-titulo">📚 Cards de Estudo</div>
+    <div class="cards-sub">Clique em qualquer card para abrir</div>
+    <div class="cards-grade" id="cards-grade"></div>
+  </div>
+
+  <!-- TELA DE VISUALIZAÇÃO DE TXT -->
+  <div id="tela-txt">
+    <button class="txt-voltar" onclick="voltarCards()">← Voltar aos Cards</button>
+    <div class="txt-titulo" id="txt-titulo"></div>
+    <div class="txt-conteudo" id="txt-conteudo"></div>
+  </div>
+
+  <!-- TELA DE TREINO (regras + botão começar) -->
+  <div id="tela-treino" style="display:none;text-align:center;padding:20px 10px;">
+    <button class="cards-voltar" onclick="voltarMenu()" style="margin-bottom:24px;">← Voltar ao Menu</button>
     <div class="caixa-regras">
-      <h3>📋 Como Funciona</h3>
+      <h3>📋 Como Funciona o Treino</h3>
       <div class="regra"><span class="regra-icon">⏱️</span><span><strong>Timer de leitura:</strong> tempo obrigatório antes de responder. Treina sua calma.</span></div>
-      <div class="regra"><span class="regra-icon">🧠</span><span><strong>Identifique o tema:</strong> antes das alternativas, você diz de que assunto se trata. Parte da habilidade da prova é saber isso!</span></div>
-      <div class="regra"><span class="regra-icon">🔥</span><span><strong>Afobamento:</strong> errou por pressa? Registre. O sistema aumenta o timer e cobra mais questões do mesmo estilo.</span></div>
-      <div class="regra"><span class="regra-icon">🆘</span><span><strong>Não Sei:</strong> recebe a ponta da corda — área, matéria e raciocínio. As contas são por sua conta.</span></div>
+      <div class="regra"><span class="regra-icon">🧠</span><span><strong>Identifique o tema:</strong> antes das alternativas, você diz de que assunto se trata.</span></div>
+      <div class="regra"><span class="regra-icon">🔥</span><span><strong>Afobamento:</strong> errou por pressa? Registre. O sistema aumenta o timer.</span></div>
+      <div class="regra"><span class="regra-icon">🆘</span><span><strong>Não Sei:</strong> recebe a ponta da corda — área, matéria e raciocínio.</span></div>
       <div class="regra"><span class="regra-icon">🏆</span><span><strong>Tema dominado:</strong> 4 acertos consecutivos com convicção = arquivado.</span></div>
     </div>
-    <button class="btn-comecar" onclick="iniciar()">▶ Começar</button>
-    <div style="margin-top:16px;">
-      <a href="simulado.html" style="color:#555;font-size:13px;text-decoration:none;border:1px solid #1a1a5a;border-radius:8px;padding:8px 18px;transition:all .2s;" onmouseover="this.style.color='#FFD700';this.style.borderColor='#FFD700'" onmouseout="this.style.color='#555';this.style.borderColor='#1a1a5a'">📝 Ir para o Simulado Semanal</a>
-    </div>
+    <button class="btn-comecar" onclick="iniciar()">▶ Começar Treino</button>
   </div>
 
   <!-- QUIZ -->
@@ -344,11 +416,98 @@ header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#0
     <div id="div-afob-msg"></div>
     <div id="div-rev"></div>
     <button class="btn-proxima" onclick="novaSessao()" style="margin-top:22px;">🔄 Nova Sessão</button>
+    <br><button onclick="voltarMenu()" style="margin-top:14px;background:none;border:1px solid #333;color:#555;padding:9px 22px;border-radius:8px;font-size:13px;cursor:pointer;" onmouseover="this.style.borderColor='#FFD700';this.style.color='#FFD700'" onmouseout="this.style.borderColor='#333';this.style.color='#555'">← Menu Principal</button>
   </div>
 
 </div>
 
 <script>
+/* ============================================================
+   CARDS DE ESTUDO
+   Para adicionar um novo card, basta inserir um objeto na lista:
+   {
+     icone: "📄",            — emoji que aparece no card
+     nome: "Nome do Card",   — título exibido
+     desc: "Descrição curta",— subtítulo opcional
+     arquivo: "nome.html"    — caminho do arquivo (relativo a esta página)
+                               use extensão .html para abrir em nova aba
+                               use extensão .txt para exibir embutido na tela
+   }
+   ============================================================ */
+const listaCards = [
+  { icone:"⚡", nome:"Tabela Verdade",              desc:"Lógica proposicional — E, OU, NÃO, SE...ENTÃO",  arquivo:"tabela verdade.html" },
+  { icone:"📖", nome:"Conjugação de Verbos",        desc:"Verbos irregulares — todos os tempos e modos",   arquivo:"conjugacao_verbos_irregulares.html" },
+  { icone:"🇧🇷", nome:"Macetes de Português",       desc:"Dicas rápidas de gramática e ortografia",        arquivo:"macete portugues.txt" },
+];
+
+/* ---------- navegação entre telas ---------- */
+
+function mostrarTreino() {
+  esconderTudo();
+  document.getElementById('tela-treino').style.display = 'block';
+}
+
+function mostrarCards() {
+  esconderTudo();
+  renderizarCards();
+  document.getElementById('tela-cards').style.display = 'block';
+}
+
+function voltarMenu() {
+  esconderTudo();
+  document.getElementById('tela-inicial').style.display = 'block';
+}
+
+function voltarCards() {
+  esconderTudo();
+  document.getElementById('tela-cards').style.display = 'block';
+}
+
+function esconderTudo() {
+  ['tela-inicial','tela-treino','tela-cards','tela-txt','tela-quiz','tela-conclusao']
+    .forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+}
+
+function renderizarCards() {
+  const grade = document.getElementById('cards-grade');
+  grade.innerHTML = '';
+  listaCards.forEach(card => {
+    const div = document.createElement('div');
+    div.className = 'card-item';
+    div.innerHTML = `
+      <div class="card-item-icone">${card.icone}</div>
+      <div class="card-item-info">
+        <div class="card-item-nome">${card.nome}</div>
+        <div class="card-item-desc">${card.desc}</div>
+      </div>
+      <div class="card-item-seta">›</div>
+    `;
+    div.addEventListener('click', () => abrirCard(card));
+    grade.appendChild(div);
+  });
+}
+
+function abrirCard(card) {
+  if (card.arquivo.endsWith('.txt')) {
+    // Exibe o conteúdo do .txt embutido na página
+    fetch(card.arquivo)
+      .then(r => r.text())
+      .then(texto => {
+        esconderTudo();
+        document.getElementById('txt-titulo').textContent = card.icone + ' ' + card.nome;
+        document.getElementById('txt-conteudo').textContent = texto;
+        document.getElementById('tela-txt').style.display = 'block';
+      })
+      .catch(() => alert('Não foi possível carregar o arquivo: ' + card.arquivo));
+  } else {
+    // Abre HTML em nova aba
+    window.open(card.arquivo, '_blank');
+  }
+}
+
 /* ============================================================
    BANCO DE QUESTÕES
    Cada questão tem:
@@ -571,7 +730,7 @@ function iniciar(){
     if(!estado[q.id]) estado[q.id]={confianca:0,acertos:0,erros:0,afobamentos:0,estiloAfob:0};
   });
   salvarEstado();
-  document.getElementById('tela-inicial').style.display='none';
+  esconderTudo();
   document.getElementById('tela-quiz').style.display='block';
   montarFila();
   atualizarBarras();
