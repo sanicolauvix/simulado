@@ -138,6 +138,18 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
   text-align:center;transition:all .18s;}
 .btn-nao-sei:hover{border-color:#7B2FBE;color:#bb88ff;background:rgba(123,47,190,.08);}
 .btn-nao-sei.sel{border-color:#7B2FBE;background:rgba(123,47,190,.18);color:#cc99ff;border-style:solid;}
+.q-tema{font-size:12px;color:#7B2FBE;font-weight:600;letter-spacing:.4px;margin-bottom:10px;text-transform:uppercase;}
+.dicas-box{margin-top:16px;border-top:1px solid #1a1a4e;padding-top:12px;}
+.dicas-titulo{font-size:12px;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.btn-dica{width:100%;text-align:left;background:rgba(255,255,255,.03);border:1px solid #1a1a5a;
+  border-radius:9px;padding:10px 14px;color:#666;font-size:13px;cursor:pointer;
+  margin-bottom:6px;transition:all .18s;display:flex;justify-content:space-between;align-items:center;}
+.btn-dica:hover{border-color:#FFD700;color:#aaa;}
+.btn-dica.aberta{border-color:#FFD700;color:#FFD700;}
+.dica-conteudo{display:none;background:#0a0a22;border:1px solid #1a1a4e;border-radius:0 0 9px 9px;
+  padding:12px 14px;font-size:13px;color:#ccc;line-height:1.6;margin-top:-6px;margin-bottom:6px;}
+.dica-conteudo.vis{display:block;}
+.dica-tag{font-size:10px;background:#1a1a40;color:#7B2FBE;padding:2px 7px;border-radius:8px;margin-right:6px;}
 .sim-nav{display:flex;justify-content:flex-end;margin-top:14px;}
 .aviso-treino{background:rgba(130,0,255,.1);border:1px solid #4a0080;border-radius:8px;
   padding:8px 14px;font-size:12px;color:#bb77ff;text-align:center;margin-bottom:14px;}
@@ -337,11 +349,6 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
     <!-- Últimas notas por disciplina -->
     <div id="grid-notas" class="grid-notas fade"></div>
 
-    <!-- Atalhos de estudo -->
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;" class="fade">
-      <a href="revisao.html" class="btn btn-ghost" style="flex:1;min-width:140px;text-align:center;text-decoration:none;font-size:13px;">🎧 Revisão em Áudio</a>
-      <a href="materiais.html" class="btn btn-ghost" style="flex:1;min-width:140px;text-align:center;text-decoration:none;font-size:13px;">📚 Aulas em Vídeo</a>
-    </div>
 
   </div>
 </div>
@@ -377,11 +384,29 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
     <!-- Questão -->
     <div class="caixa-q fade" id="caixa-questao">
       <div class="q-disciplina" id="q-disciplina">Língua Portuguesa</div>
+      <div class="q-tema" id="q-tema"></div>
       <div class="q-num" id="q-num">Questão 1 de 40</div>
       <div class="q-textbase oculto" id="q-textbase"></div>
       <div class="q-enunciado" id="q-enunciado"></div>
       <div class="alts" id="alts"></div>
       <button id="btn-nao-sei" class="btn-nao-sei" onclick="marcarNaoSei()">❓ Não Sei — estudar na semana seguinte</button>
+
+      <!-- Dicas progressivas -->
+      <div class="dicas-box">
+        <div class="dicas-titulo">💡 Dicas (clique para revelar)</div>
+        <button class="btn-dica" id="btn-d1" onclick="toggleDica(1)">
+          <span>Dica 1 — Linha de raciocínio</span><span id="seta-d1">▶</span>
+        </button>
+        <div class="dica-conteudo" id="dica-1"></div>
+        <button class="btn-dica" id="btn-d2" onclick="toggleDica(2)">
+          <span>Dica 2 — Um passo além</span><span id="seta-d2">▶</span>
+        </button>
+        <div class="dica-conteudo" id="dica-2"></div>
+        <button class="btn-dica" id="btn-d3" onclick="toggleDica(3)">
+          <span>Dica 3 — Solução completa</span><span id="seta-d3">▶</span>
+        </button>
+        <div class="dica-conteudo" id="dica-3"></div>
+      </div>
     </div>
 
     <!-- Navegação -->
@@ -1103,9 +1128,23 @@ function renderQuestao() {
   document.getElementById('prog-txt').textContent = `${i + 1} / ${total}`;
   document.getElementById('prog-fill').style.width = ((i + 1) / total * 100) + '%';
 
-  // Disciplina e número
+  // Disciplina, tema e número
   document.getElementById('q-disciplina').textContent = q.disciplina;
-  document.getElementById('q-num').textContent = `Questão ${i + 1} de ${total} — ${q.tema}`;
+  document.getElementById('q-tema').textContent = q.tema || '';
+  document.getElementById('q-num').textContent = `Questão ${i + 1} de ${total}`;
+
+  // Dicas
+  const d1 = q.dica1 || {};
+  document.getElementById('dica-1').innerHTML =
+    `<span class="dica-tag">${d1.area||q.disciplina}</span><span class="dica-tag">${d1.materia||q.tema}</span><br><br>${d1.raciocinio||'—'}`;
+  document.getElementById('dica-2').textContent = q.dica2 || '—';
+  document.getElementById('dica-3').textContent = q.explicacao || '—';
+  // Fecha todas as dicas ao trocar de questão
+  [1,2,3].forEach(n => {
+    document.getElementById(`dica-${n}`).classList.remove('vis');
+    document.getElementById(`btn-d${n}`).classList.remove('aberta');
+    document.getElementById(`seta-d${n}`).textContent = '▶';
+  });
 
   // Texto base
   const tbEl = document.getElementById('q-textbase');
@@ -1155,6 +1194,15 @@ function marcarNaoSei() {
   document.querySelectorAll('.btn-alt').forEach(btn => btn.classList.remove('sel'));
   document.getElementById('btn-nao-sei').classList.add('sel');
   document.getElementById('btn-proxima').disabled = false;
+}
+
+function toggleDica(n) {
+  const conteudo = document.getElementById(`dica-${n}`);
+  const btn = document.getElementById(`btn-d${n}`);
+  const seta = document.getElementById(`seta-d${n}`);
+  const aberta = conteudo.classList.toggle('vis');
+  btn.classList.toggle('aberta', aberta);
+  seta.textContent = aberta ? '▼' : '▶';
 }
 
 function proximaQuestao() {
