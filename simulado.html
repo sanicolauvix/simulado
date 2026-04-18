@@ -133,6 +133,11 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 .alt-letra{background:#181870;color:#FFD700;width:27px;height:27px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;flex-shrink:0;}
 .btn-alt.sel .alt-letra{background:#FFD700;color:#000;}
+.btn-nao-sei{width:100%;margin-top:10px;background:rgba(255,255,255,.03);border:2px dashed #2a2a6a;
+  border-radius:11px;padding:11px 18px;color:#7777aa;font-size:14px;cursor:pointer;
+  text-align:center;transition:all .18s;}
+.btn-nao-sei:hover{border-color:#7B2FBE;color:#bb88ff;background:rgba(123,47,190,.08);}
+.btn-nao-sei.sel{border-color:#7B2FBE;background:rgba(123,47,190,.18);color:#cc99ff;border-style:solid;}
 .sim-nav{display:flex;justify-content:flex-end;margin-top:14px;}
 .aviso-treino{background:rgba(130,0,255,.1);border:1px solid #4a0080;border-radius:8px;
   padding:8px 14px;font-size:12px;color:#bb77ff;text-align:center;margin-bottom:14px;}
@@ -376,6 +381,7 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
       <div class="q-textbase oculto" id="q-textbase"></div>
       <div class="q-enunciado" id="q-enunciado"></div>
       <div class="alts" id="alts"></div>
+      <button id="btn-nao-sei" class="btn-nao-sei" onclick="marcarNaoSei()">❓ Não Sei — estudar na semana seguinte</button>
     </div>
 
     <!-- Navegação -->
@@ -1124,6 +1130,10 @@ function renderQuestao() {
     altsEl.appendChild(btn);
   });
 
+  // Botão Não Sei
+  const btnNaoSei = document.getElementById('btn-nao-sei');
+  btnNaoSei.classList.toggle('sel', sessao.respostas[i] === '?');
+
   // Botão próxima
   const btnProx = document.getElementById('btn-proxima');
   const naUltima = i === total - 1;
@@ -1133,10 +1143,17 @@ function renderQuestao() {
 
 function selecionarAlternativa(letra) {
   sessao.respostas[sessao.atual] = letra;
-  // Atualiza visual
   document.querySelectorAll('.btn-alt').forEach((btn, idx) => {
     btn.classList.toggle('sel', idx === 'ABCDE'.indexOf(letra));
   });
+  document.getElementById('btn-nao-sei').classList.remove('sel');
+  document.getElementById('btn-proxima').disabled = false;
+}
+
+function marcarNaoSei() {
+  sessao.respostas[sessao.atual] = '?';
+  document.querySelectorAll('.btn-alt').forEach(btn => btn.classList.remove('sel'));
+  document.getElementById('btn-nao-sei').classList.add('sel');
   document.getElementById('btn-proxima').disabled = false;
 }
 
@@ -1277,7 +1294,7 @@ function renderCorrecao() {
         <div class="qr-seta" id="seta-${i}">▶</div>
       </div>
       <div class="qr-corpo" id="corpo-${i}">
-        ${resp ? `<div class="qr-resp ${acertou?'certa':'errada'}">Sua resposta: ${resp} — ${q.alts[resp]}</div>` : '<div class="qr-resp errada">Não respondida</div>'}
+        ${resp === '?' ? '<div class="qr-resp errada">❓ Não sabia — marcado para estudar</div>' : resp ? `<div class="qr-resp ${acertou?'certa':'errada'}">Sua resposta: ${resp} — ${q.alts[resp]}</div>` : '<div class="qr-resp errada">Não respondida</div>'}
         ${!acertou ? `<div class="qr-resp certa">Gabarito: ${q.gabarito} — ${q.alts[q.gabarito]}</div>` : ''}
         <div class="qr-exp">${q.explicacao || ''}</div>
       </div>
@@ -1329,7 +1346,7 @@ function salvarErrosNoSDS(questoes, respostas) {
     dica1: {
       area: q.disciplina,
       materia: q.tema,
-      raciocinio: `Você errou esta questão no simulado. Sua resposta foi ${resp || 'nenhuma'}. Revise o tema e tente novamente com atenção.`
+      raciocinio: resp === '?' ? 'Você marcou que não sabia esta questão. Estude bem o tema antes do próximo simulado.' : `Você errou esta questão no simulado. Sua resposta foi ${resp || 'nenhuma'}. Revise o tema e tente novamente com atenção.`
     },
     dica2: q.explicacao || 'Revise o tema desta questão.',
     explicacao: q.explicacao || ''
