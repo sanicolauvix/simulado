@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão em Áudio — CESGRANRIO</title>
+  <style>
+    :root {
+      --bg: #06061a;
+      --card: #0d0d2b;
+      --border: #1a1a4e;
+      --gold: #FFD700;
+      --purple: #7B2FBE;
+      --text: #e0e0ff;
+      --muted: #7777aa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; min-height: 100vh; }
+
+    nav {
+      background: linear-gradient(135deg, #0d0d2b, #1a0a3e);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { color: var(--gold); font-size: 1.05rem; font-weight: bold; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      margin-left: 16px; font-size: 0.85rem; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .layout {
+      display: flex; max-width: 1100px;
+      margin: 0 auto; padding: 20px; gap: 20px; align-items: flex-start;
+    }
+
+    /* SIDEBAR */
+    .sidebar { width: 250px; flex-shrink: 0; position: sticky; top: 60px; }
+    .sidebar-titulo {
+      color: var(--muted); font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 10px; padding-left: 2px;
+    }
+    .aula-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .aula-card:hover { border-color: var(--purple); }
+    .aula-card.ativo { border-color: var(--gold); background: #1a1a40; }
+    .aula-card .disc { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+    .aula-card .nome { font-size: 0.84rem; color: var(--text); line-height: 1.3; }
+    .aula-card .badge {
+      display: inline-block; background: var(--purple); color: #fff;
+      font-size: 0.64rem; padding: 2px 7px; border-radius: 10px; margin-top: 6px;
+    }
+
+    /* MAIN */
+    .main { flex: 1; min-width: 0; }
+
+    /* PLAYER */
+    .player {
+      background: #08081f; border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px 20px; margin-bottom: 20px;
+      position: sticky; top: 58px; z-index: 50;
+    }
+    .player-nome { font-size: 0.82rem; color: var(--muted); margin-bottom: 10px; }
+    .player-nome span { color: var(--gold); font-weight: bold; }
+    .controles { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .btn-play {
+      background: var(--gold); color: #000; border: none; border-radius: 50%;
+      width: 44px; height: 44px; font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .btn-play:hover { background: #ffe84d; transform: scale(1.05); }
+    .btn-stop {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); border-radius: 8px; padding: 8px 12px;
+      cursor: pointer; font-size: 0.82rem; transition: all 0.2s;
+    }
+    .btn-stop:hover { border-color: var(--gold); color: var(--gold); }
+    .speed-group { display: flex; gap: 4px; }
+    .speed-btn {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 6px; padding: 6px 9px;
+      cursor: pointer; font-size: 0.76rem; transition: all 0.2s;
+    }
+    .speed-btn.ativo { background: var(--purple); border-color: var(--purple); color: #fff; }
+    .prog-wrap { flex: 1; min-width: 120px; }
+    .prog-label { font-size: 0.7rem; color: var(--muted); margin-bottom: 4px; }
+    .prog-bar { background: var(--border); height: 4px; border-radius: 2px; overflow: hidden; }
+    .prog-fill { background: var(--gold); height: 100%; width: 0%; transition: width 0.4s; }
+    .trecho-atual {
+      margin-top: 10px; padding: 8px 12px;
+      background: #12123a; border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0; font-size: 0.82rem;
+      color: var(--text); line-height: 1.5; min-height: 36px;
+    }
+
+    /* CONTEÚDO */
+    .summary-header { margin-bottom: 16px; }
+    .summary-disc {
+      display: inline-block; background: var(--purple); color: #fff;
+      font-size: 0.75rem; padding: 3px 10px; border-radius: 12px; margin-bottom: 8px;
+    }
+    .summary-titulo { font-size: 1.25rem; color: var(--gold); font-weight: bold; }
+    .summary-body {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px; line-height: 1.75;
+    }
+    .summary-body h2 {
+      color: var(--gold); font-size: 1.1rem; margin: 20px 0 10px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+    .summary-body h2:first-child { margin-top: 0; }
+    .summary-body h3 { color: #aa88ff; font-size: 0.96rem; margin: 14px 0 7px; }
+    .summary-body h4 { color: #8899ff; font-size: 0.88rem; margin: 12px 0 5px; }
+    .summary-body p { font-size: 0.88rem; margin-bottom: 8px; }
+    .summary-body ul { margin: 6px 0 12px 18px; }
+    .summary-body li { font-size: 0.88rem; margin-bottom: 4px; }
+    .summary-body strong { color: var(--gold); }
+    .summary-body em { color: #ccc; font-style: italic; }
+    .summary-body code { background: #1a1a40; padding: 1px 5px; border-radius: 4px; font-size: 0.82rem; }
+    .summary-body hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+    .summary-body table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.84rem; }
+    .summary-body th { background: #1a1a40; color: var(--gold); padding: 8px 12px; text-align: left; border: 1px solid var(--border); }
+    .summary-body td { padding: 7px 12px; border: 1px solid var(--border); }
+    .summary-body tr:nth-child(even) td { background: #0a0a20; }
+    .table-wrap { overflow-x: auto; margin: 8px 0; }
+
+    .vazio { text-align: center; color: var(--muted); padding: 60px 20px; }
+    .vazio .ico { font-size: 2.8rem; margin-bottom: 14px; }
+    .vazio p { font-size: 0.88rem; line-height: 1.7; }
+
+    @media (max-width: 680px) {
+      .layout { flex-direction: column; padding: 12px; }
+      .sidebar { width: 100%; position: static; }
+      .player { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🎧 Revisão em Áudio</div>
+  <div class="nav-links">
+    <a href="index.html">Show do Saber</a>
+    <a href="simulado.html">Simulado</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <div class="sidebar">
+    <div class="sidebar-titulo">Aulas disponíveis</div>
+    <div id="lista-aulas"></div>
+  </div>
+
+  <div class="main">
+    <div class="player">
+      <div class="player-nome">Áudio: <span id="player-nome">—</span></div>
+      <div class="controles">
+        <button class="btn-play" id="btn-play" onclick="togglePlay()">▶</button>
+        <button class="btn-stop" onclick="parar()">■ Parar</button>
+        <div class="speed-group">
+          <button class="speed-btn" onclick="setVelocidade(0.75)">0.75×</button>
+          <button class="speed-btn ativo" onclick="setVelocidade(1.0)">1×</button>
+          <button class="speed-btn" onclick="setVelocidade(1.25)">1.25×</button>
+          <button class="speed-btn" onclick="setVelocidade(1.5)">1.5×</button>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-label" id="prog-label">0 / 0 trechos</div>
+          <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+        </div>
+      </div>
+      <div class="trecho-atual" id="trecho-atual">Selecione uma aula e pressione ▶ para ouvir...</div>
+    </div>
+
+    <div id="conteudo-aula">
+      <div class="vazio">
+        <div class="ico">📚</div>
+        <p>Selecione uma aula na lista ao lado<br>para ver o resumo e ouvir a revisão em áudio.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// BANCO DE AULAS
+// Para adicionar uma nova aula: copie o conteúdo de
+// transcricoes/{nome}_resumo.txt e cole como nova entrada abaixo.
+// ═══════════════════════════════════════════════════════════════════
+
+const RESUMOS = [
+  {
+    id: 'aula1_verbo',
+    titulo: 'Verbos: Conjugações e Tempos Verbais',
+    disciplina: 'Português',
+    semana: 1,
+    data: '2026-04-17',
+    texto: `# 📚 RESUMO DE ESTUDO: VERBOS
+
+## TEMA PRINCIPAL
+**Verbos: Definição, Conjugações e Tempos Verbais (Pretérito)**
+
+---
+
+## 1. O QUE É VERBO?
+
+**Definição:**
+- Classe de palavras que se flexiona em: **pessoa, número, tempo, modo e voz**
+
+**O que o verbo pode indicar:**
+- Ação (correr, fazer, ler)
+- Estado (ficar, permanecer, ser)
+- Fenômeno meteorológico (chover, amanhecer)
+- Ocorrência (nascer, morrer)
+- Desejo (querer, desejar)
+
+---
+
+## 2. AS TRÊS CONJUGAÇÕES VERBAIS
+
+| Conjugação | Terminação | Exemplos |
+|---|---|---|
+| **1ª** | **-AR** | falar, jogar, dançar, estudar, morar |
+| **2ª** | **-ER** | comer, correr, entender, haver |
+| **3ª** | **-IR** | partir, cair, sair, dormir, surgir |
+
+**CASO ESPECIAL:** Verbos terminados em **-PÔR** (pôr, compor, repor, supor, depor, expor) → **2ª conjugação**
+
+---
+
+## 3. MODOS VERBAIS (3 tipos)
+
+### A) MODO INDICATIVO
+- **Características:** Indica **certeza, realidade**
+- Presente do indicativo → "Eu sempre estudo"
+- Pretérito perfeito → "Estudei"
+- Futuro do presente → "Estudarei"
+
+### B) MODO SUBJUNTIVO
+- **Características:** Indica **dúvida, hipótese, possibilidade, desejo, condição**
+- **Palavras-chave:** talvez, quem sabe, se
+- **Exemplo:** "Talvez eu estude amanhã"
+
+### C) MODO IMPERATIVO
+- **Características:** **Ordem ou pedido** (tempo presente)
+- **Exemplos:** "Fique quieto!", "Preste atenção!"
+
+---
+
+## 4. TEMPOS VERBAIS DO PASSADO (PRETÉRITO)
+
+### A) PRETÉRITO PERFEITO
+
+- Ação **concluída** no passado — aspecto **perfeito** = terminado
+- "Ele **estudou** as lições" (acabou, concluído)
+- "Ele **entrou** na sala" (pronto, acabou)
+- Terminações: **-OU, -ARA** — Falou, jogou, dançou, estudou
+
+### B) PRETÉRITO PERFEITO COMPOSTO
+
+- Ação que **começou no passado** e **continua até agora**
+- Fato repetido ou frequente que se prolonga ao presente
+- Usa **2 verbos** (ter/haver + particípio)
+- Simples: "Estudei" = ação concluída
+- Composto: "**Tenho estudado**" = continua até agora
+
+### C) PRETÉRITO IMPERFEITO
+
+- Ação **não concluída** no passado — ação **repetida ou contínua**
+- "Ele **estudava**" — era uma repetição, não uma vez só
+- "Ele **falava** a verdade" — frequentemente, repetidamente
+- Terminações: **-AVA, -IA** — Falava, jogava, comia, fazia
+
+### D) PRETÉRITO MAIS QUE PERFEITO
+
+- **Passado do passado** — aconteceu antes de outra ação concluída
+- Forma simples: "Ele **fechara** a porta"
+- Forma composta: "Ele **tinha fechado** a porta"
+- "Quando chegamos, a loja **já fechara**" (fechou antes de chegarmos)
+
+### E) PRETÉRITO IMPERFEITO DO SUBJUNTIVO
+
+- Ação no passado com ideia de **dúvida, hipótese, condição**
+- Terminações: **-ASSE, -ESSE, -ISSE**
+- "Se eu **tivesse** dinheiro..." (hipótese, não tenho)
+- "Se ele **viesse** ao clube, **participaria** do campeonato" (não veio)
+
+---
+
+## 5. RESUMO COMPARATIVO DOS PRETÉRITOS
+
+| Tempo | Característica | Exemplo |
+|---|---|---|
+| **Perfeito** | Ação concluída | Estudei |
+| **Imperfeito** | Ação repetida/contínua | Estudava |
+| **Mais que Perfeito** | Passado do passado | Já tinha estudado |
+| **Perf. Composto** | Passado que continua | Tenho estudado |
+
+---
+
+## 6. PONTOS MAIS IMPORTANTES PARA CESGRANRIO
+
+- **Diferença entre Perfeito e Imperfeito** — Perfeito = concluído / Imperfeito = repetido
+- **As 3 Conjugações verbais** (-AR, -ER, -IR) — cuidado com verbos em -PÔR
+- **Pretérito Mais que Perfeito** — reconhecer "tinha feito" ou "fizera"
+- **Pretérito Imperfeito do Subjuntivo** — uso com "se" = hipótese irreal, terminações -ASSE/-ESSE/-ISSE
+- **Indicativo vs Subjuntivo** — Indicativo = certeza / Subjuntivo = dúvida/hipótese
+
+---
+
+# 🎧 RESUMO EM ÁUDIO (Para ouvir no celular)
+
+Oi, vamos aprender sobre VERBOS de forma fácil? Você vai ficar craque! [pausa]
+
+Primeiro: o que é verbo? É a classe de palavras que indica AÇÃO, ESTADO, DESEJO. [pausa] Verbo se flexiona em PESSOA, NÚMERO, TEMPO, MODO e VOZ. [pausa]
+
+Existem TRÊS conjugações verbais. [pausa] Primeira conjugação: verbos terminados em A-R... FALAR, JOGAR, DANÇAR. [pausa] Segunda conjugação: verbos terminados em E-R... COMER, CORRER, ENTENDER. [pausa] Terceira conjugação: verbos terminados em I-R... PARTIR, SAIR, DORMIR. [pausa] Cuidado com o verbo PÔR! Ele é segunda conjugação também, junto com os derivados: COMPOR, REPOR, DEPOR. [pausa]
+
+Agora, os TRÊS MODOS VERBAIS. [pausa] PRIMEIRO: Indicativo. O indicativo é CERTEZA. É realidade. Exemplo: Eu estudo, ou Eu estudei. [pausa] SEGUNDO: Subjuntivo. O subjuntivo é DÚVIDA, HIPÓTESE, POSSIBILIDADE. Exemplo: Talvez eu estude amanhã. [pausa] TERCEIRO: Imperativo. O imperativo é ORDEM ou PEDIDO. Exemplo: Estude agora! [pausa]
+
+Agora vem o PRETÉRITO PERFEITO. [pausa] O perfeito é uma ação CONCLUÍDA no passado. Acabou. Terminou. Exemplo: Ele ESTUDOU as lições. Pronto, acabou. [pausa] Quando você ouve OU: FALOU, ENTROU, JOGOU, ESTUDOU. Isso é pretérito perfeito. [pausa]
+
+Agora o PRETÉRITO IMPERFEITO. [pausa] O imperfeito é uma ação NÃO CONCLUÍDA. Era uma coisa que se repetia, que era frequente. [pausa] Exemplo: Ele ESTUDAVA. Não era uma vez só. Era sempre. [pausa] Quando você ouve AVA ou IA: FALAVA, JOGAVA, COMIA, FAZIA. Isso é pretérito imperfeito. [pausa]
+
+Grave bem essa diferença! [pausa] Ele ESTUDOU é perfeito. Ação concluída, uma vez só. [pausa] Ele ESTUDAVA é imperfeito. Ação repetida, frequente. Entendeu a diferença? [pausa]
+
+Agora o PRETÉRITO MAIS QUE PERFEITO. [pausa] Esse é o PASSADO DO PASSADO. Aconteceu ANTES de outra ação que já foi concluída. [pausa] Tem DUAS formas: [pausa] FORMA SIMPLES: Ele FECHARA a porta. [pausa] FORMA COMPOSTA: Ele TINHA FECHADO a porta. Mesma coisa. [pausa] Exemplo: Quando chegamos, a loja JÁ FECHARA. Ou JÁ TINHA FECHADO. [pausa] Ela fechou ANTES de nós chegarmos. Passado do passado! [pausa]
+
+E agora, PRETÉRITO IMPERFEITO DO SUBJUNTIVO. [pausa] Lembra que subjuntivo é DÚVIDA e HIPÓTESE? [pausa] Quando tem SE, é geralmente pretérito imperfeito do subjuntivo. [pausa] Terminações: ASSE, ESSE, ISSE. [pausa] Se eu TIVESSE dinheiro... Hipótese. [pausa] Se ele VIESSE ao clube, PARTICIPARIA do campeonato. Não veio, é hipótese. [pausa]
+
+Então recapitulando! [pausa] PERFEITO: ação concluída. ESTUDEI. [pausa] IMPERFEITO: ação repetida. ESTUDAVA. [pausa] MAIS QUE PERFEITO: passado do passado. JÁ TINHA ESTUDADO ou ESTUDARA. [pausa] IMPERFEITO DO SUBJUNTIVO: hipótese com SE. SE EU ESTUDASSE. [pausa] Isso é o mais importante para sua prova! [pausa]
+
+Pronto! Agora você conhece os verbos. Boa sorte! [pausa]`
+  },
+
+  // ─── Adicione novas aulas aqui ─────────────────────────────────
+  // {
+  //   id: 'aula2_nome_do_tema',
+  //   titulo: 'Título da aula',
+  //   disciplina: 'Matemática',  // ou Português, Informática, Lógica...
+  //   semana: 2,
+  //   data: 'YYYY-MM-DD',
+  //   texto: `cole aqui o conteúdo de transcricoes/{nome}_resumo.txt`
+  // },
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// MOTOR DE ÁUDIO (Web Speech API)
+// ═══════════════════════════════════════════════════════════════════
+
+let est = {
+  aulaId: null,
+  segs: [],
+  idx: 0,
+  tocando: false,
+  velocidade: 1.0,
+  timer: null
+};
+
+function prepararSegmentos(texto) {
+  const inicio = texto.indexOf('# 🎧 RESUMO EM ÁUDIO');
+  if (inicio === -1) return [];
+
+  let audio = texto.slice(inicio);
+
+  // Limpa markdown restante
+  audio = audio
+    .replace(/^# .*/gm, '')
+    .replace(/\*\*/g, '')
+    .replace(/\*/g, '')
+    .replace(/^---+$/gm, '')
+    .replace(/\[pausa\]/gi, '||P||');
+
+  return audio.split('||P||')
+    .map(s => s.replace(/\s+/g, ' ').trim())
+    .filter(s => s.length > 4);
+}
+
+function togglePlay() {
+  if (!est.aulaId) return;
+  est.tocando ? pausar() : tocar();
+}
+
+function tocar() {
+  if (!est.segs.length) return;
+  if (est.idx >= est.segs.length) est.idx = 0;
+  est.tocando = true;
+  atualizarPlay();
+  falarSeg(est.idx);
+}
+
+function pausar() {
+  speechSynthesis.cancel();
+  clearTimeout(est.timer);
+  est.tocando = false;
+  atualizarPlay();
+}
+
+function parar() {
+  speechSynthesis.cancel();
+  clearTimeout(est.timer);
+  est.tocando = false;
+  est.idx = 0;
+  atualizarPlay();
+  atualizarProg();
+  document.getElementById('trecho-atual').textContent = 'Pressione ▶ para iniciar...';
+}
+
+function falarSeg(idx) {
+  if (!est.tocando || idx >= est.segs.length) {
+    if (idx >= est.segs.length) {
+      est.tocando = false;
+      est.idx = 0;
+      atualizarPlay();
+      document.getElementById('trecho-atual').textContent = '✅ Revisão concluída! Pressione ▶ para repetir.';
+    }
+    return;
+  }
+
+  est.idx = idx;
+  const seg = est.segs[idx];
+  document.getElementById('trecho-atual').textContent = seg;
+  atualizarProg();
+
+  const u = new SpeechSynthesisUtterance(seg);
+  u.lang = 'pt-BR';
+  u.rate = est.velocidade;
+  u.onend = () => {
+    if (est.tocando) est.timer = setTimeout(() => falarSeg(idx + 1), 700);
+  };
+  speechSynthesis.speak(u);
+}
+
+function setVelocidade(v) {
+  est.velocidade = v;
+  document.querySelectorAll('.speed-btn').forEach(b => {
+    b.classList.toggle('ativo', parseFloat(b.textContent) === v);
+  });
+  if (est.tocando) {
+    speechSynthesis.cancel();
+    clearTimeout(est.timer);
+    est.timer = setTimeout(() => falarSeg(est.idx), 100);
+  }
+}
+
+function atualizarPlay() {
+  document.getElementById('btn-play').textContent = est.tocando ? '⏸' : '▶';
+}
+
+function atualizarProg() {
+  const total = est.segs.length;
+  const atual = est.tocando ? est.idx + 1 : est.idx;
+  document.getElementById('prog-label').textContent = `${atual} / ${total} trechos`;
+  document.getElementById('prog-fill').style.width = total > 0 ? (atual / total * 100) + '%' : '0%';
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// PARSER MARKDOWN → HTML
+// ═══════════════════════════════════════════════════════════════════
+
+function parseMd(texto) {
+  // Usa só a parte antes da seção de áudio
+  const corteAudio = texto.indexOf('# 🎧 RESUMO EM ÁUDIO');
+  const resumo = corteAudio === -1 ? texto : texto.slice(0, corteAudio);
+  return mdHTML(resumo);
+}
+
+function mdHTML(txt) {
+  const linhas = txt.split('\n');
+  let html = '', emUl = false, emTable = false;
+
+  for (let i = 0; i < linhas.length; i++) {
+    const l = linhas[i];
+
+    if (/^---+$/.test(l.trim())) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      if (emTable) { html += '</tbody></table></div>'; emTable = false; }
+      html += '<hr>'; continue;
+    }
+
+    if (l.trim().startsWith('|')) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      const cels = l.trim().split('|').slice(1, -1).map(c => c.trim());
+      if (!emTable) {
+        html += '<div class="table-wrap"><table><thead><tr>';
+        html += cels.map(c => `<th>${inl(c)}</th>`).join('');
+        html += '</tr></thead><tbody>';
+        emTable = true;
+      } else if (!cels.every(c => /^[-: ]+$/.test(c))) {
+        html += '<tr>' + cels.map(c => `<td>${inl(c)}</td>`).join('') + '</tr>';
+      }
+      continue;
+    }
+    if (emTable) { html += '</tbody></table></div>'; emTable = false; }
+
+    if (l.startsWith('### ')) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      html += `<h4>${inl(l.slice(4))}</h4>`;
+    } else if (l.startsWith('## ')) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      html += `<h3>${inl(l.slice(3))}</h3>`;
+    } else if (l.startsWith('# ')) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      html += `<h2>${inl(l.slice(2))}</h2>`;
+    } else if (/^  ?- /.test(l) || l.startsWith('- ')) {
+      if (!emUl) { html += '<ul>'; emUl = true; }
+      html += `<li>${inl(l.replace(/^  ?- /, ''))}</li>`;
+    } else if (!l.trim()) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+    } else {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      html += `<p>${inl(l)}</p>`;
+    }
+  }
+  if (emUl) html += '</ul>';
+  if (emTable) html += '</tbody></table></div>';
+  return html;
+}
+
+function inl(t) {
+  return t
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`(.+?)`/g, '<code>$1</code>');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RENDERIZAÇÃO
+// ═══════════════════════════════════════════════════════════════════
+
+function renderSidebar() {
+  const grupos = {};
+  RESUMOS.forEach(r => {
+    if (!grupos[r.disciplina]) grupos[r.disciplina] = [];
+    grupos[r.disciplina].push(r);
+  });
+
+  let html = '';
+  Object.entries(grupos).forEach(([disc, aulas]) => {
+    aulas.sort((a, b) => a.semana - b.semana).forEach(a => {
+      html += `
+        <div class="aula-card" id="card-${a.id}" onclick="selecionarAula('${a.id}')">
+          <div class="disc">${disc}</div>
+          <div class="nome">${a.titulo}</div>
+          <span class="badge">Semana ${a.semana}</span>
+        </div>`;
+    });
+  });
+  document.getElementById('lista-aulas').innerHTML = html;
+}
+
+function selecionarAula(id) {
+  const aula = RESUMOS.find(r => r.id === id);
+  if (!aula) return;
+
+  parar();
+
+  est.aulaId = id;
+  est.segs = prepararSegmentos(aula.texto);
+  est.idx = 0;
+
+  document.querySelectorAll('.aula-card').forEach(c => c.classList.remove('ativo'));
+  const card = document.getElementById('card-' + id);
+  if (card) card.classList.add('ativo');
+
+  document.getElementById('player-nome').textContent = aula.titulo;
+  document.getElementById('trecho-atual').textContent =
+    `${est.segs.length} trechos prontos — pressione ▶ para ouvir`;
+  atualizarProg();
+
+  document.getElementById('conteudo-aula').innerHTML = `
+    <div class="summary-header">
+      <div class="summary-disc">${aula.disciplina}</div>
+      <div class="summary-titulo">${aula.titulo}</div>
+    </div>
+    <div class="summary-body">${parseMd(aula.texto)}</div>`;
+}
+
+// Inicializa
+renderSidebar();
+if (RESUMOS.length > 0) selecionarAula(RESUMOS[0].id);
+</script>
+</body>
+</html>
