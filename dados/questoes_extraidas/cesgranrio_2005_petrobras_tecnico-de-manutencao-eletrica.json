@@ -1,0 +1,1028 @@
+[
+  {
+    "num_original": 1,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Conforme o texto, indique a opção que NÃO traz a forma de como o cidadão pode exercer a cidadania com a ajuda da tecnologia.",
+    "alts": {
+      "A": "Votar nas eleições locais.",
+      "B": "Disseminar crenças e idéias.",
+      "C": "Controlar administração pública.",
+      "D": "Procurar informações científicas.",
+      "E": "Assistir a um casamento ao vivo."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 2,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A experiência mencionada na linha 8 do texto se refere a:",
+    "alts": {
+      "A": "eleger os representantes pela web.",
+      "B": "poder votar exclusivamente uma única vez.",
+      "C": "fazer registro e receber senha da prefeitura.",
+      "D": "usar o próprio computador para exercício da cidadania.",
+      "E": "usar cabines de parques e outros espaços públicos."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 4,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A palavra “disseminação” (l.30 ) NÃO pode ser substituída no texto por:",
+    "alts": {
+      "A": "difusão.",
+      "B": "separação.",
+      "C": "propagação.",
+      "D": "popularização.",
+      "E": "democratização."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 5,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A desvantagem da televisão em relação à internet, apontada no texto, é a:",
+    "alts": {
+      "A": "passividade dos usuários.",
+      "B": "reduzida velocidade do meio.",
+      "C": "pequena facilidade de acesso.",
+      "D": "inexistência de programas culturais",
+      "E": "carência da população que a utiliza."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 6,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O fato de os acervos estarem sendo digitalizados é a _____________ da democratização do acesso à informação. De acordo com o texto, o termo que preenche corretamente a lacuna acima é:",
+    "alts": {
+      "A": "causa.",
+      "B": "conseqüência.",
+      "C": "evidência.",
+      "D": "aspiração.",
+      "E": "razão."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 7,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Assinale a opção em que a concordância segue a norma culta da língua.",
+    "alts": {
+      "A": "Cada um dos eleitores escolherão os locais de votação.",
+      "B": "Ocorreu na última década importantes desenvolvimen- tos tecnológicos.",
+      "C": "Às vezes os brasileiros não parecem conhecerem suas obrigações eleitorais.",
+      "D": "Quase 100% da população de Miraflores acessa a internet.",
+      "E": "Devem haver muitos estudantes buscando informações pela internet."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 8,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Observe e analise o trecho “A disseminação já impulsiona ... seja por um acesso mais transparente ... , seja pelo fenômeno dos blogs, ... (l.30-33) Indique a opção em que a expressão NÃO apresenta um sentido equivalente ao do texto destacado acima.",
+    "alts": {
+      "A": "parte por um ... , parte pelo fenômeno",
+      "B": "quer por um ... , quer pelo fenômeno.",
+      "C": "já por um ... , já pelo fenômeno.",
+      "D": "não só por um ... , tanto mais pelo fenômeno.",
+      "E": "tanto por um ... , quanto pelo fenômeno."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 9,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Assinale a oração em que a regência verbal está correta- mente realizada.",
+    "alts": {
+      "A": "Na reunião, não aludi o assunto sigiloso.",
+      "B": "A empresa atingiu à meta traçada pelo diretor.",
+      "C": "As despesas excediam as suas possibilidades.",
+      "D": "Os fatos se contrapõem à solicitação do chefe.",
+      "E": "Os empregados aspiram o bom desempenho do setor."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 10,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Indique a opção em que a pontuação está de acordo com a norma culta.",
+    "alts": {
+      "A": "Considere-se o seguinte aspecto da informação: rapi- dez, precisão, e novidade.",
+      "B": "Necessita-se de que o departamento faça a aquisição de disquetes, cartuchos, e outros.",
+      "C": "O material chegou no dia certo; mas alguns itens vieram danificados.",
+      "D": "A diretora mandou cumprir o decreto,  – ela, que é a responsável, se preocupa.",
+      "E": "Todos aqueles que ocupam posições de chefia ou lide- rança, vão à reunião. MATEMÁTICA Leia o texto abaixo para responder às questões 11 e 12. “A expectativa de vida do brasileiro aumentou (...), seguindo uma tendência mundial. (...) Para os brasi- leiros nascidos em 2004, a expectativa de vida é de 71,7 anos. (...) O aumento reflete melhorias nos ser- viços de saúde pública e de saneamento (...). Em 1980, a expectativa de vida no Brasil era de 62,6 anos. (...) Os dados regionais mais uma vez confirmam as desigualdades entre as unidades da federação. En- quanto no primeiro colocado, o Distrito Federal, um bebê nascido em 2004 terá esperança de viver 74,6 anos, um bebê nascido em Alagoas, no mesmo ano, terá uma esperança bem abaixo da média nacional: 65,5 anos.”"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 11,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Se, de 1980 a 2004, a expectativa de vida dos brasileiros tives- se aumentado linearmente, um brasileiro nascido em 1990 te- ria uma expectativa de vida, em anos, de, aproximadamente:",
+    "alts": {
+      "A": "65,9",
+      "B": "66,4",
+      "C": "67,1",
+      "D": "67,3",
+      "E": "68,1"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 12,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A diferença, em anos, entre a expectativa de vida no Distrito Federal e em Alagoas, em 2004, era de:",
+    "alts": {
+      "A": "14,2",
+      "B": "11,1",
+      "C": "9,1",
+      "D": "8,9",
+      "E": "6,2"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 13,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "João lançou dois dados perfeitos e, sem que seu irmão visse o resultado, pediu-lhe que tentasse adivinhar a diferença en- tre o maior e o menor dos números obtidos. O irmão de João terá mais chance de acertar, se disser que essa diferença é igual a:",
+    "alts": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "4",
+      "E": "5 O Globo, 02 dez. 2005 TÉCNICO(A) DE MANUTENÇÃO I - ELÉTRICA"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 15,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Em certa papelaria, duas borrachas e dois lápis custam R$2,20.  João foi a essa papelaria e comprou um lápis, um caderno e uma borracha e gastou R$4,00. Quanto custou, em reais, o caderno que João comprou?",
+    "alts": {
+      "A": "1,50",
+      "B": "1,80",
+      "C": "2,20",
+      "D": "2,80",
+      "E": "2,90"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 16,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A figura acima representa a planta de uma escada de cinco degraus, construída na portaria de um prédio. A distância, em metros, entre os pontos A e B, marcados na figura, é:",
+    "alts": {
+      "A": "0,75",
+      "B": "1,44",
+      "C": "1,69",
+      "D": "1,80",
+      "E": "1,95"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 17,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "As férias de João se iniciam daqui a 12 dias, mas se ele quiser trabalhar 2 horas extras por dia, de hoje em diante, entrará de férias daqui a 9 dias. Sebastião decidiu que fará hora extra para entrar de férias mais cedo. Sendo assim, quantas horas diárias Sebastião vai trabalhar até entrar de férias?",
+    "alts": {
+      "A": "5",
+      "B": "6",
+      "C": "7",
+      "D": "8",
+      "E": "9 36 cm 15 cm B A 65,6 67,0 70,4 71,7 1980 1991 2000 2004 Esperança de vida ao nascer BRASIL ATUALIDADES"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 18,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Na Amazônia Brasileira, atuam empresas madeireiras que seguem padrões internacionais de exploração; são as cha- madas “selo verde”. Assinale a opção que apresenta uma característica dessas empresas.",
+    "alts": {
+      "A": "Cortam todo tipo de árvore com valor comercial, retirando, contudo, menos de 500 árvores por quilômetro quadrado.",
+      "B": "Representam a maior parte das madeireiras, nacionais e estrangeiras, atuantes na região em foco.",
+      "C": "Fazem rodízio sistemático de áreas de floresta explora- das, respeitando intervalos de 25 anos.",
+      "D": "Praticam o manejo sustentável da floresta, extraindo cerca de 1.000 árvores por km2.",
+      "E": "Produzem a denominada “madeira certificada”, operan- do corte de árvores em qualquer parte do ano."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 19,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Observe o gráfico e leia o texto abaixo. Jornal do Brasil, 2 dez. 2005 (adaptação). “A expectativa de vida do brasileiro aumentou de 2003 para 2004, seguindo uma tendência mundial, mas o Brasil ainda aparece na 82a posição no ranking mundial.” O Globo, 2 dez. 2005. A partir da análise do gráfico e do texto, é correto afirmar que:",
+    "alts": {
+      "A": "os brasileiros de ambos os sexos apresentam a mesma expectativa de vida, em conseqüência dos ganhos sociais alcançados pelas mulheres.",
+      "B": "a expectativa de vida da população brasileira aumentou, apesar de a mortalidade infantil ainda se apresentar com números crescentes.",
+      "C": "a esperança de vida dos brasilerios tem-se elevado nas últimas décadas, em decorrência do aumento gradual da taxa de natalidade.",
+      "D": "a base de cálculo para assegurar aposentadoria plena do trabalhador brasileiro deverá mudar, devido ao aumento da longevidade da população.",
+      "E": "a qualidade de vida dos brasileiros tem-se elevado, em- bora o aumento da expectativa de vida seja restrito às áreas urbanas do país. TÉCNICO(A) DE MANUTENÇÃO I - ELÉTRICA"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 20,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O referendo popular, realizado no Brasil em outubro de 2005 e que tinha como tema o comércio de armas de fogo e muni- ção, resultou na vitória do “não”. Uma implicação direta desse resultado é o(a):",
+    "alts": {
+      "A": "impedimento da entrada em vigor do Art. 35 do Estatuto do Desarmamento.",
+      "B": "redefinição das competências atribuídas ao Sistema Na- cional de Armas.",
+      "C": "alteração das disposições sobre posse ou porte ilegal de armas de fogo no País.",
+      "D": "desaprovação integral dos artigos do Estatuto do Desar- mamento, publicado em 2003.",
+      "E": "neutralização imediata da vigência do Artigo 6o do Esta- tuto do Desarmamento."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 21,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O presidente do IBGE negou erro no PIB (Produto Interno Bru- to), disse que a retração de 1,2% no terceiro trimestre reflete a realidade da economia e que o resultado pode ser revisto, mas, se houver mudança no número, ela não será grande. Folha de São Paulo, 3 dez. 2005. O resultado do PIB neste terceiro trimestre de 2005 não re- presenta tendência negativa, mas retrata um momento tran- sitório da economia brasileira, afirma técnico do IPEA. Disponível em http://www.brasil.gov.br. Em questão. Acesso em 3 dez. 2005. O Ministro da Fazenda admitiu que as turbulências no campo político afetaram a atividade econômica e abalaram as expec- tativas, tanto de consumidores quanto de empresários. Jornal do Brasil, 2 dez. 2005. Um fator que explica o resultado econômico em foco é o(a):",
+    "alts": {
+      "A": "incremento dos lucros do agronegócio em detrimento do setor industrial.",
+      "B": "aumento do nível dos estoques, sem acompanhamento da demanda.",
+      "C": "fortalecimento da apreciação cambial, provocando fuga maciça de capitais.",
+      "D": "aceleração do ritmo de crescimento do crédito direto ao consumidor.",
+      "E": "elevação moderada da taxa de juros ao longo do primeiro semestre."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 22,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Acerca do desempenho do comércio exterior brasileiro, ao longo do ano de 2005, afirma-se: I −As exportações têm apresentado crescimento, ainda que de forma descontínua. II −A soja e seus derivados têm liderado as exportações. III −O saldo da balança comercial tem registrado, continua- mente, superavit. Está(ão) correta(s) a(s) afirmativa(s):",
+    "alts": {
+      "A": "I, apenas.",
+      "B": "I e II, apenas.",
+      "C": "I e III, apenas.",
+      "D": "II e III, apenas.",
+      "E": "I, II e III."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 23,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Expansão Criminosa Desde o início da década de 1990, o tráfico de drogas dobrou de 400 bilhões para 800 bilhões de dólares ao ano e o volume de recursos movimentados pela lavagem de dinheiro aumen- tou 10 vezes, chegando a 1,5 bilhão de dólares por ano. Revista Veja, ed. 1933, 30 nov. 2005. O aspecto mais diretamente associado à situação descrita é a(o):",
+    "alts": {
+      "A": "ausência de organismos financeiros internacionais.",
+      "B": "inexistência de atuação policial internacional.",
+      "C": "falta de legislação de combate a falsificações.",
+      "D": "funcionamento de inúmeros “paraísos fiscais”.",
+      "E": "desenvolvimento mundial do comércio virtual."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 24,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "No Oriente Médio, segundo observadores internacionais, a cri- se política entre israelenses e palestinos passou a contar com um dado novo e favorável à solução dos conflitos. Assinale-o.",
+    "alts": {
+      "A": "Desocupação ordenada da Faixa de Gaza, por colonos e tropas israelenses.",
+      "B": "Fim da intenção de se criar um Estado Palestino, após a morte de Yasser Arafat.",
+      "C": "Desarmamento de grupos extremistas palestinos, como o Hamas e a Jihad Islâmica.",
+      "D": "Libertação de milhares de presos palestinos, por deter- minação do governo de Israel.",
+      "E": "Acordo bilateral sobre o status de Jerusalém, seguindo proposta de Ariel Sharon. \u0001 CONTINUA TÉCNICO(A) DE MANUTENÇÃO I - ELÉTRICA"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 25,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "The main intention of the text is to:",
+    "alts": {
+      "A": "introduce the advantages and disadvantages of global warming.",
+      "B": "list all the harmful effects of greenhouse gases emissions.",
+      "C": "punish citizens who drive their cars to work everyday.",
+      "D": "present some easy ways of retarding global warming.",
+      "E": "teach people how to recycle waste materials."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 26,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "In the sentence “You don’t have to be a diplomat or a rocket scientist to do something about global warming”. (lines 1-2), the author means that:",
+    "alts": {
+      "A": "combating global warming requires great expertise.",
+      "B": "anyone can help in the fight against global warming.",
+      "C": "only trained professionals can put an end to this problem.",
+      "D": "politicians and scientists do not want to reduce gas emissions.",
+      "E": "diplomatic efforts are useless in the war against global warming."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 27,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Mark the only statement that CANNOT be found in the text.",
+    "alts": {
+      "A": "Solar energy can be used in family homes to produce hot water.",
+      "B": "Recyclable packages contribute to cut down carbon dioxide emissions.",
+      "C": "Carbon dioxide is a greenhouse gas that contributes to global warming.",
+      "D": "Recycled metal and glass are a significant source of greenhouse gases.",
+      "E": "When you drive a car you are increasing emissions of the greenhouse gases."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 28,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "According to the last two paragraphs, protecting the environment:",
+    "alts": {
+      "A": "is very simple, although costly.",
+      "B": "is considered a total waste of money.",
+      "C": "will necessarily involve money losses.",
+      "D": "requires very expensive measures.",
+      "E": "can also help you save money."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 29,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "The overall tone of the text is one of:",
+    "alts": {
+      "A": "sadness.",
+      "B": "skepticism.",
+      "C": "persuasion.",
+      "D": "disillusionment.",
+      "E": "indifference."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 30,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Check the item in which the underlined word introduces an exemplification.",
+    "alts": {
+      "A": "“…and hence our emissions of greenhouse gases…” (lines 4 - 5)",
+      "B": "“…such as carbon dioxide…” (line 5)",
+      "C": "“…they also can remove 50 pounds…” (line 28 - 29)",
+      "D": "“…but they can make a big difference”. (lines 34 - 35)",
+      "E": "“… and make our planet a better place for…”. (line 40)"
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 32,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Um profissional verificou que determinada grandeza era dimensionalmente compatível com  L-1M1T-2 , onde L, M e T representam, respectivamente, comprimento, massa e tempo. Essa grandeza é um(a):",
+    "alts": {
+      "A": "torque.",
+      "B": "momento de inércia.",
+      "C": "momento linear.",
+      "D": "pressão.",
+      "E": "força."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 33,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A figura acima representa a instalação elétrica de um cômodo de uma residência. A partir de sua análise, é correto afirmar que se trata de uma instalação de:",
+    "alts": {
+      "A": "um ponto de luz, comandado por três interruptores three way.",
+      "B": "um ponto de luz, comandado por dois interruptores three way e um four way.",
+      "C": "um ponto de luz, comandado por dois interruptores three way  e um de duas seções.",
+      "D": "dois pontos de luz, comandados por dois interruptores de uma seção e um de duas seções.",
+      "E": "dois pontos de luz, comandados por dois interruptores three way e um four way. 2 x 60 W a a a a"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 34,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A figura acima ilustra as vistas ortográficas lateral e frontal de um determinado objeto. A vista ortográfica superior (vista de topo) correspondente a esse mesmo objeto é:",
+    "alts": {
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": "",
+      "E": ""
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 35,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "No circuito acima, cada um dos resistores R dissipa 50 W, e ambos estão submetidos à tensão de 10 V. Sendo assim, o valor da resistência interna Rint da fonte, em ohms, é:",
+    "alts": {
+      "A": "10",
+      "B": "5",
+      "C": "1",
+      "D": "0,5",
+      "E": "0,2 vista ortográfica superior R int R R 12 V _ + TÉCNICO(A) DE MANUTENÇÃO I - ELÉTRICA"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 36,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Considere a figura e os dados abaixo. R= 10 E1= 10 V E2= 30 V No circuito da figura, admita, inicialmente, que a chave S encontra-se aberta e que o mesmo atingiu o regime perma- nente de operação. É correto afirmar que o valor da corrente I que circula pela chave imediatamente após o seu fechamento é:",
+    "alts": {
+      "A": "2A",
+      "B": "-2A",
+      "C": "1A",
+      "D": "-1A",
+      "E": "0 A"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 2,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "V V 1 1 + V ( + ) + V +I R R R R 39 Considere um circuito CA com os seguintes dados: • Valor eficaz da tensão de alimentação: 200 V. • Valor eficaz da corrente de carga: 10 A. • Fator de potência 0,87 com característica indutiva. • Freqüência de operação do circuito: 50 Hz. A capacitância aproximada do capacitor que, colocado em paralelo com a carga, torna o fator de potência do circuito unitário, é:",
+    "alts": {
+      "A": "8 F",
+      "B": "80 F",
+      "C": "800 F",
+      "D": "8 mF",
+      "E": "80 mF B S V R - - + + e ind X X X X X X V V V V I L L I I R R R R R R C"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 2,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "conhecida CARACTERÍSTICA capacitiva indutiva capacitiva indutiva impossível determinar",
+    "alts": {
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": "",
+      "E": "Considere o que se segue para responder às questões 43 e 44. As figuras mostram o desenho e o circuito do modelo de um galvanômetro de bobina móvel G a ser utilizado como amperímetro. O ponteiro atinge o ponto máximo da escala quando o galvanômetro é percorrido por uma corrente de 400 A. A resistência interna Ri, da bobina móvel é de"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 8,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "e o diodo é considerado ideal. 43 O diodo colocado no circuito tem a finalidade de:",
+    "alts": {
+      "A": "limitar a tensão aplicada sobre o galvanômetro em 0,7 V.",
+      "B": "limitar a intensidade de corrente sobre a bobina móvel.",
+      "C": "evitar danificar o ponteiro, caso haja inversão de polaridade.",
+      "D": "evitar que a bobina queime por excesso de corrente.",
+      "E": "garantir uma corrente constante sobre a bobina móvel do galvanômetro."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 44,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Utilizando-se uma resistência shunt Rs = 0,04 , o amperímetro montado vai permitir a medida de uma corrente máxima, em mA, de:",
+    "alts": {
+      "A": "24",
+      "B": "56",
+      "C": "68",
+      "D": "75",
+      "E": "80"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 45,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Um técnico realizou medidas de tensão em dois pontos distintos de um circuito, encontrando 50 V  e 80 V. Admitindo que o calibre do voltímetro utilizado é de 100 V e sua classe de exatidão é 1,5, os valores aproximados dos erros relativos percentuais em cada medição efetuada, respectivamente, são:",
+    "alts": {
+      "A": "0,98% e 0,98%.",
+      "B": "0,75% e 1,2%.",
+      "C": "1,5% e 1,5%.",
+      "D": "0,5% e 0,8%.",
+      "E": "3% e 1,9%."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 46,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O escorregamento de um motor de indução de 2 pólos é de 1% e sua velocidade de rotação 1.782 rpm. A freqüência de alimentação do motor, em Hz, é:",
+    "alts": {
+      "A": "120",
+      "B": "100",
+      "C": "60",
+      "D": "50",
+      "E": "30 i S R G _ _ + + R A TÉCNICO(A) DE MANUTENÇÃO I - ELÉTRICA"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 47,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Considere as seguintes afirmativas sobre dispositivos de proteção. I - A seletividade entre disjuntores em série, sem ajuste de temporização, só é possível quando o nível das correntes de curto-circuito varia suficientemente nos diferentes pontos da instalação. II - Pára-raios de distribuição a resistor não linear atuam na ocorrência de sobretensões provocadas por descargas atmosféricas. III - O atendimento dos requisitos de proteção contra correntes de curto-circuito de um fusível está associado à proteção de todos os equipamentos localizados à jusante do ponto onde está instalado. É(são) correta(s) a(s) afirmativa(s):",
+    "alts": {
+      "A": "III, apenas.",
+      "B": "I e II, apenas.",
+      "C": "I e III, apenas.",
+      "D": "II e III, apenas.",
+      "E": "I, II e III."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 49,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A tarifação que exige um contrato específico com a con- cessionária, no qual se determina o valor de demanda pelo consumidor na ponta e fora de ponta, durante o período seco e úmido, é a:",
+    "alts": {
+      "A": "convencional.",
+      "B": "horo-sazonal verde.",
+      "C": "horo-sazonal azul.",
+      "D": "amarela.",
+      "E": "convencional diferenciada."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 52,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Um dado a ser desconsiderado na especificação de um Transformador de Corrente (TC) para medição é a(o):",
+    "alts": {
+      "A": "relação de transformação.",
+      "B": "carga nominal.",
+      "C": "classe de exatidão.",
+      "D": "tipo de medidor a ser instalado.",
+      "E": "fator térmico."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 53,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Um retificador monofásico de onda completa, controlado, é alimentado por uma rede com tensão de 127 V, 60Hz e empregado no carregamento de um banco de baterias. Em relação a este retificador, é correto afirmar que a(o):",
+    "alts": {
+      "A": "potência ativa consumida depende do ângulo de disparo dos tiristores.",
+      "B": "corrente de entrada independe do valor da tensão no banco de baterias.",
+      "C": "corrente de entrada é senoidal e está em fase com a tensão de alimentação.",
+      "D": "tensão média de saída é função somente do ângulo de disparo dos tiristores.",
+      "E": "retificador não consome energia reativa da rede, inde- pendentemente do ângulo de disparo dos tiristores. velocidade Curva de torque do motor Curva de torque da carga Ponto de operação torque TÉCNICO(A) DE MANUTENÇÃO I - ELÉTRICA"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 56,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A relação entre o fluxo luminoso emitido por uma fonte luminosa e a potência consumida por ela é a(o):",
+    "alts": {
+      "A": "emitância.",
+      "B": "eficiência luminosa.",
+      "C": "fator de utilização.",
+      "D": "fator de depreciação.",
+      "E": "fator de iluminamento."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 57,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Considere as afirmativas a seguir sobre falhas que podem ocorrer em equipamentos no interior de painéis elétricos. I - Corrosão ou desgaste dos contatos de disjuntores e contatores podem ocasionar elevadas resistências de contato. II - Sujeira e oxidação dos núcleos dos circuitos magnéti- cos de bobinas de relés e contatores podem ser detectáveis por vibração e ruído audível nestes equipa- mentos. III - Umidade e sujeira podem causar aquecimento e queima de bobinas de contatores e relés. São verdadeiras as afirmativas:",
+    "alts": {
+      "A": "I, apenas.",
+      "B": "I e II, apenas.",
+      "C": "I e III, apenas.",
+      "D": "II e III, apenas.",
+      "E": "I, II e III."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 58,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Considere o amplificador operacional abaixo como ideal. Se o sinal de entrada for VE(t)=5sen( t), o sinal de saída Vs(t) do circuito será:",
+    "alts": {
+      "A": "- 5 sen ( t + 180°)",
+      "B": "- 3 5  sen ( t + 180°)",
+      "C": "5 sen ( t - 180°)",
+      "D": "15 sen ( t + 180°)",
+      "E": ""
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 3,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "5  sen ( t) 59 A figura acima mostra um circuito elétrico que utiliza um diodo Zenner de 10V. Os valores da corrente I, em mA, considerando primeiramente R = 2 k e, em seguida, R = 7 k , respectivamente, são:",
+    "alts": {
+      "A": "4,5 e  4",
+      "B": "0 e 4,5",
+      "C": "4 e 9",
+      "D": "4,5 e 0",
+      "E": "9 e 0"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 60,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Um retificador monofásico em ponte, sem capacitor de filtragem, é alimentado por uma tensão senoidal de 60 Hz e 120 Vrms. O valor médio da tensão CC de 108 V foi medido na saída do retificador. Alterando apenas a freqüência para 50 Hz, o novo valor médio, medido em Volts, será:",
+    "alts": {
+      "A": "80",
+      "B": "90",
+      "C": "108",
+      "D": "115",
+      "E": "120 VE VS 9k 3k _ + R 2 k 18V I TÉCNICO(A) DE MANUTENÇÃO I - ELÉTRICA"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 61,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A expressão lógica que corresponde ao sinal D, no circuito combinacional acima, é:",
+    "alts": {
+      "A": "AB+BC",
+      "B": "AB+AB+BC",
+      "C": "AB+AB+BC",
+      "D": "AB+AB+C",
+      "E": "AB+AB+BC"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 1,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "1+G (s)G (s)G (s) S C V G (s) P (E) G (s) D 1+G (s)G (s)G (s) S C V G (s) P 63 O esquema acima apresenta dois interruptores paralelos, uma lâmpada e também os fios de fase e neutro. A ligação que comanda corretamente a lâmpada, através de dois interruptores distintos, se faz conectando:",
+    "alts": {
+      "A": "(A em B), (C em E), (D em F) e (G em H).",
+      "B": "(A em B), (C em E), (D em G) e (F em H).",
+      "C": "(A em C), (B em E), (D em F) e (G em H).",
+      "D": "(A em G), (C em E), (D em H) e (B em F).",
+      "E": "(A em G), (C em E), (B em F) e (D em H)."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 64,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "As medidas de Conservação de Energia visam a reduzir o consumo sem a perda de qualidade de vida, de conforto, de segurança e de produtividade. Desta forma, NÃO pode ser considerada como medida de Conservação de Energia o(a):",
+    "alts": {
+      "A": "dimensionamento adequado dos circuitos.",
+      "B": "dimensionamento adequado do sistema de ar-condicio- nado.",
+      "C": "manutenção preventiva nas instalações elétricas.",
+      "D": "utilização de equipamentos eficientes.",
+      "E": "restrição do uso de equipamentos de alta potência."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 65,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Assinale a afirmação que CONTRARIA o disposto na norma NR-10/2004 - Segurança em Instalações e Serviços em Eletricidade.",
+    "alts": {
+      "A": "A utilização da cor verde para os condutores de proteção (terra) é coerente, pois na sinalização de segurança a cor verde indica ABERTO ou DESLIGADO e a cor vermelha indica contato FECHADO ou LIGADO.",
+      "B": "O Prontuário das Instalações Elétricas deve conter a documentação das inspeções e medições do sistema de aterramento elétrico.",
+      "C": "O uso de pulseira ou colar durante a realização de servi- ços no interior de uma subestação é permitido, desde que estes adornos não sejam metálicos.",
+      "D": "Os diagramas unifilares das instalações elétricas devem permanecer  à disposição dos trabalhadores envolvidos nas instalações e serviços em eletricidade.",
+      "E": "Os trabalhadores devem interromper suas tarefas, exercendo o direito de recusa sempre que constatarem evidências de riscos graves e iminentes para sua segu- rança e saúde ou de outras pessoas. _ + + + G (s) G (s) G (s) G (s) V S P C CV(s) SP(s) D(s) G (s) D H G F E D C B A interruptor paralelo lâmpada fase neutro interruptor paralelo A B C D TÉCNICO(A) DE MANUTENÇÃO I - ELÉTRICA"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 66,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O circuito que alimenta uma carga trifásica equilibrada a partir do QGBT (Quadro Geral de Baixa Tensão - 220/127Vca) está corretamente protegido por um disjuntor com as seguintes características: • disjuntor termo-magnético tripolar de corrente nominal 125 A; • tensão nominal 250 Vca/60 Hz; • capacidade de interrupção de corrente de 20 kA. Nesta perspectiva, é correto afirmar que o:",
+    "alts": {
+      "A": "disjuntor é compatível com uma carga trifásica de 38 kVA, fator de potência 0,9.",
+      "B": "disjuntor especificado suporta os esforços eletromagné- ticos e solicitações térmicas decorrentes da interrupção de uma corrente de 28 3 kA.",
+      "C": "disjuntor atuará instantaneamente, principalmente se a temperatura ambiente for inferior a 25 oC, caso circule uma corrente superior a 125 A no circuito.",
+      "D": "dispositivo magnético, cuja função é desligar o disjuntor em caso de sobrecarga, terá desligado o circuito dentro de alguns segundos se a corrente em qualquer das três fases for 140 A.",
+      "E": "dispositivo térmico que ocasiona o desligamento do disjuntor em caso de curto-circuito pode suportar correntes de curto-circuito simétricas de até 20 kA."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 67,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Em relação à saúde e à segurança no trabalho, assinale a alternativa correta.",
+    "alts": {
+      "A": "Fernando, ao descer do ônibus que o levava do trabalho para casa, caiu e quebrou a mão esquerda. Foi atendido pelo médico de um hospital público e ficou trinta dias afastado do serviço, não havendo necessidade de preen- chimento do Comunicado de Acidente de Trabalho.",
+      "B": "José Rodrigues deixou de comparecer ao exame audiométrico periódico, pois não sentia nenhum sintoma de perda auditiva e o considerava desnecessário. Ele está dentro do seu direito, pois tem a garantia de recusa ao exame.",
+      "C": "A primeira ação a ser realizada em caso de incêndio é atacar o fogo o mais rápido possível, por meios adequados.",
+      "D": "A água nunca pode ser usada para extinção de fogo Classe C.",
+      "E": "Os efeitos fisiológicos de um choque elétrico estão associados à intensidade da corrente elétrica, ao tempo que essa corrente permanece atravessando o corpo e ao seu percurso."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 68,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Para construir uma subestação, deve-se atentar para as condições técnicas e econômicas, além de atender ao que preconiza a norma reguladora de seu projeto (NBR-5414). De acordo com estas condições, em uma subestação em torre ou poste, o equipamento utilizado para a proteção contra sobretensão é a(o):",
+    "alts": {
+      "A": "chave fusível.",
+      "B": "chave seccionadora.",
+      "C": "religador.",
+      "D": "pára-raios.",
+      "E": "disjuntor."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 69,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A execução de uma obra é representada pelo Diagrama de Rede PERT/CPM acima, cujas atividades a serem executadas são designadas por letras maiúsculas, junta- mente com os seus tempos de execução em ut (unidades de tempo). O tempo de conclusão dessa obra, em ut, é de:",
+    "alts": {
+      "A": "14",
+      "B": "15",
+      "C": "18",
+      "D": "21",
+      "E": "26"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 70,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O equipamento que realiza o seccionamento automático da alimentação, baseado no princípio da corrente diferencial residual (DR), tem sua instalação para a proteção contra contatos indiretos impossibilitada quando for utilizado o esquema de aterramento do tipo:",
+    "alts": {
+      "A": "TT",
+      "B": "IT, no seccionamento automático, visando à proteção contra choques elétricos, na ocorrência de uma segun- da falta.",
+      "C": "TN-C",
+      "D": "TN-S",
+      "E": "TN C 5 ut E 1 ut F 3 ut D 8 ut"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  }
+]

@@ -1,2 +1,16 @@
 claude.md
 *.md
+
+# Chave API — nunca commitar
+api_claude.txt
+
+# Arquivos grandes (vídeos e PDFs de prova)
+aulas/
+resumo/
+dados/provas_pdf/
+*.mp4
+*.pdf
+*.crdownload
+
+# Documentos pessoais
+diploma/

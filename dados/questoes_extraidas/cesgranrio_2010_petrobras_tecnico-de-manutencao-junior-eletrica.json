@@ -1,0 +1,686 @@
+[
+  {
+    "num_original": 2,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "No circuito acima, o valor da tensão entre os pontos A e B e da corrente I são, respectivamente,",
+    "alts": {
+      "A": "-10V e 5A",
+      "B": "-5V e 20A",
+      "C": "0V e 2A",
+      "D": "0V e 4A",
+      "E": "0V e 10A"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 3,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Considerando os diodos ideais no circuito acima, os valo- res das tensões V1, V2 e V3 em função da tensão de pico no secundário VP são, respectivamente,",
+    "alts": {
+      "A": "4VP, 2VP e 4VP",
+      "B": "4VP, VP e 3VP",
+      "C": "3VP, 2VP e 4VP",
+      "D": "2VP, 2VP e 3VP",
+      "E": "2VP, VP e 2VP + - 16V 0,666\u0002 1\u0002 B 3\u0002 2\u0002 A 1\u0002 A I"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 4,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Ø – Condição irrelevante A expressão booleana mais simplificada, correspondente à tabela verdade acima, é",
+    "alts": {
+      "A": "S = BD",
+      "B": "S = BD + AB",
+      "C": "S = D",
+      "D": "S = ABCD ABCD ABCD \u0003 \u0003",
+      "E": "S = ABD + ABD"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 5,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A expressão booleana mais simplificada correspondente ao circuito lógico acima é",
+    "alts": {
+      "A": "S = ABC",
+      "B": "S A +B + C \u0004",
+      "C": "(A + C)B",
+      "D": "S A B C \u0004",
+      "E": "S A B \u0004 V3 V2 VP V1 A B A C A B C S 10 \u0002 20\u0002 10\u0002 5 \u0002 10 V 10 \u0002 R=10 \u0002 E IL 80 V + - TÉCNICO(A) DE MANUTENÇÃO JÚNIOR - ELÉTRICA"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 6,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Com relação à corrente de linha I e ao fator de potência FP do circuito acima, afirma-se que",
+    "alts": {
+      "A": "I = 15A e FP = 1",
+      "B": "I = 6A e FP = 0,6 indutivo",
+      "C": "I = 6A e FP = 1",
+      "D": "I = 6A e FP = 0,6 capacitivo",
+      "E": "I = 15A e FP = 0,6 capacitivo"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 7,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O valor da reatância Xc para o circuito acima ter fator de potência FP=1 é",
+    "alts": {
+      "A": "0,625\u0002",
+      "B": "6,25\u0002",
+      "C": "30\u0002",
+      "D": "40\u0002",
+      "E": "62,5\u0002"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 9,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A escala utilizada para execução do desenho técnico da peça acima é",
+    "alts": {
+      "A": "de ampliação.",
+      "B": "de fabricação.",
+      "C": "de redução.",
+      "D": "especial.",
+      "E": "natural."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 10,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O valor da energia necessária para deslocar uma carga de 120 \u0006C entre dois pontos, cuja diferença de potencial é de 6V, em J, é",
+    "alts": {
+      "A": "20 x10-6",
+      "B": "0,20 x10-3",
+      "C": "0,72 x10-3",
+      "D": "20",
+      "E": "720"
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 11,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "De acordo com as unidades básicas do Sistema Internaci- onal de unidades (SI), o nome das unidades correspon- dentes às grandezas Comprimento, Massa, Tempo, Tem- peratura Termodinâmica e Intensidade Luminosa são, res- pectivamente,",
+    "alts": {
+      "A": "metro, quilograma, segundo, kelvin e candela.",
+      "B": "metro, quilograma, segundo, kelvin e lúmen.",
+      "C": "metro, quilograma, minuto, celsius e candela.",
+      "D": "centímetro, grama, segundo, celsius e lúmen.",
+      "E": "centímetro, grama, minuto, celsius e lux."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 12,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Em uma pequena indústria, a carga está distribuída da seguinte forma: - P1 = 200 kW ; Q1 =  200 3   kVAR - P2 = 100 kW ; Q1 =    80 3   kVAR - P3 = 180 kW ; Q3 =  130 3   kVAR - P4 =   50 kW ; Q1 =  120 3  kVAR O valor do fator de potência da carga total é",
+    "alts": {
+      "A": "0,4",
+      "B": "0,5",
+      "C": "2 / 2",
+      "D": "3 /2",
+      "E": ""
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 3,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Z Y X a a 2 3 3 1 1 a 100 14 Para corrigir o fator de potência de um motor de 7 HP para o valor de 1.0, o valor da potência reativa fornecida por um banco de capacitores a ser ligado junto com o motor é, em VAR, Dados do Motor:  220V, Trifásico, 60Hz, Rendimento = 0,7 e Fator de potência = 0,8.",
+    "alts": {
+      "A": "9.425",
+      "B": "9.325",
+      "C": "7.460",
+      "D": "5.595",
+      "E": "4.536"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 15,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "As figuras acima mostram dois circuitos trifásicos, (a) e (b), com cargas equilibradas. A fonte de alimentação de am- bos os circuitos é igual e seu módulo vale E volts. Para que a corrente I1, do circuito (a), seja igual a corrente I2, do circuito (b), é necessário que Z1 seja igual a",
+    "alts": {
+      "A": "3 Z2",
+      "B": "3 Z2",
+      "C": "Z2",
+      "D": "Z2 / 3",
+      "E": "Z2 /"
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 16,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Um sistema trifásico alimentado por um banco de transfor- madores, ligados numa configuração \u0007 - \u0007, tem o primário de um dos transformadores aberto de forma acidental. As- sim, as unidades resultantes passam a trabalhar numa configuração denominada delta aberto ou V-V. Se os três transformadores, ligados em \u0007 - \u0007, estavam suprindo car- ga nominal, e um transformador é removido, passando a trabalhar em V-V, a sobrecarga em cada um dos transfor- madores remanescentes é de, aproximadamente,",
+    "alts": {
+      "A": "73 %",
+      "B": "50 %",
+      "C": "40%",
+      "D": "25 %",
+      "E": "20 %"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 3,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "a 3 2 3 3 a 3 2 3 X                        Y                                Z E Z1 E E Z1 Z1 I1 E E E I2 Z2 Z2 Z2 (a)                                             (b) TÉCNICO(A) DE MANUTENÇÃO JÚNIOR - ELÉTRICA 5 17 Na figura (a) acima, quando o polo norte do ímã se aproxi- ma da espira, o amperímetro, de zero central, indica que a corrente elétrica está circulando no sentido anti-horário. Quando o imã se afasta da bobina, conforme mostra a fi- gura (b) acima, observa-se que a corrente passa a circular no sentido contrário ao anterior, ou seja, horário. Esse fe- nômeno está fundamentado na Lei que afirma “O sentido da corrente induzida é tal que, por seus efeitos, opõe-se à causa que lhe deu origem”. Essa Lei é denominada Lei de",
+    "alts": {
+      "A": "Lorentz.",
+      "B": "Faraday.",
+      "C": "Biot-Savart.",
+      "D": "Amper.",
+      "E": "Lenz."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 19,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A potência fornecida a um circuito trifásico de três fios, conectado em Y ou \u0007 , equilibrado ou não, pode ser medi- da com apenas dois wattímetros, se eles forem conectados adequadamente ao circuito e as leituras forem interpreta- das de maneira correta. A figura acima mostra uma das maneiras de conectar os Wattímetros (W1 e W2). A esse respeito, analise as afirmativas abaixo. I – Se a carga tiver um fator de potência (atrasado ou adiantado) menor do que 0,5, a leitura dos dois Wattímetros é positiva, e a potência total é a soma das leituras. II – Se a carga tiver um fator de potência (atrasado ou adian- tado) maior do que 0,5, uma das leituras é negativa, é a potência total é a diferença entre as leituras. III – Quando o fator de potência da carga for unitário, ou seja, carga puramente resistiva, as leituras dos Wattímetros são iguais. IV – Se o fator de potência da carga for nulo, ou seja, carga puramente reativa, as leituras dos Wattímetros são iguais, porém, com sinais opostos. Está correto APENAS o que se afirma em",
+    "alts": {
+      "A": "I e II.",
+      "B": "I e III.",
+      "C": "II e III.",
+      "D": "III e IV.",
+      "E": "I, II e IV."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 20,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Uma fonte de tensão possui tensão em vazio, ou seja, sem carga, de 50V. Ao se conectar uma carga de 50\u0002, a tensão medida na saída diminui para 40V. O valor percentual da regulação de tensão da fonte é",
+    "alts": {
+      "A": "10%",
+      "B": "15%",
+      "C": "20%",
+      "D": "25%",
+      "E": "30% Carga Conectada em ou Y \u0007 W2 P2 P1 +- +- +- +- a c b (a)                                             (b) TÉCNICO(A) DE MANUTENÇÃO JÚNIOR - ELÉTRICA"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 21,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A figura acima mostra um amperímetro construído com um Galvanômetro (de 5 mA e 50\u0002) e uma resistência em pa- ralelo (Rshunt). Para que esse amperímetro possa medir a corrente I de10A, o valor de Rshunt é, aproximadamente,",
+    "alts": {
+      "A": "0,025 \u0002",
+      "B": "0,020 \u0002",
+      "C": "0,015 \u0002",
+      "D": "0,010 \u0002",
+      "E": "0,005 \u0002"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 22,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Considerando-se as máquinas assíncronas trifásicas em regime permanente, analise as afirmativas abaixo. I – A velocidade do rotor (n) em RPM pode ser expres- sa, em termos do escorregamento (s) e da velocida- de síncrona (ns) como n = (1-s) ns. II – A frequência das correntes induzidas no rotor é a mesma das correntes do estator. III – O conjugado máximo não depende da resistência do rotor, embora o escorregamento onde ele ocorre seja diretamente proporcional a ela. Está correto o que se afirma em",
+    "alts": {
+      "A": "I, apenas.",
+      "B": "I e II, apenas.",
+      "C": "I e III, apenas.",
+      "D": "II e III, apenas.",
+      "E": "I, II e III."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 23,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Dentre os ensaios para verificação do desempenho de motores de indução, descritos abaixo, qual NÃO se aplica a motores de indução de rotor bobinado?",
+    "alts": {
+      "A": "Dielétrico.",
+      "B": "Com rotor bloqueado.",
+      "C": "Em vazio.",
+      "D": "Medição da resistência de isolamento.",
+      "E": "Medição da tensão secundária. 5 mA,50\u0002 G Rshunt Amperímetro I"
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 2,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "e 1 (B) 5 e 2 (C) 10 e 4 (D) 20 e 2 (E) 35 e 1 25 Dentre os tipos de disjuntores abaixo, aquele que não corresponde a um tipo de disjuntor utilizado em média ten- são é",
+    "alts": {
+      "A": "Pequeno Volume de Óleo (PVO).",
+      "B": "a Gás SF6.",
+      "C": "a Vácuo.",
+      "D": "a Ar Comprimido.",
+      "E": "de Caixa Moldada."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 26,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Na partida de motores utilizando chave estrela-triângulo e chave compensadora (no TAP 80%), os fatores de redu- ção da corrente de partida são, respectivamente,",
+    "alts": {
+      "A": "0,50 e 0,40",
+      "B": "1/3 e 0.64",
+      "C": "1/3 e 0.80",
+      "D": "1/ 3 e 0,80",
+      "E": "1/ 3 e 0,64 TÉCNICO(A) DE MANUTENÇÃO JÚNIOR - ELÉTRICA"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 28,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O aterramento é a ligação de um equipamento ou de um sistema à terra, por motivo de proteção ou por exigência quanto ao funcionamento do mesmo. Essa ligação de um equipamento à terra realiza-se por meio de condutores de proteção. De acordo com a NBR 5410, podem ser usados como condutores de proteção, quando forem metálicos, as (os)",
+    "alts": {
+      "A": "tubulações de água.",
+      "B": "armaduras do concreto.",
+      "C": "tubulações de gases ou líquidos combustíveis ou infla- máveis.",
+      "D": "estruturas e elementos metálicos da edificação.",
+      "E": "eletrodutos flexíveis exclusivos para tal fim."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 29,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O esquema de aterramento que possui um ponto da ali- mentação diretamente aterrado, estando as massas da ins- talação ligadas a eletrodo(s) de aterramento eletricamente distinto(s) do eletrodo de aterramento da alimentação, é o",
+    "alts": {
+      "A": "IT.",
+      "B": "TT.",
+      "C": "TN-C.",
+      "D": "TN-S.",
+      "E": "TN-C-S."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 30,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Um edifício tem sua laje superior totalmente plana e em forma de um quadrado de 14 m de lado. Se for utilizado um único captor do tipo Franklin para proteger toda a superfí- cie da laje superior, o menor valor inteiro do conjunto, cap- tor + mastro, é, em metros, Dados: ângulo de proteção (\b) = 35o e Tang (35o) \t 0,70",
+    "alts": {
+      "A": "16",
+      "B": "15",
+      "C": "14",
+      "D": "7",
+      "E": "6"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 31,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A designação utilizada para indicar o grau de proteção dos paineis elétricos é formada pelas letras IP, seguidas de dois algarismos. O primeiro algarismo indica o grau de prote- ção proporcionado pelo invólucro às pessoas e também às partes do interior dos paineis contra objetos sólidos. O segundo algarismo indica o grau de proteção proporciona- do pelo invólucro contra efeitos prejudiciais da penetração. Assim, o painel com o grau de proteção IP65 é",
+    "alts": {
+      "A": "não protegido contra objetos sólidos.",
+      "B": "protegido contra objetos sólidos com até 60 mm de diâ- metro e protegido contra jatos d’água.",
+      "C": "totalmente protegido contra água.",
+      "D": "totalmente protegido contra poeira e submersão em água.",
+      "E": "totalmente protegido contra a poeira e protegido con- tra jatos d’água."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 33,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Dados: FA – Fase A e FB – Fase B A figura acima mostra o desenho esquemático de um qua- dro de distribuição, de acordo com os dispositivos de pro- teção instalados. Os indicados por DG, D1, D2 e D3 são, respectivamente,",
+    "alts": {
+      "A": "disjuntor bifásico, disjuntor monofásico, disjuntor monofásico e dispositivo de proteção a corrente dife- rencial-residual.",
+      "B": "disjuntor bifásico, disjuntor monofásico, disjuntor monofásico e dispositivo de proteção contra surtos.",
+      "C": "disjuntor bifásico, dispositivo de proteção a corrente diferencial-residual, dispositivo de proteção a corrente diferencial-residual e dispositivo de proteção a corren- te diferencial-residual.",
+      "D": "disjuntor monofásico, disjuntor monofásico, dispositivo de proteção a corrente diferencial-residual e disjuntor monofásico.",
+      "E": "dispositivo de proteção a corrente diferencial-residual, dispositivo de proteção a corrente diferencial-residual, dispositivo de proteção a corrente diferencial-residual e dispositivo de proteção a corrente diferencial-residual."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 34,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "De acordo com a NBR 5410, o uso de dispositivo Diferen- cial-Residual (DR) de alta sensibilidade, como proteção adicional, é obrigatório em",
+    "alts": {
+      "A": "todos os circuitos que alimentem tomadas de corrente, maior que 32A, situadas em áreas externas à edificação.",
+      "B": "todos os circuitos de tomadas de corrente, menor ou igual a 32A, situadas em áreas internas.",
+      "C": "circuitos que, em locais de habitação, sirvam a pontos que alimentem aparelhos de iluminação, posicionados a uma altura igual ou superior a 2,50 m.",
+      "D": "circuitos que sirvam a pontos de utilização, situados em locais contendo banheira ou chuveiro.",
+      "E": "circuitos ou setores da instalação, concebidos em es- quema de aterramento do tipo IT."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 36,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Uma sala 14 m x 10 m será destinada à construção de um laboratório de ensaios de contraprova em materiais e equi- pamentos. Sabendo-se que a iluminância exigida, para essa atividade, é de 1.500 lux, o fator de depreciação do ambien- te é de 0,70, o coeficiente de utilização é de 0,40 e a luminá- ria escolhida contém quatro lâmpadas de 2.500 Lumens cada, o número mínimo de luminárias necessárias a serem instaladas para atender às condições exigidas é",
+    "alts": {
+      "A": "35",
+      "B": "45",
+      "C": "55",
+      "D": "75",
+      "E": "85 TÉCNICO(A) DE MANUTENÇÃO JÚNIOR - ELÉTRICA"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 37,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Os ignitores são elementos que atuam gerando uma série de pulsações de tensão para iniciar a descarga. Uma vez que a lâmpada inicie sua operação, os ignitores deixam automaticamente de emitir pulsos. As lâmpadas que ne- cessitam de ignitores são",
+    "alts": {
+      "A": "de luz mista e a vapor de mercúrio.",
+      "B": "de luz mista e fluorescentes.",
+      "C": "a vapor de mercúrio e a vapor de sódio.",
+      "D": "a vapor de mercúrio e a vapor metálico.",
+      "E": "a vapor metálico e a vapor de sódio."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 40,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Certas ocorrências, verificadas pela manutenção nas visi- tas de rotina ou pelo próprio pessoal da operação, exigem desligamento imediato. Em alguns casos não pode se permitir demora no desligamento, qualquer que seja o es- tado de carga da rede ou os interesses imediatos da ope- ração. Dentre as ocorrências abaixo, aquela que NÃO exi- ge desligamento imediato de um transformador, podendo aguardar um prazo, mais curto possível, sem grande pre- juízo das condições de exploração do sistema, é",
+    "alts": {
+      "A": "ruído interno anormal.",
+      "B": "relé de gás atuado.",
+      "C": "anormalidades no ensaio de óleo, isto é, valores au- mentados por comparação com medições anteriores.",
+      "D": "sobreaquecimento excessivo nos conectores, verifica- do por termovisão.",
+      "E": "dispositivo de pressão atuado."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 41,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A figura acima apresenta um transformador trifásico a óleo mineral, utilizado em subestações de média tensão. Ob- servando-se a numeração indicativa de alguns dos seus elementos externos, numere os elementos abaixo, associ- ando o elemento ao número indicado na figura. ( ) Terminal Primário ( ) Termômetro Indicador de Temperatura ( ) Relé de Buchholz ( ) Terminal Secundário ( ) Válvula de Explosão ( ) Indicador do Nível do Óleo ( ) Válvula de Alívio de Pressão A ordem correta dos números, de cima para baixo, é",
+    "alts": {
+      "A": "4 – 7 – 5 – 3 – 1 – 6 – 2",
+      "B": "4 – 7 – 5 – 3 – 2 – 6 – 1",
+      "C": "4 – 6 – 5 – 3 – 2 – 7 – 1",
+      "D": "4 – 5 – 7 – 3 – 1 – 6 – 2",
+      "E": "3 – 7 – 5 – 4 – 2 – 6 – 1 TÉCNICO(A) DE MANUTENÇÃO JÚNIOR - ELÉTRICA"
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 43,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Uma das preocupações da Segurança e Higiene do Tra- balho é quanto às condições ambientais do local de traba- lho. De acordo com as Normas de ergonomia, NÃO corresponde a um parâmetro que deve ser obedecido em um ambiente de trabalho a(o)",
+    "alts": {
+      "A": "velocidade do ar de até 0,75 m/s.",
+      "B": "curva de avaliação de ruído (NC) de até 60 dB.",
+      "C": "umidade relativa do ar não inferior a 40%.",
+      "D": "nível de ruído aceitável para efeito de conforto de até 75dB (A).",
+      "E": "índice de temperatura efetiva entre 20 e 23 °C."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 45,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Qual, dentre as disposições abaixo, NÃO corresponde a uma disposição prevista na NR 10?",
+    "alts": {
+      "A": "É considerado trabalhador qualificado aquele que com- provar conclusão de curso específico na área elétrica, reconhecido pelo Sistema Oficial de Ensino.",
+      "B": "É considerado profissional legalmente habilitado o tra- balhador previamente qualificado e com registro no Con- selho de Classe.",
+      "C": "Os trabalhadores são considerados capacitados so- mente para a empresa que os capacitou.",
+      "D": "São considerados autorizados os trabalhadores quali- ficados ou capacitados e os profissionais habilitados, com anuência formal da empresa.",
+      "E": "Os trabalhadores autorizados a trabalhar em instala- ções elétricas devem ter essa condição consignada no sistema de registro de empregados da empresa."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 46,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "De acordo com as leis de trabalho para o uso do EPI (Equipamento de Proteção Individual), analise as afirmativas abaixo. I - A empresa é obrigada a fornecer aos empregados, gratuitamente, EPI adequado ao risco e em perfeito estado de conservação e funcionamento, somente na existência de situação de risco grave e iminente no ambiente de trabalho. II - Nas situações que não sejam típicas de risco grave e iminente, a empresa poderá fornecer EPI aos em- pregados e, neste caso, estará autorizada a descon- tar do salário dos trabalhadores o valor correspon- dente ao gasto na aquisição do EPI. III - O EPI só poderá ser posto à venda ou utilizado, com a indicação do Certificado de Aprovação, expedido pelo Ministério do Trabalho e Emprego. IV - Mesmo nas situações de risco grave e iminente, a empresa só poderá descontar dos trabalhadores o valor correspondente ao EPI, utilizado normalmente na atividade, quando autorizado pelo trabalhador. Está correto APENAS o que se afirma em",
+    "alts": {
+      "A": "I.",
+      "B": "II.",
+      "C": "III.",
+      "D": "II e III.",
+      "E": "III e IV."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 47,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A Higiene do Trabalho se preocupa não só com a preven- ção de doenças do trabalhador, mas com todos os fatores ambientais que podem causar lesão, doenças ou inapti- dão, ou afetar o bem-estar dos trabalhadores. Nos trabalhadores submetidos à pressão atmosférica anor- mal (risco físico), quando ocorrer uma descompressão brus- ca, por ser o nitrogênio pouco difusível, haverá formação de bolhas, localizadas no organismo, EXCETO na(s) parte(s)",
+    "alts": {
+      "A": "articulares.",
+      "B": "cutâneas.",
+      "C": "nervosas.",
+      "D": "cardíacas.",
+      "E": "sanguínea."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 48,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Simplificando o circuito lógico acima, a saída S é",
+    "alts": {
+      "A": "AB",
+      "B": "A B \u0003",
+      "C": "A B \u0003",
+      "D": "1",
+      "E": "0 A B S TÉCNICO(A) DE MANUTENÇÃO JÚNIOR - ELÉTRICA"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 12,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Características: - as chaves de nível alto e baixo são de con- tatos normalmente abertos. - as válvulas motorizadas estão abertas se energizadas. Endereços no CLP: Chave de nível alto - %I0.0 Chave de nível baixo - %I0.1 Válvula de saída - %Q0.0 Válvula de entrada - %Q0.1 CLP – Controlador Lógico Programável. 49 A figura acima representa um sistema de armazenamento de água em um tanque. Duas válvulas motorizadas on/off controlam a entrada e a saída de água no tanque através de um CLP e das chaves de nível alto e baixo. Condição de funcionamento: - Caso o nível seja inferior à chave de nível baixo, a válvula de saída deverá ser fechada e a de entrada aberta, perma- necendo assim até que seja acionada a chave de nível alto. - Caso o nível seja igual ou superior à chave de nível alto, a válvula de saída deverá ser aberta e a de entrada fechada, permanecendo assim até que seja acionada a chave de nível baixo. Que programa, em Ladder, corresponde a esse sistema?",
+    "alts": {
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": "",
+      "E": "TÉCNICO(A) DE MANUTENÇÃO JÚNIOR - ELÉTRICA"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 50,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A figura acima apresenta um separador atmosférico de óleo e água, com duas válvulas (on/off) normalmente fechadas e duas chaves de nível (on/off) normalmente abertas. Caso o nível de água atinja a chave de nível alto de água, a válvula de saída de água deverá se abrir e a válvula de saída de óleo, fechar-se. Por outro lado, caso o nível de água esteja inferior à chave de nível baixo de água, a válvula de saída de água deverá se fechar e a válvula de saída de óleo, abrir-se. Qual programa, em lista de instruções, corresponde a este sistema?",
+    "alts": {
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": "",
+      "E": "LOAD A OR B ANDNOT VA OUT VA LOAD B OR VO ANDNOT A OUT VO LOAD B OR VO ANDNOT A OUT VO LOAD VA OR B ANDNOT B OUT VA LOAD A OR VA AND B OUT VA LOAD NOT B OR VO ANDNOT A OUT VO LOAD A ANDNOT VA OUT VA LOAD B ANDNOT VO OUT VO"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  }
+]

@@ -1,0 +1,1190 @@
+[
+  {
+    "num_original": 1,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Conforme o texto, indique a opção que NÃO traz a forma de como o cidadão pode exercer a cidadania com a ajuda da tecnologia.",
+    "alts": {
+      "A": "Votar nas eleições locais.",
+      "B": "Disseminar crenças e idéias.",
+      "C": "Controlar administração pública.",
+      "D": "Procurar informações científicas.",
+      "E": "Assistir a um casamento ao vivo."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 2,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A experiência mencionada na linha 8 do texto se refere a:",
+    "alts": {
+      "A": "eleger os representantes pela web.",
+      "B": "poder votar exclusivamente uma única vez.",
+      "C": "fazer registro e receber senha da prefeitura.",
+      "D": "usar o próprio computador para exercício da cidadania.",
+      "E": "usar cabines de parques e outros espaços públicos."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 4,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A palavra “disseminação” (l.30 ) NÃO pode ser substituída no texto por:",
+    "alts": {
+      "A": "difusão.",
+      "B": "separação.",
+      "C": "propagação.",
+      "D": "popularização.",
+      "E": "democratização."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 5,
+    "disciplina": "Eletrônica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A desvantagem da televisão em relação à internet, apontada no texto, é a:",
+    "alts": {
+      "A": "passividade dos usuários.",
+      "B": "reduzida velocidade do meio.",
+      "C": "pequena facilidade de acesso.",
+      "D": "inexistência de programas culturais",
+      "E": "carência da população que a utiliza."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 6,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O fato de os acervos estarem sendo digitalizados é a _____________ da democratização do acesso à informação. De acordo com o texto, o termo que preenche corretamente a lacuna acima é:",
+    "alts": {
+      "A": "causa.",
+      "B": "conseqüência.",
+      "C": "evidência.",
+      "D": "aspiração.",
+      "E": "razão."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 7,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Assinale a opção em que a concordância segue a norma culta da língua.",
+    "alts": {
+      "A": "Cada um dos eleitores escolherão os locais de votação.",
+      "B": "Ocorreu na última década importantes desenvolvimen- tos tecnológicos.",
+      "C": "Às vezes os brasileiros não parecem conhecerem suas obrigações eleitorais.",
+      "D": "Quase 100% da população de Miraflores acessa a internet.",
+      "E": "Devem haver muitos estudantes buscando informações pela internet."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 8,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Observe e analise o trecho “A disseminação já impulsiona ... seja por um acesso mais transparente ... , seja pelo fenômeno dos blogs, ... (l.30-33) Indique a opção em que a expressão NÃO apresenta um sentido equivalente ao do texto destacado acima.",
+    "alts": {
+      "A": "parte por um ... , parte pelo fenômeno",
+      "B": "quer por um ... , quer pelo fenômeno.",
+      "C": "já por um ... , já pelo fenômeno.",
+      "D": "não só por um ... , tanto mais pelo fenômeno.",
+      "E": "tanto por um ... , quanto pelo fenômeno."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 9,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Assinale a oração em que a regência verbal está correta- mente realizada.",
+    "alts": {
+      "A": "Na reunião, não aludi o assunto sigiloso.",
+      "B": "A empresa atingiu à meta traçada pelo diretor.",
+      "C": "As despesas excediam as suas possibilidades.",
+      "D": "Os fatos se contrapõem à solicitação do chefe.",
+      "E": "Os empregados aspiram o bom desempenho do setor."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 10,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Indique a opção em que a pontuação está de acordo com a norma culta.",
+    "alts": {
+      "A": "Considere-se o seguinte aspecto da informação: rapi- dez, precisão, e novidade.",
+      "B": "Necessita-se de que o departamento faça a aquisição de disquetes, cartuchos, e outros.",
+      "C": "O material chegou no dia certo; mas alguns itens vieram danificados.",
+      "D": "A diretora mandou cumprir o decreto,  – ela, que é a responsável, se preocupa.",
+      "E": "Todos aqueles que ocupam posições de chefia ou lide- rança, vão à reunião. MATEMÁTICA Leia o texto abaixo para responder às questões 11 e 12. “A expectativa de vida do brasileiro aumentou (...), seguindo uma tendência mundial. (...) Para os brasi- leiros nascidos em 2004, a expectativa de vida é de 71,7 anos. (...) O aumento reflete melhorias nos ser- viços de saúde pública e de saneamento (...). Em 1980, a expectativa de vida no Brasil era de 62,6 anos. (...) Os dados regionais mais uma vez confirmam as desigualdades entre as unidades da federação. En- quanto no primeiro colocado, o Distrito Federal, um bebê nascido em 2004 terá esperança de viver 74,6 anos, um bebê nascido em Alagoas, no mesmo ano, terá uma esperança bem abaixo da média nacional: 65,5 anos.”"
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 11,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Se, de 1980 a 2004, a expectativa de vida dos brasileiros tives- se aumentado linearmente, um brasileiro nascido em 1990 te- ria uma expectativa de vida, em anos, de, aproximadamente:",
+    "alts": {
+      "A": "65,9",
+      "B": "66,4",
+      "C": "67,1",
+      "D": "67,3",
+      "E": "68,1"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 12,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A diferença, em anos, entre a expectativa de vida no Distrito Federal e em Alagoas, em 2004, era de:",
+    "alts": {
+      "A": "14,2",
+      "B": "11,1",
+      "C": "9,1",
+      "D": "8,9",
+      "E": "6,2"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 13,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "João lançou dois dados perfeitos e, sem que seu irmão visse o resultado, pediu-lhe que tentasse adivinhar a diferença en- tre o maior e o menor dos números obtidos. O irmão de João terá mais chance de acertar, se disser que essa diferença é igual a:",
+    "alts": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "4",
+      "E": "5 O Globo, 02 dez. 2005 TÉCNICO(A) DE MANUTENÇÃO I - MECÂNICA TURBOMÁQUINAS"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 15,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Em certa papelaria, duas borrachas e dois lápis custam R$2,20.  João foi a essa papelaria e comprou um lápis, um caderno e uma borracha e gastou R$4,00. Quanto custou, em reais, o caderno que João comprou?",
+    "alts": {
+      "A": "1,50",
+      "B": "1,80",
+      "C": "2,20",
+      "D": "2,80",
+      "E": "2,90"
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 16,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A figura acima representa a planta de uma escada de cinco degraus, construída na portaria de um prédio. A distância, em metros, entre os pontos A e B, marcados na figura, é:",
+    "alts": {
+      "A": "0,75",
+      "B": "1,44",
+      "C": "1,69",
+      "D": "1,80",
+      "E": "1,95"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 17,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "As férias de João se iniciam daqui a 12 dias, mas se ele quiser trabalhar 2 horas extras por dia, de hoje em diante, entrará de férias daqui a 9 dias. Sebastião decidiu que fará hora extra para entrar de férias mais cedo. Sendo assim, quantas horas diárias Sebastião vai trabalhar até entrar de férias?",
+    "alts": {
+      "A": "5",
+      "B": "6",
+      "C": "7",
+      "D": "8",
+      "E": "9 36 cm 15 cm B A 65,6 67,0 70,4 71,7 1980 1991 2000 2004 Esperança de vida ao nascer BRASIL ATUALIDADES"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 18,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Na Amazônia Brasileira, atuam empresas madeireiras que seguem padrões internacionais de exploração; são as cha- madas “selo verde”. Assinale a opção que apresenta uma característica dessas empresas.",
+    "alts": {
+      "A": "Cortam todo tipo de árvore com valor comercial, retirando, contudo, menos de 500 árvores por quilômetro quadrado.",
+      "B": "Representam a maior parte das madeireiras, nacionais e estrangeiras, atuantes na região em foco.",
+      "C": "Fazem rodízio sistemático de áreas de floresta explora- das, respeitando intervalos de 25 anos.",
+      "D": "Praticam o manejo sustentável da floresta, extraindo cerca de 1.000 árvores por km2.",
+      "E": "Produzem a denominada “madeira certificada”, operan- do corte de árvores em qualquer parte do ano."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 19,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Observe o gráfico e leia o texto abaixo. Jornal do Brasil, 2 dez. 2005 (adaptação). “A expectativa de vida do brasileiro aumentou de 2003 para 2004, seguindo uma tendência mundial, mas o Brasil ainda aparece na 82a posição no ranking mundial.” O Globo, 2 dez. 2005. A partir da análise do gráfico e do texto, é correto afirmar que:",
+    "alts": {
+      "A": "os brasileiros de ambos os sexos apresentam a mesma expectativa de vida, em conseqüência dos ganhos sociais alcançados pelas mulheres.",
+      "B": "a expectativa de vida da população brasileira aumentou, apesar de a mortalidade infantil ainda se apresentar com números crescentes.",
+      "C": "a esperança de vida dos brasilerios tem-se elevado nas últimas décadas, em decorrência do aumento gradual da taxa de natalidade.",
+      "D": "a base de cálculo para assegurar aposentadoria plena do trabalhador brasileiro deverá mudar, devido ao aumento da longevidade da população.",
+      "E": "a qualidade de vida dos brasileiros tem-se elevado, em- bora o aumento da expectativa de vida seja restrito às áreas urbanas do país. TÉCNICO(A) DE MANUTENÇÃO I - MECÂNICA TURBOMÁQUINAS"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 20,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O referendo popular, realizado no Brasil em outubro de 2005 e que tinha como tema o comércio de armas de fogo e muni- ção, resultou na vitória do “não”. Uma implicação direta desse resultado é o(a):",
+    "alts": {
+      "A": "impedimento da entrada em vigor do Art. 35 do Estatuto do Desarmamento.",
+      "B": "redefinição das competências atribuídas ao Sistema Na- cional de Armas.",
+      "C": "alteração das disposições sobre posse ou porte ilegal de armas de fogo no País.",
+      "D": "desaprovação integral dos artigos do Estatuto do Desar- mamento, publicado em 2003.",
+      "E": "neutralização imediata da vigência do Artigo 6o do Esta- tuto do Desarmamento."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 21,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O presidente do IBGE negou erro no PIB (Produto Interno Bru- to), disse que a retração de 1,2% no terceiro trimestre reflete a realidade da economia e que o resultado pode ser revisto, mas, se houver mudança no número, ela não será grande. Folha de São Paulo, 3 dez. 2005. O resultado do PIB neste terceiro trimestre de 2005 não re- presenta tendência negativa, mas retrata um momento tran- sitório da economia brasileira, afirma técnico do IPEA. Disponível em http://www.brasil.gov.br. Em questão. Acesso em 3 dez. 2005. O Ministro da Fazenda admitiu que as turbulências no campo político afetaram a atividade econômica e abalaram as expec- tativas, tanto de consumidores quanto de empresários. Jornal do Brasil, 2 dez. 2005. Um fator que explica o resultado econômico em foco é o(a):",
+    "alts": {
+      "A": "incremento dos lucros do agronegócio em detrimento do setor industrial.",
+      "B": "aumento do nível dos estoques, sem acompanhamento da demanda.",
+      "C": "fortalecimento da apreciação cambial, provocando fuga maciça de capitais.",
+      "D": "aceleração do ritmo de crescimento do crédito direto ao consumidor.",
+      "E": "elevação moderada da taxa de juros ao longo do primeiro semestre."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 22,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Acerca do desempenho do comércio exterior brasileiro, ao longo do ano de 2005, afirma-se: I −As exportações têm apresentado crescimento, ainda que de forma descontínua. II −A soja e seus derivados têm liderado as exportações. III −O saldo da balança comercial tem registrado, continua- mente, superavit. Está(ão) correta(s) a(s) afirmativa(s):",
+    "alts": {
+      "A": "I, apenas.",
+      "B": "I e II, apenas.",
+      "C": "I e III, apenas.",
+      "D": "II e III, apenas.",
+      "E": "I, II e III."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 23,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Expansão Criminosa Desde o início da década de 1990, o tráfico de drogas dobrou de 400 bilhões para 800 bilhões de dólares ao ano e o volume de recursos movimentados pela lavagem de dinheiro aumen- tou 10 vezes, chegando a 1,5 bilhão de dólares por ano. Revista Veja, ed. 1933, 30 nov. 2005. O aspecto mais diretamente associado à situação descrita é a(o):",
+    "alts": {
+      "A": "ausência de organismos financeiros internacionais.",
+      "B": "inexistência de atuação policial internacional.",
+      "C": "falta de legislação de combate a falsificações.",
+      "D": "funcionamento de inúmeros “paraísos fiscais”.",
+      "E": "desenvolvimento mundial do comércio virtual."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 24,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "No Oriente Médio, segundo observadores internacionais, a cri- se política entre israelenses e palestinos passou a contar com um dado novo e favorável à solução dos conflitos. Assinale-o.",
+    "alts": {
+      "A": "Desocupação ordenada da Faixa de Gaza, por colonos e tropas israelenses.",
+      "B": "Fim da intenção de se criar um Estado Palestino, após a morte de Yasser Arafat.",
+      "C": "Desarmamento de grupos extremistas palestinos, como o Hamas e a Jihad Islâmica.",
+      "D": "Libertação de milhares de presos palestinos, por deter- minação do governo de Israel.",
+      "E": "Acordo bilateral sobre o status de Jerusalém, seguindo proposta de Ariel Sharon. \u0001 CONTINUA TÉCNICO(A) DE MANUTENÇÃO I - MECÂNICA TURBOMÁQUINAS"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 25,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "The main intention of the text is to:",
+    "alts": {
+      "A": "introduce the advantages and disadvantages of global warming.",
+      "B": "list all the harmful effects of greenhouse gases emissions.",
+      "C": "punish citizens who drive their cars to work everyday.",
+      "D": "present some easy ways of retarding global warming.",
+      "E": "teach people how to recycle waste materials."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 26,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "In the sentence “You don’t have to be a diplomat or a rocket scientist to do something about global warming”. (lines 1-2), the author means that:",
+    "alts": {
+      "A": "combating global warming requires great expertise.",
+      "B": "anyone can help in the fight against global warming.",
+      "C": "only trained professionals can put an end to this problem.",
+      "D": "politicians and scientists do not want to reduce gas emissions.",
+      "E": "diplomatic efforts are useless in the war against global warming."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 27,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Mark the only statement that CANNOT be found in the text.",
+    "alts": {
+      "A": "Solar energy can be used in family homes to produce hot water.",
+      "B": "Recyclable packages contribute to cut down carbon dioxide emissions.",
+      "C": "Carbon dioxide is a greenhouse gas that contributes to global warming.",
+      "D": "Recycled metal and glass are a significant source of greenhouse gases.",
+      "E": "When you drive a car you are increasing emissions of the greenhouse gases."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 28,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "According to the last two paragraphs, protecting the environment:",
+    "alts": {
+      "A": "is very simple, although costly.",
+      "B": "is considered a total waste of money.",
+      "C": "will necessarily involve money losses.",
+      "D": "requires very expensive measures.",
+      "E": "can also help you save money."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 29,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "The overall tone of the text is one of:",
+    "alts": {
+      "A": "sadness.",
+      "B": "skepticism.",
+      "C": "persuasion.",
+      "D": "disillusionment.",
+      "E": "indifference."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 30,
+    "disciplina": "Conhecimentos Gerais",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Check the item in which the underlined word introduces an exemplification.",
+    "alts": {
+      "A": "“…and hence our emissions of greenhouse gases…” (lines 4 - 5)",
+      "B": "“…such as carbon dioxide…” (line 5)",
+      "C": "“…they also can remove 50 pounds…” (line 28 - 29)",
+      "D": "“…but they can make a big difference”. (lines 34 - 35)",
+      "E": "“… and make our planet a better place for…”. (line 40)"
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 31,
+    "disciplina": "Instrumentação",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Quanto à localização dos instrumentos, é correto afirmar que:",
+    "alts": {
+      "A": "não existem instrumentos localizados no campo.",
+      "B": "apenas controladores programáveis estão localizados no campo.",
+      "C": "apenas os controladores programáveis estão localizados em locação auxiliar, normalmente não acessível ao operador.",
+      "D": "há pelo menos um instrumento localizado no campo.",
+      "E": "existem pelo menos dois instrumentos localizados em locação auxiliar, normalmente não acessível ao operador."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 32,
+    "disciplina": "Instrumentação",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "É correto afirmar que, no fluxograma simplificado de tubula- ção e instrumentação (P&ID), a função do instrumento identi- ficado com PSLL é de:",
+    "alts": {
+      "A": "limitador de pressão de alívio.",
+      "B": "limitador e controlador de pressão alta.",
+      "C": "limitador de pressão baixa.",
+      "D": "chave de pressão limite baixa.",
+      "E": "chave de pressão muito baixa."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 33,
+    "disciplina": "Instrumentação",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Em um turbocompressor na posição de parada, qual das válvulas abaixo deve estar fechada?",
+    "alts": {
+      "A": "Pressurização.",
+      "B": "Despressurização.",
+      "C": "Reciclo do 1o estágio.",
+      "D": "Reciclo do 2o estágio.",
+      "E": "Despressurização Gás Combustível."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 35,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A Monitoração de temperatura nas turbomáquinas tem um foco importante na monitoração da temperatura dos mancais. A mesma é feita de forma indireta nos retornos de óleo des- tes mancais. Dependendo dos valores medidos, tanto pode ser acionado um alarme como pode ser decretada a parada de emergência (trip). T (oC) = – 20 (oC/Ω) x Rx + 690 oC Há um RTD, sensor de temperatura, chamado de Rx, no retorno do óleo de um dos mancais. O mesmo deverá acionar o alarme numa temperatura de 90 oC e depois o trip, numa temperatura de 120 oC. Qual deve ser, respectivamente, a leitura do Amperímetro nos dois casos, sabendo que o valor da resistência do RTD deve obedece à seguinte equação:",
+    "alts": {
+      "A": "– 0,25 mA e 1,75 mA",
+      "B": "0 mA e – 0,125 mA",
+      "C": "0 mA e 0,125 mA",
+      "D": "0,125 mA e 0 mA",
+      "E": "0,125 A e 0 mA 7,5 mA"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 36,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Devido à alta rotação das turbomáquinas e devido às folgas entre as partes rotativas e as partes estacionárias serem muito pequenas (entre 0,1 à 0,6 mm), a monitoração das vibrações é essencial, pois vibrações elevadas podem causar uma série de danos às turbomáquinas, como: desgaste dos mancais, fadiga, etc. Qual dentre os tipos de sensores citados abaixo, NÃO é utilizado para a monitoração das vibrações?",
+    "alts": {
+      "A": "Sensor de proximidade.",
+      "B": "Placa de orifício.",
+      "C": "Sensor sísmico de velocidade.",
+      "D": "Acelerômetro.",
+      "E": "Sensor sísmico de aceleração."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 37,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A pressão, quando aplicada em um processo industrial qualquer, submete os equipamentos a ela sujeitos a esforços de deformação que devem estar sempre abaixo de limites de segurança para que não ocorra ruptura e, conse- qüentemente, acidentes. A garantia da permanência dos va- lores de pressão, muitas vezes de valores elevados quando se trata de turbomáquinas, sempre abaixo dos limites de segurança, deve ser feita de forma automática, por meio de instrumento de proteção denominado:",
+    "alts": {
+      "A": "Manômetro Bourdon.",
+      "B": "Manômetro Diafragma.",
+      "C": "Strain Gage.",
+      "D": "Pressostato.",
+      "E": "Célula Capacitiva."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 38,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Os transmissores são instrumentos que medem uma variável do processo e a transmitem, à distância, a um instrumento receptor, indicador, registrador, controlador ou a uma combinação destes. Existem vários tipos de sinais de transmissão: pneumáticos, elétricos, hidráulicos e eletrônicos. Em geral, os transmissores pneumáticos geram um sinal pneumático variável, linear, de 3 a 15psi (libras força por po- legada ao quadrado) para uma faixa de medidas de 0 a 100% da variável. Os transmissores eletrônicos geram vários tipos de sinais em painéis, sendo os mais utilizados: 4 a 20 mA, 10 a 50 mA e 1 a 5 V. A relação de 4 a 20 mA, 1 a 5 V está na mesma relação de um sinal de 3 a 15psi de um sinal pneumático. Como é possível converter corretamente um sinal de 1 a 5 V em um de 4 a 20 mA?",
+    "alts": {
+      "A": "Não existe possibilidade de se executar esta conversão.",
+      "B": "Utilizando um instrumento denominado transdutor, espe- cífico para estas conversões de energia.",
+      "C": "Utilizando um acoplador ótico dedicado a tal função.",
+      "D": "Utilizando um circuito ativo, como um amplificador diferencial.",
+      "E": "Utilizando um resistor de 250 Ohms."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 39,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Assinale a opção que apresenta a definição de Telemetria:",
+    "alts": {
+      "A": "Técnica de transportar medições obtidas no processo à distância, em função de um instrumento transmissor.",
+      "B": "Método de distribuição de instrumentos e controles de um determinado processo em painéis de controle distri- buídos.",
+      "C": "Processo com grande número de variáveis contínuas concentradas geograficamente e algumas variáveis discretas, dispersas em uma grande área geográfica.",
+      "D": "Método de consulta aos valores apenas de variáveis discretas, variáveis estas dispersas em uma grande área geográfica.",
+      "E": "Técnica de envio de comandos de acionamento à distância, utilizando instrumentos ligados a PLCs."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 40,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Os Programas de Supervisão ou sistemas supervisórios foram criados para permitir a integração das informações provenientes do instrumento em campo e torná-las perceptíveis aos operadores do processo. Qual das funções abaixo NÃO está relacionada aos sitemas supervisórios?",
+    "alts": {
+      "A": "Histórico de alarmes e variáveis.",
+      "B": "Intertravamento de segurança exclusivamente por meio da atuação direta dos operadores.",
+      "C": "Registro de Eventos.",
+      "D": "Emissão de Relatórios.",
+      "E": "Interação dos dados de vários PLCs."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 41,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Para atender aos critérios de desempenho, preconizados pelo código ASTM PTC-10 classe I, os compressores centrífugos de gás natural deverão ser:",
+    "alts": {
+      "A": "inspecionados nas instalações do fabricante e com aná- lise de vibrações como a especificada para a operação.",
+      "B": "comissionados nas instalações do fabricante e testados sob condições de temperatura como a especificada para a operação.",
+      "C": "inspecionados nas instalações do fabricante e testados sob as mesmas condições de campo do cliente, com 120% da pressão absoluta.",
+      "D": "comissionados nas instalações do fabricante e testados sob as mesmas condições de campo do cliente, inclusive com o gás especificado para a operação.",
+      "E": "inspecionados nas instalações do fabricante e testados sob as mesmas condições de campo do cliente, com 40 °C além da temperatura especificada para a operação. TÉCNICO(A) DE MANUTENÇÃO I - MECÂNICA TURBOMÁQUINAS"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 42,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A ferramenta computacional utilizada para o dimensionamento e a avaliação de desempenho rotodinâmico e para o compor- tamento do escoamento é o:",
+    "alts": {
+      "A": "PDS (Plant Design Sistem)",
+      "B": "CFD (Computational Fluid Dynamics Analyses)",
+      "C": "CAM (Computer Assignment Mecanic)",
+      "D": "STL (Statement List)",
+      "E": "CAD (Computer Assignment Design)"
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 43,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "É correto classificar como rotativas as bombas:",
+    "alts": {
+      "A": "de pistão, centrífuga, de palhetas e de engrenagens.",
+      "B": "de parafuso, de pistão, centrífugas e de palhetas.",
+      "C": "de engrenagens, de parafuso, de pistão e centrífugas.",
+      "D": "de palhetas, de engrenagens, de parafuso e de pistão.",
+      "E": "centrífugas, de palhetas, de engrenagens e de parafuso."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 44,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "As bombas alternativas, quanto às condições de operação, têm como características:",
+    "alts": {
+      "A": "baixa viscosidade e alta pressão.",
+      "B": "baixa viscosidade e baixa pressão.",
+      "C": "alta viscosidade e alta pressão.",
+      "D": "alta viscosidade e média pressão.",
+      "E": "alta viscosidade e baixa pressão."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 45,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Os compressores com concepção de compressores volumétricos ou de deslocamento positivo são os:",
+    "alts": {
+      "A": "de palhetas, de parafusos e de lóbulos.",
+      "B": "de lóbulos, centrífugos e axiais.",
+      "C": "de parafusos, de lóbulos e centrífugos.",
+      "D": "axiais, de palhetas e de parafusos.",
+      "E": "centrífugos, axiais e de palhetas."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 46,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Em relação às características gerais, o tipo de compressor com maior capacidade de pressão de descarga é o:",
+    "alts": {
+      "A": "de palhetas.",
+      "B": "de parafusos.",
+      "C": "de lóbulos.",
+      "D": "axial.",
+      "E": "alternativo."
+    },
+    "gabarito": "E",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 47,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Em relação às características gerais do compressor, o tipo que apresenta maior capacidade de vazão aspirada é o compressor:",
+    "alts": {
+      "A": "de palhetas.",
+      "B": "de parafusos.",
+      "C": "de lóbulos.",
+      "D": "axial.",
+      "E": "alternativo. Observe a figura abaixo e responda às questões 48 e 49."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 48,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A figura representa o ciclo de funcionamento teórico do compressor:",
+    "alts": {
+      "A": "de palhetas.",
+      "B": "de parafusos.",
+      "C": "de lóbulos.",
+      "D": "axial.",
+      "E": "alternativo."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 49,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A etapa compreendida entre os pontos 2 e 3 da figura repre- sentam a:",
+    "alts": {
+      "A": "admissão.",
+      "B": "compressão.",
+      "C": "condensação.",
+      "D": "descarga.",
+      "E": "expansão."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 50,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Observe a figura abaixo. A figura representa o ciclo de funcionamento teórico do compressor:",
+    "alts": {
+      "A": "de palhetas.",
+      "B": "de parafusos.",
+      "C": "de lóbulos.",
+      "D": "axial.",
+      "E": "alternativo. p v"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 51,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O método mais econômico para o ajuste da capacidade dos compressores de parafusos é a:",
+    "alts": {
+      "A": "associação de compressores em paralelo.",
+      "B": "associação de compressores em série.",
+      "C": "regulagem na válvula de admissão.",
+      "D": "regulagem na válvula de descarga.",
+      "E": "variação da rotação."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 52,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O limite de Stonewall é um fenômeno que provoca queda na eficiência e impossibilidade de aumentar a vazão em determinadas situações de operação dos compressores centrífugos. Este fenômeno ocorre quando a velocidade de escoamento do gás atinge valores sônicos em algum ponto do interior do compressor e é mais propenso nas condições de operação em que o gás apresenta:",
+    "alts": {
+      "A": "baixo peso molecular e alta temperatura.",
+      "B": "baixo peso molecular e baixa taxa de compressão.",
+      "C": "alto peso molecular e alta temperatura.",
+      "D": "alto peso molecular e alta taxa de compressão.",
+      "E": "alto peso molecular e baixa temperatura."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 53,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Uma tubulação de recalque de uma bomba com diâmetro interno de 20mm tem uma velocidade média de escoamento de 0,6m/s. Qual a vazão em litros/s?",
+    "alts": {
+      "A": "0,06.",
+      "B": "0,08/",
+      "C": "0,6.",
+      "D": "0,8/",
+      "E": "6."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 54,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Observe a figura abaixo que representa o diagrama de bloco de um sistema de controle de pressão realimentado. Neste diagrama, a letra “r” indica a(o):",
+    "alts": {
+      "A": "variável controlada.",
+      "B": "variável de referência.",
+      "C": "sinal de realimentação.",
+      "D": "ganho.",
+      "E": "erro."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 55,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "As válvulas de controle utilizadas em instalações de processos são divididas nos seguintes componentes básicos:",
+    "alts": {
+      "A": "regulador, separador e atuador.",
+      "B": "corpo, regulador e separador.",
+      "C": "castelo, corpo e regulador.",
+      "D": "atuador, castelo e corpo.",
+      "E": "separador, atuador e castelo."
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 56,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Um vaso separador por decantação tem o objetivo de separar óleo, água e gás. A água é o fluido que, separado, fica submetido a maior pressão. Este fenômeno deve-se à sua maior:",
+    "alts": {
+      "A": "viscosidade.",
+      "B": "densidade.",
+      "C": "salinidade.",
+      "D": "tensão superficial.",
+      "E": "condutividade elétrica."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 57,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Os instrumentos de medição de comprimento que, independente da utilização de outros acessórios, podem ter capacidade de medir o diâmetro externo de um tubo com 19,05mm são:",
+    "alts": {
+      "A": "escala e trena.",
+      "B": "paquímetro e escala.",
+      "C": "micrômetro e paquímetro.",
+      "D": "relógio comparador e micrômetro.",
+      "E": "trena e relógio comparador."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 58,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Considere uma bomba de engrenagens, composta por engrenagens de 27 dentes com 50mm de largura e seção do vão entre os dentes de 32mm2, trabalhando a uma rotação de 400rpm. A vazão do fluido incompressível é, em ml/s, igual a:",
+    "alts": {
+      "A": "144",
+      "B": "288",
+      "C": "432",
+      "D": "576",
+      "E": "720"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 59,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A substituição de chaveta, como um elemento de transmissão entre eixos e polias, permitindo que ela trabalhe com a finalidade típica deste elemento de máquina, é um serviço de manutenção:",
+    "alts": {
+      "A": "corretiva.",
+      "B": "preditiva.",
+      "C": "sistemática.",
+      "D": "produtiva.",
+      "E": "paleativa. g h r x f + e - TÉCNICO(A) DE MANUTENÇÃO I - MECÂNICA TURBOMÁQUINAS"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 60,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O desgaste do mancal de uma máquina rotativa desligada pode ser analisado a partir da técnica de manutenção deno- minada:",
+    "alts": {
+      "A": "análise de vibração.",
+      "B": "analise de óleo.",
+      "C": "infravermelho.",
+      "D": "ultra-som.",
+      "E": "metalografia."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 61,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Assinale a opção em que são citados os tratamentos térmicos das ligas de alumínio.",
+    "alts": {
+      "A": "Esferoidização e têmpera.",
+      "B": "Alívio de tensões e esferoidização.",
+      "C": "Endurecimento por precipitação e alívio de tensões.",
+      "D": "Solubilização e endurecimento por precipitação.",
+      "E": "Têmpera e solubilização."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 62,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Talhas são máquinas utilizadas para a suspensão de cargas e apresentam-se nos diferentes tipos:",
+    "alts": {
+      "A": "hidráulica, planetária e diferencial.",
+      "B": "pneumática, hidráulica e planetária.",
+      "C": "sem-fim-coroa, pneumática e hidráulica.",
+      "D": "diferencial, sem-fim-coroa e pneumática.",
+      "E": "planetária, diferencial e sem-fim-coroa."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 63,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Há problemas que geram vibração excessiva em um eixo rotativos. São eles:",
+    "alts": {
+      "A": "folga no rolamento e alta viscosidade do lubrificante.",
+      "B": "alta viscosidade do lubrificante e desalinhamento.",
+      "C": "desalinhamento e baixa viscosidade do lubrificante.",
+      "D": "baixa viscosidade do lubrificante e desbalanceamento.",
+      "E": "desbalanceamento e folga no rolamento."
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 64,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "O tratamento termoquímico de cementação é aplicado aos aços com a finalidade de:",
+    "alts": {
+      "A": "elevar a tenacidade superficial, aumentando o teor de Vanádio.",
+      "B": "elevar a dureza superficial, aumentando o teor de Carbono.",
+      "C": "reduzir a resiliência e elevar a tenacidade.",
+      "D": "reduzir o módulo de elasticidade, diminuindo o teor de Vanádio.",
+      "E": "reduzir a fragilidade, diminuindo o teor de Carbono. Para responder às questões 65 e 66 observe a figura e a tabela abaixo que representam um rotor composto por 8 pás uniformemente distribuídas e seus respectivos pesos."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 65,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Para solucionar o problema de desbalanceamento deste rotor, um peso pode ser adicionado sobre a pá:",
+    "alts": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D",
+      "E": "E"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 2,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "(C) 2     – 1 (D) 2   + 1 (E) 2 – 2 67 A chave de boca para extração ou aperto de porcas e cabe- ças de parafusos sextavados, para permitir o trabalho com o menor ângulo de giro disponível, deve ter uma inclinação da boca em relação à haste de:",
+    "alts": {
+      "A": "10o",
+      "B": "15o",
+      "C": "20o",
+      "D": "25o",
+      "E": "30o"
+    },
+    "gabarito": "B",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 68,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Qual o ensaio não destrutivo que só pode ser utilizado para a detecção de trincas superficiais?",
+    "alts": {
+      "A": "Líquidos penetrantes.",
+      "B": "Partículas magnéticas.",
+      "C": "Ultra-som.",
+      "D": "Radiográfico.",
+      "E": "Tinido. pá       Peso(N) A"
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 69,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Observe a figura abaixo. Considerando a rotação do eixo D igual a 3969 rpm, a rotação do eixo A, em rpm, é igual a:",
+    "alts": {
+      "A": "300",
+      "B": "400",
+      "C": "500",
+      "D": "600",
+      "E": "700"
+    },
+    "gabarito": "D",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 70,
+    "disciplina": "Mecânica Industrial",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Qual o ensaio não destrutivo que NÃO pode ser utilizado para a detecção de trincas em uma peça de alumínio?",
+    "alts": {
+      "A": "líquidos penetrantes.",
+      "B": "partículas magnéticas.",
+      "C": "ultra-som.",
+      "D": "radiográfico.",
+      "E": "tinido."
+    },
+    "gabarito": "C",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  }
+]

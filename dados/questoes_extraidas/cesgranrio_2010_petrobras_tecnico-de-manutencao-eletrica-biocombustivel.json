@@ -1,0 +1,38 @@
+[
+  {
+    "num_original": 23,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "A relação funcional entre a densidade de fluxo (indução magnética) B e a intensidade de campo (campo magnéti- co) H define a curva característica do material magnético como a do núcleo dos transformadores. Em certos materi- ais magnéticos, a correspondência entre B e H não é biunívoca, isto é, para certo B, H apresenta dois valores distintos, dependendo se H está crescendo ou decrescen- do de valor. A curva mostrada acima reflete essas conside- rações e é conhecida como curva",
+    "alts": {
+      "A": "média histerese de magnetização de materiais mag- néticos moles.",
+      "B": "de perdas por histerese de potência aparente do me- canismo.",
+      "C": "de perdas por histerese de potência reativa.",
+      "D": "de histerese de saturação dos enrolamentos.",
+      "E": "de histerese de um material ferromagnético."
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  },
+  {
+    "num_original": 40,
+    "disciplina": "Eletrotécnica",
+    "tema": null,
+    "textoBase": null,
+    "enunciado": "Para um motor síncrono de 20 HP, 230 V, 60 Hz, foram medidas as potências de perdas a plena carga, para efeito de cálculo do rendimento desse motor, obtendo-se os va- lores: perdas rotacionais 1.760 W; perdas no cobre do estator 920 W; perdas no cobre do rotor 845 W e perdas suplementares 205 W. Qual é o rendimento (r) desse mo- tor a plena carga? Adote: (1 HP = 746 W).",
+    "alts": {
+      "A": "80 %",
+      "B": "70 %",
+      "C": "60 %",
+      "D": "8 %",
+      "E": "6 % RASCUNHO TÉCNICO(A) DE MANUTENÇÃO JÚNIOR ELÉTRICA"
+    },
+    "gabarito": "A",
+    "dica1": null,
+    "dica2": null,
+    "explicacao": null
+  }
+]

@@ -1,0 +1,151 @@
+
+<style>
+  .verb-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .tab-btn {
+    padding: 8px 20px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary);
+    background: var(--color-background-secondary); color: var(--color-text-secondary);
+    cursor: pointer; font-size: 15px; font-weight: 500; transition: all 0.15s;
+  }
+  .tab-btn.active { background: var(--color-background-info); color: var(--color-text-info); border-color: transparent; }
+  .tab-btn:hover:not(.active) { background: var(--color-background-tertiary); }
+  .tempo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .tempo-card {
+    background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg); padding: 14px 16px;
+  }
+  .tempo-title { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .conj-row { display: flex; justify-content: space-between; font-size: 14px; padding: 3px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .conj-row:last-child { border-bottom: none; }
+  .pronome { color: var(--color-text-secondary); }
+  .forma { color: var(--color-text-primary); font-weight: 500; }
+  .section-label { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin: 1.5rem 0 0.75rem; }
+  .formas-nominais { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0.5rem; }
+  .forma-pill {
+    background: var(--color-background-secondary); border-radius: 20px;
+    padding: 5px 14px; font-size: 13px; border: 0.5px solid var(--color-border-tertiary);
+  }
+  .forma-pill span { color: var(--color-text-secondary); font-size: 12px; margin-right: 4px; }
+</style>
+
+<div style="padding: 1.5rem 0.5rem;">
+  <div class="verb-tabs" id="tabs"></div>
+  <div id="content"></div>
+</div>
+
+<script>
+const verbos = {
+  TER: {
+    cor: 'info',
+    indicativo: {
+      'Presente': [['eu','tenho'],['tu','tens'],['ele/ela','tem'],['nós','temos'],['vós','tendes'],['eles/elas','têm']],
+      'Pret. Perfeito': [['eu','tive'],['tu','tiveste'],['ele/ela','teve'],['nós','tivemos'],['vós','tivestes'],['eles/elas','tiveram']],
+      'Pret. Imperfeito': [['eu','tinha'],['tu','tinhas'],['ele/ela','tinha'],['nós','tínhamos'],['vós','tínheis'],['eles/elas','tinham']],
+      'Futuro': [['eu','terei'],['tu','terás'],['ele/ela','terá'],['nós','teremos'],['vós','tereis'],['eles/elas','terão']],
+      'Futuro do Pret.': [['eu','teria'],['tu','terias'],['ele/ela','teria'],['nós','teríamos'],['vós','teríeis'],['eles/elas','teriam']],
+    },
+    subjuntivo: {
+      'Subj. Presente': [['eu','tenha'],['tu','tenhas'],['ele/ela','tenha'],['nós','tenhamos'],['vós','tenhais'],['eles/elas','tenham']],
+      'Subj. Imperfeito': [['eu','tivesse'],['tu','tivesses'],['ele/ela','tivesse'],['nós','tivéssemos'],['vós','tivésseis'],['eles/elas','tivessem']],
+      'Subj. Futuro': [['eu','tiver'],['tu','tiveres'],['ele/ela','tiver'],['nós','tivermos'],['vós','tiverdes'],['eles/elas','tiverem']],
+    },
+    nominais: { Infinitivo:'ter', Gerúndio:'tendo', Particípio:'tido' },
+    derivados: ['deter','manter','conter','reter','obter','abster']
+  },
+  POR: {
+    cor: 'success',
+    indicativo: {
+      'Presente': [['eu','ponho'],['tu','pões'],['ele/ela','põe'],['nós','pomos'],['vós','pondes'],['eles/elas','põem']],
+      'Pret. Perfeito': [['eu','pus'],['tu','puseste'],['ele/ela','pôs'],['nós','pusemos'],['vós','pusestes'],['eles/elas','puseram']],
+      'Pret. Imperfeito': [['eu','punha'],['tu','punhas'],['ele/ela','punha'],['nós','púnhamos'],['vós','púnheis'],['eles/elas','punham']],
+      'Futuro': [['eu','porei'],['tu','porás'],['ele/ela','porá'],['nós','poremos'],['vós','poreis'],['eles/elas','porão']],
+      'Futuro do Pret.': [['eu','poria'],['tu','porias'],['ele/ela','poria'],['nós','poríamos'],['vós','poríeis'],['eles/elas','poriam']],
+    },
+    subjuntivo: {
+      'Subj. Presente': [['eu','ponha'],['tu','ponhas'],['ele/ela','ponha'],['nós','ponhamos'],['vós','ponhais'],['eles/elas','ponham']],
+      'Subj. Imperfeito': [['eu','pusesse'],['tu','pusesses'],['ele/ela','pusesse'],['nós','puséssemos'],['vós','pusésseis'],['eles/elas','pusessem']],
+      'Subj. Futuro': [['eu','puser'],['tu','puseres'],['ele/ela','puser'],['nós','pusermos'],['vós','puserdes'],['eles/elas','puserem']],
+    },
+    nominais: { Infinitivo:'pôr', Gerúndio:'pondo', Particípio:'posto' },
+    derivados: ['compor','dispor','expor','impor','propor','supor','repor']
+  },
+  VER: {
+    cor: 'warning',
+    indicativo: {
+      'Presente': [['eu','vejo'],['tu','vês'],['ele/ela','vê'],['nós','vemos'],['vós','vedes'],['eles/elas','veem']],
+      'Pret. Perfeito': [['eu','vi'],['tu','viste'],['ele/ela','viu'],['nós','vimos'],['vós','vistes'],['eles/elas','viram']],
+      'Pret. Imperfeito': [['eu','via'],['tu','vias'],['ele/ela','via'],['nós','víamos'],['vós','víeis'],['eles/elas','viam']],
+      'Futuro': [['eu','verei'],['tu','verás'],['ele/ela','verá'],['nós','veremos'],['vós','vereis'],['eles/elas','verão']],
+      'Futuro do Pret.': [['eu','veria'],['tu','verias'],['ele/ela','veria'],['nós','veríamos'],['vós','veríeis'],['eles/elas','veriam']],
+    },
+    subjuntivo: {
+      'Subj. Presente': [['eu','veja'],['tu','vejas'],['ele/ela','veja'],['nós','vejamos'],['vós','vejais'],['eles/elas','vejam']],
+      'Subj. Imperfeito': [['eu','visse'],['tu','visses'],['ele/ela','visse'],['nós','víssemos'],['vós','vísseis'],['eles/elas','vissem']],
+      'Subj. Futuro': [['eu','vir'],['tu','vires'],['ele/ela','vir'],['nós','virmos'],['vós','virdes'],['eles/elas','virem']],
+    },
+    nominais: { Infinitivo:'ver', Gerúndio:'vendo', Particípio:'visto' },
+    derivados: ['prever','rever','antever']
+  },
+  VIR: {
+    cor: 'danger',
+    indicativo: {
+      'Presente': [['eu','venho'],['tu','vens'],['ele/ela','vem'],['nós','vimos'],['vós','vindes'],['eles/elas','vêm']],
+      'Pret. Perfeito': [['eu','vim'],['tu','vieste'],['ele/ela','veio'],['nós','viemos'],['vós','viestes'],['eles/elas','vieram']],
+      'Pret. Imperfeito': [['eu','vinha'],['tu','vinhas'],['ele/ela','vinha'],['nós','vínhamos'],['vós','vínheis'],['eles/elas','vinham']],
+      'Futuro': [['eu','virei'],['tu','virás'],['ele/ela','virá'],['nós','viremos'],['vós','vireis'],['eles/elas','virão']],
+      'Futuro do Pret.': [['eu','viria'],['tu','virias'],['ele/ela','viria'],['nós','viríamos'],['vós','viríeis'],['eles/elas','viriam']],
+    },
+    subjuntivo: {
+      'Subj. Presente': [['eu','venha'],['tu','venhas'],['ele/ela','venha'],['nós','venhamos'],['vós','venhais'],['eles/elas','venham']],
+      'Subj. Imperfeito': [['eu','viesse'],['tu','viesses'],['ele/ela','viesse'],['nós','viéssemos'],['vós','viésseis'],['eles/elas','viessem']],
+      'Subj. Futuro': [['eu','vier'],['tu','vieres'],['ele/ela','vier'],['nós','viermos'],['vós','vierdes'],['eles/elas','vierem']],
+    },
+    nominais: { Infinitivo:'vir', Gerúndio:'vindo', Particípio:'vindo' },
+    derivados: ['convir','intervir','advir','provir','sobrevir']
+  }
+};
+
+let ativo = 'TER';
+
+function renderTabs() {
+  const el = document.getElementById('tabs');
+  el.innerHTML = Object.keys(verbos).map(v => 
+    `<button class="tab-btn ${v===ativo?'active':''}" onclick="setAtivo('${v}')">${v}</button>`
+  ).join('');
+}
+
+function renderContent() {
+  const d = verbos[ativo];
+  const allTempos = {...d.indicativo, ...d.subjuntivo};
+  
+  let html = `<p class="section-label">Modo Indicativo</p><div class="tempo-grid">`;
+  Object.entries(d.indicativo).forEach(([tempo, conj]) => {
+    html += `<div class="tempo-card"><div class="tempo-title">${tempo}</div>`;
+    conj.forEach(([p,f]) => html += `<div class="conj-row"><span class="pronome">${p}</span><span class="forma">${f}</span></div>`);
+    html += `</div>`;
+  });
+  html += `</div>`;
+
+  html += `<p class="section-label">Modo Subjuntivo</p><div class="tempo-grid">`;
+  Object.entries(d.subjuntivo).forEach(([tempo, conj]) => {
+    html += `<div class="tempo-card"><div class="tempo-title">${tempo}</div>`;
+    conj.forEach(([p,f]) => html += `<div class="conj-row"><span class="pronome">${p}</span><span class="forma">${f}</span></div>`);
+    html += `</div>`;
+  });
+  html += `</div>`;
+
+  html += `<p class="section-label">Formas Nominais</p><div class="formas-nominais">`;
+  Object.entries(d.nominais).forEach(([k,v]) => html += `<div class="forma-pill"><span>${k}:</span>${v}</div>`);
+  html += `</div>`;
+
+  html += `<p class="section-label" style="margin-top:1.5rem;">Verbos derivados</p><div class="formas-nominais">`;
+  d.derivados.forEach(v => html += `<div class="forma-pill">${v}</div>`);
+  html += `</div>`;
+
+  document.getElementById('content').innerHTML = html;
+}
+
+function setAtivo(v) { ativo = v; renderTabs(); renderContent(); }
+
+renderTabs();
+renderContent();
+</script>

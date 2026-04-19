@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aulas em Vídeo — CESGRANRIO</title>
+  <style>
+    :root {
+      --bg: #06061a; --card: #0d0d2b; --border: #1a1a4e;
+      --gold: #FFD700; --purple: #7B2FBE; --text: #e0e0ff; --muted: #7777aa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; min-height: 100vh; }
+
+    nav {
+      background: linear-gradient(135deg, #0d0d2b, #1a0a3e);
+      border-bottom: 2px solid var(--gold);
+      padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { color: var(--gold); font-size: 1.05rem; font-weight: bold; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      margin-left: 14px; font-size: 0.83rem; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .container { max-width: 820px; margin: 0 auto; padding: 28px 20px 60px; }
+
+    h1 { font-size: 1.4rem; color: var(--gold); margin-bottom: 6px; }
+    .subtitulo { color: var(--muted); font-size: 0.85rem; margin-bottom: 32px; }
+
+    /* DISCIPLINA */
+    .disciplina { margin-bottom: 36px; }
+    .disc-titulo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1rem; font-weight: bold; color: var(--gold);
+      margin-bottom: 14px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    }
+    .disc-badge {
+      background: var(--purple); color: #fff;
+      font-size: 0.68rem; padding: 2px 8px; border-radius: 10px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* CARD DE AULA */
+    .aula-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px; margin-bottom: 10px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+      transition: border-color 0.2s;
+    }
+    .aula-card:hover { border-color: var(--purple); }
+    .aula-corpo { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
+    .aula-num {
+      background: #1a1a40; color: var(--muted);
+      font-size: 0.78rem; font-weight: bold;
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .aula-info { flex: 1; min-width: 0; }
+    .aula-titulo { font-size: 0.9rem; color: var(--text); font-weight: 600; margin-bottom: 3px; }
+    .aula-desc { font-size: 0.78rem; color: var(--muted); }
+    .aula-btns { display: flex; gap: 8px; flex-shrink: 0; }
+    .btn-ver, .btn-baixar {
+      border: none; border-radius: 8px; padding: 8px 14px;
+      font-size: 0.78rem; font-weight: bold; cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center;
+      gap: 5px; white-space: nowrap; transition: all 0.2s;
+    }
+    .btn-ver {
+      background: var(--gold); color: #000;
+    }
+    .btn-ver:hover { background: #ffe84d; }
+    .btn-baixar {
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+    }
+    .btn-baixar:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Flashcards de memorização */
+    .flashcards-row {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 8px; padding-top: 8px;
+      border-top: 1px dashed #1a1a4e;
+    }
+    .btn-flash {
+      background: rgba(0, 200, 180, 0.1);
+      border: 1px solid #00c8b4;
+      color: #00e8d0;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.74rem; font-weight: bold;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 4px;
+      transition: all 0.2s;
+    }
+    .btn-flash:hover { background: rgba(0, 200, 180, 0.25); }
+
+    /* Sem link ainda */
+    .sem-link { opacity: 0.4; pointer-events: none; }
+    .tag-em-breve {
+      font-size: 0.68rem; color: var(--muted);
+      background: #1a1a40; padding: 2px 7px; border-radius: 6px; margin-left: 6px;
+    }
+
+    /* Instrução */
+    .instrucao {
+      background: #0a0a22; border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 18px; margin-bottom: 28px;
+      font-size: 0.82rem; color: var(--muted); line-height: 1.7;
+    }
+    .instrucao strong { color: var(--gold); }
+    .instrucao code {
+      background: #1a1a40; padding: 1px 6px;
+      border-radius: 4px; font-size: 0.78rem;
+    }
+
+    @media (max-width: 600px) {
+      .aula-card { flex-wrap: wrap; }
+      .aula-btns { width: 100%; }
+      .btn-ver, .btn-baixar { flex: 1; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">📚 Aulas em Vídeo</div>
+  <div class="nav-links">
+    <a href="index.html">Show do Saber</a>
+    <a href="simulado.html">Simulado</a>
+    <a href="revisao.html">Revisão</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Aulas em Vídeo</h1>
+  <div class="subtitulo">Conteúdo organizado por disciplina — assistir e baixar no celular</div>
+
+  <div class="instrucao">
+    <strong>Como adicionar um vídeo:</strong><br>
+    1. Faça upload no Google Drive → clique com botão direito → <strong>Compartilhar</strong> → "Qualquer pessoa com o link"<br>
+    2. Copie o <strong>ID</strong> do link: <code>drive.google.com/file/d/<strong>ID_AQUI</strong>/view</code><br>
+    3. Cole no campo <code>driveId</code> da aula correspondente no código deste arquivo
+  </div>
+
+  <div id="lista-disciplinas"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// BANCO DE AULAS — edite aqui para adicionar/atualizar vídeos
+//
+// driveId: cole o ID do Google Drive (null = ainda não enviado)
+// Exemplo de URL: https://drive.google.com/file/d/1aBcDeFgHiJ.../view
+// O ID é a parte entre /d/ e /view
+// ═══════════════════════════════════════════════════════════════════
+
+const DISCIPLINAS = [
+  {
+    nome: 'Língua Portuguesa',
+    icone: '📖',
+    aulas: [
+      {
+        num: 1,
+        titulo: 'Verbos: Conjugações e Tempos Verbais',
+        desc: 'Pretérito perfeito, imperfeito, mais que perfeito e subjuntivo',
+        driveId: null,
+        flashcards: [
+          { titulo: '🃏 Verbos — Parte 1', url: 'https://gemini.google.com/share/8cca9fbcc3ea' },
+          { titulo: '🃏 Verbos — Parte 2', url: 'https://gemini.google.com/share/2e2a18f5f312' },
+          { titulo: '🃏 Vozes e Verbos',   url: 'https://gemini.google.com/share/f3b8f58a3662' },
+        ]
+      },
+      {
+        num: 2,
+        titulo: 'Interpretação de Texto',
+        desc: 'Ideia principal, inferência, pressuposto',
+        driveId: null,
+        flashcards: []
+      },
+      {
+        num: 3,
+        titulo: 'Concordância Verbal e Nominal',
+        desc: 'Regras e casos especiais CESGRANRIO',
+        driveId: null,
+        flashcards: []
+      },
+      {
+        num: 4,
+        titulo: 'Conjunções e Conectivos',
+        desc: 'Coordenativas, subordinativas e uso em texto',
+        driveId: null,
+        flashcards: [
+          { titulo: '🃏 Cards Conjunções', url: 'https://gemini.google.com/share/8355c3698853' },
+        ]
+      },
+      {
+        num: 5,
+        titulo: 'Advérbios',
+        desc: 'Classificação, grau e uso em contexto de prova',
+        driveId: null,
+        flashcards: [
+          { titulo: '🃏 Cards Advérbios', url: 'https://gemini.google.com/share/97b4883b58d9' },
+        ]
+      },
+      {
+        num: 6,
+        titulo: 'Substantivo',
+        desc: 'Classificação, flexão de gênero e número',
+        driveId: null,
+        flashcards: [
+          { titulo: '🃏 Cards Substantivo', url: 'https://gemini.google.com/share/d376acd5f9d7' },
+        ]
+      },
+    ]
+  },
+  {
+    nome: 'Matemática',
+    icone: '🔢',
+    aulas: [
+      {
+        num: 1,
+        titulo: 'Porcentagem e Juros',
+        desc: 'Cálculo de porcentagem, aumento, desconto, juros simples e compostos',
+        driveId: null,
+        flashcards: [
+          { titulo: '🃏 Cards Matemática', url: 'https://gemini.google.com/share/189ad596d115' },
+        ]
+      },
+      {
+        num: 2,
+        titulo: 'Regra de Três Simples e Composta',
+        desc: 'Proporção direta e inversa com exemplos de prova',
+        driveId: null,
+        flashcards: []
+      },
+      {
+        num: 3,
+        titulo: 'Equações do 1º e 2º Grau',
+        desc: 'Resolução e aplicações em contexto de prova',
+        driveId: null,
+        flashcards: []
+      },
+    ]
+  },
+  {
+    nome: 'Informática',
+    icone: '💻',
+    aulas: [
+      {
+        num: 1,
+        titulo: 'Microsoft Office — Word e Excel',
+        desc: 'Funcionalidades principais cobradas na CESGRANRIO',
+        driveId: null,
+        flashcards: []
+      },
+      {
+        num: 2,
+        titulo: 'Internet e Segurança Digital',
+        desc: 'Navegadores, e-mail, vírus, phishing, LGPD',
+        driveId: null,
+        flashcards: []
+      },
+      {
+        num: 3,
+        titulo: 'Inteligência Artificial e IA Generativa',
+        desc: 'Conceitos atuais: IA, machine learning, ChatGPT, uso responsável',
+        driveId: null,
+        flashcards: []
+      },
+    ]
+  },
+  {
+    nome: 'Raciocínio Lógico',
+    icone: '🧠',
+    aulas: [
+      {
+        num: 1,
+        titulo: 'Lógica Proposicional',
+        desc: 'Conectivos, tabela-verdade, negação de proposições',
+        driveId: null,
+        flashcards: [
+          { titulo: '🃏 Cards Tabela Verdade', url: 'https://gemini.google.com/share/2a3a5335b1fd' },
+        ]
+      },
+      {
+        num: 2,
+        titulo: 'Sequências e Padrões',
+        desc: 'Séries numéricas, figuras e matrizes de raciocínio',
+        driveId: null,
+        flashcards: []
+      },
+    ]
+  },
+  {
+    nome: 'Conhecimentos Específicos',
+    icone: '⚡',
+    aulas: [
+      {
+        num: 1,
+        titulo: 'NR-1 e Normas Regulamentadoras',
+        desc: 'Atualizações 2025 — PGRO, saúde mental, riscos',
+        driveId: null,
+        flashcards: []
+      },
+      {
+        num: 2,
+        titulo: 'Instalações Elétricas Residenciais',
+        desc: 'Circuitos, dimensionamento, ABNT NBR 5410',
+        driveId: null,
+        flashcards: []
+      },
+      {
+        num: 3,
+        titulo: 'Segurança do Trabalho — Eletricidade',
+        desc: 'NR-10, EPIs, riscos elétricos, primeiros socorros',
+        driveId: null,
+        flashcards: []
+      },
+    ]
+  },
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// RENDERIZAÇÃO
+// ═══════════════════════════════════════════════════════════════════
+
+function urlVer(id) {
+  return `https://drive.google.com/file/d/${id}/preview`;
+}
+function urlBaixar(id) {
+  return `https://drive.google.com/uc?export=download&id=${id}`;
+}
+
+function renderizar() {
+  const container = document.getElementById('lista-disciplinas');
+  let html = '';
+
+  DISCIPLINAS.forEach(disc => {
+    html += `<div class="disciplina">`;
+    const nVideos = disc.aulas.filter(a => a.driveId).length;
+    const nCards  = disc.aulas.filter(a => a.flashcards && a.flashcards.length > 0).length;
+    const badge   = nVideos > 0
+      ? `${nVideos} vídeo${nVideos > 1 ? 's' : ''}`
+      : nCards > 0
+        ? `${nCards} card${nCards > 1 ? 's' : ''}`
+        : 'em breve';
+    html += `<div class="disc-titulo">
+      <span>${disc.icone} ${disc.nome}</span>
+      <span class="disc-badge">${badge}</span>
+    </div>`;
+
+    disc.aulas.forEach(aula => {
+      const temVideo     = !!aula.driveId;
+      const temFlash     = aula.flashcards && aula.flashcards.length > 0;
+      const flashHtml    = temFlash
+        ? `<div class="flashcards-row">
+            ${aula.flashcards.map(f =>
+              `<a class="btn-flash" href="${f.url}" target="_blank">${f.titulo}</a>`
+            ).join('')}
+           </div>`
+        : '';
+
+      html += `<div class="aula-card">
+        <div class="aula-corpo">
+          <div class="aula-num">${aula.num}</div>
+          <div class="aula-info">
+            <div class="aula-titulo">
+              ${aula.titulo}
+              ${!temVideo ? '<span class="tag-em-breve">vídeo em breve</span>' : ''}
+            </div>
+            <div class="aula-desc">${aula.desc}</div>
+          </div>
+          <div class="aula-btns ${!temVideo ? 'sem-link' : ''}">
+            <a class="btn-ver" ${temVideo ? `href="${urlVer(aula.driveId)}" target="_blank"` : ''}>
+              ▶ Assistir
+            </a>
+            <a class="btn-baixar" ${temVideo ? `href="${urlBaixar(aula.driveId)}" target="_blank"` : ''}>
+              ⬇ Baixar
+            </a>
+          </div>
+        </div>
+        ${flashHtml}
+      </div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+renderizar();
+</script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macetes de Português</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Fira+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0f0c29;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  .header h1 span {
+    color: #a78bfa;
+  }
+
+  .header p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-top: 6px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #a78bfa, #60a5fa);
+    border-radius: 2px;
+    margin: 12px auto 0;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    margin-top: 36px;
+  }
+
+  .section-title .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .section-title h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* CARDS GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .grid.single {
+    grid-template-columns: 1fr;
+  }
+
+  /* CARD BASE */
+  .card {
+    border-radius: 16px;
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+  }
+
+  /* PURPLE card */
+  .card.purple {
+    background: rgba(139, 92, 246, 0.12);
+  }
+  .card.purple::before { background: #8b5cf6; }
+  .card.purple .tag { background: rgba(139,92,246,0.2); color: #c4b5fd; }
+  .card.purple .rule { color: #a78bfa; }
+
+  /* BLUE card */
+  .card.blue {
+    background: rgba(59, 130, 246, 0.12);
+  }
+  .card.blue::before { background: #3b82f6; }
+  .card.blue .tag { background: rgba(59,130,246,0.2); color: #93c5fd; }
+  .card.blue .rule { color: #60a5fa; }
+
+  /* GREEN card */
+  .card.green {
+    background: rgba(16, 185, 129, 0.12);
+  }
+  .card.green::before { background: #10b981; }
+  .card.green .tag { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+  .card.green .rule { color: #34d399; }
+
+  /* ORANGE card */
+  .card.orange {
+    background: rgba(245, 158, 11, 0.12);
+  }
+  .card.orange::before { background: #f59e0b; }
+  .card.orange .tag { background: rgba(245,158,11,0.2); color: #fcd34d; }
+  .card.orange .rule { color: #fbbf24; }
+
+  /* PINK card */
+  .card.pink {
+    background: rgba(236, 72, 153, 0.12);
+  }
+  .card.pink::before { background: #ec4899; }
+  .card.pink .tag { background: rgba(236,72,153,0.2); color: #f9a8d4; }
+  .card.pink .rule { color: #f472b6; }
+
+  /* TEAL card */
+  .card.teal {
+    background: rgba(20, 184, 166, 0.12);
+  }
+  .card.teal::before { background: #14b8a6; }
+  .card.teal .tag { background: rgba(20,184,166,0.2); color: #5eead4; }
+  .card.teal .rule { color: #2dd4bf; }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .macete {
+    font-family: 'Fira Mono', monospace;
+    font-size: 0.95rem;
+    color: #f1f5f9;
+    line-height: 1.7;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .macete .highlight {
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .macete .arrow {
+    color: #94a3b8;
+    margin: 0 4px;
+  }
+
+  .rule {
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  .example {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+
+  .example span {
+    color: #e2e8f0;
+    font-weight: 600;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 44px;
+    color: #475569;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+  }
+
+  /* FULL WIDTH CARD */
+  .card.full {
+    grid-column: 1 / -1;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .mini-block {
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    font-family: 'Fira Mono', monospace;
+    font-size: 0.82rem;
+    color: #f1f5f9;
+    line-height: 1.7;
+  }
+
+  .mini-block .ok { color: #34d399; font-weight: 700; }
+  .mini-block .no { color: #f87171; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Macetes de <span>Português</span></h1>
+    <p>Mnemônicas para nunca mais errar na prova</p>
+    <div class="divider"></div>
+  </div>
+
+  <!-- SEÇÃO: CRASE -->
+  <div class="section-title">
+    <div class="icon" style="background: rgba(139,92,246,0.2); color:#a78bfa;">à</div>
+    <h2>Crase</h2>
+  </div>
+
+  <div class="grid">
+
+    <!-- Card 1 - O clássico do cursinho -->
+    <div class="card purple full">
+      <span class="tag">⭐ O clássico do cursinho</span>
+      <div class="macete">
+        Se vou <span class="highlight" style="color:#a78bfa;">A</span> e volto <span class="highlight" style="color:#34d399;">DA</span> <span class="arrow">→</span> <span class="highlight" style="color:#fbbf24;">CRASE no A</span><br>
+        Se vou <span class="highlight" style="color:#a78bfa;">A</span> e volto <span class="highlight" style="color:#f87171;">DE</span> <span class="arrow">→</span> <span class="highlight" style="color:#f87171;">crase, pra quê?</span>
+      </div>
+      <div class="two-col">
+        <div class="mini-block">
+          <span class="ok">✔</span> Fui <b>à</b> escola<br>
+          <span style="color:#64748b; font-size:0.75rem;">(voltei <b>da</b> escola → feminino com artigo)</span>
+        </div>
+        <div class="mini-block">
+          <span class="no">✘</span> Fui <b>a</b> pé<br>
+          <span style="color:#64748b; font-size:0.75rem;">(voltei <b>de</b> pé → masculino, sem artigo)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 - Teste do AO -->
+    <div class="card blue">
+      <span class="tag">🔁 Teste do AO</span>
+      <div class="macete">
+        Troque o feminino pelo masculino.<br>
+        Se aparecer <span class="highlight" style="color:#60a5fa;">AO</span> <span class="arrow">→</span> tem crase.
+      </div>
+      <div class="example">
+        Fui <span>à</span> escola<br>
+        → Fui <span>ao</span> colégio <span style="color:#34d399;">✔ crase!</span>
+      </div>
+      <div class="rule">Apareceu "ao" → use "à"</div>
+    </div>
+
+    <!-- Card 3 - Pronomes -->
+    <div class="card orange">
+      <span class="tag">🚫 Pronomes pessoais</span>
+      <div class="macete">
+        Antes de <span class="highlight" style="color:#fbbf24;">ELA</span>, nunca tem crase,<br>
+        minha bela!
+      </div>
+      <div class="example">
+        <span style="color:#f87171;">✘</span> Falou <span>à ela</span><br>
+        <span style="color:#34d399;">✔</span> Falou <span>a ela</span>
+      </div>
+      <div class="rule">Pronomes pessoais = sem crase</div>
+    </div>
+
+    <!-- Card 4 - Artigo indefinido -->
+    <div class="card pink">
+      <span class="tag">🚫 Artigo indefinido</span>
+      <div class="macete">
+        Antes de <span class="highlight" style="color:#f472b6;">UMA</span>,<br>
+        crase <span class="highlight" style="color:#f472b6;">nenhuma!</span>
+      </div>
+      <div class="example">
+        <span style="color:#f87171;">✘</span> Assisti <span>à uma</span> peça<br>
+        <span style="color:#34d399;">✔</span> Assisti <span>a uma</span> peça
+      </div>
+      <div class="rule">Um / Uma = sem crase</div>
+    </div>
+
+    <!-- Card 5 - Verbos -->
+    <div class="card teal">
+      <span class="tag">🚫 Antes de verbo</span>
+      <div class="macete">
+        Verbo não tem gênero,<br>
+        não tem artigo,<br>
+        <span class="highlight" style="color:#2dd4bf;">não tem crase!</span>
+      </div>
+      <div class="example">
+        <span style="color:#f87171;">✘</span> Começou <span>à</span> correr<br>
+        <span style="color:#34d399;">✔</span> Começou <span>a</span> correr
+      </div>
+      <div class="rule">Antes de verbo = sempre sem crase</div>
+    </div>
+
+    <!-- Card 6 - Locuções -->
+    <div class="card green">
+      <span class="tag">📍 Locuções adverbiais</span>
+      <div class="macete">
+        Femininas <span class="arrow">→</span> <span class="highlight" style="color:#34d399;">geralmente têm crase</span><br>
+        Masculinas <span class="arrow">→</span> <span class="highlight" style="color:#f87171;">nunca têm crase</span>
+      </div>
+      <div class="example">
+        <span style="color:#34d399;">✔</span> <span>às vezes / à noite / à tarde</span><br>
+        <span style="color:#f87171;">✘</span> <span>à pé / à cavalo / à prazo</span> ← errado
+      </div>
+      <div class="rule">Pé, cavalo, prazo = masculino = sem crase</div>
+    </div>
+
+  </div>
+
+  <!-- SEÇÃO: REGÊNCIA VERBAL -->
+  <div class="section-title">
+    <div class="icon" style="background: rgba(59,130,246,0.2); color:#60a5fa;">V</div>
+    <h2>Regência Verbal</h2>
+  </div>
+
+  <div class="grid">
+
+    <!-- Assistir -->
+    <div class="card blue">
+      <span class="tag">📺 Assistir</span>
+      <div class="macete">
+        TV pede preposição!<br>
+        Assistiu <span class="highlight" style="color:#60a5fa;">AO</span> filme, não "o" filme.
+      </div>
+      <div class="example">
+        <span style="color:#f87171;">✘</span> Assistiu <span>o jogo</span><br>
+        <span style="color:#34d399;">✔</span> Assistiu <span>ao jogo</span>
+      </div>
+      <div class="rule">Assistir (ver) = VTI → pede "a"</div>
+    </div>
+
+    <!-- Preferir -->
+    <div class="card purple">
+      <span class="tag">☕ Preferir</span>
+      <div class="macete">
+        Preferir já compara,<br>
+        deixa o <span class="highlight" style="color:#a78bfa;">"do que"</span> pra lá!
+      </div>
+      <div class="example">
+        <span style="color:#f87171;">✘</span> Prefere café <span>do que</span> chá<br>
+        <span style="color:#34d399;">✔</span> Prefere café <span>ao</span> chá
+      </div>
+      <div class="rule">Preferir = VTD → comparação com "a"</div>
+    </div>
+
+    <!-- Obedecer -->
+    <div class="card orange">
+      <span class="tag">🎯 Obedecer</span>
+      <div class="macete">
+        Quem obedece,<br>
+        obedece <span class="highlight" style="color:#fbbf24;">A</span> alguém!
+      </div>
+      <div class="example">
+        <span style="color:#f87171;">✘</span> Obedeceu <span>as</span> regras<br>
+        <span style="color:#34d399;">✔</span> Obedeceu <span>às</span> regras
+      </div>
+      <div class="rule">Obedecer = VTI → pede "a"</div>
+    </div>
+
+    <!-- Aspirar -->
+    <div class="card teal">
+      <span class="tag">🏆 Aspirar</span>
+      <div class="macete">
+        Aspira <span class="highlight" style="color:#2dd4bf;">AO</span> cargo,<br>
+        não aspira "o" cargo!
+      </div>
+      <div class="example">
+        <span style="color:#f87171;">✘</span> Aspira <span>o</span> primeiro lugar<br>
+        <span style="color:#34d399;">✔</span> Aspira <span>ao</span> primeiro lugar
+      </div>
+      <div class="rule">Aspirar (almejar) = VTI → pede "a"</div>
+    </div>
+
+  </div>
+
+  <!-- SEÇÃO: FAZER e HAVER (tempo) -->
+  <div class="section-title">
+    <div class="icon" style="background: rgba(16,185,129,0.2); color:#34d399;">⏱</div>
+    <h2>Fazer e Haver — Tempo</h2>
+  </div>
+
+  <div class="grid">
+    <div class="card green full">
+      <span class="tag">⏳ Verbo Impessoal</span>
+      <div class="macete">
+        Fazer e Haver de tempo <span class="arrow">→</span> <span class="highlight" style="color:#34d399;">sempre no singular!</span><br>
+        Não concordam com nada. São solitários.
+      </div>
+      <div class="two-col">
+        <div class="mini-block">
+          <span class="no">✘</span> <b>Fazem</b> dois anos...<br>
+          <span class="ok">✔</span> <b>Faz</b> dois anos...<br>
+          <span class="no">✘</span> <b>Hão</b> dois meses...<br>
+          <span class="ok">✔</span> <b>Há</b> dois meses...
+        </div>
+        <div class="mini-block" style="color:#94a3b8; font-size:0.8rem; line-height:1.8;">
+          Macete: o número que vem depois<br>
+          <b style="color:#e2e8f0;">não manda</b> no verbo.<br>
+          O verbo é o chefe.<br>
+          Sempre singular!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    MACETES DE PORTUGUÊS · NORMA CULTA · CONSULTA RÁPIDA
+  </div>
+
+</div>
+</body>
+</html>

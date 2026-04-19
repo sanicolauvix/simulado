@@ -1,0 +1,259 @@
+# 📚 RESUMO DE ESTUDO: VERBOS
+
+## TEMA PRINCIPAL
+**Verbos: Definição, Conjugações e Tempos Verbais (Pretérito)**
+
+---
+
+## 1. O QUE É VERBO?
+
+**Definição:**
+- Classe de palavras que se flexiona em: **pessoa, número, tempo, modo e voz**
+
+**O que o verbo pode indicar:**
+- ✓ Ação (correr, fazer, ler)
+- ✓ Estado (ficar, permanecer, ser)
+- ✓ Fenômeno meteorológico (chover, amanhecer)
+- ✓ Ocorrência (nascer, morrer)
+- ✓ Desejo (querer, desejar)
+
+---
+
+## 2. AS TRÊS CONJUGAÇÕES VERBAIS
+
+| Conjugação | Terminação | Exemplos |
+|-----------|-----------|----------|
+| **1ª** | **-AR** | falar, jogar, dançar, estudar, morar |
+| **2ª** | **-ER** | comer, correr, entender, haver |
+| **3ª** | **-IR** | partir, cair, sair, dormir, surgir |
+
+**⚠️ CASO ESPECIAL:** Verbos terminados em **-PÔR** (pôr, compor, repor, supor, depor, expor) → **2ª conjugação**
+
+---
+
+## 3. MODOS VERBAIS (3 tipos)
+
+### A) MODO INDICATIVO
+- **Características:** Indica **certeza, realidade**
+- **Tempos principais:**
+  - Presente do indicativo → "Eu sempre estudo"
+  - Pretérito perfeito → "Estudei"
+  - Futuro do presente → "Estudarei"
+
+### B) MODO SUBJUNTIVO
+- **Características:** Indica **dúvida, hipótese, possibilidade, desejo, condição**
+- **Palavras-chave:** talvez, quem sabe, se
+- **Exemplo:** "Talvez eu estude amanhã"
+- **Tempos principais:**
+  - Presente do subjuntivo
+  - Pretérito imperfeito do subjuntivo
+  - Futuro do subjuntivo
+
+### C) MODO IMPERATIVO
+- **Características:** **Ordem ou pedido** (tempo presente)
+- **Exemplos:** "Fique quieto!", "Preste atenção!"
+
+---
+
+## 4. TEMPOS VERBAIS DO PASSADO (PRETÉRITO)
+
+### ⭐ A) PRETÉRITO PERFEITO
+
+**O que é:**
+- Ação **concluída** no passado
+- Aspecto **perfeito** = concluído, terminado
+- Modo indicativo (certeza)
+
+**Características:**
+- Passado bem definido
+- Ação com início e fim claros
+
+**Exemplos:**
+- "Ele **estudou** as lições" (acabou, concluído)
+- "Quando eu **ouvi**, já **vi** o cara" (ação única e concluída)
+- "Ele **entrou** na sala" (pronto, acabou)
+
+**Formação:** Terminações em **-OU, -ARA**
+- Falou, jogou, dançou, estudou, entrou
+
+---
+
+### ⭐ B) PRETÉRITO PERFEITO COMPOSTO
+
+**O que é:**
+- Ação que **começou no passado** e **continua até agora**
+- Fato repetido ou frequente que se prolonga ao presente
+- **2 verbos** (verbo ter/haver + particípio)
+
+**Diferença do Perfeito Simples:**
+- Simples: "Estudei" = ação concluída
+- Composto: "**Tenho** estudado" = continua
+
+**Exemplos:**
+- "**Tenho estudado** muito para os exames" (comecei antes, continuo agora)
+- "**Tenho encontrado** problemas" (continua acontecendo)
+- "Tem falado, tem julgado, tem feito"
+
+---
+
+### ⭐ C) PRETÉRITO IMPERFEITO
+
+**O que é:**
+- Ação **não concluída** no passado
+- Aspectoim **imperfeito** = sem limites claros, período impreciso
+- Ação **repetida ou contínua** no passado
+
+**Características:**
+- Não tem término claro
+- Frequência e repetição
+- Interrupção possível
+
+**Exemplos:**
+- "Ele **estudava**" ≠ "Ele estudou" (era uma repetição)
+- "Ele **falava** a verdade" (frequentemente, repetidamente)
+- "Quando via, **cumprimentava**" (hábito do passado)
+
+**Formação:** Terminações em **-AVA, -IA**
+- Falava, jogava, dançava, estudava, escutava
+- Ia, fazia, prendia, comia, entendia
+
+---
+
+### ⭐ D) PRETÉRITO MAIS QUE PERFEITO
+
+**O que é:**
+- Ação que aconteceu **antes de outra ação já concluída**
+- **Passado do passado**
+- Aspecto **mais que perfeito** = mais concluído que o perfeito
+
+**Por que "mais que perfeito"?**
+- Perfeito = ação concluída
+- Mais que perfeito = ação mais concluída ainda (anterior)
+
+**2 formas:**
+
+| Forma Simples | Forma Composta |
+|---|---|
+| Ele **falara** a verdade | Ele **tinha falado** a verdade |
+| Ele **comera** uma maçã | Ele **tinha comido** uma maçã |
+| Ele **fechara** | Ele **tinha fechado** |
+
+**Exemplos contextualizados:**
+- "Quando chegamos lá, a loja **já fechara**" (fechou antes de chegarmos)
+- "Quando atingimos o topo, **já encontramos** a bandeira que ele **ficara** lá" (ele tinha colocado antes)
+- "Ele **já tinha estudado** as lições quando os amigos chegaram" (terminou antes dos amigos chegar)
+
+---
+
+### ⭐ E) PRETÉRITO IMPERFEITO DO SUBJUNTIVO
+
+**O que é:**
+- Ação no passado com ideia de **dúvida, hipótese, condição, desejo**
+- NÃO é certeza
+
+**Formação:** Terminações em **-ASSE, -ESSE, -ISSE**
+- Falasse, jogasse, entendesse, morresse
+
+**Usos:**
+
+**1) Com "se" (condição):**
+- "Se eu **tivesse** dinheiro..." (hipótese, não tenho)
+- "Se eu **estivesse** preparado..." (hipótese)
+- "Se ele **viesse** ao clube, **participaria** do campeonato" (não veio)
+- "Se minha mãe **fosse** homem, eu teria dois pais" (hipótese irreal)
+
+**2) Com ideia de esperança/desejo:**
+- "Eu esperava que ele **vencesse** o jogo" (= ele não venceu)
+
+---
+
+## 5. RESUMO COMPARATIVO DOS PRETÉRITOS
+
+| Tempo | Característica | Aspecto | Exemplo |
+|-------|---|---|---|
+| **Perfeito** | Ação concluída | Concluído | Estudei |
+| **Imperfeito** | Ação repetida/contínua | Incompleto | Estudava |
+| **Mais que Perfeito** | Passado do passado | Muito concluído | Já tinha estudado |
+| **Perf. Composto** | Passado que continua | Incompleto/contínuo | Tenho estudado |
+
+---
+
+## 6. ⚠️ PONTOS MAIS IMPORTANTES PARA CESGRANRIO
+
+1. ✅ **Diferença entre Perfeito e Imperfeito**
+   - Perfeito = concluído ("estudei")
+   - Imperfeito = repetido/contínuo ("estudava")
+
+2. ✅ **As 3 Conjugações verbais** (-AR, -ER, -IR)
+
+3. ✅ **Pretérito Mais que Perfeito**
+   - Reconhecer: "tinha feito" ou "fizera"
+   - Significa: ação anterior a outra ação passada
+
+4. ✅ **Pretérito Imperfeito do Subjuntivo**
+   - Uso com "se" = hipótese irreal
+   - Terminações: -ASSE, -ESSE, -ISSE
+
+5. ✅ **Indicativo vs Subjuntivo**
+   - Indicativo = certeza
+   - Subjuntivo = dúvida/hipótese
+
+---
+
+---
+
+# 🎧 RESUMO EM ÁUDIO (Para ouvir no celular)
+
+**[INTRODUÇÃO - pause 2s]**
+
+Oi, vamos aprender sobre VERBOS de forma fácil? Você vai ficar craque! [pausa]
+
+**[DEFINIÇÃO - pause 3s]**
+
+Primeiro: o que é verbo? É a classe de palavras que indica AÇÃO, ESTADO, DESEJO. [pausa] Verbo se flexiona em PESSOA, NÚMERO, TEMPO, MODO e VOZ. [pausa]
+
+**[CONJUGAÇÕES - pause 3s]**
+
+Existem TRÊS conjugações verbais. [pausa] Primeira conjugação: verbos terminados em "A-R"... FALAR, JOGAR, DANÇAR. [pausa] Segunda conjugação: verbos terminados em "E-R"... COMER, CORRER, ENTENDER. [pausa] Terceira conjugação: verbos terminados em "I-R"... PARTIR, SAIR, DORMIR. [pausa] Cuidado com o verbo PÔR! Ele é segunda conjugação também, junto com os derivados: COMPOR, REPOR, DEPOR. [pausa]
+
+**[MODOS VERBAIS - pause 4s]**
+
+Agora, os TRÊS MODOS VERBAIS. [pausa] PRIMEIRO: Indicativo. O indicativo é CERTEZA. É realidade. Exemplo: "Eu estudo" ou "Eu estudei". [pausa] SEGUNDO: Subjuntivo. O subjuntivo é DÚVIDA, HIPÓTESE, POSSIBILIDADE. Exemplo: "Talvez eu estude amanhã". [pausa] TERCEIRO: Imperativo. O imperativo é ORDEM ou PEDIDO. Exemplo: "Estude agora!". [pausa]
+
+**[PRETÉRITO PERFEITO - pause 4s]**
+
+Agora vem o PRETÉRITO PERFEITO. [pausa] O perfeito é uma ação CONCLUÍDA no passado. [pausa] Acabou. Terminou. Exemplo: "Ele ESTUDOU as lições". Pronto, acabou. [pausa] "Ele ENTROU na sala". Já era. [pausa] Quando você ouve "OU": FALOU, ENTROU, JOGOU, ESTUDOU. Isso é pretérito perfeito. [pausa]
+
+**[PRETÉRITO IMPERFEITO - pause 4s]**
+
+Agora o PRETÉRITO IMPERFEITO. [pausa] O imperfeito é uma ação NÃO CONCLUÍDA. [pausa] Era uma coisa que se repetia, que era frequente. [pausa] Exemplo: "Ele ESTUDAVA". Não era uma vez só. Era sempre. [pausa] "Ele FALAVA a verdade". Frequentemente, repetidamente. [pausa] Quando você ouve "AVA" ou "IA": FALAVA, JOGAVA, COMIA, FAZIA. Isso é pretérito imperfeito. [pausa]
+
+**[DIFERENÇA PERFEITO vs IMPERFEITO - pause 4s]**
+
+Grave bem essa diferença! [pausa] "Ele ESTUDOU" é perfeito. Ação concluída, uma vez só. [pausa] "Ele ESTUDAVA" é imperfeito. Ação repetida, frequente. [pausa] "Ele FALOU a verdade" uma vez. [pausa] "Ele FALAVA a verdade" muitas vezes. [pausa] Entendeu a diferença? [pausa]
+
+**[PRETÉRITO MAIS QUE PERFEITO - pause 5s]**
+
+Agora o PRETÉRITO MAIS QUE PERFEITO. [pausa] Esse é o PASSADO DO PASSADO. [pausa] Aconteceu ANTES de outra ação que já foi concluída. [pausa] Tem DUAS formas: [pausa] FORMA SIMPLES: "Ele FECHARA a porta". [pausa] FORMA COMPOSTA: "Ele TINHA FECHADO a porta". [pausa] Mesma coisa. [pausa] Exemplo: "Quando chegamos, a loja JÁ FECHARA". Ou "JÁ TINHA FECHADO". [pausa] Ela fechou ANTES de nós chegarmos. [pausa] Entendeu? Passado do passado! [pausa]
+
+**[PRETÉRITO IMPERFEITO DO SUBJUNTIVO - pause 5s]**
+
+E agora, PRETÉRITO IMPERFEITO DO SUBJUNTIVO. [pausa] Lembra que subjuntivo é DÚVIDA e HIPÓTESE? [pausa] Então, quando tem "SE", é geralmente pretérito imperfeito do subjuntivo. [pausa] Terminações: "ASSE", "ESSE", "ISSE". [pausa] "Se eu TIVESSE dinheiro..." Hipótese. [pausa] "Se eu ESTIVESSE preparado..." Hipótese. [pausa] "Se minha mãe FOSSE homem..." Hipótese irreal. [pausa] "Se ele VIESSE ao clube, PARTICIPARIA do campeonato." Não veio, é hipótese. [pausa]
+
+**[RESUMO FINAL - pause 5s]**
+
+Então recapitulando! [pausa] PERFEITO: ação concluída. ESTUDEI. [pausa] IMPERFEITO: ação repetida. ESTUDAVA. [pausa] MAIS QUE PERFEITO: passado do passado. JÁ TINHA ESTUDADO ou ESTUDARA. [pausa] IMPERFEITO DO SUBJUNTIVO: hipótese com "SE". SE EU ESTUDASSE... [pausa] Isso é o mais importante para sua prova! [pausa]
+
+**[ENCERRAMENTO - pause 3s]**
+
+Pronto! Agora você conhece os verbos. [pausa] Pratique as questões de número um a cinco. [pausa] Boa sorte! [pausa]
+
+---
+
+## 📋 DICAS FINAIS PARA PROVA CESGRANRIO
+
+✓ Sempre compare **Perfeito vs Imperfeito** → É o mais comum na prova
+✓ Reconheça os padrões: **-OU, -ARA** (perfeito) e **-AVA, -IA** (imperfeito)
+✓ **Pretérito mais que perfeito** sempre aparece em texto → procure por "já tinha feito" ou "fizera"
+✓ **Subjuntivo** está ligado a **"se"**, **"talvez"**, **"quem sabe"**
+✓ **Indicativo** é certeza → não tem essas palavras de dúvida
