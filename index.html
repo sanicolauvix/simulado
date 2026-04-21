@@ -341,8 +341,8 @@ header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#0
         <div class="ag-lista" id="ag-lista"></div>
         <div class="ag-add-row">
           <input class="ag-input" id="ag-input" placeholder="Adicionar tarefa de estudo..."
-            onkeydown="if(event.key==='Enter')agAdd()">
-          <button class="ag-btn-add" onclick="agAdd()">+</button>
+            onkeydown="if(event.key==='Enter'){agAdd();return false;}">
+          <button type="button" class="ag-btn-add" onclick="agAdd()">+</button>
         </div>
         <div class="ag-rodape">
           <button class="ag-limpar" onclick="agLimpar()">Limpar concluídos</button>
@@ -525,6 +525,7 @@ function mostrarCards() {
 function voltarMenu() {
   esconderTudo();
   document.getElementById('tela-inicial').style.display = 'block';
+  agRender();
 }
 
 function voltarCards() {
@@ -1220,8 +1221,16 @@ function agRender(){
     </div>`).join('');
 }
 function agAdd(){
-  const inp=document.getElementById('ag-input'),texto=inp.value.trim();if(!texto)return;
-  const ag=agLoad();ag.itens.push({texto,feito:false,origem:'manual'});agSave(ag);inp.value='';agRender();
+  const inp=document.getElementById('ag-input');
+  if(!inp)return;
+  const texto=inp.value.trim();
+  if(!texto)return;
+  const ag=agLoad();
+  ag.itens.push({texto,feito:false,origem:'manual'});
+  agSave(ag);
+  inp.value='';
+  agRender();
+  inp.focus();
 }
 function agToggle(i){const ag=agLoad();ag.itens[i].feito=!ag.itens[i].feito;agSave(ag);agRender();}
 function agDel(i){const ag=agLoad();ag.itens.splice(i,1);agSave(ag);agRender();}
