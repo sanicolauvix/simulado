@@ -340,12 +340,11 @@ header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#0
       <div class="ag-corpo">
         <div class="ag-lista" id="ag-lista"></div>
         <div class="ag-add-row">
-          <input class="ag-input" id="ag-input" placeholder="Adicionar tarefa de estudo..."
-            onkeydown="if(event.key==='Enter'){agAdd();return false;}">
-          <button type="button" class="ag-btn-add" onclick="agAdd()">+</button>
+          <input class="ag-input" id="ag-input" placeholder="Adicionar tarefa de estudo...">
+          <button type="button" class="ag-btn-add" id="ag-btn-add">+</button>
         </div>
         <div class="ag-rodape">
-          <button class="ag-limpar" onclick="agLimpar()">Limpar concluídos</button>
+          <button type="button" id="ag-btn-limpar" class="ag-limpar">Limpar concluídos</button>
         </div>
       </div>
     </div>
@@ -1259,7 +1258,18 @@ function agSugerir(revisar){
   }
 })();
 
-agRender();
+// Inicializa agenda e conecta eventos
+document.addEventListener('DOMContentLoaded', function() {
+  agRender();
+
+  document.getElementById('ag-btn-add').addEventListener('click', agAdd);
+
+  document.getElementById('ag-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); agAdd(); }
+  });
+
+  document.getElementById('ag-btn-limpar').addEventListener('click', agLimpar);
+});
 </script>
 </body>
 </html>
