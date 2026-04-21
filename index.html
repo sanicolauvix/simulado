@@ -202,6 +202,43 @@ header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#0
 .card-num.afob-num{color:#ff6666;}
 .card-desc{font-size:11px;color:#666;margin-top:3px;}
 .tag-rev{display:inline-block;background:rgba(255,50,50,.1);border:1px solid #ff3232;border-radius:6px;padding:4px 10px;margin:3px;font-size:12px;color:#ff8888;}
+
+/* AGENDA SEMANAL */
+.ag-card{background:#0d0d25;border:1px solid #1a1a5a;border-radius:14px;
+  margin-bottom:20px;overflow:hidden;text-align:left;max-width:640px;margin-left:auto;margin-right:auto;}
+.ag-header{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;border-bottom:1px solid #12124a;
+  background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(255,165,0,.02));}
+.ag-titulo{font-size:11px;color:#FFD700;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;}
+.ag-semana{font-size:11px;color:#444;}
+.ag-corpo{padding:14px 18px;}
+.ag-lista{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.ag-item{display:flex;align-items:center;gap:10px;padding:8px 10px;
+  background:rgba(255,255,255,.02);border:1px solid #161650;border-radius:8px;}
+.ag-item.feito .ag-txt{text-decoration:line-through;color:#444;}
+.ag-cb{width:18px;height:18px;border-radius:4px;border:2px solid #2a2a6a;
+  cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:none;font-size:11px;font-weight:bold;color:#000;transition:all .15s;}
+.ag-cb.checked{background:#FFD700;border-color:#FFD700;}
+.ag-txt{flex:1;font-size:13px;color:#ccc;border:none;background:transparent;
+  outline:none;font-family:inherit;min-width:0;}
+.ag-txt:focus{color:#fff;}
+.ag-orig{font-size:12px;color:#2a2a6a;flex-shrink:0;}
+.ag-del{background:none;border:none;color:#222;cursor:pointer;font-size:13px;
+  flex-shrink:0;padding:2px 5px;border-radius:4px;transition:color .15s;line-height:1;}
+.ag-del:hover{color:#f87171;}
+.ag-add-row{display:flex;gap:8px;align-items:center;}
+.ag-input{flex:1;background:#070720;border:1px solid #1a1a5a;border-radius:8px;
+  padding:8px 12px;color:#eee;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;}
+.ag-input:focus{border-color:#FFD700;}
+.ag-btn-add{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);
+  border-radius:8px;color:#FFD700;padding:6px 14px;font-size:20px;cursor:pointer;
+  flex-shrink:0;line-height:1;}
+.ag-btn-add:hover{background:rgba(255,215,0,.2);}
+.ag-vazia{text-align:center;color:#2a2a5a;font-size:13px;padding:10px 0;}
+.ag-rodape{display:flex;justify-content:flex-end;margin-top:8px;}
+.ag-limpar{background:none;border:none;color:#2a2a5a;font-size:11px;cursor:pointer;padding:4px 6px;}
+.ag-limpar:hover{color:#f87171;}
 </style>
 </head>
 <body>
@@ -233,6 +270,25 @@ header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#0
       <div class="regra"><span class="regra-icon">🆘</span><span><strong>Não Sei:</strong> recebe a ponta da corda — área, matéria e raciocínio. As contas são por sua conta.</span></div>
       <div class="regra"><span class="regra-icon">🏆</span><span><strong>Tema dominado:</strong> 4 acertos consecutivos com convicção = arquivado.</span></div>
     </div>
+    <!-- Agenda Semanal -->
+    <div class="ag-card" id="ag-card">
+      <div class="ag-header">
+        <span class="ag-titulo">📅 Agenda</span>
+        <span class="ag-semana" id="ag-semana">—</span>
+      </div>
+      <div class="ag-corpo">
+        <div class="ag-lista" id="ag-lista"></div>
+        <div class="ag-add-row">
+          <input class="ag-input" id="ag-input" placeholder="Adicionar tarefa de estudo..."
+            onkeydown="if(event.key==='Enter')agAdd()">
+          <button class="ag-btn-add" onclick="agAdd()">+</button>
+        </div>
+        <div class="ag-rodape">
+          <button class="ag-limpar" onclick="agLimpar()">Limpar concluídos</button>
+        </div>
+      </div>
+    </div>
+
     <button class="btn-comecar" onclick="iniciar()">▶ Começar</button>
     <div style="margin-top:16px;">
       <a href="simulado.html" style="color:#555;font-size:13px;text-decoration:none;border:1px solid #1a1a5a;border-radius:8px;padding:8px 18px;transition:all .2s;" onmouseover="this.style.color='#FFD700';this.style.borderColor='#FFD700'" onmouseout="this.style.color='#555';this.style.borderColor='#1a1a5a'">📝 Ir para o Simulado Semanal</a>
@@ -924,6 +980,70 @@ function atualizarBarras(){
 }
 
 /* ============================================================
+   AGENDA SEMANAL (mesma chave localStorage do simulado.html)
+   ============================================================ */
+function agWeekKey(){
+  const d=new Date(),day=d.getDay()||7,mon=new Date(d);
+  mon.setDate(d.getDate()-day+1);
+  return mon.toISOString().slice(0,10);
+}
+function agWeekLabel(){
+  const d=new Date(),day=d.getDay()||7,mon=new Date(d);
+  mon.setDate(d.getDate()-day+1);
+  const sun=new Date(mon);sun.setDate(mon.getDate()+6);
+  const f=dt=>dt.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+  return `${f(mon)} – ${f(sun)}`;
+}
+function agLoad(){
+  const s=JSON.parse(localStorage.getItem('agenda_semanal')||'null');
+  const k=agWeekKey();
+  return(!s||s.semana!==k)?{semana:k,itens:[]}:s;
+}
+function agSave(ag){localStorage.setItem('agenda_semanal',JSON.stringify(ag));}
+function agRender(){
+  const ag=agLoad();
+  document.getElementById('ag-semana').textContent=agWeekLabel();
+  const lista=document.getElementById('ag-lista');
+  if(ag.itens.length===0){
+    lista.innerHTML='<div class="ag-vazia">Nenhuma tarefa — adicione ou faça uma sessão</div>';
+    return;
+  }
+  lista.innerHTML=ag.itens.map((item,i)=>`
+    <div class="ag-item${item.feito?' feito':''}">
+      <div class="ag-cb${item.feito?' checked':''}" onclick="agToggle(${i})">${item.feito?'✓':''}</div>
+      <input class="ag-txt" value="${item.texto.replace(/"/g,'&quot;')}"
+        onchange="agEdit(${i},this.value)" onblur="agEdit(${i},this.value)">
+      <span class="ag-orig">${item.origem==='treino'?'🧠':item.origem==='simulado'?'📊':''}</span>
+      <button class="ag-del" onclick="agDel(${i})">✕</button>
+    </div>
+  `).join('');
+}
+function agAdd(){
+  const inp=document.getElementById('ag-input');
+  const texto=inp.value.trim();if(!texto)return;
+  const ag=agLoad();ag.itens.push({texto,feito:false,origem:'manual'});
+  agSave(ag);inp.value='';agRender();
+}
+function agToggle(i){const ag=agLoad();ag.itens[i].feito=!ag.itens[i].feito;agSave(ag);agRender();}
+function agDel(i){const ag=agLoad();ag.itens.splice(i,1);agSave(ag);agRender();}
+function agEdit(i,t){const ag=agLoad();if(ag.itens[i]){ag.itens[i].texto=t;agSave(ag);}}
+function agLimpar(){const ag=agLoad();ag.itens=ag.itens.filter(x=>!x.feito);agSave(ag);agRender();}
+function agSugerir(revisar){
+  const ag=agLoad();
+  const exist=new Set(ag.itens.map(x=>x.texto));
+  const vistos=new Set();let novas=0;
+  revisar.forEach(q=>{
+    const texto=`Revisar ${q.disciplina} — ${q.tema}`;
+    if(!vistos.has(texto)&&!exist.has(texto)){
+      vistos.add(texto);
+      ag.itens.push({texto,feito:false,origem:'treino'});
+      novas++;
+    }
+  });
+  if(novas>0){agSave(ag);agRender();}
+}
+
+/* ============================================================
    ENCERRAR
    ============================================================ */
 function encerrar(){
@@ -945,6 +1065,9 @@ function encerrar(){
   document.getElementById('div-rev').innerHTML=revisar.length
     ?'<p style="color:#ff6666;margin:8px 0;">📋 Temas para revisar:</p>'+revisar.map(q=>`<span class="tag-rev">${q.disciplina} — ${q.tema}</span>`).join('')
     :'<p style="color:#00ff88;margin:12px 0;">🎉 Nenhum tema crítico pendente!</p>';
+
+  // Registra temas com erro na agenda semanal
+  agSugerir(revisar);
 }
 
 function novaSessao(){
@@ -967,6 +1090,8 @@ function novaSessao(){
     c.appendChild(e);
   }
 })();
+
+agRender();
 </script>
 </body>
 </html>

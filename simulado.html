@@ -238,6 +238,45 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 .preview-q-txt{font-size:13px;color:#bbb;line-height:1.5;}
 .preview-q-gab{font-size:12px;color:#4ade80;margin-top:6px;}
 
+/* ══════════════════════════════════
+   AGENDA SEMANAL
+══════════════════════════════════ */
+.agenda-card{background:#0d0d25;border:1px solid #1a1a5a;border-radius:14px;
+  margin-bottom:16px;overflow:hidden;}
+.agenda-header{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;border-bottom:1px solid #12124a;
+  background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(255,165,0,.02));}
+.agenda-titulo{font-size:11px;color:#FFD700;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;}
+.agenda-semana{font-size:11px;color:#444;}
+.agenda-corpo{padding:14px 18px;}
+.agenda-lista{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.agenda-item{display:flex;align-items:center;gap:10px;padding:8px 10px;
+  background:rgba(255,255,255,.02);border:1px solid #161650;border-radius:8px;}
+.agenda-item.feito .agenda-item-txt{text-decoration:line-through;color:#444;}
+.agenda-cb{width:18px;height:18px;border-radius:4px;border:2px solid #2a2a6a;
+  cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:none;font-size:11px;font-weight:bold;color:#000;transition:all .15s;}
+.agenda-cb.checked{background:#FFD700;border-color:#FFD700;}
+.agenda-item-txt{flex:1;font-size:13px;color:#ccc;border:none;background:transparent;
+  outline:none;font-family:inherit;min-width:0;}
+.agenda-item-txt:focus{color:#fff;}
+.agenda-item-orig{font-size:12px;color:#2a2a6a;flex-shrink:0;}
+.agenda-btn-del{background:none;border:none;color:#222;cursor:pointer;font-size:13px;
+  flex-shrink:0;padding:2px 5px;border-radius:4px;transition:color .15s;line-height:1;}
+.agenda-btn-del:hover{color:#f87171;}
+.agenda-add-row{display:flex;gap:8px;align-items:center;}
+.agenda-add-input{flex:1;background:#070720;border:1px solid #1a1a5a;border-radius:8px;
+  padding:8px 12px;color:#eee;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;}
+.agenda-add-input:focus{border-color:#FFD700;}
+.agenda-btn-add{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);
+  border-radius:8px;color:#FFD700;padding:6px 14px;font-size:20px;cursor:pointer;
+  flex-shrink:0;line-height:1;transition:all .15s;}
+.agenda-btn-add:hover{background:rgba(255,215,0,.2);}
+.agenda-vazia{text-align:center;color:#2a2a5a;font-size:13px;padding:10px 0;}
+.agenda-rodape{display:flex;justify-content:flex-end;margin-top:8px;}
+.agenda-limpar{background:none;border:none;color:#2a2a5a;font-size:11px;cursor:pointer;padding:4px 6px;}
+.agenda-limpar:hover{color:#f87171;}
+
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;
   display:flex;align-items:center;justify-content:center;padding:20px;}
@@ -281,6 +320,26 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 <!-- ══ TELA DASHBOARD ══ -->
 <div id="tela-dashboard" class="oculto">
   <div class="container">
+
+    <!-- Agenda Semanal -->
+    <div class="agenda-card fade" id="agenda-card">
+      <div class="agenda-header">
+        <span class="agenda-titulo">📅 Agenda</span>
+        <span class="agenda-semana" id="agenda-semana-label">—</span>
+      </div>
+      <div class="agenda-corpo">
+        <div class="agenda-lista" id="agenda-lista"></div>
+        <div class="agenda-add-row">
+          <input class="agenda-add-input" id="agenda-input"
+            placeholder="Adicionar tarefa de estudo..."
+            onkeydown="if(event.key==='Enter')adicionarItemAgenda()">
+          <button class="agenda-btn-add" onclick="adicionarItemAgenda()">+</button>
+        </div>
+        <div class="agenda-rodape">
+          <button class="agenda-limpar" onclick="limparConcluidosAgenda()">Limpar concluídos</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Banner de nível -->
     <div class="nivel-banner fade">
@@ -754,6 +813,117 @@ function renderBancoStatus() {
 }
 
 /* ============================================================
+   AGENDA SEMANAL
+   ============================================================ */
+
+function _weekKey() {
+  const d = new Date();
+  const day = d.getDay() || 7; // domingo → 7
+  const mon = new Date(d);
+  mon.setDate(d.getDate() - day + 1);
+  return mon.toISOString().slice(0, 10); // "2026-04-21"
+}
+
+function _weekLabel() {
+  const d = new Date();
+  const day = d.getDay() || 7;
+  const mon = new Date(d);
+  mon.setDate(d.getDate() - day + 1);
+  const sun = new Date(mon);
+  sun.setDate(mon.getDate() + 6);
+  const fmt = dt => dt.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+  return `${fmt(mon)} – ${fmt(sun)}`;
+}
+
+function carregarAgenda() {
+  const salvo = JSON.parse(localStorage.getItem('agenda_semanal') || 'null');
+  const semana = _weekKey();
+  // Semana nova → começa limpo (sem arquivar)
+  if (!salvo || salvo.semana !== semana) return { semana, itens: [] };
+  return salvo;
+}
+
+function salvarAgenda(ag) {
+  localStorage.setItem('agenda_semanal', JSON.stringify(ag));
+}
+
+function renderAgenda() {
+  const ag = carregarAgenda();
+  document.getElementById('agenda-semana-label').textContent = _weekLabel();
+  const lista = document.getElementById('agenda-lista');
+
+  if (ag.itens.length === 0) {
+    lista.innerHTML = '<div class="agenda-vazia">Nenhuma tarefa — adicione ou faça um simulado</div>';
+    return;
+  }
+
+  lista.innerHTML = ag.itens.map((item, i) => `
+    <div class="agenda-item${item.feito ? ' feito' : ''}">
+      <div class="agenda-cb${item.feito ? ' checked' : ''}" onclick="toggleAgenda(${i})">${item.feito ? '✓' : ''}</div>
+      <input class="agenda-item-txt" value="${item.texto.replace(/"/g,'&quot;')}"
+        onchange="editarAgenda(${i},this.value)" onblur="editarAgenda(${i},this.value)">
+      <span class="agenda-item-orig">${item.origem === 'simulado' ? '📊' : ''}</span>
+      <button class="agenda-btn-del" onclick="removerAgenda(${i})">✕</button>
+    </div>
+  `).join('');
+}
+
+function adicionarItemAgenda() {
+  const inp = document.getElementById('agenda-input');
+  const texto = inp.value.trim();
+  if (!texto) return;
+  const ag = carregarAgenda();
+  ag.itens.push({ texto, feito: false, origem: 'manual' });
+  salvarAgenda(ag);
+  inp.value = '';
+  renderAgenda();
+}
+
+function toggleAgenda(i) {
+  const ag = carregarAgenda();
+  ag.itens[i].feito = !ag.itens[i].feito;
+  salvarAgenda(ag);
+  renderAgenda();
+}
+
+function removerAgenda(i) {
+  const ag = carregarAgenda();
+  ag.itens.splice(i, 1);
+  salvarAgenda(ag);
+  renderAgenda();
+}
+
+function editarAgenda(i, texto) {
+  const ag = carregarAgenda();
+  if (ag.itens[i]) { ag.itens[i].texto = texto; salvarAgenda(ag); }
+}
+
+function limparConcluidosAgenda() {
+  const ag = carregarAgenda();
+  ag.itens = ag.itens.filter(x => !x.feito);
+  salvarAgenda(ag);
+  renderAgenda();
+}
+
+// Chamada após o simulado: registra disciplinas com < 70% como pendências
+function sugerirPendenciasAgenda(discMap) {
+  const ag = carregarAgenda();
+  const existentes = new Set(ag.itens.map(x => x.texto));
+  let novas = 0;
+  Object.entries(discMap).forEach(([disc, v]) => {
+    const pct = Math.round(v.acertos / v.total * 100);
+    if (pct < 70) {
+      const texto = `Revisar ${disc} — ${pct}% no simulado`;
+      if (!existentes.has(texto)) {
+        ag.itens.push({ texto, feito: false, origem: 'simulado' });
+        novas++;
+      }
+    }
+  });
+  if (novas > 0) { salvarAgenda(ag); renderAgenda(); }
+}
+
+/* ============================================================
    NAVEGAÇÃO ENTRE TELAS
    ============================================================ */
 const TELAS = ['tela-config','tela-dashboard','tela-loading','tela-simulado','tela-correcao','tela-plano','tela-importar'];
@@ -817,6 +987,8 @@ function renderDashboard() {
   atualizarCountdown();
   // Atualiza status do banco
   renderBancoStatus();
+  // Renderiza agenda semanal
+  renderAgenda();
 }
 
 function ultimaNotaGeral() {
@@ -1200,6 +1372,9 @@ function calcularCorrecao() {
   });
 
   sessao.ultimoResultado = { discMap, totalAcertos, totalPct, notas };
+
+  // Registra disciplinas fracas na agenda semanal
+  sugerirPendenciasAgenda(discMap);
 
   // Salva questões erradas no banco do Show do Saber
   salvarErrosNoSDS(questoes, respostas);
