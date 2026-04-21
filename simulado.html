@@ -133,6 +133,23 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 .alt-letra{background:#181870;color:#FFD700;width:27px;height:27px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;flex-shrink:0;}
 .btn-alt.sel .alt-letra{background:#FFD700;color:#000;}
+.btn-nao-sei{width:100%;margin-top:10px;background:rgba(255,255,255,.03);border:2px dashed #2a2a6a;
+  border-radius:11px;padding:11px 18px;color:#7777aa;font-size:14px;cursor:pointer;
+  text-align:center;transition:all .18s;}
+.btn-nao-sei:hover{border-color:#7B2FBE;color:#bb88ff;background:rgba(123,47,190,.08);}
+.btn-nao-sei.sel{border-color:#7B2FBE;background:rgba(123,47,190,.18);color:#cc99ff;border-style:solid;}
+.q-tema{font-size:12px;color:#7B2FBE;font-weight:600;letter-spacing:.4px;margin-bottom:10px;text-transform:uppercase;}
+.dicas-box{margin-top:16px;border-top:1px solid #1a1a4e;padding-top:12px;}
+.dicas-titulo{font-size:12px;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.btn-dica{width:100%;text-align:left;background:rgba(255,255,255,.03);border:1px solid #1a1a5a;
+  border-radius:9px;padding:10px 14px;color:#666;font-size:13px;cursor:pointer;
+  margin-bottom:6px;transition:all .18s;display:flex;justify-content:space-between;align-items:center;}
+.btn-dica:hover{border-color:#FFD700;color:#aaa;}
+.btn-dica.aberta{border-color:#FFD700;color:#FFD700;}
+.dica-conteudo{display:none;background:#0a0a22;border:1px solid #1a1a4e;border-radius:0 0 9px 9px;
+  padding:12px 14px;font-size:13px;color:#ccc;line-height:1.6;margin-top:-6px;margin-bottom:6px;}
+.dica-conteudo.vis{display:block;}
+.dica-tag{font-size:10px;background:#1a1a40;color:#7B2FBE;padding:2px 7px;border-radius:8px;margin-right:6px;}
 .sim-nav{display:flex;justify-content:flex-end;margin-top:14px;}
 .aviso-treino{background:rgba(130,0,255,.1);border:1px solid #4a0080;border-radius:8px;
   padding:8px 14px;font-size:12px;color:#bb77ff;text-align:center;margin-bottom:14px;}
@@ -238,45 +255,6 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 .preview-q-txt{font-size:13px;color:#bbb;line-height:1.5;}
 .preview-q-gab{font-size:12px;color:#4ade80;margin-top:6px;}
 
-/* ══════════════════════════════════
-   AGENDA SEMANAL
-══════════════════════════════════ */
-.agenda-card{background:#0d0d25;border:1px solid #1a1a5a;border-radius:14px;
-  margin-bottom:16px;overflow:hidden;}
-.agenda-header{display:flex;align-items:center;justify-content:space-between;
-  padding:12px 18px;border-bottom:1px solid #12124a;
-  background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(255,165,0,.02));}
-.agenda-titulo{font-size:11px;color:#FFD700;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;}
-.agenda-semana{font-size:11px;color:#444;}
-.agenda-corpo{padding:14px 18px;}
-.agenda-lista{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
-.agenda-item{display:flex;align-items:center;gap:10px;padding:8px 10px;
-  background:rgba(255,255,255,.02);border:1px solid #161650;border-radius:8px;}
-.agenda-item.feito .agenda-item-txt{text-decoration:line-through;color:#444;}
-.agenda-cb{width:18px;height:18px;border-radius:4px;border:2px solid #2a2a6a;
-  cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  background:none;font-size:11px;font-weight:bold;color:#000;transition:all .15s;}
-.agenda-cb.checked{background:#FFD700;border-color:#FFD700;}
-.agenda-item-txt{flex:1;font-size:13px;color:#ccc;border:none;background:transparent;
-  outline:none;font-family:inherit;min-width:0;}
-.agenda-item-txt:focus{color:#fff;}
-.agenda-item-orig{font-size:12px;color:#2a2a6a;flex-shrink:0;}
-.agenda-btn-del{background:none;border:none;color:#222;cursor:pointer;font-size:13px;
-  flex-shrink:0;padding:2px 5px;border-radius:4px;transition:color .15s;line-height:1;}
-.agenda-btn-del:hover{color:#f87171;}
-.agenda-add-row{display:flex;gap:8px;align-items:center;}
-.agenda-add-input{flex:1;background:#070720;border:1px solid #1a1a5a;border-radius:8px;
-  padding:8px 12px;color:#eee;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;}
-.agenda-add-input:focus{border-color:#FFD700;}
-.agenda-btn-add{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);
-  border-radius:8px;color:#FFD700;padding:6px 14px;font-size:20px;cursor:pointer;
-  flex-shrink:0;line-height:1;transition:all .15s;}
-.agenda-btn-add:hover{background:rgba(255,215,0,.2);}
-.agenda-vazia{text-align:center;color:#2a2a5a;font-size:13px;padding:10px 0;}
-.agenda-rodape{display:flex;justify-content:flex-end;margin-top:8px;}
-.agenda-limpar{background:none;border:none;color:#2a2a5a;font-size:11px;cursor:pointer;padding:4px 6px;}
-.agenda-limpar:hover{color:#f87171;}
-
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;
   display:flex;align-items:center;justify-content:center;padding:20px;}
@@ -320,26 +298,6 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 <!-- ══ TELA DASHBOARD ══ -->
 <div id="tela-dashboard" class="oculto">
   <div class="container">
-
-    <!-- Agenda Semanal -->
-    <div class="agenda-card fade" id="agenda-card">
-      <div class="agenda-header">
-        <span class="agenda-titulo">📅 Agenda</span>
-        <span class="agenda-semana" id="agenda-semana-label">—</span>
-      </div>
-      <div class="agenda-corpo">
-        <div class="agenda-lista" id="agenda-lista"></div>
-        <div class="agenda-add-row">
-          <input class="agenda-add-input" id="agenda-input"
-            placeholder="Adicionar tarefa de estudo..."
-            onkeydown="if(event.key==='Enter')adicionarItemAgenda()">
-          <button class="agenda-btn-add" onclick="adicionarItemAgenda()">+</button>
-        </div>
-        <div class="agenda-rodape">
-          <button class="agenda-limpar" onclick="limparConcluidosAgenda()">Limpar concluídos</button>
-        </div>
-      </div>
-    </div>
 
     <!-- Banner de nível -->
     <div class="nivel-banner fade">
@@ -391,11 +349,6 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
     <!-- Últimas notas por disciplina -->
     <div id="grid-notas" class="grid-notas fade"></div>
 
-    <!-- Atalhos de estudo -->
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;" class="fade">
-      <a href="revisao.html" class="btn btn-ghost" style="flex:1;min-width:140px;text-align:center;text-decoration:none;font-size:13px;">🎧 Revisão em Áudio</a>
-      <a href="materiais.html" class="btn btn-ghost" style="flex:1;min-width:140px;text-align:center;text-decoration:none;font-size:13px;">📚 Aulas em Vídeo</a>
-    </div>
 
   </div>
 </div>
@@ -431,10 +384,29 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
     <!-- Questão -->
     <div class="caixa-q fade" id="caixa-questao">
       <div class="q-disciplina" id="q-disciplina">Língua Portuguesa</div>
+      <div class="q-tema" id="q-tema"></div>
       <div class="q-num" id="q-num">Questão 1 de 40</div>
       <div class="q-textbase oculto" id="q-textbase"></div>
       <div class="q-enunciado" id="q-enunciado"></div>
       <div class="alts" id="alts"></div>
+      <button id="btn-nao-sei" class="btn-nao-sei" onclick="marcarNaoSei()">❓ Não Sei — estudar na semana seguinte</button>
+
+      <!-- Dicas progressivas -->
+      <div class="dicas-box">
+        <div class="dicas-titulo">💡 Dicas (clique para revelar)</div>
+        <button class="btn-dica" id="btn-d1" onclick="toggleDica(1)">
+          <span>Dica 1 — Linha de raciocínio</span><span id="seta-d1">▶</span>
+        </button>
+        <div class="dica-conteudo" id="dica-1"></div>
+        <button class="btn-dica" id="btn-d2" onclick="toggleDica(2)">
+          <span>Dica 2 — Um passo além</span><span id="seta-d2">▶</span>
+        </button>
+        <div class="dica-conteudo" id="dica-2"></div>
+        <button class="btn-dica" id="btn-d3" onclick="toggleDica(3)">
+          <span>Dica 3 — Solução completa</span><span id="seta-d3">▶</span>
+        </button>
+        <div class="dica-conteudo" id="dica-3"></div>
+      </div>
     </div>
 
     <!-- Navegação -->
@@ -665,10 +637,15 @@ const TEMAS_MAP = {
     importantes: ["Diagramas de Venn — 2 e 3 conjuntos", "Silogismo Válido vs Inválido"],
     complementares: ["Sequências Numéricas", "Raciocínio Analítico"]
   },
-  "Conhecimentos Específicos": {
+  "Eletrotécnica": {
     criticos: ["NR-10 — Segurança em Instalações Elétricas", "Lei de Ohm V=R.I", "Leis de Kirchhoff", "Associação de Resistores — Série e Paralelo"],
     importantes: ["Potência Elétrica P=V.I=R.I²=V²/R", "Transformadores — Relação de Transformação", "Motores Elétricos — Tipos e Princípio"],
     complementares: ["Fator de Potência", "Grandezas: Volt, Ampere, Ohm, Watt, kWh"]
+  },
+  "Mecânica Industrial": {
+    criticos: ["Manutenção Preventiva vs Preditiva vs Corretiva", "Lubrificação — Tipos e Aplicações", "Rolamentos — Tipos, Cargas e Montagem"],
+    importantes: ["Transmissão por Correias e Engrenagens — Relação de Transmissão", "Pneumática e Hidráulica — Princípio de Pascal", "Soldagem — MIG/MAG, TIG, Eletrodo Revestido"],
+    complementares: ["Materiais — Dureza, Tenacidade, Ductilidade", "NR-12 — Segurança em Máquinas e Equipamentos"]
   }
 };
 
@@ -697,25 +674,35 @@ const BANCO_FALLBACK = [
   {disciplina:"Raciocínio Lógico",tema:"Modus Ponens",textoBase:null,enunciado:"Dados: (1) Se o sistema está atualizado, então está seguro. (2) O sistema está atualizado. Podemos concluir:",alts:{A:"O sistema não está seguro.",B:"O sistema está seguro.",C:"O sistema não está atualizado.",D:"Nada pode ser concluído.",E:"O sistema pode ou não estar seguro."},gabarito:"B",explicacao:"Modus Ponens: Se P → Q e P, então Q.\nP = 'sistema atualizado' (dado verdadeiro)\nQ = 'sistema seguro' (concluído)\n✅ Resposta: B"},
   {disciplina:"Raciocínio Lógico",tema:"Tabela Verdade — Condicional",textoBase:null,enunciado:"A proposição P → Q é FALSA somente quando:",alts:{A:"P é falso e Q é falso",B:"P é falso e Q é verdadeiro",C:"P é verdadeiro e Q é verdadeiro",D:"P é verdadeiro e Q é falso",E:"Ambas têm valores diferentes"},gabarito:"D",explicacao:"Tabela Verdade P → Q:\n• V → V = V\n• V → F = F ← único caso falso\n• F → V = V\n• F → F = V\n✅ Resposta: D"},
   {disciplina:"Raciocínio Lógico",tema:"Conectivo OU",textoBase:null,enunciado:"A disjunção (P ∨ Q) é verdadeira em quantas linhas da tabela verdade?",alts:{A:"1",B:"2",C:"3",D:"4",E:"0"},gabarito:"C",explicacao:"Tabela P ∨ Q:\n• V ∨ V = V\n• V ∨ F = V\n• F ∨ V = V\n• F ∨ F = F\nVerdadeira em 3 das 4 linhas.\n✅ Resposta: C"},
-  {disciplina:"Conhecimentos Específicos",tema:"Lei de Ohm",textoBase:null,enunciado:"Um resistor de 10 Ω é ligado a uma fonte de 120 V. A corrente que circula pelo circuito é:",alts:{A:"10 A",B:"12 A",C:"120 A",D:"1200 A",E:"0,12 A"},gabarito:"B",explicacao:"V = R × I → I = V / R\nI = 120 / 10 = 12 A\n✅ Resposta: B"},
-  {disciplina:"Conhecimentos Específicos",tema:"Potência Elétrica",textoBase:null,enunciado:"Um chuveiro de 220 V consome uma corrente de 50 A. Sua potência é:",alts:{A:"4,4 W",B:"270 W",C:"4,4 kW",D:"11 kW",E:"22 kW"},gabarito:"D",explicacao:"P = V × I = 220 × 50 = 11.000 W = 11 kW\n✅ Resposta: D"},
-  {disciplina:"Conhecimentos Específicos",tema:"Circuito em Série",textoBase:null,enunciado:"Três resistores de 4 Ω, 6 Ω e 10 Ω estão associados em série. A resistência equivalente é:",alts:{A:"10 Ω",B:"6 Ω",C:"20 Ω",D:"2 Ω",E:"12 Ω"},gabarito:"C",explicacao:"Série: R_eq = R1 + R2 + R3 = 4 + 6 + 10 = 20 Ω\n✅ Resposta: C\nEm série: corrente igual em todos, tensão se divide."},
-  {disciplina:"Conhecimentos Específicos",tema:"Circuito em Paralelo",textoBase:null,enunciado:"Dois resistores de 6 Ω cada estão em paralelo. A resistência equivalente é:",alts:{A:"12 Ω",B:"6 Ω",C:"3 Ω",D:"1 Ω",E:"0,5 Ω"},gabarito:"C",explicacao:"Paralelo (iguais): R_eq = R/n = 6/2 = 3 Ω\nOu: 1/R_eq = 1/6 + 1/6 = 2/6 → R_eq = 3 Ω\n✅ Resposta: C"},
-  {disciplina:"Conhecimentos Específicos",tema:"NR-10",textoBase:null,enunciado:"De acordo com a NR-10, ao trabalhar em instalações elétricas energizadas, é OBRIGATÓRIO:",alts:{A:"usar apenas luvas de borracha simples",B:"desligar o disjuntor principal antes de qualquer serviço",C:"usar Equipamentos de Proteção Individual adequados à tensão de trabalho",D:"trabalhar sempre acompanhado por um engenheiro eletricista",E:"avisar os colegas verbalmente antes de iniciar o serviço"},gabarito:"C",explicacao:"✅ C — NR-10 exige EPI compatível com a tensão (luvas isolantes, capacete, óculos).\n❌ B — Trabalho em instalações energizadas pode ser necessário; o correto é usar EPI, não apenas desligar.\n❌ A — 'Luvas de borracha simples' sem especificação de classe de tensão é incompleto e incorreto."},
+  {disciplina:"Eletrotécnica",tema:"Lei de Ohm",textoBase:null,enunciado:"Um resistor de 10 Ω é ligado a uma fonte de 120 V. A corrente que circula pelo circuito é:",alts:{A:"10 A",B:"12 A",C:"120 A",D:"1200 A",E:"0,12 A"},gabarito:"B",explicacao:"V = R × I → I = V / R\nI = 120 / 10 = 12 A\n✅ Resposta: B"},
+  {disciplina:"Eletrotécnica",tema:"Potência Elétrica",textoBase:null,enunciado:"Um chuveiro de 220 V consome uma corrente de 50 A. Sua potência é:",alts:{A:"4,4 W",B:"270 W",C:"4,4 kW",D:"11 kW",E:"22 kW"},gabarito:"D",explicacao:"P = V × I = 220 × 50 = 11.000 W = 11 kW\n✅ Resposta: D"},
+  {disciplina:"Eletrotécnica",tema:"Circuito em Série",textoBase:null,enunciado:"Três resistores de 4 Ω, 6 Ω e 10 Ω estão associados em série. A resistência equivalente é:",alts:{A:"10 Ω",B:"6 Ω",C:"20 Ω",D:"2 Ω",E:"12 Ω"},gabarito:"C",explicacao:"Série: R_eq = R1 + R2 + R3 = 4 + 6 + 10 = 20 Ω\n✅ Resposta: C\nEm série: corrente igual em todos, tensão se divide."},
+  {disciplina:"Eletrotécnica",tema:"Circuito em Paralelo",textoBase:null,enunciado:"Dois resistores de 6 Ω cada estão em paralelo. A resistência equivalente é:",alts:{A:"12 Ω",B:"6 Ω",C:"3 Ω",D:"1 Ω",E:"0,5 Ω"},gabarito:"C",explicacao:"Paralelo (iguais): R_eq = R/n = 6/2 = 3 Ω\nOu: 1/R_eq = 1/6 + 1/6 = 2/6 → R_eq = 3 Ω\n✅ Resposta: C"},
+  {disciplina:"Eletrotécnica",tema:"NR-10",textoBase:null,enunciado:"De acordo com a NR-10, ao trabalhar em instalações elétricas energizadas, é OBRIGATÓRIO:",alts:{A:"usar apenas luvas de borracha simples",B:"desligar o disjuntor principal antes de qualquer serviço",C:"usar Equipamentos de Proteção Individual adequados à tensão de trabalho",D:"trabalhar sempre acompanhado por um engenheiro eletricista",E:"avisar os colegas verbalmente antes de iniciar o serviço"},gabarito:"C",explicacao:"✅ C — NR-10 exige EPI compatível com a tensão (luvas isolantes, capacete, óculos).\n❌ B — Trabalho em instalações energizadas pode ser necessário; o correto é usar EPI, não apenas desligar.\n❌ A — 'Luvas de borracha simples' sem especificação de classe de tensão é incompleto e incorreto."},
   {disciplina:"Língua Portuguesa",tema:"Interpretação de Texto",textoBase:"A inteligência artificial (IA) está transformando rapidamente o mercado de trabalho. Funções repetitivas e baseadas em padrões tendem a ser automatizadas, enquanto habilidades como criatividade, pensamento crítico e inteligência emocional ganham maior valorização.",enunciado:"Segundo o texto, o avanço da IA no mercado de trabalho tende a:",alts:{A:"eliminar completamente os empregos existentes",B:"automatizar apenas trabalhos intelectuais",C:"valorizar habilidades humanas como criatividade e pensamento crítico",D:"substituir todas as funções repetitivas imediatamente",E:"reduzir a importância da inteligência emocional"},gabarito:"C",explicacao:"✅ C — O texto afirma que 'habilidades como criatividade, pensamento crítico e inteligência emocional ganham maior valorização'.\n❌ A — O texto não afirma eliminação completa.\n❌ E — Contradiz diretamente o texto."},
   {disciplina:"Matemática",tema:"Geometria Plana",textoBase:null,enunciado:"Um quadrado tem diagonal de 10 cm. Sua área é:",alts:{A:"50 cm²",B:"100 cm²",C:"25 cm²",D:"70,7 cm²",E:"200 cm²"},gabarito:"A",explicacao:"Diagonal d = L√2 → L = d/√2 = 10/√2 = 5√2\nÁrea = L² = (5√2)² = 50 cm²\n✅ Resposta: A\nOu use a fórmula direta: A = d²/2 = 100/2 = 50"},
   {disciplina:"Matemática",tema:"Juros Simples",textoBase:null,enunciado:"Um capital de R$ 3.000,00 rende R$ 360,00 de juros simples em 4 meses. Qual a taxa mensal?",alts:{A:"2%",B:"3%",C:"4%",D:"5%",E:"6%"},gabarito:"B",explicacao:"J = C × i × t\n360 = 3000 × i × 4\ni = 360 / 12.000 = 0,03 = 3% ao mês\n✅ Resposta: B"},
   {disciplina:"Informática",tema:"Windows — Atalhos",textoBase:null,enunciado:"No Windows, qual atalho abre o Gerenciador de Tarefas diretamente (sem passar pela tela de segurança)?",alts:{A:"Ctrl + Alt + Del",B:"Ctrl + Shift + Esc",C:"Alt + F4",D:"Windows + D",E:"Ctrl + Alt + T"},gabarito:"B",explicacao:"✅ B — Ctrl+Shift+Esc abre o Gerenciador de Tarefas diretamente.\n❌ A — Ctrl+Alt+Del abre a tela de segurança do Windows, onde se pode escolher o Gerenciador."},
-  {disciplina:"Conhecimentos Específicos",tema:"Transformadores",textoBase:null,enunciado:"Um transformador tem 500 espiras no primário e 100 no secundário. Se a tensão primária é 220 V, a tensão secundária é:",alts:{A:"44 V",B:"110 V",C:"1100 V",D:"440 V",E:"22 V"},gabarito:"A",explicacao:"Relação de transformação: V1/V2 = N1/N2\n220/V2 = 500/100\nV2 = 220 × 100/500 = 44 V\n✅ Resposta: A (transformador abaixador)"},
+  {disciplina:"Eletrotécnica",tema:"Transformadores",textoBase:null,enunciado:"Um transformador tem 500 espiras no primário e 100 no secundário. Se a tensão primária é 220 V, a tensão secundária é:",alts:{A:"44 V",B:"110 V",C:"1100 V",D:"440 V",E:"22 V"},gabarito:"A",explicacao:"Relação de transformação: V1/V2 = N1/N2\n220/V2 = 500/100\nV2 = 220 × 100/500 = 44 V\n✅ Resposta: A (transformador abaixador)"},
   {disciplina:"Língua Portuguesa",tema:"Pontuação",textoBase:null,enunciado:"Assinale a frase em que a vírgula está empregada CORRETAMENTE:",alts:{A:"O aluno, estudou toda a semana.",B:"Pedro foi ao mercado, e voltou cedo.",C:"Sebastião, que mora no Rio, pediu transferência.",D:"Compramos pão, queijo, e manteiga.",E:"Maria, foi ao banco e voltou tarde."},gabarito:"C",explicacao:"✅ C — Oração subordinada adjetiva explicativa entre vírgulas — uso correto.\n❌ A — Não se separa sujeito do verbo com vírgula.\n❌ E — Não se separa sujeito do predicado.\n❌ D — Antes do último elemento de enumeração com 'e', a vírgula é desnecessária."},
   {disciplina:"Matemática",tema:"Média Ponderada",textoBase:null,enunciado:"Um aluno tirou nota 6 (peso 2), nota 8 (peso 3) e nota 7 (peso 5). Sua média ponderada é:",alts:{A:"7,0",B:"7,1",C:"7,2",D:"7,3",E:"6,9"},gabarito:"B",explicacao:"MP = (6×2 + 8×3 + 7×5) / (2+3+5)\n= (12 + 24 + 35) / 10\n= 71 / 10 = 7,1\n✅ Resposta: B"},
   {disciplina:"Raciocínio Lógico",tema:"Equivalência Lógica",textoBase:null,enunciado:"A proposição P → Q é logicamente equivalente a:",alts:{A:"Q → P",B:"¬P → ¬Q",C:"¬Q → ¬P",D:"¬P ∨ ¬Q",E:"P ∧ ¬Q"},gabarito:"C",explicacao:"Contrapositiva: P → Q ≡ ¬Q → ¬P\nEssa é a equivalência fundamental do condicional.\n✅ Resposta: C\n❌ A — Recíproca (não equivale).\n❌ B — Inversa (não equivale)."},
-  {disciplina:"Conhecimentos Específicos",tema:"Grandezas Elétricas",textoBase:null,enunciado:"Um ferro elétrico de 1.000 W é usado por 2 horas. O consumo em kWh é:",alts:{A:"0,5 kWh",B:"1 kWh",C:"2 kWh",D:"2.000 kWh",E:"500 kWh"},gabarito:"C",explicacao:"E = P × t = 1.000 W × 2 h = 2.000 Wh = 2 kWh\n✅ Resposta: C"},
+  {disciplina:"Eletrotécnica",tema:"Grandezas Elétricas",textoBase:null,enunciado:"Um ferro elétrico de 1.000 W é usado por 2 horas. O consumo em kWh é:",alts:{A:"0,5 kWh",B:"1 kWh",C:"2 kWh",D:"2.000 kWh",E:"500 kWh"},gabarito:"C",explicacao:"E = P × t = 1.000 W × 2 h = 2.000 Wh = 2 kWh\n✅ Resposta: C"},
   {disciplina:"Informática",tema:"LGPD",textoBase:null,enunciado:"A Lei Geral de Proteção de Dados (LGPD — Lei 13.709/2018) tem como objetivo principal:",alts:{A:"regulamentar o uso de inteligência artificial no Brasil",B:"proteger os direitos fundamentais de liberdade e privacidade no tratamento de dados pessoais",C:"proibir o compartilhamento de dados entre empresas privadas",D:"obrigar todas as empresas a criptografar seus bancos de dados",E:"criar o cadastro nacional de usuários de internet"},gabarito:"B",explicacao:"✅ B — A LGPD visa proteger direitos fundamentais de privacidade e liberdade no tratamento de dados pessoais.\n❌ A — A LGPD não é específica sobre IA.\n❌ C — A LGPD não proíbe compartilhamento; regulamenta as condições para fazê-lo."},
   {disciplina:"Língua Portuguesa",tema:"Vocabulário Contextual",textoBase:"O avanço tecnológico, embora traga inúmeros benefícios, também impõe desafios éticos que não podem ser negligenciados pela sociedade.",enunciado:"No contexto da frase, a palavra 'negligenciados' pode ser substituída, sem alteração de sentido, por:",alts:{A:"amplificados",B:"ignorados",C:"valorizados",D:"investigados",E:"combatidos"},gabarito:"B",explicacao:"✅ B — 'Negligenciar' significa ignorar, descuidar, não dar a devida atenção.\n'Não podem ser negligenciados' = 'não podem ser ignorados'.\n❌ A, C, D, E — alteram o sentido."},
   {disciplina:"Matemática",tema:"Combinatória",textoBase:null,enunciado:"Quantas senhas de 3 dígitos distintos podem ser formadas com os algarismos 1, 2, 3, 4 e 5?",alts:{A:"10",B:"20",C:"60",D:"120",E:"125"},gabarito:"C",explicacao:"Arranjo: A(5,3) = 5!/(5-3)! = 5×4×3 = 60\n✅ Resposta: C\nNota: Ordem importa (senha), algarismos distintos → Arranjo, não Combinação."},
-  {disciplina:"Conhecimentos Específicos",tema:"Kirchhoff",textoBase:null,enunciado:"Segundo a Lei de Kirchhoff das Correntes (LKC), em um nó de um circuito:",alts:{A:"a soma das tensões é igual a zero",B:"a soma das correntes que chegam é igual à soma das que saem",C:"a corrente é inversamente proporcional à resistência",D:"a tensão é diretamente proporcional à corrente",E:"a potência total é a soma das potências individuais"},gabarito:"B",explicacao:"✅ B — LKC (1ª Lei de Kirchhoff): soma das correntes que chegam a um nó = soma das que saem. (Conservação de carga)\n❌ A — Essa é a LKT (2ª Lei): soma das tensões em uma malha fechada = 0.\n❌ C, D — Descrevem a Lei de Ohm."},
-  {disciplina:"Informática",tema:"Nuvem — Cloud Computing",textoBase:null,enunciado:"O modelo de serviço em nuvem que fornece infraestrutura (servidores, armazenamento, rede) como serviço é denominado:",alts:{A:"SaaS — Software as a Service",B:"PaaS — Platform as a Service",C:"IaaS — Infrastructure as a Service",D:"DaaS — Desktop as a Service",E:"FaaS — Function as a Service"},gabarito:"C",explicacao:"✅ C — IaaS: fornece infraestrutura virtualizada (VMs, armazenamento, rede).\n❌ A — SaaS: software pronto para uso (ex: Gmail, Office 365).\n❌ B — PaaS: plataforma para desenvolver aplicações (ex: Google App Engine)."}
+  {disciplina:"Eletrotécnica",tema:"Kirchhoff",textoBase:null,enunciado:"Segundo a Lei de Kirchhoff das Correntes (LKC), em um nó de um circuito:",alts:{A:"a soma das tensões é igual a zero",B:"a soma das correntes que chegam é igual à soma das que saem",C:"a corrente é inversamente proporcional à resistência",D:"a tensão é diretamente proporcional à corrente",E:"a potência total é a soma das potências individuais"},gabarito:"B",explicacao:"✅ B — LKC (1ª Lei de Kirchhoff): soma das correntes que chegam a um nó = soma das que saem. (Conservação de carga)\n❌ A — Essa é a LKT (2ª Lei): soma das tensões em uma malha fechada = 0.\n❌ C, D — Descrevem a Lei de Ohm."},
+  {disciplina:"Informática",tema:"Nuvem — Cloud Computing",textoBase:null,enunciado:"O modelo de serviço em nuvem que fornece infraestrutura (servidores, armazenamento, rede) como serviço é denominado:",alts:{A:"SaaS — Software as a Service",B:"PaaS — Platform as a Service",C:"IaaS — Infrastructure as a Service",D:"DaaS — Desktop as a Service",E:"FaaS — Function as a Service"},gabarito:"C",explicacao:"✅ C — IaaS: fornece infraestrutura virtualizada (VMs, armazenamento, rede).\n❌ A — SaaS: software pronto para uso (ex: Gmail, Office 365).\n❌ B — PaaS: plataforma para desenvolver aplicações (ex: Google App Engine)."},
+
+  // ── Mecânica Industrial ──────────────────────────────────────────
+  {disciplina:"Mecânica Industrial",tema:"Manutenção Preventiva e Preditiva",textoBase:null,enunciado:"Qual é a principal diferença entre manutenção PREVENTIVA e manutenção PREDITIVA?",alts:{A:"Preventiva é realizada após a falha; preditiva antes da falha",B:"Preventiva segue intervalos programados de tempo; preditiva monitora o estado real do equipamento para intervir apenas quando necessário",C:"Preventiva usa sensores; preditiva usa calendário fixo",D:"Preventiva é mais cara que a preditiva em todos os casos",E:"Preventiva e preditiva são sinônimos utilizados em contextos diferentes"},gabarito:"B",dica1:{area:"Conhecimentos Específicos — Mecânica Industrial",materia:"Tipos de Manutenção",raciocinio:"Compare os gatilhos: tempo fixo vs condição monitorada. Qual respeita o estado real da máquina?"},dica2:"Preditiva = diagnóstico contínuo (vibração, temperatura, análise de óleo). Preventiva = troca em intervalos fixos, independente do estado.",explicacao:"✅ B — Preventiva: intervalos fixos (ex: trocar óleo a cada 500 h). Preditiva: monitora parâmetros (vibração, temperatura) e intervém só quando há indício de falha.\n❌ A — Manutenção CORRETIVA é realizada após a falha.\n❌ C — Invertido: preditiva usa sensores."},
+  {disciplina:"Mecânica Industrial",tema:"Lubrificação Industrial",textoBase:null,enunciado:"Na lubrificação de rolamentos, o excesso de graxa provoca:",alts:{A:"melhor dissipação de calor e maior vida útil",B:"aumento da viscosidade e melhor vedação",C:"elevação da temperatura por atrito interno e possível falha precoce",D:"redução do ruído e maior durabilidade",E:"nenhum efeito, pois o excesso é expelido automaticamente"},gabarito:"C",dica1:{area:"Conhecimentos Específicos — Mecânica Industrial",materia:"Lubrificação",raciocinio:"Pense no que acontece quando há resistência mecânica interna excessiva dentro do rolamento. O que gera resistência?"},dica2:"Graxa em excesso cria resistência ao movimento das esferas → atrito interno → calor → degradação do lubrificante e da pista.",explicacao:"✅ C — Graxa em excesso causa atrito interno (as esferas têm que 'vencer' a resistência da graxa), elevando a temperatura e acelerando a degradação.\n❌ A — Excesso prejudica a dissipação.\n❌ E — O excesso não é expelido de forma eficiente; causa problemas."},
+  {disciplina:"Mecânica Industrial",tema:"Rolamentos — Tipos e Aplicações",textoBase:null,enunciado:"O rolamento de ESFERAS suporta predominantemente cargas:",alts:{A:"axiais pesadas e baixa velocidade",B:"radiais e axiais moderadas, com alta velocidade",C:"somente radiais, sem suporte axial",D:"somente axiais, sem suporte radial",E:"de impacto e choque sem deformação"},gabarito:"B",dica1:{area:"Conhecimentos Específicos — Mecânica Industrial",materia:"Elementos de Máquinas — Rolamentos",raciocinio:"Associe o formato esférico ao tipo de contato: ponto vs linha. O que o contato pontual permite?"},dica2:"Contato de ponto (esferas) → menor área de contato → adequado para altas rotações, cargas radiais e axiais moderadas. Roletes têm contato de linha → suportam cargas radiais pesadas.",explicacao:"✅ B — Rolamento de esferas: cargas radiais e axiais moderadas, alta velocidade (contato puntiforme = menor atrito).\n❌ A — Cargas axiais pesadas: rolamento de esferas de contato angular ou cônico.\n❌ C — Rolamento de esferas suporta carga axial moderada também."},
+  {disciplina:"Mecânica Industrial",tema:"Transmissão por Correias",textoBase:null,enunciado:"Uma polia motora tem diâmetro de 200 mm e rotação de 1.500 rpm. A polia movida tem diâmetro de 400 mm. A rotação da polia movida é:",alts:{A:"3.000 rpm",B:"1.500 rpm",C:"750 rpm",D:"600 rpm",E:"300 rpm"},gabarito:"C",dica1:{area:"Conhecimentos Específicos — Mecânica Industrial",materia:"Transmissão de Potência — Correias e Polias",raciocinio:"Use a relação de transmissão: D1 × n1 = D2 × n2. Identifique os valores conhecidos e isole n2."},dica2:"n2 = (D1 × n1) / D2 = (200 × 1500) / 400. A polia maior gira mais devagar.",explicacao:"✅ C — Relação: D1 × n1 = D2 × n2\nn2 = (200 × 1500) / 400 = 300.000 / 400 = 750 rpm\n✅ Lógica: polia maior → rotação menor (relação inversamente proporcional ao diâmetro)."},
+  {disciplina:"Mecânica Industrial",tema:"Pneumática — Princípio de Pascal",textoBase:null,enunciado:"Em um sistema hidráulico, um pistão de área 10 cm² recebe uma força de 500 N. Qual a pressão transmitida ao fluido?",alts:{A:"5 N/cm²",B:"50 N/cm²",C:"500 N/cm²",D:"0,05 N/cm²",E:"5.000 N/cm²"},gabarito:"B",dica1:{area:"Conhecimentos Específicos — Mecânica Industrial",materia:"Hidráulica e Pneumática",raciocinio:"Pressão = Força / Área. Substitua os valores e calcule."},dica2:"P = F / A = 500 N / 10 cm² = 50 N/cm². Pelo Princípio de Pascal, essa pressão é transmitida igualmente a todo o fluido.",explicacao:"✅ B — P = F / A = 500 / 10 = 50 N/cm²\nPelo Princípio de Pascal: a pressão aplicada a um fluido confinado é transmitida integralmente e igualmente a todas as partes do fluido.\n❌ A — Erro de cálculo (inverteu divisor)."},
+  {disciplina:"Mecânica Industrial",tema:"Materiais — Propriedades Mecânicas",textoBase:null,enunciado:"A propriedade mecânica que indica a capacidade de um material absorver energia sem fraturar, quando sujeito a impacto, é:",alts:{A:"Dureza",B:"Resistência à tração",C:"Tenacidade",D:"Ductilidade",E:"Rigidez"},gabarito:"C",dica1:{area:"Conhecimentos Específicos — Mecânica Industrial",materia:"Ciência dos Materiais",raciocinio:"Identifique a propriedade que envolve ENERGIA + IMPACTO + NÃO FRATURAR. Qual delas combina resistência e deformação plástica?"},dica2:"Tenacidade = área sob a curva tensão × deformação. Material tenaz suporta impacto. Dureza resiste à riscagem; ductilidade é deformação plástica sem ruptura.",explicacao:"✅ C — Tenacidade: capacidade de absorver energia de impacto sem fraturar (soma de resistência + ductilidade).\n❌ A — Dureza: resistência à penetração/riscagem.\n❌ D — Ductilidade: capacidade de deformar plasticamente (trefilar, laminar), não necessariamente sob impacto."},
+  {disciplina:"Mecânica Industrial",tema:"Engrenagens — Relação de Transmissão",textoBase:null,enunciado:"Uma engrenagem motora tem 20 dentes e gira a 900 rpm. A engrenagem movida tem 60 dentes. Qual a rotação da engrenagem movida?",alts:{A:"2.700 rpm",B:"900 rpm",C:"450 rpm",D:"300 rpm",E:"180 rpm"},gabarito:"D",dica1:{area:"Conhecimentos Específicos — Mecânica Industrial",materia:"Transmissão de Potência — Engrenagens",raciocinio:"Use a relação: Z1 × n1 = Z2 × n2. Engrenagem com mais dentes gira mais devagar."},dica2:"n2 = (Z1 × n1) / Z2 = (20 × 900) / 60. Mais dentes = menor rotação.",explicacao:"✅ D — n2 = (Z1 × n1) / Z2 = (20 × 900) / 60 = 18.000 / 60 = 300 rpm\nRegra: mais dentes → menos rotação (relação inversa).\n❌ A — Inverteu a relação (multiplicou em vez de dividir)."},
+  {disciplina:"Mecânica Industrial",tema:"Soldagem — Processos",textoBase:null,enunciado:"No processo de soldagem MIG/MAG, o eletrodo consumível é:",alts:{A:"um bastão de eletrodo revestido trocado manualmente",B:"um fio de solda alimentado continuamente por um mecanismo automático",C:"um eletrodo de tungstênio não consumível",D:"uma vareta de solda aplicada manualmente pelo soldador",E:"um eletrodo de carbono que gera o arco sem se fundir"},gabarito:"B",dica1:{area:"Conhecimentos Específicos — Mecânica Industrial",materia:"Processos de Soldagem",raciocinio:"MIG/MAG usa alimentação CONTÍNUA de arame. Compare com TIG (tungstênio) e eletrodo revestido (bastão manual)."},dica2:"MIG/MAG = Metal Inert/Active Gas: fio-eletrodo consumível alimentado automaticamente + gás de proteção. TIG usa eletrodo de tungstênio não consumível.",explicacao:"✅ B — MIG/MAG: fio de solda (arame) consumível alimentado continuamente por tocha com motor de arraste.\n❌ A — Eletrodo revestido (processo SMAW), trocado manualmente.\n❌ C — TIG (GTAW) usa tungstênio não consumível.\nMIG = gás inerte (argônio); MAG = gás ativo (CO₂ ou mistura)."}
 ];
 
 /* ============================================================
@@ -813,117 +800,6 @@ function renderBancoStatus() {
 }
 
 /* ============================================================
-   AGENDA SEMANAL
-   ============================================================ */
-
-function _weekKey() {
-  const d = new Date();
-  const day = d.getDay() || 7; // domingo → 7
-  const mon = new Date(d);
-  mon.setDate(d.getDate() - day + 1);
-  return mon.toISOString().slice(0, 10); // "2026-04-21"
-}
-
-function _weekLabel() {
-  const d = new Date();
-  const day = d.getDay() || 7;
-  const mon = new Date(d);
-  mon.setDate(d.getDate() - day + 1);
-  const sun = new Date(mon);
-  sun.setDate(mon.getDate() + 6);
-  const fmt = dt => dt.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
-  return `${fmt(mon)} – ${fmt(sun)}`;
-}
-
-function carregarAgenda() {
-  const salvo = JSON.parse(localStorage.getItem('agenda_semanal') || 'null');
-  const semana = _weekKey();
-  // Semana nova → começa limpo (sem arquivar)
-  if (!salvo || salvo.semana !== semana) return { semana, itens: [] };
-  return salvo;
-}
-
-function salvarAgenda(ag) {
-  localStorage.setItem('agenda_semanal', JSON.stringify(ag));
-}
-
-function renderAgenda() {
-  const ag = carregarAgenda();
-  document.getElementById('agenda-semana-label').textContent = _weekLabel();
-  const lista = document.getElementById('agenda-lista');
-
-  if (ag.itens.length === 0) {
-    lista.innerHTML = '<div class="agenda-vazia">Nenhuma tarefa — adicione ou faça um simulado</div>';
-    return;
-  }
-
-  lista.innerHTML = ag.itens.map((item, i) => `
-    <div class="agenda-item${item.feito ? ' feito' : ''}">
-      <div class="agenda-cb${item.feito ? ' checked' : ''}" onclick="toggleAgenda(${i})">${item.feito ? '✓' : ''}</div>
-      <input class="agenda-item-txt" value="${item.texto.replace(/"/g,'&quot;')}"
-        onchange="editarAgenda(${i},this.value)" onblur="editarAgenda(${i},this.value)">
-      <span class="agenda-item-orig">${item.origem === 'simulado' ? '📊' : ''}</span>
-      <button class="agenda-btn-del" onclick="removerAgenda(${i})">✕</button>
-    </div>
-  `).join('');
-}
-
-function adicionarItemAgenda() {
-  const inp = document.getElementById('agenda-input');
-  const texto = inp.value.trim();
-  if (!texto) return;
-  const ag = carregarAgenda();
-  ag.itens.push({ texto, feito: false, origem: 'manual' });
-  salvarAgenda(ag);
-  inp.value = '';
-  renderAgenda();
-}
-
-function toggleAgenda(i) {
-  const ag = carregarAgenda();
-  ag.itens[i].feito = !ag.itens[i].feito;
-  salvarAgenda(ag);
-  renderAgenda();
-}
-
-function removerAgenda(i) {
-  const ag = carregarAgenda();
-  ag.itens.splice(i, 1);
-  salvarAgenda(ag);
-  renderAgenda();
-}
-
-function editarAgenda(i, texto) {
-  const ag = carregarAgenda();
-  if (ag.itens[i]) { ag.itens[i].texto = texto; salvarAgenda(ag); }
-}
-
-function limparConcluidosAgenda() {
-  const ag = carregarAgenda();
-  ag.itens = ag.itens.filter(x => !x.feito);
-  salvarAgenda(ag);
-  renderAgenda();
-}
-
-// Chamada após o simulado: registra disciplinas com < 70% como pendências
-function sugerirPendenciasAgenda(discMap) {
-  const ag = carregarAgenda();
-  const existentes = new Set(ag.itens.map(x => x.texto));
-  let novas = 0;
-  Object.entries(discMap).forEach(([disc, v]) => {
-    const pct = Math.round(v.acertos / v.total * 100);
-    if (pct < 70) {
-      const texto = `Revisar ${disc} — ${pct}% no simulado`;
-      if (!existentes.has(texto)) {
-        ag.itens.push({ texto, feito: false, origem: 'simulado' });
-        novas++;
-      }
-    }
-  });
-  if (novas > 0) { salvarAgenda(ag); renderAgenda(); }
-}
-
-/* ============================================================
    NAVEGAÇÃO ENTRE TELAS
    ============================================================ */
 const TELAS = ['tela-config','tela-dashboard','tela-loading','tela-simulado','tela-correcao','tela-plano','tela-importar'];
@@ -987,8 +863,6 @@ function renderDashboard() {
   atualizarCountdown();
   // Atualiza status do banco
   renderBancoStatus();
-  // Renderiza agenda semanal
-  renderAgenda();
 }
 
 function ultimaNotaGeral() {
@@ -1137,7 +1011,8 @@ Distribuição OBRIGATÓRIA:
 - Matemática: 8 questões
 - Informática: 6 questões
 - Raciocínio Lógico: 6 questões
-- Conhecimentos Específicos (Elétrica/Técnico): 8 questões
+- Eletrotécnica: 4 questões (circuitos, transformadores, motores, instalações elétricas, NR-10)
+- Mecânica Industrial: 4 questões (manutenção, lubrificação, rolamentos, transmissão, pneumática)
 
 ${temasRecentes.length > 0 ? `Evite repetir estes temas usados recentemente: ${temasRecentes.join(', ')}.` : ''}
 
@@ -1154,6 +1029,8 @@ Cada objeto deve ter EXATAMENTE estes campos:
   "enunciado": "enunciado completo da questão",
   "alts": {"A": "...", "B": "...", "C": "...", "D": "...", "E": "..."},
   "gabarito": "letra correta (A, B, C, D ou E)",
+  "dica1": {"area": "área geral do conhecimento", "materia": "matéria específica", "raciocinio": "bússola: o QUE fazer para resolver, sem entregar a resposta"},
+  "dica2": "um passo além: aponta o método ou fórmula, mas não faz a conta",
   "explicacao": "explicação completa indicando por que cada alternativa está certa ou errada"
 }`;
 
@@ -1269,9 +1146,23 @@ function renderQuestao() {
   document.getElementById('prog-txt').textContent = `${i + 1} / ${total}`;
   document.getElementById('prog-fill').style.width = ((i + 1) / total * 100) + '%';
 
-  // Disciplina e número
+  // Disciplina, tema e número
   document.getElementById('q-disciplina').textContent = q.disciplina;
-  document.getElementById('q-num').textContent = `Questão ${i + 1} de ${total} — ${q.tema}`;
+  document.getElementById('q-tema').textContent = q.tema || '';
+  document.getElementById('q-num').textContent = `Questão ${i + 1} de ${total}`;
+
+  // Dicas
+  const d1 = q.dica1 || {};
+  document.getElementById('dica-1').innerHTML =
+    `<span class="dica-tag">${d1.area||q.disciplina}</span><span class="dica-tag">${d1.materia||q.tema}</span><br><br>${d1.raciocinio||'—'}`;
+  document.getElementById('dica-2').textContent = q.dica2 || '—';
+  document.getElementById('dica-3').textContent = q.explicacao || '—';
+  // Fecha todas as dicas ao trocar de questão
+  [1,2,3].forEach(n => {
+    document.getElementById(`dica-${n}`).classList.remove('vis');
+    document.getElementById(`btn-d${n}`).classList.remove('aberta');
+    document.getElementById(`seta-d${n}`).textContent = '▶';
+  });
 
   // Texto base
   const tbEl = document.getElementById('q-textbase');
@@ -1296,6 +1187,10 @@ function renderQuestao() {
     altsEl.appendChild(btn);
   });
 
+  // Botão Não Sei
+  const btnNaoSei = document.getElementById('btn-nao-sei');
+  btnNaoSei.classList.toggle('sel', sessao.respostas[i] === '?');
+
   // Botão próxima
   const btnProx = document.getElementById('btn-proxima');
   const naUltima = i === total - 1;
@@ -1305,11 +1200,27 @@ function renderQuestao() {
 
 function selecionarAlternativa(letra) {
   sessao.respostas[sessao.atual] = letra;
-  // Atualiza visual
   document.querySelectorAll('.btn-alt').forEach((btn, idx) => {
     btn.classList.toggle('sel', idx === 'ABCDE'.indexOf(letra));
   });
+  document.getElementById('btn-nao-sei').classList.remove('sel');
   document.getElementById('btn-proxima').disabled = false;
+}
+
+function marcarNaoSei() {
+  sessao.respostas[sessao.atual] = '?';
+  document.querySelectorAll('.btn-alt').forEach(btn => btn.classList.remove('sel'));
+  document.getElementById('btn-nao-sei').classList.add('sel');
+  document.getElementById('btn-proxima').disabled = false;
+}
+
+function toggleDica(n) {
+  const conteudo = document.getElementById(`dica-${n}`);
+  const btn = document.getElementById(`btn-d${n}`);
+  const seta = document.getElementById(`seta-d${n}`);
+  const aberta = conteudo.classList.toggle('vis');
+  btn.classList.toggle('aberta', aberta);
+  seta.textContent = aberta ? '▼' : '▶';
 }
 
 function proximaQuestao() {
@@ -1372,9 +1283,6 @@ function calcularCorrecao() {
   });
 
   sessao.ultimoResultado = { discMap, totalAcertos, totalPct, notas };
-
-  // Registra disciplinas fracas na agenda semanal
-  sugerirPendenciasAgenda(discMap);
 
   // Salva questões erradas no banco do Show do Saber
   salvarErrosNoSDS(questoes, respostas);
@@ -1452,7 +1360,7 @@ function renderCorrecao() {
         <div class="qr-seta" id="seta-${i}">▶</div>
       </div>
       <div class="qr-corpo" id="corpo-${i}">
-        ${resp ? `<div class="qr-resp ${acertou?'certa':'errada'}">Sua resposta: ${resp} — ${q.alts[resp]}</div>` : '<div class="qr-resp errada">Não respondida</div>'}
+        ${resp === '?' ? '<div class="qr-resp errada">❓ Não sabia — marcado para estudar</div>' : resp ? `<div class="qr-resp ${acertou?'certa':'errada'}">Sua resposta: ${resp} — ${q.alts[resp]}</div>` : '<div class="qr-resp errada">Não respondida</div>'}
         ${!acertou ? `<div class="qr-resp certa">Gabarito: ${q.gabarito} — ${q.alts[q.gabarito]}</div>` : ''}
         <div class="qr-exp">${q.explicacao || ''}</div>
       </div>
@@ -1504,7 +1412,7 @@ function salvarErrosNoSDS(questoes, respostas) {
     dica1: {
       area: q.disciplina,
       materia: q.tema,
-      raciocinio: `Você errou esta questão no simulado. Sua resposta foi ${resp || 'nenhuma'}. Revise o tema e tente novamente com atenção.`
+      raciocinio: resp === '?' ? 'Você marcou que não sabia esta questão. Estude bem o tema antes do próximo simulado.' : `Você errou esta questão no simulado. Sua resposta foi ${resp || 'nenhuma'}. Revise o tema e tente novamente com atenção.`
     },
     dica2: q.explicacao || 'Revise o tema desta questão.',
     explicacao: q.explicacao || ''

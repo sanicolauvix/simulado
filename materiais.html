@@ -26,102 +26,84 @@
     }
     .nav-links a:hover { color: var(--gold); }
 
-    .container { max-width: 820px; margin: 0 auto; padding: 28px 20px 60px; }
+    .container { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
 
     h1 { font-size: 1.4rem; color: var(--gold); margin-bottom: 6px; }
-    .subtitulo { color: var(--muted); font-size: 0.85rem; margin-bottom: 32px; }
+    .subtitulo { color: var(--muted); font-size: 0.85rem; margin-bottom: 28px; }
 
-    /* DISCIPLINA */
-    .disciplina { margin-bottom: 36px; }
-    .disc-titulo {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 1rem; font-weight: bold; color: var(--gold);
-      margin-bottom: 14px;
-      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    /* GRID DE CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 18px;
     }
-    .disc-badge {
+
+    /* CARD */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: var(--purple); transform: translateY(-2px); }
+    .card.sem-pasta { opacity: 0.55; }
+    .card.sem-pasta:hover { transform: none; border-color: var(--border); }
+
+    .card-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    }
+    .card-icone { font-size: 2rem; line-height: 1; flex-shrink: 0; }
+    .card-info { flex: 1; }
+    .card-titulo { font-size: 1rem; font-weight: bold; color: var(--gold); margin-bottom: 3px; }
+    .card-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+    .card-badge {
       background: var(--purple); color: #fff;
-      font-size: 0.68rem; padding: 2px 8px; border-radius: 10px;
+      font-size: 0.65rem; padding: 3px 8px; border-radius: 10px;
       text-transform: uppercase; letter-spacing: 0.05em;
+      white-space: nowrap; flex-shrink: 0; align-self: flex-start;
     }
+    .card-badge.indisponivel { background: #2a2a4a; color: var(--muted); }
 
-    /* CARD DE AULA */
-    .aula-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 16px 18px; margin-bottom: 10px;
-      display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
-      transition: border-color 0.2s;
+    /* LISTA DE TÓPICOS */
+    .topicos { padding: 14px 20px; }
+    .topico {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #12124a;
+      font-size: 0.82rem;
     }
-    .aula-card:hover { border-color: var(--purple); }
-    .aula-corpo { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
-    .aula-num {
+    .topico:last-child { border-bottom: none; }
+    .topico-num {
       background: #1a1a40; color: var(--muted);
-      font-size: 0.78rem; font-weight: bold;
-      width: 32px; height: 32px; border-radius: 8px;
+      font-size: 0.7rem; font-weight: bold;
+      width: 22px; height: 22px; border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      flex-shrink: 0; margin-top: 1px;
     }
-    .aula-info { flex: 1; min-width: 0; }
-    .aula-titulo { font-size: 0.9rem; color: var(--text); font-weight: 600; margin-bottom: 3px; }
-    .aula-desc { font-size: 0.78rem; color: var(--muted); }
-    .aula-btns { display: flex; gap: 8px; flex-shrink: 0; }
-    .btn-ver, .btn-baixar {
-      border: none; border-radius: 8px; padding: 8px 14px;
-      font-size: 0.78rem; font-weight: bold; cursor: pointer;
-      text-decoration: none; display: inline-flex; align-items: center;
-      gap: 5px; white-space: nowrap; transition: all 0.2s;
-    }
-    .btn-ver {
-      background: var(--gold); color: #000;
-    }
-    .btn-ver:hover { background: #ffe84d; }
-    .btn-baixar {
-      background: transparent; border: 1px solid var(--border); color: var(--muted);
-    }
-    .btn-baixar:hover { border-color: var(--gold); color: var(--gold); }
+    .topico-nome { color: var(--text); line-height: 1.4; }
+    .topico-sub { font-size: 0.73rem; color: var(--muted); margin-top: 1px; }
 
-    /* Flashcards de memorização */
-    .flashcards-row {
-      display: flex; flex-wrap: wrap; gap: 6px;
-      margin-top: 8px; padding-top: 8px;
-      border-top: 1px dashed #1a1a4e;
+    /* BOTÕES */
+    .card-footer { padding: 14px 20px; display: flex; gap: 10px; }
+    .btn-pasta {
+      flex: 1; background: var(--gold); color: #000;
+      border: none; border-radius: 10px; padding: 10px 16px;
+      font-size: 0.84rem; font-weight: bold; cursor: pointer;
+      text-decoration: none; text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: background 0.2s;
     }
-    .btn-flash {
-      background: rgba(0, 200, 180, 0.1);
-      border: 1px solid #00c8b4;
-      color: #00e8d0;
-      border-radius: 20px;
-      padding: 4px 12px;
-      font-size: 0.74rem; font-weight: bold;
-      cursor: pointer; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 4px;
-      transition: all 0.2s;
-    }
-    .btn-flash:hover { background: rgba(0, 200, 180, 0.25); }
-
-    /* Sem link ainda */
-    .sem-link { opacity: 0.4; pointer-events: none; }
-    .tag-em-breve {
-      font-size: 0.68rem; color: var(--muted);
-      background: #1a1a40; padding: 2px 7px; border-radius: 6px; margin-left: 6px;
+    .btn-pasta:hover { background: #ffe84d; }
+    .btn-pasta.desabilitado {
+      background: #1a1a40; color: var(--muted);
+      pointer-events: none; cursor: default;
     }
 
-    /* Instrução */
-    .instrucao {
-      background: #0a0a22; border: 1px solid var(--border);
-      border-radius: 10px; padding: 16px 18px; margin-bottom: 28px;
-      font-size: 0.82rem; color: var(--muted); line-height: 1.7;
-    }
-    .instrucao strong { color: var(--gold); }
-    .instrucao code {
-      background: #1a1a40; padding: 1px 6px;
-      border-radius: 4px; font-size: 0.78rem;
-    }
-
-    @media (max-width: 600px) {
-      .aula-card { flex-wrap: wrap; }
-      .aula-btns { width: 100%; }
-      .btn-ver, .btn-baixar { flex: 1; justify-content: center; }
+    @media (max-width: 500px) {
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -132,266 +114,131 @@
   <div class="nav-links">
     <a href="index.html">Show do Saber</a>
     <a href="simulado.html">Simulado</a>
-    <a href="revisao.html">Revisão</a>
+    <a href="revisao.html">🎧 Revisão</a>
   </div>
 </nav>
 
 <div class="container">
   <h1>Aulas em Vídeo</h1>
-  <div class="subtitulo">Conteúdo organizado por disciplina — assistir e baixar no celular</div>
-
-  <div class="instrucao">
-    <strong>Como adicionar um vídeo:</strong><br>
-    1. Faça upload no Google Drive → clique com botão direito → <strong>Compartilhar</strong> → "Qualquer pessoa com o link"<br>
-    2. Copie o <strong>ID</strong> do link: <code>drive.google.com/file/d/<strong>ID_AQUI</strong>/view</code><br>
-    3. Cole no campo <code>driveId</code> da aula correspondente no código deste arquivo
-  </div>
-
-  <div id="lista-disciplinas"></div>
+  <div class="subtitulo">Clique em "Abrir pasta" para assistir ou baixar no celular via Google Drive</div>
+  <div class="grid" id="grade"></div>
 </div>
 
 <script>
 // ═══════════════════════════════════════════════════════════════════
-// BANCO DE AULAS — edite aqui para adicionar/atualizar vídeos
-//
-// driveId: cole o ID do Google Drive (null = ainda não enviado)
-// Exemplo de URL: https://drive.google.com/file/d/1aBcDeFgHiJ.../view
-// O ID é a parte entre /d/ e /view
+// DISCIPLINAS — adicione o driveFolder quando criar a pasta no Drive
+// driveFolder: ID da pasta (null = ainda não disponível)
 // ═══════════════════════════════════════════════════════════════════
 
 const DISCIPLINAS = [
   {
-    nome: 'Língua Portuguesa',
     icone: '📖',
-    aulas: [
-      {
-        num: 1,
-        titulo: 'Verbos: Conjugações e Tempos Verbais',
-        desc: 'Pretérito perfeito, imperfeito, mais que perfeito e subjuntivo',
-        driveId: null,
-        flashcards: [
-          { titulo: '🃏 Verbos — Parte 1', url: 'https://gemini.google.com/share/8cca9fbcc3ea' },
-          { titulo: '🃏 Verbos — Parte 2', url: 'https://gemini.google.com/share/2e2a18f5f312' },
-          { titulo: '🃏 Vozes e Verbos',   url: 'https://gemini.google.com/share/f3b8f58a3662' },
-        ]
-      },
-      {
-        num: 2,
-        titulo: 'Interpretação de Texto',
-        desc: 'Ideia principal, inferência, pressuposto',
-        driveId: null,
-        flashcards: []
-      },
-      {
-        num: 3,
-        titulo: 'Concordância Verbal e Nominal',
-        desc: 'Regras e casos especiais CESGRANRIO',
-        driveId: null,
-        flashcards: []
-      },
-      {
-        num: 4,
-        titulo: 'Conjunções e Conectivos',
-        desc: 'Coordenativas, subordinativas e uso em texto',
-        driveId: null,
-        flashcards: [
-          { titulo: '🃏 Cards Conjunções', url: 'https://gemini.google.com/share/8355c3698853' },
-        ]
-      },
-      {
-        num: 5,
-        titulo: 'Advérbios',
-        desc: 'Classificação, grau e uso em contexto de prova',
-        driveId: null,
-        flashcards: [
-          { titulo: '🃏 Cards Advérbios', url: 'https://gemini.google.com/share/97b4883b58d9' },
-        ]
-      },
-      {
-        num: 6,
-        titulo: 'Substantivo',
-        desc: 'Classificação, flexão de gênero e número',
-        driveId: null,
-        flashcards: [
-          { titulo: '🃏 Cards Substantivo', url: 'https://gemini.google.com/share/d376acd5f9d7' },
-        ]
-      },
+    titulo: 'Língua Portuguesa',
+    desc: 'Gramática, interpretação de texto e redação oficial',
+    driveFolder: '1WiKevLCLDxvSpaycMGETzGwRgP5hz67p',
+    topicos: [
+      { nome: 'Verbos: Conjugações e Tempos Verbais', sub: 'Pretérito perfeito, imperfeito, mais que perfeito, subjuntivo' },
+      { nome: 'Interpretação de Texto', sub: 'Ideia principal, inferência, pressuposto, coesão' },
+      { nome: 'Concordância Verbal e Nominal', sub: 'Regras gerais e casos especiais CESGRANRIO' },
+      { nome: 'Crase e Regência', sub: 'Uso da crase, regência verbal e nominal' },
+      { nome: 'Figuras de Linguagem', sub: 'Metáfora, metonímia, ironia, hipérbole' },
     ]
   },
   {
-    nome: 'Matemática',
     icone: '🔢',
-    aulas: [
-      {
-        num: 1,
-        titulo: 'Porcentagem e Juros',
-        desc: 'Cálculo de porcentagem, aumento, desconto, juros simples e compostos',
-        driveId: null,
-        flashcards: [
-          { titulo: '🃏 Cards Matemática', url: 'https://gemini.google.com/share/189ad596d115' },
-        ]
-      },
-      {
-        num: 2,
-        titulo: 'Regra de Três Simples e Composta',
-        desc: 'Proporção direta e inversa com exemplos de prova',
-        driveId: null,
-        flashcards: []
-      },
-      {
-        num: 3,
-        titulo: 'Equações do 1º e 2º Grau',
-        desc: 'Resolução e aplicações em contexto de prova',
-        driveId: null,
-        flashcards: []
-      },
+    titulo: 'Matemática',
+    desc: 'Aritmética, álgebra e raciocínio numérico',
+    driveFolder: '1QQyUd6OQ0hkj09XQUwQLWwWJPtSqNJEu',
+    topicos: [
+      { nome: 'Porcentagem e Juros', sub: 'Aumento, desconto, juros simples e compostos' },
+      { nome: 'Regra de Três Simples e Composta', sub: 'Proporção direta e inversa' },
+      { nome: 'Equações do 1º e 2º Grau', sub: 'Resolução e problemas aplicados' },
+      { nome: 'Razão, Proporção e Médias', sub: 'Média aritmética, geométrica, ponderada' },
+      { nome: 'Geometria Básica', sub: 'Áreas, perímetros e volume' },
     ]
   },
   {
-    nome: 'Informática',
     icone: '💻',
-    aulas: [
-      {
-        num: 1,
-        titulo: 'Microsoft Office — Word e Excel',
-        desc: 'Funcionalidades principais cobradas na CESGRANRIO',
-        driveId: null,
-        flashcards: []
-      },
-      {
-        num: 2,
-        titulo: 'Internet e Segurança Digital',
-        desc: 'Navegadores, e-mail, vírus, phishing, LGPD',
-        driveId: null,
-        flashcards: []
-      },
-      {
-        num: 3,
-        titulo: 'Inteligência Artificial e IA Generativa',
-        desc: 'Conceitos atuais: IA, machine learning, ChatGPT, uso responsável',
-        driveId: null,
-        flashcards: []
-      },
+    titulo: 'Informática',
+    desc: 'Tecnologia, Office, internet e segurança digital',
+    driveFolder: '17_XmpG47_3I39sIkcsRAZt3JKGRwlSRQ',
+    topicos: [
+      { nome: 'Microsoft Word e Excel', sub: 'Funcionalidades cobradas na CESGRANRIO' },
+      { nome: 'Internet e E-mail', sub: 'Navegadores, protocolos, e-mail, nuvem' },
+      { nome: 'Segurança da Informação', sub: 'Vírus, phishing, firewall, backup, LGPD' },
+      { nome: 'Inteligência Artificial', sub: 'Conceitos de IA generativa, uso responsável' },
+      { nome: 'Sistemas Operacionais', sub: 'Windows 10/11, arquivos, atalhos' },
     ]
   },
   {
-    nome: 'Raciocínio Lógico',
     icone: '🧠',
-    aulas: [
-      {
-        num: 1,
-        titulo: 'Lógica Proposicional',
-        desc: 'Conectivos, tabela-verdade, negação de proposições',
-        driveId: null,
-        flashcards: [
-          { titulo: '🃏 Cards Tabela Verdade', url: 'https://gemini.google.com/share/2a3a5335b1fd' },
-        ]
-      },
-      {
-        num: 2,
-        titulo: 'Sequências e Padrões',
-        desc: 'Séries numéricas, figuras e matrizes de raciocínio',
-        driveId: null,
-        flashcards: []
-      },
+    titulo: 'Raciocínio Lógico',
+    desc: 'Lógica proposicional, sequências e análise',
+    driveFolder: null,
+    topicos: [
+      { nome: 'Lógica Proposicional', sub: 'Conectivos, tabela-verdade, negação' },
+      { nome: 'Silogismos e Argumentos', sub: 'Validade de argumentos, premissas' },
+      { nome: 'Sequências Numéricas', sub: 'PA, PG e séries de padrão' },
+      { nome: 'Raciocínio Analítico', sub: 'Problemas de lógica situacional' },
     ]
   },
   {
-    nome: 'Conhecimentos Específicos',
     icone: '⚡',
-    aulas: [
-      {
-        num: 1,
-        titulo: 'NR-1 e Normas Regulamentadoras',
-        desc: 'Atualizações 2025 — PGRO, saúde mental, riscos',
-        driveId: null,
-        flashcards: []
-      },
-      {
-        num: 2,
-        titulo: 'Instalações Elétricas Residenciais',
-        desc: 'Circuitos, dimensionamento, ABNT NBR 5410',
-        driveId: null,
-        flashcards: []
-      },
-      {
-        num: 3,
-        titulo: 'Segurança do Trabalho — Eletricidade',
-        desc: 'NR-10, EPIs, riscos elétricos, primeiros socorros',
-        driveId: null,
-        flashcards: []
-      },
+    titulo: 'Conhecimentos Específicos',
+    desc: 'Elétrica residencial, normas e segurança do trabalho',
+    driveFolder: null,
+    topicos: [
+      { nome: 'NR-1 — Gerenciamento de Riscos (2025)', sub: 'PGRO, saúde mental, identificação de riscos' },
+      { nome: 'NR-10 — Segurança em Eletricidade', sub: 'EPIs, procedimentos, riscos elétricos' },
+      { nome: 'ABNT NBR 5410', sub: 'Instalações elétricas de baixa tensão' },
+      { nome: 'Circuitos Elétricos Residenciais', sub: 'Dimensionamento, curto-circuito, aterramento' },
+      { nome: 'Primeiros Socorros — Choque Elétrico', sub: 'Procedimentos de emergência' },
     ]
   },
 ];
 
-// ═══════════════════════════════════════════════════════════════════
-// RENDERIZAÇÃO
-// ═══════════════════════════════════════════════════════════════════
-
-function urlVer(id) {
-  return `https://drive.google.com/file/d/${id}/preview`;
-}
-function urlBaixar(id) {
-  return `https://drive.google.com/uc?export=download&id=${id}`;
+function urlPasta(id) {
+  return `https://drive.google.com/drive/folders/${id}`;
 }
 
 function renderizar() {
-  const container = document.getElementById('lista-disciplinas');
+  const grade = document.getElementById('grade');
   let html = '';
 
-  DISCIPLINAS.forEach(disc => {
-    html += `<div class="disciplina">`;
-    const nVideos = disc.aulas.filter(a => a.driveId).length;
-    const nCards  = disc.aulas.filter(a => a.flashcards && a.flashcards.length > 0).length;
-    const badge   = nVideos > 0
-      ? `${nVideos} vídeo${nVideos > 1 ? 's' : ''}`
-      : nCards > 0
-        ? `${nCards} card${nCards > 1 ? 's' : ''}`
-        : 'em breve';
-    html += `<div class="disc-titulo">
-      <span>${disc.icone} ${disc.nome}</span>
-      <span class="disc-badge">${badge}</span>
-    </div>`;
-
-    disc.aulas.forEach(aula => {
-      const temVideo     = !!aula.driveId;
-      const temFlash     = aula.flashcards && aula.flashcards.length > 0;
-      const flashHtml    = temFlash
-        ? `<div class="flashcards-row">
-            ${aula.flashcards.map(f =>
-              `<a class="btn-flash" href="${f.url}" target="_blank">${f.titulo}</a>`
-            ).join('')}
-           </div>`
-        : '';
-
-      html += `<div class="aula-card">
-        <div class="aula-corpo">
-          <div class="aula-num">${aula.num}</div>
-          <div class="aula-info">
-            <div class="aula-titulo">
-              ${aula.titulo}
-              ${!temVideo ? '<span class="tag-em-breve">vídeo em breve</span>' : ''}
-            </div>
-            <div class="aula-desc">${aula.desc}</div>
+  DISCIPLINAS.forEach(d => {
+    const temPasta = !!d.driveFolder;
+    html += `
+      <div class="card ${temPasta ? '' : 'sem-pasta'}">
+        <div class="card-header">
+          <div class="card-icone">${d.icone}</div>
+          <div class="card-info">
+            <div class="card-titulo">${d.titulo}</div>
+            <div class="card-desc">${d.desc}</div>
           </div>
-          <div class="aula-btns ${!temVideo ? 'sem-link' : ''}">
-            <a class="btn-ver" ${temVideo ? `href="${urlVer(aula.driveId)}" target="_blank"` : ''}>
-              ▶ Assistir
-            </a>
-            <a class="btn-baixar" ${temVideo ? `href="${urlBaixar(aula.driveId)}" target="_blank"` : ''}>
-              ⬇ Baixar
-            </a>
+          <div class="card-badge ${temPasta ? '' : 'indisponivel'}">
+            ${temPasta ? d.topicos.length + ' aulas' : 'em breve'}
           </div>
         </div>
-        ${flashHtml}
+        <div class="topicos">
+          ${d.topicos.map((t, i) => `
+            <div class="topico">
+              <div class="topico-num">${i + 1}</div>
+              <div>
+                <div class="topico-nome">${t.nome}</div>
+                <div class="topico-sub">${t.sub}</div>
+              </div>
+            </div>`).join('')}
+        </div>
+        <div class="card-footer">
+          <a class="btn-pasta ${temPasta ? '' : 'desabilitado'}"
+             ${temPasta ? `href="${urlPasta(d.driveFolder)}" target="_blank"` : ''}>
+            📁 ${temPasta ? 'Abrir pasta no Drive' : 'Pasta não disponível ainda'}
+          </a>
+        </div>
       </div>`;
-    });
-
-    html += `</div>`;
   });
 
-  container.innerHTML = html;
+  grade.innerHTML = html;
 }
 
 renderizar();
