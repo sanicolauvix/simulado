@@ -125,6 +125,10 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
   padding:14px 16px;border-radius:0 8px 8px 0;font-size:14px;line-height:1.75;
   color:#bbb;font-style:italic;margin-bottom:16px;}
 .q-enunciado{font-size:16px;line-height:1.65;color:#eee;}
+.dica-gato{background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(255,165,0,.04));border:1px solid rgba(255,215,0,.35);border-left:4px solid #FFD700;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#e8c84a;line-height:1.5;}
+.dica-gato strong{color:#FFD700;}
+.btn-ver-texto{background:rgba(255,255,255,.04);border:1px dashed rgba(255,215,0,.3);color:#888;border-radius:7px;padding:7px 14px;font-size:13px;cursor:pointer;width:100%;text-align:left;margin-bottom:12px;transition:all .2s;}
+.btn-ver-texto:hover{border-color:#FFD700;color:#FFD700;}
 .alts{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
 .btn-alt{background:rgba(255,255,255,.04);border:2px solid #181870;border-radius:11px;
   padding:12px 18px;color:#ddd;font-size:15px;cursor:pointer;text-align:left;
@@ -387,6 +391,10 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
       <div class="q-disciplina" id="q-disciplina">Língua Portuguesa</div>
       <div class="q-tema" id="q-tema"></div>
       <div class="q-num" id="q-num">Questão 1 de 40</div>
+      <div class="dica-gato oculto" id="q-dica-gato">
+        💡 <strong>Pulo do gato:</strong> Leia a <strong>pergunta e as alternativas primeiro</strong> — depois volte ao texto só para confirmar onde está a resposta. Textos longos não precisam ser lidos inteiros!
+      </div>
+      <button type="button" class="btn-ver-texto oculto" id="q-btn-ver-texto" onclick="toggleTextoSimulado()">📖 Ver texto de apoio ▼</button>
       <div class="q-textbase oculto" id="q-textbase"></div>
       <div class="q-enunciado" id="q-enunciado"></div>
       <div class="alts" id="alts"></div>
@@ -1167,11 +1175,24 @@ function renderQuestao() {
 
   // Texto base
   const tbEl = document.getElementById('q-textbase');
+  const dicaEl = document.getElementById('q-dica-gato');
+  const btnTbEl = document.getElementById('q-btn-ver-texto');
   if (q.textoBase) {
     tbEl.textContent = q.textoBase;
-    tbEl.classList.remove('oculto');
+    if (q.textoBase.length > 300) {
+      tbEl.classList.add('oculto');
+      dicaEl.classList.remove('oculto');
+      btnTbEl.classList.remove('oculto');
+      btnTbEl.textContent = '📖 Ver texto de apoio ▼';
+    } else {
+      tbEl.classList.remove('oculto');
+      dicaEl.classList.add('oculto');
+      btnTbEl.classList.add('oculto');
+    }
   } else {
     tbEl.classList.add('oculto');
+    dicaEl.classList.add('oculto');
+    btnTbEl.classList.add('oculto');
   }
 
   // Enunciado
@@ -1207,6 +1228,12 @@ function selecionarAlternativa(letra) {
   });
   document.getElementById('btn-nao-sei').classList.remove('sel');
   document.getElementById('btn-proxima').disabled = false;
+}
+
+function toggleTextoSimulado(){
+  const el=document.getElementById('q-textbase'),btn=document.getElementById('q-btn-ver-texto');
+  if(el.classList.contains('oculto')){el.classList.remove('oculto');btn.textContent='📖 Recolher texto ▲';}
+  else{el.classList.add('oculto');btn.textContent='📖 Ver texto de apoio ▼';}
 }
 
 function marcarNaoSei() {
