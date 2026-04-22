@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>📝 Simulado Semanal — CESGRANRIO</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.min.mjs" type="module"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:#06061a;color:#fff;font-family:'Segoe UI',Tahoma,sans-serif;min-height:100vh;}
@@ -1179,7 +1180,8 @@ function renderQuestao() {
   // Alternativas
   const altsEl = document.getElementById('alts');
   altsEl.innerHTML = '';
-  ['A','B','C','D','E'].forEach(letra => {
+  const letrasDisponiveis = ['A','B','C','D','E'].filter(l => q.alts[l] != null && q.alts[l] !== '');
+  letrasDisponiveis.forEach(letra => {
     const btn = document.createElement('button');
     btn.className = 'btn-alt' + (sessao.respostas[i] === letra ? ' sel' : '');
     btn.innerHTML = `<span class="alt-letra">${letra}</span><span>${q.alts[letra]}</span>`;
@@ -1621,24 +1623,52 @@ function trocarImpTab(tab) {
   document.getElementById('imp-tab-arquivo').classList.toggle('ativo', !isTexto);
 }
 
-// Lê arquivo PDF ou TXT via FileReader
-function lerArquivo(input) {
+// Lê arquivo PDF usando PDF.js (extração real de texto) ou TXT via FileReader
+async function lerArquivo(input) {
   const file = input.files[0];
   if (!file) return;
   const status = document.getElementById('imp-arquivo-status');
-  status.textContent = `Lendo: ${file.name}...`;
 
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    // FileReader retorna texto puro (funciona bem para PDFs de texto)
-    const texto = e.target.result;
-    // Copia para o textarea para que extrairQuestoes() use
-    document.getElementById('imp-textarea').value = texto;
-    trocarImpTab('texto'); // troca para mostrar o texto
-    status.textContent = `✅ Arquivo lido (${Math.round(texto.length/1000)}kb). Clique em Extrair.`;
-  };
-  reader.onerror = () => { status.textContent = '❌ Erro ao ler arquivo. Tente copiar e colar o texto.'; };
-  reader.readAsText(file, 'utf-8');
+  if (file.name.endsWith('.txt')) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('imp-textarea').value = e.target.result;
+      trocarImpTab('texto');
+      status.textContent = `✅ Arquivo lido. Clique em Extrair.`;
+    };
+    reader.readAsText(file, 'utf-8');
+    return;
+  }
+
+  // PDF — usa PDF.js para extração real de texto
+  status.textContent = `⏳ Lendo PDF: ${file.name}...`;
+  try {
+    const pdfjsLib = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.min.mjs');
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs';
+
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+    let textoTotal = '';
+    const maxPaginas = Math.min(pdf.numPages, 30); // máximo 30 páginas
+    for (let i = 1; i <= maxPaginas; i++) {
+      const pagina = await pdf.getPage(i);
+      const conteudo = await pagina.getTextContent();
+      const linhaPagina = conteudo.items.map(item => item.str).join(' ');
+      textoTotal += linhaPagina + '\n';
+    }
+
+    if (textoTotal.trim().length < 50) {
+      status.textContent = '⚠️ PDF parece ser escaneado (imagem). Copie o texto manualmente e cole na aba "Colar texto".';
+      return;
+    }
+
+    document.getElementById('imp-textarea').value = textoTotal;
+    trocarImpTab('texto');
+    status.textContent = `✅ ${pdf.numPages} páginas lidas (${Math.round(textoTotal.length/1000)}kb). Clique em Extrair.`;
+  } catch (e) {
+    status.textContent = `❌ Erro ao ler PDF: ${e.message}. Tente copiar e colar o texto.`;
+  }
 }
 
 async function extrairQuestoes() {
@@ -1658,25 +1688,38 @@ async function extrairQuestoes() {
   btn.textContent = '⏳ Extraindo...';
   document.getElementById('imp-preview').classList.add('oculto');
 
-  const prompt = `Você é um especialista em concursos públicos CESGRANRIO.
-Analise o texto abaixo, que é um trecho de prova, e extraia TODAS as questões de múltipla escolha que encontrar.
+  const prompt = `Você é um especialista em concursos públicos brasileiros (CESGRANRIO, CEBRASPE/CESPE, FCC, FGV e outras bancas).
+Analise o texto abaixo, que é um trecho de prova, e extraia TODAS as questões que encontrar.
+
+FORMATOS SUPORTADOS:
+1. MÚLTIPLA ESCOLHA (CESGRANRIO, FCC, FGV): alternativas A, B, C, D, E
+2. CERTO/ERRADO (CEBRASPE/CESPE): converta para múltipla escolha com apenas duas alternativas:
+   - alts: {"A": "Certo", "B": "Errado"}
+   - gabarito: "A" se a afirmação for certa, "B" se for errada
 
 Para cada questão, retorne um objeto JSON com:
 {
-  "disciplina": "Língua Portuguesa" | "Matemática" | "Informática" | "Raciocínio Lógico" | "Conhecimentos Específicos",
-  "tema": "tema específico da questão",
-  "textoBase": null ou "texto de apoio se houver",
-  "enunciado": "enunciado completo",
+  "disciplina": "Língua Portuguesa" | "Matemática" | "Informática" | "Raciocínio Lógico" | "Conhecimentos Específicos" | "Conhecimentos Gerais",
+  "tema": "tema específico da questão (ex: Interpretação de Texto, Concordância Verbal, Geometria, etc.)",
+  "textoBase": null ou "texto de apoio se houver (transcreva completo)",
+  "enunciado": "enunciado completo da questão",
   "alts": {"A": "...", "B": "...", "C": "...", "D": "...", "E": "..."},
-  "gabarito": "letra correta se encontrada no texto, senão null",
-  "explicacao": "deixe em branco por enquanto"
+  "gabarito": "letra correta se encontrada no gabarito do texto, senão null",
+  "explicacao": ""
 }
 
+REGRAS IMPORTANTES:
+- Extraia TODAS as questões, mesmo incompletas (tente ao menos o enunciado)
+- Para questões sem gabarito no texto, use null
+- Preserve o texto exato do enunciado e das alternativas
+- Questões numeradas (1, 2, 3... ou 01, 02...) são questões individuais
+- Se a questão tem texto de apoio compartilhado com outras, inclua em textoBase de cada uma
+
 Retorne SOMENTE um array JSON válido, sem texto antes ou depois, sem markdown.
-Se não encontrar questões completas, retorne [].
+Se não encontrar questões, retorne [].
 
 TEXTO DA PROVA:
-${texto.slice(0, 12000)}`; // limita para não estourar tokens
+${texto.slice(0, 20000)}`; // limita para não estourar tokens
 
   try {
     const resp = await fetch('https://api.anthropic.com/v1/messages', {
