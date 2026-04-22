@@ -1844,7 +1844,11 @@ function init() {
     mostrarTela('tela-config');
   } else {
     renderDashboard();
-    mostrarTela('tela-dashboard');
+    if (window.location.hash === '#importar') {
+      mostrarTela('tela-importar');
+    } else {
+      mostrarTela('tela-dashboard');
+    }
   }
 }
 

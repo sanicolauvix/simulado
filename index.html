@@ -329,6 +329,13 @@ header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#0
         <div class="menu-card-titulo">Aulas em Vídeo</div>
         <div class="menu-card-desc">Português, Matemática e Informática no Google Drive</div>
       </a>
+
+      <!-- Banco de Provas -->
+      <a class="menu-card" href="simulado.html#importar">
+        <div class="menu-card-icone">📄</div>
+        <div class="menu-card-titulo">Banco de Provas</div>
+        <div class="menu-card-desc">Importe PDFs de provas anteriores e crie seu banco de questões</div>
+      </a>
     </div>
 
     <!-- Agenda Semanal -->
@@ -381,6 +388,10 @@ header{position:relative;z-index:10;background:linear-gradient(180deg,#0e0e30,#0
 
   <!-- QUIZ -->
   <div id="tela-quiz">
+
+    <div style="text-align:right;margin-bottom:8px;">
+      <button onclick="voltarMenu()" style="background:none;border:none;color:#555;font-size:13px;cursor:pointer;padding:4px 8px;" onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='#555'">← Sair do Treino</button>
+    </div>
 
     <div class="painel-prog">
       <div class="prog-titulo">Progresso por Disciplina</div>
@@ -1204,8 +1215,9 @@ function novaSessao(){
    AGENDA SEMANAL (compartilhada com simulado.html via localStorage)
    ============================================================ */
 function agWeekKey(){
-  const d=new Date(),day=d.getDay()||7,mon=new Date(d);
-  mon.setDate(d.getDate()-day+1);return mon.toISOString().slice(0,10);
+  const d=new Date(),day=d.getDay()||7;
+  const mon=new Date(d.getFullYear(),d.getMonth(),d.getDate()-day+1);
+  return `${mon.getFullYear()}-${String(mon.getMonth()+1).padStart(2,'0')}-${String(mon.getDate()).padStart(2,'0')}`;
 }
 function agWeekLabel(){
   const d=new Date(),day=d.getDay()||7,mon=new Date(d);
