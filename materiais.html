@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aulas em Vídeo — CESGRANRIO</title>
+  <style>
+    :root {
+      --bg: #06061a; --card: #0d0d2b; --border: #1a1a4e;
+      --gold: #FFD700; --purple: #7B2FBE; --text: #e0e0ff; --muted: #7777aa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; min-height: 100vh; }
+
+    nav {
+      background: linear-gradient(135deg, #0d0d2b, #1a0a3e);
+      border-bottom: 2px solid var(--gold);
+      padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { color: var(--gold); font-size: 1.05rem; font-weight: bold; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      margin-left: 14px; font-size: 0.83rem; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
+
+    h1 { font-size: 1.4rem; color: var(--gold); margin-bottom: 6px; }
+    .subtitulo { color: var(--muted); font-size: 0.85rem; margin-bottom: 28px; }
+
+    /* GRID DE CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 18px;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: var(--purple); transform: translateY(-2px); }
+    .card.sem-pasta { opacity: 0.55; }
+    .card.sem-pasta:hover { transform: none; border-color: var(--border); }
+
+    .card-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    }
+    .card-icone { font-size: 2rem; line-height: 1; flex-shrink: 0; }
+    .card-info { flex: 1; }
+    .card-titulo { font-size: 1rem; font-weight: bold; color: var(--gold); margin-bottom: 3px; }
+    .card-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+    .card-badge {
+      background: var(--purple); color: #fff;
+      font-size: 0.65rem; padding: 3px 8px; border-radius: 10px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      white-space: nowrap; flex-shrink: 0; align-self: flex-start;
+    }
+    .card-badge.indisponivel { background: #2a2a4a; color: var(--muted); }
+
+    /* LISTA DE TÓPICOS */
+    .topicos { padding: 14px 20px; }
+    .topico {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #12124a;
+      font-size: 0.82rem;
+    }
+    .topico:last-child { border-bottom: none; }
+    .topico-num {
+      background: #1a1a40; color: var(--muted);
+      font-size: 0.7rem; font-weight: bold;
+      width: 22px; height: 22px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .topico-nome { color: var(--text); line-height: 1.4; }
+    .topico-sub { font-size: 0.73rem; color: var(--muted); margin-top: 1px; }
+
+    /* BOTÕES */
+    .card-footer { padding: 14px 20px; display: flex; gap: 10px; }
+    .btn-pasta {
+      flex: 1; background: var(--gold); color: #000;
+      border: none; border-radius: 10px; padding: 10px 16px;
+      font-size: 0.84rem; font-weight: bold; cursor: pointer;
+      text-decoration: none; text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-pasta:hover { background: #ffe84d; }
+    .btn-pasta.desabilitado {
+      background: #1a1a40; color: var(--muted);
+      pointer-events: none; cursor: default;
+    }
+
+    @media (max-width: 500px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">📚 Aulas em Vídeo</div>
+  <div class="nav-links">
+    <a href="index.html">Show do Saber</a>
+    <a href="simulado.html">Simulado</a>
+    <a href="revisao.html">🎧 Revisão</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Aulas em Vídeo</h1>
+  <div class="subtitulo">Clique em "Abrir pasta" para assistir ou baixar no celular via Google Drive</div>
+  <div class="grid" id="grade"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// DISCIPLINAS — adicione o driveFolder quando criar a pasta no Drive
+// driveFolder: ID da pasta (null = ainda não disponível)
+// ═══════════════════════════════════════════════════════════════════
+
+const DISCIPLINAS = [
+  {
+    icone: '📖',
+    titulo: 'Língua Portuguesa',
+    desc: 'Gramática, interpretação de texto e redação oficial',
+    driveFolder: '1WiKevLCLDxvSpaycMGETzGwRgP5hz67p',
+    topicos: [
+      { nome: 'Verbos: Conjugações e Tempos Verbais', sub: 'Pretérito perfeito, imperfeito, mais que perfeito, subjuntivo' },
+      { nome: 'Interpretação de Texto', sub: 'Ideia principal, inferência, pressuposto, coesão' },
+      { nome: 'Concordância Verbal e Nominal', sub: 'Regras gerais e casos especiais CESGRANRIO' },
+      { nome: 'Crase e Regência', sub: 'Uso da crase, regência verbal e nominal' },
+      { nome: 'Figuras de Linguagem', sub: 'Metáfora, metonímia, ironia, hipérbole' },
+    ]
+  },
+  {
+    icone: '🔢',
+    titulo: 'Matemática',
+    desc: 'Aritmética, álgebra e raciocínio numérico',
+    driveFolder: '1QQyUd6OQ0hkj09XQUwQLWwWJPtSqNJEu',
+    topicos: [
+      { nome: 'Porcentagem e Juros', sub: 'Aumento, desconto, juros simples e compostos' },
+      { nome: 'Regra de Três Simples e Composta', sub: 'Proporção direta e inversa' },
+      { nome: 'Equações do 1º e 2º Grau', sub: 'Resolução e problemas aplicados' },
+      { nome: 'Razão, Proporção e Médias', sub: 'Média aritmética, geométrica, ponderada' },
+      { nome: 'Geometria Básica', sub: 'Áreas, perímetros e volume' },
+    ]
+  },
+  {
+    icone: '💻',
+    titulo: 'Informática',
+    desc: 'Tecnologia, Office, internet e segurança digital',
+    driveFolder: '17_XmpG47_3I39sIkcsRAZt3JKGRwlSRQ',
+    topicos: [
+      { nome: 'Microsoft Word e Excel', sub: 'Funcionalidades cobradas na CESGRANRIO' },
+      { nome: 'Internet e E-mail', sub: 'Navegadores, protocolos, e-mail, nuvem' },
+      { nome: 'Segurança da Informação', sub: 'Vírus, phishing, firewall, backup, LGPD' },
+      { nome: 'Inteligência Artificial', sub: 'Conceitos de IA generativa, uso responsável' },
+      { nome: 'Sistemas Operacionais', sub: 'Windows 10/11, arquivos, atalhos' },
+    ]
+  },
+  {
+    icone: '🧠',
+    titulo: 'Raciocínio Lógico',
+    desc: 'Lógica proposicional, sequências e análise',
+    driveFolder: null,
+    topicos: [
+      { nome: 'Lógica Proposicional', sub: 'Conectivos, tabela-verdade, negação' },
+      { nome: 'Silogismos e Argumentos', sub: 'Validade de argumentos, premissas' },
+      { nome: 'Sequências Numéricas', sub: 'PA, PG e séries de padrão' },
+      { nome: 'Raciocínio Analítico', sub: 'Problemas de lógica situacional' },
+    ]
+  },
+  {
+    icone: '⚡',
+    titulo: 'Conhecimentos Específicos',
+    desc: 'Elétrica residencial, normas e segurança do trabalho',
+    driveFolder: null,
+    topicos: [
+      { nome: 'NR-1 — Gerenciamento de Riscos (2025)', sub: 'PGRO, saúde mental, identificação de riscos' },
+      { nome: 'NR-10 — Segurança em Eletricidade', sub: 'EPIs, procedimentos, riscos elétricos' },
+      { nome: 'ABNT NBR 5410', sub: 'Instalações elétricas de baixa tensão' },
+      { nome: 'Circuitos Elétricos Residenciais', sub: 'Dimensionamento, curto-circuito, aterramento' },
+      { nome: 'Primeiros Socorros — Choque Elétrico', sub: 'Procedimentos de emergência' },
+    ]
+  },
+];
+
+function urlPasta(id) {
+  return `https://drive.google.com/drive/folders/${id}`;
+}
+
+function renderizar() {
+  const grade = document.getElementById('grade');
+  let html = '';
+
+  DISCIPLINAS.forEach(d => {
+    const temPasta = !!d.driveFolder;
+    html += `
+      <div class="card ${temPasta ? '' : 'sem-pasta'}">
+        <div class="card-header">
+          <div class="card-icone">${d.icone}</div>
+          <div class="card-info">
+            <div class="card-titulo">${d.titulo}</div>
+            <div class="card-desc">${d.desc}</div>
+          </div>
+          <div class="card-badge ${temPasta ? '' : 'indisponivel'}">
+            ${temPasta ? d.topicos.length + ' aulas' : 'em breve'}
+          </div>
+        </div>
+        <div class="topicos">
+          ${d.topicos.map((t, i) => `
+            <div class="topico">
+              <div class="topico-num">${i + 1}</div>
+              <div>
+                <div class="topico-nome">${t.nome}</div>
+                <div class="topico-sub">${t.sub}</div>
+              </div>
+            </div>`).join('')}
+        </div>
+        <div class="card-footer">
+          <a class="btn-pasta ${temPasta ? '' : 'desabilitado'}"
+             ${temPasta ? `href="${urlPasta(d.driveFolder)}" target="_blank"` : ''}>
+            📁 ${temPasta ? 'Abrir pasta no Drive' : 'Pasta não disponível ainda'}
+          </a>
+        </div>
+      </div>`;
+  });
+
+  grade.innerHTML = html;
+}
+
+renderizar();
+</script>
+</body>
+</html>

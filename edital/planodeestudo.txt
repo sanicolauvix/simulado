@@ -1,0 +1,138 @@
+# Plano de Estudos — Sebastião
+## Concursos: Petrobras | Correios | Casa da Moeda
+### Banca: CESGRANRIO | Nível: Médio | Ano: 2026
+
+---
+
+## TAREFAS GERAIS DO PROJETO
+
+### Projeto Técnico (Agente IA)
+- [ ] Criar estrutura de pastas do projeto `concurso-agente/`
+- [ ] Baixar PDFs das provas anteriores (pciconcursos, gabarite, casadamoeda.gov.br)
+- [ ] Implementar `extrator.py` (extração de questões dos PDFs)
+- [ ] Implementar `analisador.py` (mapeamento de temas e frequências)
+- [ ] Implementar `previsor.py` (projeção de tendências)
+- [ ] Implementar `gerador_simulado.py` (simulados em HTML)
+- [ ] Testar com 3 provas reais da CESGRANRIO
+- [ ] Gerar primeiro simulado funcional em HTML
+
+### Materiais de Estudo a Adquirir
+- [x] Curso de Português (comprado)
+- [ ] Material de Matemática (procurar apostila PDF gratuita CESGRANRIO)
+- [ ] Material de Informática (buscando no YouTube)
+- [ ] Apostila de Raciocínio Lógico (Estratégia Concursos, Gran Cursos - versão gratuita)
+
+---
+
+## DISCIPLINAS E STATUS
+
+### 📘 Língua Portuguesa
+**Status:** Curso comprado — iniciar imediatamente
+**Prioridade:** MÁXIMA (10-12 questões na prova)
+
+Tarefas:
+- [ ] Começar curso comprado (seguir sequência do curso)
+- [ ] Fazer 10 questões de interpretação de texto por dia
+- [ ] Revisar gramática: concordância, regência, crase
+- [ ] Resolver questões antigas da CESGRANRIO de Português
+
+### 📗 Matemática
+**Status:** Material a definir
+**Prioridade:** ALTA (6-8 questões na prova)
+
+Tarefas:
+- [ ] Encontrar apostila ou curso focado em CESGRANRIO
+- [ ] Estudar porcentagem e razão/proporção
+- [ ] Estudar juros simples e compostos
+- [ ] Estudar probabilidade e estatística básica
+- [ ] Fazer exercícios diários (mínimo 5 por dia)
+
+**Sugestão YouTube:** Canais "Matemática Rio" e "Ferreto Academia" têm conteúdo de concursos
+
+### 💻 Informática
+**Status:** Boa base — buscando material complementar no YouTube
+**Prioridade:** MÉDIA (4-6 questões na prova)
+
+Tarefas:
+- [ ] Mapear tópicos específicos da CESGRANRIO (diferente de outras bancas)
+- [ ] Revisar Office (Word, Excel) — foco em atalhos e funções cobradas
+- [ ] Estudar segurança da informação (phishing, vírus, firewall)
+- [ ] Estudar redes básicas (IP, DNS, HTTP/HTTPS)
+- [ ] Estudar sistemas operacionais (Windows principalmente)
+
+**Sugestão YouTube:** "Informática pra Concursos - Renato da Costa", "Prof. Rodrigo Schaeffer"
+
+### 🔢 Raciocínio Lógico
+**Status:** A iniciar
+**Prioridade:** MÉDIA (4-6 questões na prova)
+
+Tarefas:
+- [ ] Estudar proposições e conectivos lógicos
+- [ ] Estudar tabelas verdade
+- [ ] Estudar silogismo e inferências
+- [ ] Estudar sequências e padrões
+- [ ] Fazer 5 questões por dia após aprender cada tema
+
+---
+
+## ROTINA DE ESTUDOS SUGERIDA
+
+### Semana típica (adaptar conforme sua disponibilidade)
+
+| Dia | Manhã | Tarde/Noite |
+|-----|-------|-------------|
+| Segunda | Português (teoria) | Questões de Português |
+| Terça | Matemática (teoria) | Questões de Matemática |
+| Quarta | Informática | Projeto (Python) |
+| Quinta | Raciocínio Lógico | Questões mistas |
+| Sexta | Revisão geral | Simulado cronometrado |
+| Sábado | Projeto Python (agente) | Análise das provas baixadas |
+| Domingo | Descanso / revisão leve | — |
+
+### Meta diária mínima
+- 20 questões de concurso por dia
+- 1 hora de teoria
+- 30 min de revisão dos erros
+
+---
+
+## CRONOGRAMA DE METAS
+
+### Março 2026
+- [ ] Configurar ambiente de desenvolvimento (VSCode + Python)
+- [ ] Começar curso de Português
+- [ ] Baixar 5 provas da CESGRANRIO para análise
+- [ ] Criar estrutura do projeto Python
+
+### Abril 2026
+- [ ] Concluir módulo 1 do curso de Português
+- [ ] Ter o `extrator.py` funcionando
+- [ ] Começar a estudar Matemática sistematicamente
+- [ ] Gerar primeiro simulado HTML
+
+### Maio 2026
+- [ ] Ter o agente de análise funcionando
+- [ ] Estar fazendo simulados semanais
+- [ ] Revisar Informática completamente
+- [ ] Ter mapa de tendências da CESGRANRIO pronto
+
+### Junho em diante
+- [ ] Simulados completos cronometrados (2h por simulado)
+- [ ] Revisão intensiva das disciplinas com mais erros
+- [ ] Acompanhar editais publicados
+
+---
+
+## LINKS ÚTEIS
+
+| Recurso | URL | Tipo |
+|---------|-----|------|
+| Provas Petrobras CESGRANRIO | pciconcursos.com.br | PDF gratuito |
+| Provas Casa da Moeda | casadamoeda.gov.br | PDF oficial |
+| Questões por tema | qconcursos.com | Questões online |
+| Provas CESGRANRIO | gabarite.com.br | PDF gratuito |
+| Notícias de concursos | concursosnobrasil.com.br | Acompanhamento |
+
+---
+
+*Criado em: Março 2026 | Atualizar semanalmente*

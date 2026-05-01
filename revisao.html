@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão em Áudio — CESGRANRIO</title>
+  <style>
+    :root {
+      --bg: #06061a;
+      --card: #0d0d2b;
+      --border: #1a1a4e;
+      --gold: #FFD700;
+      --purple: #7B2FBE;
+      --text: #e0e0ff;
+      --muted: #7777aa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; min-height: 100vh; }
+
+    nav {
+      background: linear-gradient(135deg, #0d0d2b, #1a0a3e);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { color: var(--gold); font-size: 1.05rem; font-weight: bold; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      margin-left: 16px; font-size: 0.85rem; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .layout {
+      display: flex; max-width: 1100px;
+      margin: 0 auto; padding: 20px; gap: 20px; align-items: flex-start;
+    }
+
+    /* SIDEBAR */
+    .sidebar { width: 250px; flex-shrink: 0; position: sticky; top: 60px; }
+    .sidebar-titulo {
+      color: var(--muted); font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 10px; padding-left: 2px;
+    }
+    .aula-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .aula-card:hover { border-color: var(--purple); }
+    .aula-card.ativo { border-color: var(--gold); background: #1a1a40; }
+    .aula-card .disc { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+    .aula-card .nome { font-size: 0.84rem; color: var(--text); line-height: 1.3; }
+    .aula-card .badge {
+      display: inline-block; background: var(--purple); color: #fff;
+      font-size: 0.64rem; padding: 2px 7px; border-radius: 10px; margin-top: 6px;
+    }
+
+    /* MAIN */
+    .main { flex: 1; min-width: 0; }
+
+    /* PLAYER */
+    .player {
+      background: #08081f; border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px 20px; margin-bottom: 20px;
+      position: sticky; top: 58px; z-index: 50;
+    }
+    .player-nome { font-size: 0.82rem; color: var(--muted); margin-bottom: 10px; }
+    .player-nome span { color: var(--gold); font-weight: bold; }
+    .controles { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .btn-play {
+      background: var(--gold); color: #000; border: none; border-radius: 50%;
+      width: 44px; height: 44px; font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .btn-play:hover { background: #ffe84d; transform: scale(1.05); }
+    .btn-stop {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); border-radius: 8px; padding: 8px 12px;
+      cursor: pointer; font-size: 0.82rem; transition: all 0.2s;
+    }
+    .btn-stop:hover { border-color: var(--gold); color: var(--gold); }
+    .speed-group { display: flex; gap: 4px; }
+    .speed-btn {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 6px; padding: 6px 9px;
+      cursor: pointer; font-size: 0.76rem; transition: all 0.2s;
+    }
+    .speed-btn.ativo { background: var(--purple); border-color: var(--purple); color: #fff; }
+    .prog-wrap { flex: 1; min-width: 120px; }
+    .prog-label { font-size: 0.7rem; color: var(--muted); margin-bottom: 4px; }
+    .prog-bar { background: var(--border); height: 4px; border-radius: 2px; overflow: hidden; }
+    .prog-fill { background: var(--gold); height: 100%; width: 0%; transition: width 0.4s; }
+    .trecho-atual {
+      margin-top: 10px; padding: 8px 12px;
+      background: #12123a; border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0; font-size: 0.82rem;
+      color: var(--text); line-height: 1.5; min-height: 36px;
+    }
+
+    /* CONTEÚDO */
+    .summary-header { margin-bottom: 16px; }
+    .summary-disc {
+      display: inline-block; background: var(--purple); color: #fff;
+      font-size: 0.75rem; padding: 3px 10px; border-radius: 12px; margin-bottom: 8px;
+    }
+    .summary-titulo { font-size: 1.25rem; color: var(--gold); font-weight: bold; }
+    .summary-body {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px; line-height: 1.75;
+    }
+    .summary-body h2 {
+      color: var(--gold); font-size: 1.1rem; margin: 20px 0 10px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+    .summary-body h2:first-child { margin-top: 0; }
+    .summary-body h3 { color: #aa88ff; font-size: 0.96rem; margin: 14px 0 7px; }
+    .summary-body h4 { color: #8899ff; font-size: 0.88rem; margin: 12px 0 5px; }
+    .summary-body p { font-size: 0.88rem; margin-bottom: 8px; }
+    .summary-body ul { margin: 6px 0 12px 18px; }
+    .summary-body li { font-size: 0.88rem; margin-bottom: 4px; }
+    .summary-body strong { color: var(--gold); }
+    .summary-body em { color: #ccc; font-style: italic; }
+    .summary-body code { background: #1a1a40; padding: 1px 5px; border-radius: 4px; font-size: 0.82rem; }
+    .summary-body hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+    .summary-body table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.84rem; }
+    .summary-body th { background: #1a1a40; color: var(--gold); padding: 8px 12px; text-align: left; border: 1px solid var(--border); }
+    .summary-body td { padding: 7px 12px; border: 1px solid var(--border); }
+    .summary-body tr:nth-child(even) td { background: #0a0a20; }
+    .table-wrap { overflow-x: auto; margin: 8px 0; }
+
+    .vazio { text-align: center; color: var(--muted); padding: 60px 20px; }
+    .vazio .ico { font-size: 2.8rem; margin-bottom: 14px; }
+    .vazio p { font-size: 0.88rem; line-height: 1.7; }
+
+    @media (max-width: 680px) {
+      .layout { flex-direction: column; padding: 12px; }
+      .sidebar { width: 100%; position: static; }
+      .player { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🎧 Revisão em Áudio</div>
+  <div class="nav-links">
+    <a href="index.html">Show do Saber</a>
+    <a href="simulado.html">Simulado</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <div class="sidebar">
+    <div class="sidebar-titulo">Aulas disponíveis</div>
+    <div id="lista-aulas"></div>
+  </div>
+
+  <div class="main">
+    <div class="player">
+      <div class="player-nome">Áudio: <span id="player-nome">—</span></div>
+      <div class="controles">
+        <button class="btn-play" id="btn-play" onclick="togglePlay()">▶</button>
+        <button class="btn-stop" onclick="parar()">■ Parar</button>
+        <div class="speed-group">
+          <button class="speed-btn" onclick="setVelocidade(0.75)">0.75×</button>
+          <button class="speed-btn ativo" onclick="setVelocidade(1.0)">1×</button>
+          <button class="speed-btn" onclick="setVelocidade(1.25)">1.25×</button>
+          <button class="speed-btn" onclick="setVelocidade(1.5)">1.5×</button>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-label" id="prog-label">0 / 0 trechos</div>
+          <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+        </div>
+      </div>
+      <div class="trecho-atual" id="trecho-atual">Selecione uma aula e pressione ▶ para ouvir...</div>
+    </div>
+
+    <div id="conteudo-aula">
+      <div class="vazio">
+        <div class="ico">📚</div>
+        <p>Selecione uma aula na lista ao lado<br>para ver o resumo e ouvir a revisão em áudio.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// BANCO DE AULAS
+// Para adicionar uma nova aula: copie o conteúdo de
+// transcricoes/{nome}_resumo.txt e cole como nova entrada abaixo.
+// ═══════════════════════════════════════════════════════════════════
+
+const RESUMOS = [
+  {
+    id: 'aula1_verbo',
+    titulo: 'Verbos: Conjugações e Tempos Verbais',
+    disciplina: 'Português',
+    semana: 1,
+    data: '2026-04-17',
+    texto: `# 📚 RESUMO DE ESTUDO: VERBOS
+
+## TEMA PRINCIPAL
+**Verbos: Definição, Conjugações e Tempos Verbais (Pretérito)**
+
+---
+
+## 1. O QUE É VERBO?
+
+**Definição:**
+- Classe de palavras que se flexiona em: **pessoa, número, tempo, modo e voz**
+
+**O que o verbo pode indicar:**
+- Ação (correr, fazer, ler)
+- Estado (ficar, permanecer, ser)
+- Fenômeno meteorológico (chover, amanhecer)
+- Ocorrência (nascer, morrer)
+- Desejo (querer, desejar)
+
+---
+
+## 2. AS TRÊS CONJUGAÇÕES VERBAIS
+
+| Conjugação | Terminação | Exemplos |
+|---|---|---|
+| **1ª** | **-AR** | falar, jogar, dançar, estudar, morar |
+| **2ª** | **-ER** | comer, correr, entender, haver |
+| **3ª** | **-IR** | partir, cair, sair, dormir, surgir |
+
+**CASO ESPECIAL:** Verbos terminados em **-PÔR** (pôr, compor, repor, supor, depor, expor) → **2ª conjugação**
+
+---
+
+## 3. MODOS VERBAIS (3 tipos)
+
+### A) MODO INDICATIVO
+- **Características:** Indica **certeza, realidade**
+- Presente do indicativo → "Eu sempre estudo"
+- Pretérito perfeito → "Estudei"
+- Futuro do presente → "Estudarei"
+
+### B) MODO SUBJUNTIVO
+- **Características:** Indica **dúvida, hipótese, possibilidade, desejo, condição**
+- **Palavras-chave:** talvez, quem sabe, se
+- **Exemplo:** "Talvez eu estude amanhã"
+
+### C) MODO IMPERATIVO
+- **Características:** **Ordem ou pedido** (tempo presente)
+- **Exemplos:** "Fique quieto!", "Preste atenção!"
+
+---
+
+## 4. TEMPOS VERBAIS DO PASSADO (PRETÉRITO)
+
+### A) PRETÉRITO PERFEITO
+
+- Ação **concluída** no passado — aspecto **perfeito** = terminado
+- "Ele **estudou** as lições" (acabou, concluído)
+- "Ele **entrou** na sala" (pronto, acabou)
+- Terminações: **-OU, -ARA** — Falou, jogou, dançou, estudou
+
+### B) PRETÉRITO PERFEITO COMPOSTO
+
+- Ação que **começou no passado** e **continua até agora**
+- Fato repetido ou frequente que se prolonga ao presente
+- Usa **2 verbos** (ter/haver + particípio)
+- Simples: "Estudei" = ação concluída
+- Composto: "**Tenho estudado**" = continua até agora
+
+### C) PRETÉRITO IMPERFEITO
+
+- Ação **não concluída** no passado — ação **repetida ou contínua**
+- "Ele **estudava**" — era uma repetição, não uma vez só
+- "Ele **falava** a verdade" — frequentemente, repetidamente
+- Terminações: **-AVA, -IA** — Falava, jogava, comia, fazia
+
+### D) PRETÉRITO MAIS QUE PERFEITO
+
+- **Passado do passado** — aconteceu antes de outra ação concluída
+- Forma simples: "Ele **fechara** a porta"
+- Forma composta: "Ele **tinha fechado** a porta"
+- "Quando chegamos, a loja **já fechara**" (fechou antes de chegarmos)
+
+### E) PRETÉRITO IMPERFEITO DO SUBJUNTIVO
+
+- Ação no passado com ideia de **dúvida, hipótese, condição**
+- Terminações: **-ASSE, -ESSE, -ISSE**
+- "Se eu **tivesse** dinheiro..." (hipótese, não tenho)
+- "Se ele **viesse** ao clube, **participaria** do campeonato" (não veio)
+
+---
+
+## 5. RESUMO COMPARATIVO DOS PRETÉRITOS
+
+| Tempo | Característica | Exemplo |
+|---|---|---|
+| **Perfeito** | Ação concluída | Estudei |
+| **Imperfeito** | Ação repetida/contínua | Estudava |
+| **Mais que Perfeito** | Passado do passado | Já tinha estudado |
+| **Perf. Composto** | Passado que continua | Tenho estudado |
+
+---
+
+## 6. PONTOS MAIS IMPORTANTES PARA CESGRANRIO
+
+- **Diferença entre Perfeito e Imperfeito** — Perfeito = concluído / Imperfeito = repetido
+- **As 3 Conjugações verbais** (-AR, -ER, -IR) — cuidado com verbos em -PÔR
+- **Pretérito Mais que Perfeito** — reconhecer "tinha feito" ou "fizera"
+- **Pretérito Imperfeito do Subjuntivo** — uso com "se" = hipótese irreal, terminações -ASSE/-ESSE/-ISSE
+- **Indicativo vs Subjuntivo** — Indicativo = certeza / Subjuntivo = dúvida/hipótese
+
+---
+
+# 🎧 RESUMO EM ÁUDIO (Para ouvir no celular)
+
+Oi, vamos aprender sobre VERBOS de forma fácil? Você vai ficar craque! [pausa]
+
+Primeiro: o que é verbo? É a classe de palavras que indica AÇÃO, ESTADO, DESEJO. [pausa] Verbo se flexiona em PESSOA, NÚMERO, TEMPO, MODO e VOZ. [pausa]
+
+Existem TRÊS conjugações verbais. [pausa] Primeira conjugação: verbos terminados em A-R... FALAR, JOGAR, DANÇAR. [pausa] Segunda conjugação: verbos terminados em E-R... COMER, CORRER, ENTENDER. [pausa] Terceira conjugação: verbos terminados em I-R... PARTIR, SAIR, DORMIR. [pausa] Cuidado com o verbo PÔR! Ele é segunda conjugação também, junto com os derivados: COMPOR, REPOR, DEPOR. [pausa]
+
+Agora, os TRÊS MODOS VERBAIS. [pausa] PRIMEIRO: Indicativo. O indicativo é CERTEZA. É realidade. Exemplo: Eu estudo, ou Eu estudei. [pausa] SEGUNDO: Subjuntivo. O subjuntivo é DÚVIDA, HIPÓTESE, POSSIBILIDADE. Exemplo: Talvez eu estude amanhã. [pausa] TERCEIRO: Imperativo. O imperativo é ORDEM ou PEDIDO. Exemplo: Estude agora! [pausa]
+
+Agora vem o PRETÉRITO PERFEITO. [pausa] O perfeito é uma ação CONCLUÍDA no passado. Acabou. Terminou. Exemplo: Ele ESTUDOU as lições. Pronto, acabou. [pausa] Quando você ouve OU: FALOU, ENTROU, JOGOU, ESTUDOU. Isso é pretérito perfeito. [pausa]
+
+Agora o PRETÉRITO IMPERFEITO. [pausa] O imperfeito é uma ação NÃO CONCLUÍDA. Era uma coisa que se repetia, que era frequente. [pausa] Exemplo: Ele ESTUDAVA. Não era uma vez só. Era sempre. [pausa] Quando você ouve AVA ou IA: FALAVA, JOGAVA, COMIA, FAZIA. Isso é pretérito imperfeito. [pausa]
+
+Grave bem essa diferença! [pausa] Ele ESTUDOU é perfeito. Ação concluída, uma vez só. [pausa] Ele ESTUDAVA é imperfeito. Ação repetida, frequente. Entendeu a diferença? [pausa]
+
+Agora o PRETÉRITO MAIS QUE PERFEITO. [pausa] Esse é o PASSADO DO PASSADO. Aconteceu ANTES de outra ação que já foi concluída. [pausa] Tem DUAS formas: [pausa] FORMA SIMPLES: Ele FECHARA a porta. [pausa] FORMA COMPOSTA: Ele TINHA FECHADO a porta. Mesma coisa. [pausa] Exemplo: Quando chegamos, a loja JÁ FECHARA. Ou JÁ TINHA FECHADO. [pausa] Ela fechou ANTES de nós chegarmos. Passado do passado! [pausa]
+
+E agora, PRETÉRITO IMPERFEITO DO SUBJUNTIVO. [pausa] Lembra que subjuntivo é DÚVIDA e HIPÓTESE? [pausa] Quando tem SE, é geralmente pretérito imperfeito do subjuntivo. [pausa] Terminações: ASSE, ESSE, ISSE. [pausa] Se eu TIVESSE dinheiro... Hipótese. [pausa] Se ele VIESSE ao clube, PARTICIPARIA do campeonato. Não veio, é hipótese. [pausa]
+
+Então recapitulando! [pausa] PERFEITO: ação concluída. ESTUDEI. [pausa] IMPERFEITO: ação repetida. ESTUDAVA. [pausa] MAIS QUE PERFEITO: passado do passado. JÁ TINHA ESTUDADO ou ESTUDARA. [pausa] IMPERFEITO DO SUBJUNTIVO: hipótese com SE. SE EU ESTUDASSE. [pausa] Isso é o mais importante para sua prova! [pausa]
+
+Pronto! Agora você conhece os verbos. Boa sorte! [pausa]`
+  },
+
+  // ─── Adicione novas aulas aqui ─────────────────────────────────
+  {
+    id: 'concordancia_flashcard',
+    titulo: 'Concordância Nominal e Verbal — Decoreba',
+    disciplina: 'Língua Portuguesa',
+    texto: `Concordância é a harmonia perfeita entre as palavras, e hoje vamos dominar as regras que mais caem em concursos.
+
+[pausa]
+
+Qual é a regra geral de concordância nominal?
+
+[pausa_longa]
+
+Adjetivo, artigo, numeral e pronome concordam em gênero e número com o substantivo a que se referem. O adjetivo é o espelho fiel do substantivo. Por exemplo: o aluno dedicado, os alunos dedicados, as alunas dedicadas. Todos os termos acompanham o substantivo masculino ou feminino, singular ou plural.
+
+[pausa]
+
+Como funciona a concordância do adjetivo quando ele vem antes de dois ou mais substantivos?
+
+[pausa_longa]
+
+Quando o adjetivo vem antes dos substantivos, ele concorda apenas com o mais próximo. Por exemplo: belo filme e música. O adjetivo concorda com filme, que é masculino singular. Mas bela música e dança concorda com música, que é feminino singular.
+
+[pausa]
+
+E quando o adjetivo vem depois de dois ou mais substantivos com gêneros diferentes?
+
+[pausa_longa]
+
+Quando o adjetivo vem depois e há gêneros diferentes, ele vai para o masculino plural, que funciona como um coringa. Por exemplo: filme e música belos. Se os substantivos têm o mesmo gênero, o adjetivo pode concordar com o mais próximo ou ir para o plural. Por exemplo: filme e show belíssimos.
+
+[pausa]
+
+A palavra ANEXO varia ou é invariável?
+
+[pausa_longa]
+
+ANEXO varia como adjetivo normal. Segue o substantivo em gênero e número. Por exemplo: seguem anexos os documentos, segue anexa a lista. ANEXO varia junto com o nome.
+
+[pausa]
+
+Como funciona a concordância da palavra QUITE?
+
+[pausa_longa]
+
+QUITE é invariável. Ela nunca muda de forma, nem singular nem plural. Exemplos: ela está quite com todos, eles estão quite com a escola. QUITE permanece sempre igual.
+
+[pausa]
+
+A palavra OBRIGADO varia ou é invariável?
+
+[pausa_longa]
+
+OBRIGADO varia de acordo com quem está falando. Se um homem fala, é muito obrigado. Se uma mulher fala, é muito obrigada. Se são várias pessoas: muito obrigados ou muito obrigadas. OBRIGADO concorda com a pessoa que fala.
+
+[pausa]
+
+Como distinguir MEIO quando é adjetivo e quando é advérbio?
+
+[pausa_longa]
+
+MEIO adjetivo varia e modifica substantivo. Exemplo: ela comeu meia laranja. MEIO advérbio é invariável e modifica verbo ou adjetivo. Exemplo: ela comeu meio quilo, ela está meio cansada. Teste perguntando: o MEIO está modificando um substantivo ou um verbo?
+
+[pausa]
+
+Qual é a regra geral de concordância verbal?
+
+[pausa_longa]
+
+O verbo concorda em pessoa e número com o seu sujeito. Se o sujeito é plural, o verbo é plural. Se o sujeito é singular, o verbo é singular. Por exemplo: os alunos estudaram muito, eu vou ao mercado, tu e ela foram ao cinema. O verbo é sempre o espelho do sujeito.
+
+[pausa]
+
+Como funciona a concordância quando há sujeito composto antes do verbo?
+
+[pausa_longa]
+
+Sujeito composto antes do verbo vai para o plural. Por exemplo: Pedro e Ana vieram, o sol e a lua brilham. Dois ou mais sujeitos junto com o verbo exigem verbo no plural. Exceção: se os sujeitos se resumem a um único elemento, o verbo pode ficar no singular. Exemplo: tudo, todos, cada um veio.
+
+[pausa]
+
+Os verbos HAVER e FAZER de tempo são pessoais ou impessoais?
+
+[pausa_longa]
+
+HAVER e FAZER de tempo são impessoais e sempre ficam na terceira pessoa do singular. Nunca variam, mesmo que o objeto seja plural. Exemplos: havia muitas pessoas, houve vários erros, faz três anos que saiu, há dois dias que chove. Eles não têm sujeito e permanecem singulares para sempre.
+
+[pausa]
+
+Qual é a diferença entre HAVER impessoal e EXISTIR?
+
+[pausa_longa]
+
+HAVER impessoal é invariável, mas EXISTIR e TER com sentido de haver concordam normalmente com o objeto. Exemplos: havia pessoas e existiam pessoas, havia erros e existiam erros. EXISTIR varia, HAVER impessoal não varia nunca. Essa é uma armadilha frequente em provas.
+
+[pausa]
+
+Como funciona a concordância com sujeito coletivo?
+
+[pausa_longa]
+
+Substantivo coletivo é singular, então o verbo fica no singular. Por exemplo: a multidão gritou, o bando de pássaros voou. O verbo obedece ao núcleo do sujeito, que é singular. Exceção: com a expressão maioria de mais plural, aceita-se concordância no plural. Exemplo: a maioria dos alunos passaram ou a maioria dos alunos passou.
+
+[pausa]
+
+Quando há concordância atrativa com coletivo, o verbo pode ir para o plural?
+
+[pausa_longa]
+
+Sim, concordância atrativa permite o plural quando há um especificador no plural depois do coletivo. Exemplo: a maioria dos alunos passaram. O verbo é atraído pelo plural de alunos. Mas em provas formais, prefira o singular: a maioria dos alunos passou.
+
+[pausa]
+
+Como funciona a concordância com o pronome relativo QUE?
+
+[pausa_longa]
+
+O pronome relativo QUE concorda com o seu antecedente. Se o antecedente é singular, QUE é singular. Se é plural, QUE é plural. O verbo que vem depois de QUE concorda com o antecedente também. Exemplos: eu que sou, nós que somos, ela que fala, elas que falam.
+
+[pausa]
+
+Como funciona a concordância com o pronome relativo QUEM?
+
+[pausa_longa]
+
+O pronome relativo QUEM é sempre terceira pessoa singular, independentemente do antecedente. Exemplo: eu, quem sou, vocês, quem são. QUEM mantém verbo na terceira pessoa singular. Apesar do antecedente ser plural, QUEM pede verbo singular porque QUEM refere-se a uma pessoa indeterminada.
+
+[pausa]
+
+Dominar concordância é dominar a elegância da língua portuguesa e garantir pontos certos em qualquer concurso. Estude esses flashcards até decorar, porque a banca CESGRANRIO adora essas pegadinhas!
+
+[pausa]`
+  },
+  {
+    id: 'conjuncoes_flashcard',
+    titulo: 'Conjunções do Português — Decoreba',
+    disciplina: 'Língua Portuguesa',
+    texto: `Bem-vindo à revisão de Conjunções para concursos públicos! Vamos decorar as regras que mais caem na prova com técnicas de memorização sensacional!
+
+[pausa]
+
+Qual é a função principal das Conjunções Aditivas e quais são as palavras-chave que indicam soma de ideias?
+
+[pausa_longa]
+
+As Conjunções Aditivas acrescentam informação e somam ideias sempre na mesma direção. As palavras-chave são: E, NEM, NÃO SÓ...MAS TAMBÉM, TANTO...COMO. O truque mental é o EMPILHADOR DE CAIXAS: cada "e" empilha mais uma caixa, a frase fica mais pesada. Exemplo: Estudo e trabalho. NEM significa "e não" com dupla negação. Exemplo: Não fala nem ouve.
+
+[pausa]
+
+Como funcionam as Conjunções Adversativas e qual é o gatilho mental para não esquecer?
+
+[pausa_longa]
+
+As Adversativas opõem ou contrariam a ideia anterior. Palavras-chave: MAS, PORÉM, CONTUDO, ENTRETANTO, TODAVIA, NO ENTANTO. O gatilho é o PIVÔ DO BASQUETE: você ia em uma direção, mas pivotou! A segunda parte sempre surpreende ou contraria. MAS é o campeão, os outros cinco são seus irmãos chiques. Exemplo: Estudo muito, mas não passo.
+
+[pausa]
+
+O que caracteriza as Conjunções Alternativas e como diferenciar OU de ORA...ORA?
+
+[pausa_longa]
+
+Alternativas indicam escolha ou alternância. Palavras-chave: OU, OU...OU, ORA...ORA, QUER...QUER, SEJA...SEJA. OU apresenta escolha entre opções: Vai de ônibus ou de metrô? ORA...ORA indica alternância entre estados, como uma moeda girando: Ora ri, ora chora. O gatilho é CARA OU COROA: a moeda cai de um lado, você escolhe!
+
+[pausa]
+
+Qual é a diferença entre Conjunção Conclusiva e Conjunção Explicativa, especialmente com a palavra POIS?
+
+[pausa_longa]
+
+Conclusivas indicam conclusão ou dedução lógica. Palavras-chave: LOGO, PORTANTO, POR ISSO, ASSIM, ENTÃO, POIS. POIS depois do verbo é conclusivo. Exemplo: Estava cansado, foi dormir, pois. Explicativas justificam a oração anterior. POIS antes do verbo é explicativo. Exemplo: Descanse, pois está cansado. O gatilho é SHERLOCK HOLMES: "Elementar! Logo, portanto..." O raciocínio chegou ao fim!
+
+[pausa]
+
+Como identificar uma Conjunção Explicativa e qual é o contexto típico de uso?
+
+[pausa_longa]
+
+Explicativas vêm depois de um pedido, ordem ou afirmação para justificar. Palavras-chave: PORQUE, POIS antes do verbo, QUE, PORQUANTO. Sempre aparecem como nota de rodapé que justifica tudo. Exemplo: Corra, porque vai chover. Teste: se puder trocar por "porque" e a frase for justificativa, é explicativa! O gatilho é o MANUAL DE INSTRUÇÕES explicando sem que você pergunte.
+
+[pausa]
+
+Quais são as Conjunções Subordinativas Causais e qual é o macete para lembrar onde elas aparecem na frase?
+
+[pausa_longa]
+
+Causais indicam a causa do que acontece na oração principal. Palavras-chave: PORQUE, POIS, COMO, JÁ QUE, VISTO QUE, UMA VEZ QUE, DADO QUE. Macete: COMO causal sempre inicia a frase, PORQUE causal vem no meio. Exemplo: Como estava frio, ficou em casa. Chegou tarde porque perdeu o ônibus. O gatilho é A FAÍSCA que iniciou o incêndio.
+
+[pausa]
+
+O que caracteriza as Conjunções Concessivas e qual tempo verbal é obrigatório?
+
+[pausa_longa]
+
+Concessivas indicam obstáculo que não impede a ação. A ação acontece MESMO ASSIM. Palavras-chave: EMBORA, AINDA QUE, MESMO QUE, CONQUANTO, POSTO QUE, POR MAIS QUE, APESAR DE QUE. EXIGEM SUBJUNTIVO obrigatoriamente! Exemplo: Embora cansado, foi trabalhar. Mesmo que chova, vou à praia. O gatilho é o SAMURAI NA CHUVA: encharcado, caminha em frente! Truque: EMBORA significa "EM BORA" — vai mesmo assim!
+
+[pausa]
+
+Como funcionam as Conjunções Condicionais e qual é o tipo de aposta mental envolvida?
+
+[pausa_longa]
+
+Condicionais indicam condição para a ação acontecer. A ação só acontece SE a condição for cumprida. Palavras-chave: SE, CASO, DESDE QUE, CONTANTO QUE, A MENOS QUE, SALVO SE, DADO QUE. Exigem subjuntivo ou futuro. Exemplo: Se estudar, vai passar. A MENOS QUE indica condição negativa: Sairei, a menos que chova. O gatilho é O DADO CONGELADO NO AR: o resultado depende da condição, é uma aposta!
+
+[pausa]
+
+O que são Conjunções Conformativas e qual é o gatilho para memorizar sua função?
+
+[pausa_longa]
+
+Conformativas indicam conformidade com uma norma, ordem, modelo ou fonte. Palavras-chave: CONFORME, COMO, SEGUNDO, CONSOANTE. A ação é feita DE ACORDO COM algo. Exemplos: Fiz conforme você mandou. Segundo a lei, é proibido. Como combinamos, cheguei às 8 horas. O gatilho é O COPISTA MEDIEVAL copiando o manuscrito original com fidelidade, seguindo exatamente o modelo!
+
+[pausa]
+
+Qual é o macete para não confundir PORQUE causal com PORQUE explicativo em questões de prova?
+
+[pausa_longa]
+
+PORQUE causal aparece em Conjunções Subordinativas, responde "por quê?" e vem no meio da frase. Exemplo: Chegou tarde porque perdeu o ônibus. PORQUE explicativo aparece em Conjunções Coordenativas Explicativas, justifica uma ordem ou pedido, e pode ser trocado por "que" informal. Exemplo: Corra, porque vai chover. O teste definitivo: se der para trocar por "que" informal e fizer sentido, é explicativo!
+
+[pausa]
+
+Como diferenciar uma oração com COMO causal de uma oração com COMO conformativa?
+
+[pausa_longa]
+
+COMO causal sempre aparece no início da frase e indica o motivo de algo acontecer. Responde "por quê?". Exemplo: Como estava frio, ficou em casa. COMO conformativa indica que algo foi feito de acordo com algo. Responde "de que forma?". Exemplo: Como combinamos, cheguei às 8 horas. O contexto é a chave: causal = razão, conformativa = seguir um acordo ou combinado!
+
+[pausa]
+
+Por que as Conjunções Concessivas sempre exigem Subjuntivo e qual é a lógica por trás disso?
+
+[pausa_longa]
+
+Concessivas exigem Subjuntivo porque expressam uma ação incerta, hipotética, possível mas não garantida. Elas indicam algo que pode acontecer ou não, apesar do obstáculo. Exemplos: Embora chovesse, eu iria. Ainda que estudasse, não passaria. A ação não é certa, é uma possibilidade! O Subjuntivo reforça a incerteza da condição. Diferente de Condicionais que também exigem Subjuntivo: a diferença é que Concessivas admitem o obstáculo, Condicionais dependem da condição!
+
+[pausa]
+
+Qual é a ordem de aparição das Conjunções Subordinativas Causais na frase e como isso afeta a pontuação?
+
+[pausa_longa]
+
+Quando a Causal vem no INÍCIO da frase, usa-se vírgula antes da oração principal. Exemplo: Como estava frio, ficou em casa. Quando a Causal vem no MEIO ou FIM da frase, geralmente não usa vírgula. Exemplo: Ficou em casa porque estava frio. O macete: COMO causal = início sempre! Outras causais como JÁ QUE, VISTO QUE podem aparecer também no início ou meio, e seguem a mesma regra de vírgula.
+
+[pausa]
+
+Como as Conjunções Alternativas OU e ORA...ORA se comportam em relação à ideia de simultaneidade versus exclusão?
+
+[pausa_longa]
+
+OU expressa escolha exclusiva ou inclusiva. Vai de ônibus ou de metrô significa escolher uma opção que exclui a outra. ORA...ORA expressa alternância simultânea entre dois estados ou ações que ocorrem alternadamente no mesmo período. Exemplo: Ora ri, ora chora — significa que a pessoa alterna entre riso e choro, não escolhe um e abandona o outro. O gatilho: OU é "Cara ou Coroa" — uma moeda, um resultado. ORA...ORA é a moeda girando, alternando continuamente!
+
+[pausa]
+
+Qual é a diferença prática entre DESDE QUE e A MENOS QUE nas Conjunções Condicionais?
+
+[pausa_longa]
+
+DESDE QUE impõe uma condição positiva para que a ação aconteça. Exemplo: Vou, desde que você venha — exigência clara. A MENOS QUE impõe uma condição negativa, é a exclusão de uma possibilidade. Exemplo: Sairei, a menos que chova — significa sairei se não chover. O truque: DESDE QUE é afirmativo, A MENOS QUE é negativo! A MENOS QUE = exceto se, salvo se!
+
+[pausa]
+
+Você já domina as Conjunções do Português com os gatilhos mentais! Agora é hora de praticar em questões reais e conquistar essa vaga no concurso público!
+
+[pausa]`
+  },
+  {
+    id: 'pronomes_flashcard',
+    titulo: 'Pronomes do Português — Decoreba',
+    disciplina: 'Língua Portuguesa',
+    texto: `Olá, futuro aprovado em concurso público! Vamos dominar os PRONOMES do português com gatilhos mentais que vão colar na sua mente para sempre!
+
+[pausa]
+
+Qual é a função dos pronomes pessoais retos e qual é a principal característica que os define?
+
+[pausa_longa]
+
+Os pronomes pessoais retos funcionam como SUJEITO da oração. Eles sempre praticam a ação e nunca vêm após preposição. São: eu, tu, ele, ela, nós, vós, eles e elas. O gatilho mental é: o ATOR PRINCIPAL no holofote está no palco praticando a ação. Nunca ficam nos bastidores após preposição. Exemplo: "Eu fui ao mercado" — eu é o sujeito. Teste: se pode ser sujeito da frase, é reto. "Eu fui" está correto. "Para eu ir" está errado!
+
+[pausa]
+
+Como funcionam os pronomes pessoais oblíquos átonos e tônicos?
+
+[pausa_longa]
+
+Os pronomes oblíquos funcionam como COMPLEMENTO, recebem a ação. Existem dois tipos: átonos e tônicos. Os átonos vêm junto ao verbo, sem preposição. Exemplos: me, te, o, a, lhe, se, nos, vos, os, as, lhes. Os tônicos vêm SEMPRE após preposição, com ênfase. Exemplos: mim, comigo, ti, contigo, ele, ela, si, consigo, nós, conosco, vós, convosco, eles, elas. O gatilho mental é: o ASSISTENTE dos bastidores nunca lidera, sempre apoia. Macete: após PARA, COM, DE, EM vem tônico. Exemplo: "Para mim" sim! "Para eu" não! "Ele me ligou" é áton. "Falei com ele" é tônico.
+
+[pausa]
+
+Qual é a regra de concordância dos pronomes possessivos?
+
+[pausa_longa]
+
+Os pronomes possessivos indicam POSSE ou pertencimento. A regra mais importante é: concordam com o substantivo possuído e NÃO com o possuidor. Exemplo: "A minha CASA" — a palavra "minha" é feminina porque "casa" é feminino, não porque "eu" seja feminino. Os possessivos são: meu, minha, meus, minhas; teu, tua, teus, tuas; seu, sua, seus, suas; nosso, nossa, nossos, nossas; vosso, vossa, vossos, vossas. O gatilho mental é: a ETIQUETA DE BAGAGEM cola no substantivo e declara o dono. Cuidado: "seu" pode ser de você ou de ele/ela, o que causa ambiguidade. Nesse caso, use "dele" ou "dela".
+
+[pausa]
+
+Explique os pronomes demonstrativos e sua relação com distância no espaço.
+
+[pausa_longa]
+
+Os pronomes demonstrativos indicam POSIÇÃO e distância no espaço ou no texto. A regra de ouro é: a distância é medida do FALANTE. ESTE está perto de mim, EU — masc. este, fem. esta, neutro isto. ESSE está perto de você, TU — masc. esse, fem. essa, neutro isso. AQUELE está longe dos dois, 3ª pessoa — masc. aquele, fem. aquela, neutro aquilo. Exemplos: "Este livro aqui é meu" — este perto de mim. "Esse livro aí é seu" — esse perto de você. "Aquele livro lá é dele" — aquele longe. O gatilho mental é: o GPS DO ESPAÇO — este aponta para AQUI (1ª), esse aponta para AÍ (2ª), aquele aponta para LÁ (3ª). Macete: ESTE começa com E, assim como EU!
+
+[pausa]
+
+Como funcionam os pronomes relativos e qual é sua função principal?
+
+[pausa_longa]
+
+Os pronomes relativos ligam DUAS ORAÇÕES sem repetir o substantivo. O mais comum é QUE, que se refere a pessoas e coisas. QUEM refere-se só a pessoas e vem após preposição. O QUAL, A QUAL, OS QUAIS, AS QUAIS variam e evitam ambiguidade em textos mais formais. CUJO, CUJA, CUJOS, CUJAS indicam posse e NUNCA admitem artigo depois — "cujo o pai" é errado, "cujo pai" é certo! ONDE substitui "em que" e refere-se a lugar. QUANTO, QUANTOS vêm após tudo, todo, tanto. O gatilho mental é: a PONTE ENTRE DUAS ILHAS — as duas orações são ilhas separadas, o pronome relativo é a ponte que as une. Exemplo: "O livro que li é ótimo" — que retoma livro. "A pessoa com quem falei chegou" — quem após preposição. "O aluno cujo pai é médico" — cujo indica posse.
+
+[pausa]
+
+Qual é a característica principal dos pronomes indefinidos?
+
+[pausa_longa]
+
+Os pronomes indefinidos referem-se de forma VAGA e imprecisa a pessoas ou coisas. Eles não identificam quem ou o que é, apenas apontam de maneira genérica. Os principais indefinidos invariáveis são: alguém, ninguém, tudo, nada, algo. Os variáveis são: algum, nenhum, todo, outro, muito, pouco, certo, qualquer, tanto, quanto, vários, cada. Exemplos: "Alguém me ligou ontem" — alguém é vago, não identificado. "Ninguém apareceu" — ninguém com negação. "Tudo está bem" — totalidade vaga. "Alguns livros sumiram" — alguns é quantidade vaga. O gatilho mental é: a NÉVOA DO DESCONHECIDO — alguém está lá, mas você não vê quem é. Tudo existe, mas você não sabe o que é. Dica importante: alguém, ninguém, algo, tudo, nada são invariáveis e nunca mudam!
+
+[pausa]
+
+Qual é a função dos pronomes interrogativos na língua portuguesa?
+
+[pausa_longa]
+
+Os pronomes interrogativos introduzem PERGUNTAS diretas e indiretas, e variam conforme o que se pergunta. QUE pergunta sobre coisa ou ideia — exemplo: "Que você quer?". QUEM pergunta sobre pessoa — exemplo: "Quem veio?". QUAL e QUAIS perguntam sobre escolha entre opções — exemplo: "Qual livro você prefere?". QUANTO, QUANTA, QUANTOS, QUANTAS perguntam sobre quantidade — exemplo: "Quanto custa?" ou "Quantas pessoas vieram?". Os pronomes interrogativos podem introduzir perguntas diretas, como "Quem fez isso?", ou perguntas indiretas, como "Perguntei quem tinha feito isso".
+
+[pausa]
+
+Qual é a diferença fundamental entre "este" e "esse"?
+
+[pausa_longa]
+
+A diferença fundamental está na DISTÂNCIA em relação ao falante. ESTE indica proximidade com a pessoa que fala — é como dizer "aqui, perto de mim". ESSE indica proximidade com a pessoa que ouve — é como dizer "aí, perto de você". Exemplo prático: se você está segurando um livro, você diz "Este livro é meu" — este porque o livro está perto de você, que é o falante. Se eu estou segurando um livro e você está longe, você diz "Esse livro é seu" — esse porque o livro está perto de você, que nesse momento é o ouvinte.
+
+[pausa]
+
+Explique a armadilha do pronome possessivo "seu".
+
+[pausa_longa]
+
+A armadilha do pronome possessivo "seu" é a AMBIGUIDADE. "Seu" pode significar a coisa de VOCÊ ou a coisa de ELE ou ELA. Exemplo: "Ela perdeu a sua bolsa" — não fica claro se é a bolsa dela ou a bolsa de outra pessoa. Quando há ambiguidade, a solução é usar "dele" ou "dela" em lugar de "seu". Em vez de "Ela perdeu a sua bolsa", você diz "Ela perdeu a bolsa dela". Em documentos formais e em provas de concurso, quando há dúvida sobre a quem pertence algo, substitua "seu" por "dele" ou "dela" para evitar confusão!
+
+[pausa]
+
+Como distinguir entre os pronomes relativos "que" e "quem"?
+
+[pausa_longa]
+
+O pronome relativo QUE é o mais comum e refere-se tanto a PESSOAS quanto a COISAS. Exemplo: "O livro que eu li" ou "A pessoa que chegou". O pronome relativo QUEM refere-se SOMENTE a PESSOAS e, obrigatoriamente, vem APÓS PREPOSIÇÃO. Exemplos: "A pessoa com quem falei" — quem após preposição com. "O rapaz para quem dei o recado" — quem após preposição para. Se não houver preposição, usa-se QUE, não QUEM. "A pessoa que chegou" — correto. "A pessoa quem chegou" — errado!
+
+[pausa]
+
+Qual é a regra sobre pronomes indefinidos variáveis e invariáveis?
+
+[pausa_longa]
+
+Os pronomes indefinidos podem ser variáveis ou invariáveis. Os INVARIÁVEIS nunca mudam de forma: alguém, ninguém, tudo, nada, algo. Você não diz "alguéns" ou "tudo com artigos diferentes". Os VARIÁVEIS concordam em gênero e número com o substantivo: algum, alguns, alguma, algumas; nenhum, nenhuma; todo, toda, todos, todas; outro, outra, outros, outras; muito, pouca, muitos, poucas; certo, certa, certos, certas; qualquer, quaisquer. Exemplos: "Nenhum aluno faltou" — nenhum varia. "Alguns livros sumiram" — alguns varia. A dica é: ALGUÉM, NINGUÉM, ALGO, TUDO, NADA — memorize esses como INVARIÁVEIS!
+
+[pausa]
+
+Como usar corretamente o pronome relativo "cujo"?
+
+[pausa_longa]
+
+O pronome relativo CUJO indica POSSE e concorda em gênero e número com a coisa possuída, não com o possuidor. A regra mais importante é: NUNCA use artigo depois de CUJO. Está errado: "O aluno cujo o pai é médico". Está certo: "O aluno cujo pai é médico". Outros exemplos: "A professora cuja filha estuda aqui" — cuja concorda com filha, que é feminino. "Os alunos cujos pais trabalham aqui" — cujos concorda com pais, que é masculino plural. O gatilho mental é: CUJO é possessivo que junta duas orações. Como toda forma possessiva, ele "cola" no substantivo possuído e nunca permite artigo entre ele e o nome.
+
+[pausa]
+
+Diferencie entre pronomes demonstrativos no espaço e pronomes demonstrativos no texto.
+
+[pausa_longa]
+
+Os pronomes demonstrativos funcionam em dois contextos diferentes. No ESPAÇO, indicam proximidade física: ESTE — perto de mim, ESSE — perto de você, AQUELE`
+  },
+  {
+    id: 'verbos_portugues_flashcard',
+    titulo: 'Verbos: Tempos e Modos Verbais — Decoreba',
+    disciplina: 'Língua Portuguesa',
+    texto: `Verbos portugueses é matéria que cai todo concurso. Vamos dominar os tempos verbais com técnicas de memorização que funcionam!
+
+[pausa]
+
+Qual é o gatilho mental para reconhecer o Presente do Indicativo e qual é a sua função?
+
+[pausa_longa]
+
+O gatilho é olhar pela janela: acontece AGORA. O Presente do Indicativo expressa uma ação habitual ou que ocorre no momento presente. Exemplos: Eu falo todos os dias. Ele come uma maçã. Nós partimos agora.
+
+[pausa]
+
+Como se forma o Presente do Indicativo nos verbos regulares de primeira conjugação?
+
+[pausa_longa]
+
+Para verbos em -AR, você tira o -AR e acrescenta: eu -o, tu -as, ele ou ela -a, nós -amos, vós -ais, eles ou elas -am. Exemplo com falar: falo, falas, fala, falamos, falais, falam.
+
+[pausa]
+
+Qual é a diferença entre Pretérito Perfeito e Pretérito Imperfeito?
+
+[pausa_longa]
+
+O Pretérito Perfeito expressa ação concluída no passado. O gatilho é a porta que fechou: acabou! Exemplo: Eu falei ontem. Já o Pretérito Imperfeito expressa ação contínua ou habitual no passado. O gatilho é um filme antigo em loop. Exemplo: Eu falava todo dia.
+
+[pausa]
+
+Como se conjuga o Pretérito Perfeito do Indicativo para verbos em -AR?
+
+[pausa_longa]
+
+Você tira o -AR e acrescenta: eu -ei, tu -aste, ele ou ela -ou, nós -amos, vós -astes, eles ou elas -aram. Exemplo: falei, falaste, falou, falamos, falastes, falaram.
+
+[pausa]
+
+Como se conjuga o Pretérito Imperfeito do Indicativo para verbos em -AR?
+
+[pausa_longa]
+
+Você tira o -AR e acrescenta: eu -ava, tu -avas, ele ou ela -ava, nós -avamos, vós -avais, eles ou elas -avam. Exemplo: falava, falavas, falava, falávamos, falávais, falavam.
+
+[pausa]
+
+Qual é o uso e o gatilho mental do Pretérito Mais-que-Perfeito do Indicativo?
+
+[pausa_longa]
+
+Expressa uma ação anterior a outra no passado. O gatilho é dois passos atrás: é o passado do passado. Exemplo: Quando cheguei, ela já falara. Para -AR: falara, falaras, falara, faláramos, falareis, falaram.
+
+[pausa]
+
+Como se forma o Futuro do Presente do Indicativo?
+
+[pausa_longa]
+
+Você acrescenta diretamente ao infinitivo: para -AR acrescenta -ei, -ás, -á, -emos, -eis, -ão. Exemplos: falarei, falarás, falará, falaremos, falareis, falarão. O gatilho é uma seta para frente: vai acontecer!
+
+[pausa]
+
+Qual é o uso do Futuro do Pretérito do Indicativo?
+
+[pausa_longa]
+
+Expressa uma ação hipotética ou condicional. O gatilho é um plano que não saiu: ia, mas... Exemplo: Eu falaria, mas não pude. A formação é: ao infinitivo acrescenta -ia, -ias, -ia, -íamos, -íeis, -iam.
+
+[pausa]
+
+Como funciona o Presente do Subjuntivo e qual é o seu gatilho mental?
+
+[pausa_longa]
+
+Expressa desejo, dúvida ou incerteza, geralmente após as palavras "que" ou "se". O gatilho é névoa: espero, quero, duvido. Para -AR: fale, fales, fale, falemos, faleis, falem. Exemplo: Espero que ele fale.
+
+[pausa]
+
+Qual é o uso do Pretérito Imperfeito do Subjuntivo?
+
+[pausa_longa]
+
+Expressa uma hipótese irreal no passado. O gatilho é "se... mas não aconteceu". Exemplo: Se eu falasse, ela ouviria. Para -AR: falasse, falasses, falasse, falássemos, falásseis, falassem.
+
+[pausa]
+
+Como se forma o Futuro do Subjuntivo?
+
+[pausa_longa]
+
+Usa-se o infinitivo do verbo sem modificações. Para -AR: falar, falares, falar, falarmos, falardes, falarem. O gatilho é quando acontecer (talvez). Exemplo: Quando eu falar, aviso.
+
+[pausa]
+
+Qual é a diferença entre Imperativo Afirmativo e Imperativo Negativo?
+
+[pausa_longa]
+
+O Imperativo Afirmativo expressa ordem ou pedido direto. Gatilho: dedo apontando. Exemplo: Fala mais alto! O Imperativo Negativo expressa proibição e usa o Subjuntivo com a palavra "não". Gatilho: mão espalmada. Exemplo: Não fales!
+
+[pausa]
+
+Como se forma o Imperativo Afirmativo para verbos em -AR?
+
+[pausa_longa]
+
+Você tira o -AR e acrescenta: segunda pessoa tu recebe -a, terceira pessoa ele ou ela recebe -e, primeira pessoa plural nós recebe -emos, segunda pessoa plural vós recebe -ai, terceira pessoa plural eles ou elas recebe -em. Exemplo: fala, fale, falemos, falai, falem.
+
+[pausa]
+
+O que é o Gerúndio e como se forma?
+
+[pausa_longa]
+
+O Gerúndio é uma forma nominal que expressa ação em andamento ou contínua. É o ING do português. Para -AR acrescenta -ando, para -ER acrescenta -endo, para -IR acrescenta -indo. Exemplos: falando, comendo, partindo. Uso: Estou falando. Ela foi comendo.
+
+[pausa]
+
+O que é o Particípio e qual é o seu gatilho mental?
+
+[pausa_longa]
+
+O Particípio é uma forma nominal que expressa o resultado de uma ação, funcionando como adjetivo verbal. O gatilho é já foi: o resultado ficou gravado. Para -AR acrescenta -ado, para -ER e -IR acrescenta -ido. Exemplos: falado, comido, partido. Uso: O trabalho está falado.
+
+[pausa]
+
+Você agora tem as ferramentas para dominar todos os verbos regulares portugueses em concursos. Estude as formas nominais com atenção e domine o domínio verbal!
+
+[pausa]`
+  },
+  {
+    id: 'vozes_verbais_flashcard',
+    titulo: 'Vozes Verbais — Decoreba',
+    disciplina: 'Língua Portuguesa',
+    texto: `Voz Verbal é um assunto que cai demais em concurso público, então vamos decorar juntos agora!
+
+[pausa]
+
+Qual é a definição de Voz Ativa e qual é o seu padrão estrutural?
+
+[pausa_longa]
+
+Voz Ativa é quando o sujeito PRATICA a ação. O sujeito é o agente, aquele que faz, executa, age. A estrutura é: Sujeito Agente mais Verbo mais Objeto Direto. Por exemplo: O gato comeu o peixe. O gato é o sujeito que age, e o peixe é o objeto que sofre a ação. Outro exemplo: A professora explica a lição. A professora age, a lição sofre.
+
+[pausa]
+
+O que é Voz Passiva Analítica e como ela é estruturada?
+
+[pausa_longa]
+
+Voz Passiva Analítica é quando o sujeito RECEBE ou SOFRE a ação. A estrutura é: Sujeito Paciente mais o verbo SER no mesmo tempo da voz ativa mais o Particípio do verbo principal mais a preposição por ou pelo ou pela mais o agente. Por exemplo: O peixe foi comido pelo gato. Aqui o peixe sofre a ação. Outro exemplo: A lição é explicada pela professora. O agente pode ser omitido, como em: A carta foi enviada. Ninguém precisa saber quem enviou.
+
+[pausa]
+
+O que diferencia a Passiva Sintética da Passiva Analítica?
+
+[pausa_longa]
+
+A Passiva Sintética usa o pronome apassivador SE e tem uma estrutura bem diferente. Não usa o verbo SER. A estrutura é: Verbo mais SE mais Sujeito Paciente. Por exemplo: Vende-se apartamento. Isso significa um apartamento é vendido. Alugam-se quartos significa quartos são alugados. O verbo concorda com o sujeito. Mas cuidado: Come-se bem neste restaurante não é passiva pura porque o sujeito é indeterminado.
+
+[pausa]
+
+Como funciona a Voz Reflexiva e quais são os pronomes que a caracterizam?
+
+[pausa_longa]
+
+Voz Reflexiva é quando o sujeito PRATICA e SOFRE a ação ao mesmo tempo. O sujeito age sobre si mesmo. Os pronomes reflexivos são: me, te, se, nos, vos. A estrutura é: Sujeito mais Verbo mais Pronome Reflexivo. Por exemplo: Eu me machuquei significa eu machuquei a mim mesmo. Ela se penteou significa ela penteou a si mesma.
+
+[pausa]
+
+Qual é a diferença entre reflexiva simples e reflexiva recíproca?
+
+[pausa_longa]
+
+Na reflexiva simples, o sujeito age sobre si mesmo sozinho. Por exemplo: Eu me machuquei ou ela se penteou. Na reflexiva recíproca, a ação é mútua, entre dois ou mais sujeitos. Por exemplo: Nós nos abraçamos significa um abraçou o outro. Eles se cumprimentaram significa um cumprimentou o outro. A ação é entre si, é reciprocidade.
+
+[pausa]
+
+Qual é o primeiro passo para transformar uma frase de Voz Ativa em Voz Passiva?
+
+[pausa_longa]
+
+O primeiro passo é transformar o Objeto Direto em Sujeito da passiva. Por exemplo, na frase O gato comeu o peixe, o objeto direto é o peixe. Ele vira sujeito e fica: O peixe... foi comido. Você começa a estruturar a frase passiva pelo objeto que sofre a ação.
+
+[pausa]
+
+Qual é o segundo passo na transformação de Ativa para Passiva?
+
+[pausa_longa]
+
+O segundo passo é transformar o verbo da ativa em SER mais o Particípio do verbo principal, mantendo o mesmo tempo verbal. Por exemplo, o verbo comeu está no Pretérito Perfeito. Na passiva fica: foi comido. Outro exemplo: explica está no Presente, na passiva fica: é explicada. O tempo verbal do ser tem que ser igual ao tempo do verbo ativo.
+
+[pausa]
+
+Qual é o terceiro passo na transformação de Ativa para Passiva?
+
+[pausa_longa]
+
+O terceiro passo é transformar o Sujeito da ativa em Agente da Passiva. O sujeito que agiu na frase ativa agora se torna o agente introduzido pela preposição por ou pela. Na frase O gato comeu o peixe, o gato vira agente e fica: foi comido pelo gato. Pronto, a transformação está completa.
+
+[pausa]
+
+Na Voz Passiva, o agente da ação sempre precisa aparecer na frase?
+
+[pausa_longa]
+
+Não, o agente da passiva pode ser omitido. Quando não é importante para a frase saber quem executou a ação, você pode deixar ele fora. Por exemplo: A carta foi enviada. Você não precisa dizer quem enviou. O importante é que a carta foi enviada, que ela sofreu a ação. Em muitos casos em concursos, especialmente em textos de jornal, o agente é omitido propositalmente.
+
+[pausa]
+
+Qual é o gatilho mental para lembrar da Voz Ativa?
+
+[pausa_longa]
+
+O HERÓI age! O sujeito é o protagonista, aquele que executa tudo. Na Voz Ativa, o sujeito é poderoso, está em ação, fazendo as coisas acontecer. Pense num super-herói que não fica esperando nada acontecer com ele, ele faz acontecer. O sujeito é o agente, é quem comanda a ação.
+
+[pausa]
+
+Qual é o gatilho mental para lembrar da Voz Passiva?
+
+[pausa_longa]
+
+O HERÓI vira VÍTIMA! Quem era sujeito agente na ativa agora sofre a ação na passiva. É como se a cena mudasse de perspectiva. O foco sai do agente e vai para quem recebe, sofre, padece a ação. O sujeito paciente é aquele que não controla o que acontece, é passivo mesmo, é vítima da ação.
+
+[pausa]
+
+Qual é o gatilho mental para lembrar da Voz Reflexiva?
+
+[pausa_longa]
+
+O ESPELHO! O sujeito se vê a si mesmo. A ação sai do sujeito e volta para o próprio sujeito. É como se ele se visse no espelho e agisse sobre aquela imagem. O reflexivo é aquela ação que você pratica com você mesmo, que vai e volta para a mesma pessoa.
+
+[pausa]
+
+Em qual situação a Voz Ativa é preferida na escrita moderna?
+
+[pausa_longa]
+
+A Voz Ativa é a mais direta, objetiva e clara. Por isso é preferida na escrita moderna, especialmente em textos jornalísticos e técnicos. Quando você quer ser direto, informar quem fez a ação, você usa ativa. A passiva, por sua vez, é usada quando o que importa é o objeto, o resultado, não quem agiu.
+
+[pausa]
+
+Cite três exemplos de verbos reflexivos que aparecem no dia a dia.
+
+[pausa_longa]
+
+Os reflexivos mais comuns no dia a dia são: levantar-se, sentar-se e machucar-se. Você se levanta pela manhã, se senta para trabalhar, e às vezes se machuca. A Voz Reflexiva aparece muito em ações cotidianas, em situações normais da vida. Outros exemplos: pentear-se, vestir-se, banhar-se. São ações que você faz com você mesmo.
+
+[pausa]
+
+Complete a frase: A Voz Passiva Sintética com SE não exige o verbo SER. Qual verbo é usado?
+
+[pausa_longa]
+
+Na Passiva Sintética com SE, o verbo principal é conjugado normalmente e recebe o pronome SE. Não há verbo SER. Por exemplo: Vende-se apartamento. O verbo é vende, que é vender conjugado na terceira pessoa do singular. Alugam-se quartos, o verbo é alugam, que está na terceira pessoa do plural concordando com quartos. O verbo é sempre o mesmo da frase, só recebe o SE.
+
+[pausa]
+
+Quando você vê SE em uma frase, como você diferencia se é Passiva Sintética ou Voz Reflexiva?
+
+[pausa_longa]
+
+Na Passiva Sintética, o SE está ligado a um sujeito paciente que sofre a ação. Vende-se apartamento, o apartamento sofre a venda. Na Reflexiva, o SE está ligado a um sujeito que age sobre si mesmo. Eu me levanto, eu ajo sobre mim mesmo. Na Passiva Sintética, o sujeito é passivo. Na Reflexiva, o sujeito é ativo sobre si mesmo. Em concursos, essa diferença é muito cobrada, então fique atento!
+
+[pausa]
+
+Qual é a ordem correta dos passos para transformar qualquer frase de Ativa para Passiva em uma prova?
+
+[pausa_longa]
+
+A ordem é: Primeiro, coloque o Objeto Direto como novo Sujeito. Segundo, transforme o verbo em SER mais Particípio no mesmo tempo. Terceiro, coloque o Sujeito da ativa como Agente introduzido por por ou pela. Se seguir esses três passos em ordem, qualquer transformação de ativa para passiva sai perfeita. Sempre nessa sequência: OD vira S, V vira SER mais Particípio, S vira agente.
+
+[pausa]
+
+Você já dominou Vozes Verbais! Agora é só praticar nas provas que a decoreba fica automática!
+
+[pausa]`
+  },
+  // {
+  //   id: 'aula2_nome_do_tema',
+  //   titulo: 'Título da aula',
+  //   disciplina: 'Matemática',  // ou Português, Informática, Lógica...
+  //   semana: 2,
+  //   data: 'YYYY-MM-DD',
+  //   texto: `cole aqui o conteúdo de transcricoes/{nome}_resumo.txt`
+  // },
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// MOTOR DE ÁUDIO (Web Speech API)
+// ═══════════════════════════════════════════════════════════════════
+
+let est = {
+  aulaId: null,
+  segs: [],
+  idx: 0,
+  tocando: false,
+  velocidade: 1.0,
+  timer: null
+};
+
+function prepararSegmentos(texto) {
+  const marcador = texto.indexOf('# 🎧 RESUMO EM ÁUDIO');
+  // Se não tiver o marcador, trata o texto inteiro como áudio (formato flashcard)
+  let audio = marcador !== -1 ? texto.slice(marcador) : texto;
+
+  // Limpa markdown restante
+  audio = audio
+    .replace(/^# .*/gm, '')
+    .replace(/\*\*/g, '')
+    .replace(/\*/g, '')
+    .replace(/^---+$/gm, '')
+    .replace(/\[pausa_longa\]/gi, '||PL||')
+    .replace(/\[pausa\]/gi, '||P||');
+
+  // Divide em segmentos marcando tipo de pausa
+  const partes = audio.split(/(\/\/\|P[L]?\|\/\/|\|\|PL\|\||\|\|P\|\|)/);
+  const segs = [];
+  for (let i = 0; i < partes.length; i++) {
+    const p = partes[i].replace(/\s+/g, ' ').trim();
+    if (p === '||PL||') segs.push({ texto: '', pausa: 6000 });
+    else if (p === '||P||') segs.push({ texto: '', pausa: 700 });
+    else if (p.length > 4) segs.push({ texto: p, pausa: 0 });
+  }
+  return segs;
+}
+
+function togglePlay() {
+  if (!est.aulaId) return;
+  est.tocando ? pausar() : tocar();
+}
+
+function tocar() {
+  if (!est.segs.length) return;
+  if (est.idx >= est.segs.length) est.idx = 0;
+  est.tocando = true;
+  atualizarPlay();
+  falarSeg(est.idx);
+}
+
+function pausar() {
+  speechSynthesis.cancel();
+  clearTimeout(est.timer);
+  est.tocando = false;
+  atualizarPlay();
+}
+
+function parar() {
+  speechSynthesis.cancel();
+  clearTimeout(est.timer);
+  est.tocando = false;
+  est.idx = 0;
+  atualizarPlay();
+  atualizarProg();
+  document.getElementById('trecho-atual').textContent = 'Pressione ▶ para iniciar...';
+}
+
+function falarSeg(idx) {
+  if (!est.tocando || idx >= est.segs.length) {
+    if (idx >= est.segs.length) {
+      est.tocando = false;
+      est.idx = 0;
+      atualizarPlay();
+      document.getElementById('trecho-atual').textContent = '✅ Revisão concluída! Pressione ▶ para repetir.';
+    }
+    return;
+  }
+
+  est.idx = idx;
+  const seg = est.segs[idx];
+
+  // Segmento de pausa pura (sem texto)
+  if (!seg.texto) {
+    const duracao = seg.pausa || 700;
+    if (duracao >= 2000) {
+      // Pausa longa — mostra countdown visual
+      let restante = Math.round(duracao / 1000);
+      document.getElementById('trecho-atual').textContent = `💭 Pense e responda em voz alta... ${restante}s`;
+      const tick = setInterval(() => {
+        restante--;
+        if (restante > 0)
+          document.getElementById('trecho-atual').textContent = `💭 Pense e responda em voz alta... ${restante}s`;
+        else
+          clearInterval(tick);
+      }, 1000);
+      if (est.tocando) est.timer = setTimeout(() => { clearInterval(tick); falarSeg(idx + 1); }, duracao);
+    } else {
+      if (est.tocando) est.timer = setTimeout(() => falarSeg(idx + 1), duracao);
+    }
+    atualizarProg();
+    return;
+  }
+
+  document.getElementById('trecho-atual').textContent = seg.texto;
+  atualizarProg();
+
+  const u = new SpeechSynthesisUtterance(seg.texto);
+  u.lang = 'pt-BR';
+  u.rate = est.velocidade;
+  u.onend = () => {
+    if (est.tocando) est.timer = setTimeout(() => falarSeg(idx + 1), 400);
+  };
+  speechSynthesis.speak(u);
+}
+
+function setVelocidade(v) {
+  est.velocidade = v;
+  document.querySelectorAll('.speed-btn').forEach(b => {
+    b.classList.toggle('ativo', parseFloat(b.textContent) === v);
+  });
+  if (est.tocando) {
+    speechSynthesis.cancel();
+    clearTimeout(est.timer);
+    est.timer = setTimeout(() => falarSeg(est.idx), 100);
+  }
+}
+
+function atualizarPlay() {
+  document.getElementById('btn-play').textContent = est.tocando ? '⏸' : '▶';
+}
+
+function atualizarProg() {
+  const total = est.segs.length;
+  const atual = est.tocando ? est.idx + 1 : est.idx;
+  document.getElementById('prog-label').textContent = `${atual} / ${total} trechos`;
+  document.getElementById('prog-fill').style.width = total > 0 ? (atual / total * 100) + '%' : '0%';
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// PARSER MARKDOWN → HTML
+// ═══════════════════════════════════════════════════════════════════
+
+function parseMd(texto) {
+  const corteAudio = texto.indexOf('# 🎧 RESUMO EM ÁUDIO');
+  if (corteAudio !== -1) {
+    return mdHTML(texto.slice(0, corteAudio));
+  }
+  // Formato flashcard: exibe versão limpa sem marcadores de pausa
+  if (texto.includes('[pausa]') || texto.includes('[pausa_longa]')) {
+    const linhas = texto.split('\n');
+    const itens = [];
+    for (const linha of linhas) {
+      const limpa = linha.replace(/\[pausa_longa\]/g, '').replace(/\[pausa\]/g, '').trim();
+      if (limpa) itens.push(limpa);
+    }
+    const html = itens.map((l, i) => {
+      if (i === 0) return `<p><em>${l}</em></p>`;
+      return `<p>${l}</p>`;
+    }).join('');
+    return `<div class="flashcard-preview">${html}<p style="margin-top:1rem;opacity:.6;font-size:.85em">▶ Clique em <strong>Ouvir</strong> para iniciar os flashcards em áudio.</p></div>`;
+  }
+  return mdHTML(texto);
+}
+
+function mdHTML(txt) {
+  const linhas = txt.split('\n');
+  let html = '', emUl = false, emTable = false;
+
+  for (let i = 0; i < linhas.length; i++) {
+    const l = linhas[i];
+
+    if (/^---+$/.test(l.trim())) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      if (emTable) { html += '</tbody></table></div>'; emTable = false; }
+      html += '<hr>'; continue;
+    }
+
+    if (l.trim().startsWith('|')) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      const cels = l.trim().split('|').slice(1, -1).map(c => c.trim());
+      if (!emTable) {
+        html += '<div class="table-wrap"><table><thead><tr>';
+        html += cels.map(c => `<th>${inl(c)}</th>`).join('');
+        html += '</tr></thead><tbody>';
+        emTable = true;
+      } else if (!cels.every(c => /^[-: ]+$/.test(c))) {
+        html += '<tr>' + cels.map(c => `<td>${inl(c)}</td>`).join('') + '</tr>';
+      }
+      continue;
+    }
+    if (emTable) { html += '</tbody></table></div>'; emTable = false; }
+
+    if (l.startsWith('### ')) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      html += `<h4>${inl(l.slice(4))}</h4>`;
+    } else if (l.startsWith('## ')) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      html += `<h3>${inl(l.slice(3))}</h3>`;
+    } else if (l.startsWith('# ')) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      html += `<h2>${inl(l.slice(2))}</h2>`;
+    } else if (/^  ?- /.test(l) || l.startsWith('- ')) {
+      if (!emUl) { html += '<ul>'; emUl = true; }
+      html += `<li>${inl(l.replace(/^  ?- /, ''))}</li>`;
+    } else if (!l.trim()) {
+      if (emUl) { html += '</ul>'; emUl = false; }
+    } else {
+      if (emUl) { html += '</ul>'; emUl = false; }
+      html += `<p>${inl(l)}</p>`;
+    }
+  }
+  if (emUl) html += '</ul>';
+  if (emTable) html += '</tbody></table></div>';
+  return html;
+}
+
+function inl(t) {
+  return t
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`(.+?)`/g, '<code>$1</code>');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RENDERIZAÇÃO
+// ═══════════════════════════════════════════════════════════════════
+
+function renderSidebar() {
+  const grupos = {};
+  RESUMOS.forEach(r => {
+    if (!grupos[r.disciplina]) grupos[r.disciplina] = [];
+    grupos[r.disciplina].push(r);
+  });
+
+  let html = '';
+  Object.entries(grupos).forEach(([disc, aulas]) => {
+    aulas.sort((a, b) => a.semana - b.semana).forEach(a => {
+      html += `
+        <div class="aula-card" id="card-${a.id}" onclick="selecionarAula('${a.id}')">
+          <div class="disc">${disc}</div>
+          <div class="nome">${a.titulo}</div>
+          <span class="badge">Semana ${a.semana}</span>
+        </div>`;
+    });
+  });
+  document.getElementById('lista-aulas').innerHTML = html;
+}
+
+function selecionarAula(id) {
+  const aula = RESUMOS.find(r => r.id === id);
+  if (!aula) return;
+
+  parar();
+
+  est.aulaId = id;
+  est.segs = prepararSegmentos(aula.texto);
+  est.idx = 0;
+
+  document.querySelectorAll('.aula-card').forEach(c => c.classList.remove('ativo'));
+  const card = document.getElementById('card-' + id);
+  if (card) card.classList.add('ativo');
+
+  document.getElementById('player-nome').textContent = aula.titulo;
+  document.getElementById('trecho-atual').textContent =
+    `${est.segs.length} trechos prontos — pressione ▶ para ouvir`;
+  atualizarProg();
+
+  document.getElementById('conteudo-aula').innerHTML = `
+    <div class="summary-header">
+      <div class="summary-disc">${aula.disciplina}</div>
+      <div class="summary-titulo">${aula.titulo}</div>
+    </div>
+    <div class="summary-body">${parseMd(aula.texto)}</div>`;
+}
+
+// Inicializa
+renderSidebar();
+if (RESUMOS.length > 0) selecionarAula(RESUMOS[0].id);
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+{
+  "concurso": "Câmara Municipal de Domingos Martins/ES",
+  "cargo": "Técnico em Informática",
+  "total_questoes": 40,
+  "total_pontos": 60,
+  "disciplinas": [
+    {
+      "nome": "Portugues",
+      "questoes": 10,
+      "pontos": 20,
+      "peso_por_questao": 2.0,
+      "topicos": [
+        "Fonologia: encontros vocálicos, dígrafos, ortoépia, divisão silábica, prosódia, acentuação, ortografia",
+        "Morfologia: estrutura e formação das palavras; classes de palavras",
+        "Sintaxe: termos da oração; período composto; concordância verbal e nominal; regência; crase; pontuação",
+        "Semântica: significação das palavras no texto",
+        "Interpretação de texto"
+      ]
+    },
+    {
+      "nome": "Raciocínio Lógico Matemático",
+      "questoes": 4,
+      "pontos": 4,
+      "peso_por_questao": 1.0,
+      "topicos": [
+        "Lógica dedutiva, argumentativa e quantitativa; lógica matemática qualitativa",
+        "Sequências lógicas (números, letras, figuras); progressões PA e PG",
+        "Regra de três simples e composta; razões especiais",
+        "Análise combinatória e probabilidade",
+        "Conjuntos (pertinência, inclusão, igualdade, operações)",
+        "Geometria plana, espacial e analítica; trigonometria",
+        "Equações e inequações de 1º e 2º grau; funções de 1º e 2º grau",
+        "Matrizes, determinantes e sistemas lineares; polinômios"
+      ]
+    },
+    {
+      "nome": "Conhecimentos Gerais",
+      "questoes": 3,
+      "pontos": 3,
+      "peso_por_questao": 1.0,
+      "topicos": [
+        "Atualidades: política, economia, sociedade, educação, tecnologia, energia, relações internacionais",
+        "Desenvolvimento sustentável, meio ambiente, segurança, artes, cultura, literatura",
+        "Vinculações históricas nos âmbitos municipal, estadual, nacional e internacional"
+      ]
+    },
+    {
+      "nome": "Informática Básica",
+      "questoes": 3,
+      "pontos": 3,
+      "peso_por_questao": 1.0,
+      "topicos": [
+        "Hardware de microcomputadores; noções de sistemas operacionais; MS-DOS; Windows",
+        "Processador de texto MS-Word; planilha MS-Excel; noções de banco de dados",
+        "Comunicação de dados; conceitos gerais de equipamentos; conceitos básicos de Internet"
+      ]
+    },
+    {
+      "nome": "Direito Administrativo e Constitucional",
+      "questoes": 5,
+      "pontos": 5,
+      "peso_por_questao": 1.0,
+      "topicos": [
+        "CF/1988: Princípios Fundamentais, Direitos e Garantias, Direitos Sociais, Organização do Estado, Administração Pública, Organização dos Poderes, Ordem Social",
+        "Organização Administrativa: centralização/descentralização; autarquia, fundação, empresa pública, SEM",
+        "Lei de Improbidade Administrativa (Lei nº 8.429/1992 + Lei nº 14.230/2021)",
+        "Licitações e Contratos Administrativos — Lei nº 14.133/2021: princípios, definições, modalidades, limites, dispensa e contratos",
+        "Processo Administrativo Federal (Lei nº 9.784/99)",
+        "Lei de Acesso à Informação (Lei nº 12.527/2011)",
+        "Lei Geral de Proteção de Dados — LGPD (Lei nº 13.709/2018)"
+      ]
+    },
+    {
+      "nome": "Legislação Específica",
+      "questoes": 5,
+      "pontos": 5,
+      "peso_por_questao": 1.0,
+      "topicos": [
+        "Lei Orgânica de Domingos Martins",
+        "Lei Complementar nº 56/2022 — Estatuto dos Servidores Públicos do Município de Domingos Martins",
+        "Resolução nº 199/2025 — Regimento Interno da Câmara Municipal de Domingos Martins/ES"
+      ]
+    },
+    {
+      "nome": "Hardware e Manutenção",
+      "questoes": 10,
+      "pontos": 20,
+      "peso_por_questao": 2.0,
+      "topicos": [
+        "Organização e arquitetura de computadores: hardware, software, SO, periféricos, memória, processador, armazenamento",
+        "Gerenciamento de memória, programas, processos, entrada e saída",
+        "Troca de peças (processador, memória, HD, placas de rede e vídeo); identificação e solução de problemas de hardware",
+        "Instalação e manutenção de impressoras laser e nobreaks",
+        "Configuração de BIOS; conceitos, tipos e configuração de RAID",
+        "Conceitos de virtualização",
+        "Confecção de patch cords e pontos de rede lógica; conectorização de patch panel",
+        "Conceitos básicos de comunicação de dados; cabeamento estruturado; redes sem fio",
+        "Modelo OSI; Protocolo TCP/IP v4 e v6; topologias de rede",
+        "Tecnologias Ethernet/Fast Ethernet/Gigabit Ethernet; par trançado Cat 5E e 6; fibras ópticas; wireless",
+        "Inclusão de computadores em domínio; configuração de rede em faixa pré-definida de IP",
+        "Compartilhamento de arquivos e impressoras",
+        "Servidores DHCP, DNS, Apache, IIS",
+        "Firewall, Proxy e VPN em ambientes Linux e Windows",
+        "Utilitários de resolução de problemas de redes",
+        "Configuração e protocolos de e-mail em estações e servidores Linux e Windows",
+        "Procedimentos de segurança; noções de vírus, worms e pragas virtuais",
+        "Aplicativos de segurança: antivírus, firewall, antispyware",
+        "Certificação digital; conceitos de criptografia",
+        "Noções de cibersegurança aplicada ao serviço público",
+        "Armazenamento em discos e fitas; conceitos, tipos e políticas de backup"
+      ]
+    }
+  ]
+}

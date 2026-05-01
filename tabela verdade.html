@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tabela Verdade – Material de Estudo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f0f1a;
+      color: #e0e0f0;
+      line-height: 1.7;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 2.5rem 1rem 2rem;
+      background: linear-gradient(135deg, #1a1a3e 0%, #2a1a4e 100%);
+      border-radius: 16px;
+      margin-bottom: 2.5rem;
+      border: 1px solid #3a2a6e;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      color: #a78bfa;
+      letter-spacing: 1px;
+    }
+    header p {
+      color: #94a3b8;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+
+    section {
+      background: #1a1a2e;
+      border: 1px solid #2a2a4e;
+      border-radius: 14px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      color: #a78bfa;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #2a2a4e;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      color: #c4b5fd;
+      margin: 1.2rem 0 0.6rem;
+    }
+
+    p { color: #cbd5e1; margin-bottom: 0.7rem; }
+
+    .destaque {
+      background: #12122a;
+      border-left: 4px solid #7c3aed;
+      border-radius: 0 8px 8px 0;
+      padding: 0.9rem 1.2rem;
+      margin: 1rem 0;
+      color: #e2e8f0;
+      font-style: italic;
+      font-size: 1.05rem;
+    }
+
+    .symbol-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .symbol-card {
+      background: #0f0f20;
+      border: 1px solid #312a6e;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .symbol-card .sym { font-size: 2rem; color: #a78bfa; }
+    .symbol-card .name { font-size: 0.85rem; color: #94a3b8; margin-top: 0.3rem; }
+    .symbol-card .desc { font-size: 0.8rem; color: #64748b; margin-top: 0.2rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+    thead th {
+      background: #2d1b69;
+      color: #ddd6fe;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    tbody tr { border-bottom: 1px solid #1e1e3a; }
+    tbody tr:hover { background: #1e1e3a; }
+    tbody td {
+      padding: 0.65rem 1rem;
+      text-align: center;
+      color: #cbd5e1;
+    }
+    .v { color: #4ade80; font-weight: bold; }
+    .f { color: #f87171; font-weight: bold; }
+    .highlight-row { background: #1f0f3a !important; }
+    .highlight-row td { color: #fff; }
+    .highlight-false td.result { color: #f87171 !important; font-size: 1.1rem; }
+    .highlight-true td.result { color: #4ade80 !important; font-size: 1.1rem; }
+
+    .op-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .op-block {
+      background: #0f0f20;
+      border: 1px solid #2a2a4e;
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .op-block h4 { color: #a78bfa; margin-bottom: 0.5rem; font-size: 0.95rem; }
+
+    .frase-box {
+      background: #0d0d1f;
+      border: 2px solid #7c3aed;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .frase-box .frase { font-size: 1.3rem; color: #e2e8f0; font-weight: 600; }
+    .frase-box .simbolo { font-size: 1.1rem; color: #a78bfa; margin-top: 0.5rem; }
+    .frase-box .legenda { font-size: 0.85rem; color: #64748b; margin-top: 0.4rem; }
+
+    .analise-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.8rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+    .analise-item.verdadeiro { background: #052e16; border-left: 3px solid #4ade80; }
+    .analise-item.falso { background: #2d0a0a; border-left: 3px solid #f87171; }
+    .analise-item .badge {
+      flex-shrink: 0;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    .badge.v-badge { background: #166534; color: #4ade80; }
+    .badge.f-badge { background: #7f1d1d; color: #f87171; }
+
+    .resumo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .resumo-card {
+      background: #0f0f20;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #2a2a4e;
+    }
+    .resumo-card .icon { font-size: 1.5rem; }
+    .resumo-card p { font-size: 0.85rem; color: #94a3b8; margin-top: 0.4rem; }
+
+    code {
+      background: #1e1e3a;
+      color: #c4b5fd;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      color: #475569;
+      font-size: 0.8rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #1e1e3a;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📊 Tabela Verdade</h1>
+  <p>Material de Estudo – Lógica Proposicional</p>
+</header>
+
+<!-- ═══════════════ 1. O QUE É ═══════════════ -->
+<section>
+  <h2>🧠 O que é a Tabela Verdade?</h2>
+  <p>
+    A <strong>Tabela Verdade</strong> é uma ferramenta da Lógica Proposicional que lista
+    <em>todas as combinações possíveis</em> de valores de uma proposição ou conjunto de
+    proposições, mostrando o resultado de cada combinação.
+  </p>
+  <p>
+    Em lógica, toda proposição tem exatamente <strong>dois valores possíveis</strong>:
+  </p>
+  <div style="display:flex; gap:1rem; margin:1rem 0; flex-wrap:wrap;">
+    <div style="flex:1; min-width:120px; background:#052e16; border-radius:10px; padding:1rem; text-align:center;">
+      <div style="font-size:2rem;">✅</div>
+      <div style="color:#4ade80; font-weight:bold; font-size:1.2rem;">V</div>
+      <div style="color:#94a3b8; font-size:0.85rem;">Verdadeiro</div>
+    </div>
+    <div style="flex:1; min-width:120px; background:#2d0a0a; border-radius:10px; padding:1rem; text-align:center;">
+      <div style="font-size:2rem;">❌</div>
+      <div style="color:#f87171; font-weight:bold; font-size:1.2rem;">F</div>
+      <div style="color:#94a3b8; font-size:0.85rem;">Falso</div>
+    </div>
+  </div>
+  <p>
+    Com <strong>n</strong> proposições, existem <code>2ⁿ</code> combinações possíveis.
+    Ex.: 2 proposições → <code>2² = 4</code> linhas; 3 proposições → <code>2³ = 8</code> linhas.
+  </p>
+</section>
+
+<!-- ═══════════════ 2. SÍMBOLOS ═══════════════ -->
+<section>
+  <h2>🔣 Símbolos Lógicos</h2>
+  <div class="symbol-grid">
+    <div class="symbol-card">
+      <div class="sym">¬</div>
+      <div class="name">NEGAÇÃO</div>
+      <div class="desc">NOT · "não"</div>
+    </div>
+    <div class="symbol-card">
+      <div class="sym">∧</div>
+      <div class="name">CONJUNÇÃO</div>
+      <div class="desc">AND · "e"</div>
+    </div>
+    <div class="symbol-card">
+      <div class="sym">∨</div>
+      <div class="name">DISJUNÇÃO</div>
+      <div class="desc">OR · "ou"</div>
+    </div>
+    <div class="symbol-card">
+      <div class="sym">→</div>
+      <div class="name">CONDICIONAL</div>
+      <div class="desc">IF…THEN · "se…então"</div>
+    </div>
+    <div class="symbol-card">
+      <div class="sym">↔</div>
+      <div class="name">BICONDICIONAL</div>
+      <div class="desc">"se e somente se"</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 3. OPERADORES ═══════════════ -->
+<section>
+  <h2>⚙️ Tabelas dos Operadores Básicos</h2>
+  <div class="op-grid">
+
+    <!-- NEGAÇÃO -->
+    <div class="op-block">
+      <h4>¬P — Negação (NOT)</h4>
+      <table>
+        <thead><tr><th>P</th><th>¬P</th></tr></thead>
+        <tbody>
+          <tr><td class="v">V</td><td class="f">F</td></tr>
+          <tr><td class="f">F</td><td class="v">V</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.8rem; color:#64748b; margin-top:0.6rem;">Inverte o valor da proposição.</p>
+    </div>
+
+    <!-- CONJUNÇÃO -->
+    <div class="op-block">
+      <h4>P ∧ Q — Conjunção (AND)</h4>
+      <table>
+        <thead><tr><th>P</th><th>Q</th><th>P ∧ Q</th></tr></thead>
+        <tbody>
+          <tr><td class="v">V</td><td class="v">V</td><td class="v">V</td></tr>
+          <tr><td class="v">V</td><td class="f">F</td><td class="f">F</td></tr>
+          <tr><td class="f">F</td><td class="v">V</td><td class="f">F</td></tr>
+          <tr><td class="f">F</td><td class="f">F</td><td class="f">F</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.8rem; color:#64748b; margin-top:0.6rem;">Verdadeiro <strong>apenas</strong> quando ambas são verdadeiras.</p>
+    </div>
+
+    <!-- DISJUNÇÃO -->
+    <div class="op-block">
+      <h4>P ∨ Q — Disjunção (OR)</h4>
+      <table>
+        <thead><tr><th>P</th><th>Q</th><th>P ∨ Q</th></tr></thead>
+        <tbody>
+          <tr><td class="v">V</td><td class="v">V</td><td class="v">V</td></tr>
+          <tr><td class="v">V</td><td class="f">F</td><td class="v">V</td></tr>
+          <tr><td class="f">F</td><td class="v">V</td><td class="v">V</td></tr>
+          <tr><td class="f">F</td><td class="f">F</td><td class="f">F</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.8rem; color:#64748b; margin-top:0.6rem;">Falso <strong>apenas</strong> quando ambas são falsas.</p>
+    </div>
+
+    <!-- CONDICIONAL -->
+    <div class="op-block">
+      <h4>P → Q — Condicional (IF…THEN)</h4>
+      <table>
+        <thead><tr><th>P</th><th>Q</th><th>P → Q</th></tr></thead>
+        <tbody>
+          <tr><td class="v">V</td><td class="v">V</td><td class="v">V</td></tr>
+          <tr class="highlight-row highlight-false">
+            <td class="v">V</td><td class="f">F</td><td class="result f">F</td>
+          </tr>
+          <tr><td class="f">F</td><td class="v">V</td><td class="v">V</td></tr>
+          <tr><td class="f">F</td><td class="f">F</td><td class="v">V</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.8rem; color:#64748b; margin-top:0.6rem;">Falso <strong>apenas</strong> quando P é verdadeiro e Q é falso.</p>
+    </div>
+
+    <!-- BICONDICIONAL -->
+    <div class="op-block">
+      <h4>P ↔ Q — Bicondicional</h4>
+      <table>
+        <thead><tr><th>P</th><th>Q</th><th>P ↔ Q</th></tr></thead>
+        <tbody>
+          <tr><td class="v">V</td><td class="v">V</td><td class="v">V</td></tr>
+          <tr><td class="v">V</td><td class="f">F</td><td class="f">F</td></tr>
+          <tr><td class="f">F</td><td class="v">V</td><td class="f">F</td></tr>
+          <tr><td class="f">F</td><td class="f">F</td><td class="v">V</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.8rem; color:#64748b; margin-top:0.6rem;">Verdadeiro apenas quando ambas têm o <strong>mesmo valor</strong>.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ 4. EXEMPLO PRINCIPAL ═══════════════ -->
+<section>
+  <h2>🌧️ Exemplo Prático</h2>
+
+  <div class="frase-box">
+    <div class="frase">"Se chover, não farei exercício."</div>
+    <div class="simbolo">P → ¬E</div>
+    <div class="legenda">Proposição Condicional</div>
+  </div>
+
+  <h3>🔤 Definindo as variáveis</h3>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0;">
+    <div style="background:#0f0f20; border:1px solid #2a2a4e; border-radius:10px; padding:1rem;">
+      <div style="color:#a78bfa; font-weight:bold; font-size:1rem;">P</div>
+      <div style="color:#e2e8f0; margin-top:0.3rem;">"Chove"</div>
+      <div style="color:#64748b; font-size:0.8rem; margin-top:0.2rem;">Antecedente (hipótese)</div>
+    </div>
+    <div style="background:#0f0f20; border:1px solid #2a2a4e; border-radius:10px; padding:1rem;">
+      <div style="color:#a78bfa; font-weight:bold; font-size:1rem;">E</div>
+      <div style="color:#e2e8f0; margin-top:0.3rem;">"Faço exercício"</div>
+      <div style="color:#64748b; font-size:0.2rem;"></div>
+    </div>
+  </div>
+  <p>
+    O "não farei exercício" é <code>¬E</code> (negação de E).
+    Portanto a frase completa vira: <code>P → ¬E</code>
+  </p>
+
+  <h3>📋 Tabela Verdade completa</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>P <span style="font-weight:normal; color:#94a3b8;">(Chove?)</span></th>
+        <th>E <span style="font-weight:normal; color:#94a3b8;">(Faz exercício?)</span></th>
+        <th>¬E <span style="font-weight:normal; color:#94a3b8;">(Não faz exercício?)</span></th>
+        <th>P → ¬E <span style="font-weight:normal; color:#94a3b8;">(Frase válida?)</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight-row highlight-false">
+        <td class="v">V</td>
+        <td class="v">V</td>
+        <td class="f">F</td>
+        <td class="result f">F</td>
+      </tr>
+      <tr>
+        <td class="v">V</td>
+        <td class="f">F</td>
+        <td class="v">V</td>
+        <td class="v">V</td>
+      </tr>
+      <tr>
+        <td class="f">F</td>
+        <td class="v">V</td>
+        <td class="f">F</td>
+        <td class="v">V</td>
+      </tr>
+      <tr>
+        <td class="f">F</td>
+        <td class="f">F</td>
+        <td class="v">V</td>
+        <td class="v">V</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>🔍 Análise linha a linha</h3>
+
+  <div class="analise-item falso">
+    <span class="badge f-badge">FALSO</span>
+    <div>
+      <strong style="color:#f87171;">Choveu E fez exercício</strong><br/>
+      <span style="color:#94a3b8; font-size:0.9rem;">Prometeu que se chovesse não faria exercício, mas fez mesmo assim → a promessa foi <em>quebrada</em>.</span>
+    </div>
+  </div>
+
+  <div class="analise-item verdadeiro">
+    <span class="badge v-badge">VERDADEIRO</span>
+    <div>
+      <strong style="color:#4ade80;">Choveu E NÃO fez exercício</strong><br/>
+      <span style="color:#94a3b8; font-size:0.9rem;">Choveu e cumpriu a promessa → não foi se exercitar. ✅</span>
+    </div>
+  </div>
+
+  <div class="analise-item verdadeiro">
+    <span class="badge v-badge">VERDADEIRO</span>
+    <div>
+      <strong style="color:#4ade80;">Não choveu E fez exercício</strong><br/>
+      <span style="color:#94a3b8; font-size:0.9rem;">A condição (chuva) não ocorreu → pode fazer o que quiser. A promessa não foi violada. ✅</span>
+    </div>
+  </div>
+
+  <div class="analise-item verdadeiro">
+    <span class="badge v-badge">VERDADEIRO</span>
+    <div>
+      <strong style="color:#4ade80;">Não choveu E NÃO fez exercício</strong><br/>
+      <span style="color:#94a3b8; font-size:0.9rem;">Não choveu e também não foi exercitar. A promessa não foi violada. ✅</span>
+    </div>
+  </div>
+
+  <div class="destaque">
+    💡 <strong>Regra de ouro do Condicional:</strong> P → Q é <span style="color:#f87171;">FALSO</span> somente quando
+    <em>a causa ocorreu (P = V)</em> mas <em>a consequência não aconteceu (Q = F)</em>.
+    Em todos os outros casos, é verdadeiro.
+  </div>
+</section>
+
+<!-- ═══════════════ 5. MACETE ═══════════════ -->
+<section>
+  <h2>💡 Macete para Memorizar</h2>
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-top:0.5rem;">
+    <div style="background:#0f0f20; border-radius:10px; padding:1rem; border:1px solid #2a2a4e; text-align:center;">
+      <div style="font-size:1.5rem;">¬</div>
+      <div style="color:#a78bfa; font-weight:bold; margin:0.3rem 0;">NEGAÇÃO</div>
+      <div style="color:#94a3b8; font-size:0.85rem;">"Troca tudo"<br/>V → F / F → V</div>
+    </div>
+    <div style="background:#0f0f20; border-radius:10px; padding:1rem; border:1px solid #2a2a4e; text-align:center;">
+      <div style="font-size:1.5rem;">∧</div>
+      <div style="color:#a78bfa; font-weight:bold; margin:0.3rem 0;">CONJUNÇÃO</div>
+      <div style="color:#94a3b8; font-size:0.85rem;">"Todos verdadeiros"<br/>V somente se ambos V</div>
+    </div>
+    <div style="background:#0f0f20; border-radius:10px; padding:1rem; border:1px solid #2a2a4e; text-align:center;">
+      <div style="font-size:1.5rem;">∨</div>
+      <div style="color:#a78bfa; font-weight:bold; margin:0.3rem 0;">DISJUNÇÃO</div>
+      <div style="color:#94a3b8; font-size:0.85rem;">"Pelo menos um"<br/>F somente se ambos F</div>
+    </div>
+    <div style="background:#0f0f20; border-radius:10px; padding:1rem; border:1px solid #2a2a4e; text-align:center;">
+      <div style="font-size:1.5rem;">→</div>
+      <div style="color:#a78bfa; font-weight:bold; margin:0.3rem 0;">CONDICIONAL</div>
+      <div style="color:#94a3b8; font-size:0.85rem;">"Mentiroso suspeito"<br/>F somente se V→F</div>
+    </div>
+    <div style="background:#0f0f20; border-radius:10px; padding:1rem; border:1px solid #2a2a4e; text-align:center;">
+      <div style="font-size:1.5rem;">↔</div>
+      <div style="color:#a78bfa; font-weight:bold; margin:0.3rem 0;">BICONDICIONAL</div>
+      <div style="color:#94a3b8; font-size:0.85rem;">"Iguais"<br/>V somente se iguais</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 6. EXERCÍCIOS ═══════════════ -->
+<section>
+  <h2>✏️ Exercite-se!</h2>
+  <p>Tente montar a tabela verdade das frases abaixo usando o modelo aprendido:</p>
+
+  <div style="display:grid; gap:1rem; margin-top:1rem;">
+    <div style="background:#0f0f20; border-radius:10px; padding:1.2rem; border-left:4px solid #7c3aed;">
+      <div style="color:#a78bfa; font-weight:bold;">Exercício 1</div>
+      <div style="color:#e2e8f0; margin-top:0.4rem;">"Se estudar, passarei na prova."</div>
+      <div style="color:#64748b; font-size:0.85rem; margin-top:0.3rem;">Dica: E → P</div>
+    </div>
+    <div style="background:#0f0f20; border-radius:10px; padding:1.2rem; border-left:4px solid #7c3aed;">
+      <div style="color:#a78bfa; font-weight:bold;">Exercício 2</div>
+      <div style="color:#e2e8f0; margin-top:0.4rem;">"Estudo ou jogo videogame."</div>
+      <div style="color:#64748b; font-size:0.85rem; margin-top:0.3rem;">Dica: E ∨ J</div>
+    </div>
+    <div style="background:#0f0f20; border-radius:10px; padding:1.2rem; border-left:4px solid #7c3aed;">
+      <div style="color:#a78bfa; font-weight:bold;">Exercício 3 ⭐ (avançado)</div>
+      <div style="color:#e2e8f0; margin-top:0.4rem;">"Se não chover e eu tiver disposição, farei exercício."</div>
+      <div style="color:#64748b; font-size:0.85rem; margin-top:0.3rem;">Dica: (¬C ∧ D) → E — 3 variáveis = 8 linhas</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  📚 Material de Estudo – Lógica Proposicional &nbsp;|&nbsp; Tabela Verdade &nbsp;|&nbsp; 2026
+</footer>
+
+</body>
+</html>

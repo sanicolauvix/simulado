@@ -1,0 +1,228 @@
+# Tendências CESGRANRIO — O Que Não Pode Faltar
+## Petrobras | Correios | Casa da Moeda | Nível Médio
+### Análise baseada nas provas de 2010 a 2024
+
+---
+
+> **Como ler este documento:**
+> 🔴 CRÍTICO — cai em praticamente todas as provas, estude primeiro
+> 🟡 IMPORTANTE — cai com frequência alta, não ignore
+> 🟢 COMPLEMENTAR — aparece às vezes, estude depois dos anteriores
+
+---
+
+## 📘 LÍNGUA PORTUGUESA
+*10 a 12 questões | Disciplina com mais peso*
+
+### 🔴 CRÍTICO — Estude primeiro
+
+**Interpretação e Compreensão de Texto**
+- Identificação da ideia principal e secundária
+- Inferências e conclusões do texto
+- Vocabulário contextual (o que a palavra significa NAQUELE contexto)
+- Recursos argumentativos do autor
+- Relações de causa, consequência, oposição, adição
+- *A CESGRANRIO usa textos jornalísticos e científicos — treinar com textos formais*
+
+**Coesão e Coerência Textual**
+- Conectivos e conjunções (mas, portanto, porém, embora, logo...)
+- Referência pronominal (a quem o pronome se refere?)
+- Progressão temática do texto
+
+### 🟡 IMPORTANTE
+
+**Gramática**
+- Concordância verbal: sujeito composto, verbos impessoais (haver, fazer)
+- Concordância nominal: adjetivos com múltiplos substantivos
+- Regência verbal: verbos que mais caem → assistir, visar, aspirar, obedecer, preferir
+- Crase: regras gerais e exceções mais cobradas
+- Pontuação: uso da vírgula (especialmente em orações subordinadas)
+
+**Ortografia**
+- Nova reforma ortográfica de 2009 (hífen, trema, acentuação)
+- Palavras que mudam com o acento: para/pára, pelo/pêlo
+
+### 🟢 COMPLEMENTAR
+- Figuras de linguagem (metáfora, metonímia, ironia — identificar no texto)
+- Funções da linguagem
+- Variação linguística
+
+---
+
+## 📗 MATEMÁTICA
+*6 a 8 questões | Segunda disciplina com mais peso*
+
+### 🔴 CRÍTICO
+
+**Porcentagem e Proporção**
+- Cálculo de porcentagem simples e composta
+- Aumento e desconto percentual
+- Razão e proporção direta e inversa
+- Regra de três simples e composta
+- *Presente em 100% das provas CESGRANRIO nível médio analisadas*
+
+**Juros**
+- Juros simples: fórmula J = C.i.t
+- Juros compostos: M = C.(1+i)^t
+- Montante, capital, taxa e tempo
+- *A CESGRANRIO cobra juros compostos frequentemente — não pule este tema*
+
+### 🟡 IMPORTANTE
+
+**Estatística Básica**
+- Média aritmética simples e ponderada
+- Mediana e moda
+- Interpretação de gráficos e tabelas (tabela de frequência, pizza, barras)
+- *Muito cobrado nas provas de Correios e Petrobras*
+
+**Probabilidade**
+- Espaço amostral e eventos
+- Probabilidade simples P = casos favoráveis / total
+- Probabilidade de eventos independentes
+
+**Geometria Plana**
+- Área e perímetro: quadrado, retângulo, triângulo, círculo
+- Teorema de Pitágoras aplicado
+- Semelhança de triângulos
+
+### 🟢 COMPLEMENTAR
+- Sequências numéricas (PA e PG básicas)
+- Análise combinatória (combinação, permutação, arranjo)
+- Equações de 1° e 2° grau
+
+---
+
+## 💻 INFORMÁTICA
+*4 a 6 questões | Estilo específico da CESGRANRIO*
+
+> ⚠️ A CESGRANRIO tem estilo diferente de outras bancas:
+> cobra conceitos com aplicação prática, não decoreba pura.
+
+### 🔴 CRÍTICO
+
+**Microsoft Office (Word e Excel)**
+- Word: formatação, mala direta, estilos, tabelas, controle de alterações
+- Excel: fórmulas cobradas → SOMA, MÉDIA, SE, CONT.SE, PROCV
+- Excel: referência absoluta ($) vs relativa
+- Atalhos de teclado mais usados (Ctrl+C, Ctrl+Z, Ctrl+S, F2, F4...)
+- *Em toda prova há pelo menos 1 questão de Excel com fórmula*
+
+**Segurança da Informação**
+- Tipos de vírus/malware: vírus, worm, trojan, ransomware, spyware
+- Phishing, engenharia social
+- Backup: tipos (completo, incremental, diferencial)
+- Firewall, antivírus: função e diferença
+- Certificado digital e assinatura digital
+
+### 🟡 IMPORTANTE
+
+**Internet e Navegadores**
+- Protocolos: HTTP vs HTTPS (diferença de segurança)
+- DNS, IP, URL: o que cada um significa
+- Cookies e cache: o que são e para que servem
+- Download vs Upload
+- Navegadores: Chrome, Firefox, Edge — funcionalidades básicas
+
+**Sistemas Operacionais**
+- Windows: Painel de Controle, Gerenciador de Tarefas, Explorador de Arquivos
+- Conceitos: processo, thread, memória virtual
+- Tipos de sistemas de arquivo: FAT32, NTFS, exFAT
+- Linux: conceito básico (não aprofundar muito para este nível)
+
+### 🟢 COMPLEMENTAR
+- Redes de computadores: topologias, LAN/WAN, roteador vs switch
+- Banco de dados: conceito de tabela, chave primária
+- Hardware: HD, SSD, RAM, processador (conceitos básicos)
+- Nuvem (cloud): IaaS, PaaS, SaaS (conceito básico)
+
+---
+
+## 🔢 RACIOCÍNIO LÓGICO
+*4 a 6 questões | Disciplina que mais elimina candidatos*
+
+### 🔴 CRÍTICO
+
+**Lógica Proposicional**
+- Conectivos: E (∧), OU (∨), SE...ENTÃO (→), SE E SOMENTE SE (↔), NÃO (¬)
+- Tabela verdade
+- Negação de proposições compostas (Lei de Morgan)
+- Equivalência lógica
+- *A CESGRANRIO adora questões de negação de proposições*
+
+**Argumentos e Inferências**
+- Modus ponens: Se P→Q e P, então Q
+- Modus tollens: Se P→Q e ¬Q, então ¬P
+- Silogismo válido vs inválido
+
+### 🟡 IMPORTANTE
+
+**Lógica de Conjuntos**
+- Diagramas de Venn (2 e 3 conjuntos)
+- União, interseção, complementar
+- Problemas com "pelo menos um", "exatamente um", "todos"
+
+**Sequências e Padrões**
+- Sequências numéricas com operações entre termos
+- Sequências de figuras geométricas (raciocínio visual)
+
+### 🟢 COMPLEMENTAR
+- Raciocínio analítico (organização de informações em tabelas)
+- Problemas de lógica situacional ("entre A, B, C, apenas um fala a verdade...")
+
+---
+
+## ⚡ CONHECIMENTOS ESPECÍFICOS (Elétrica/Eletrônica)
+*Se for concorrer para cargo técnico na área*
+
+### 🔴 CRÍTICO para sua área
+
+**Instalações Elétricas**
+- NR-10 (Segurança em Instalações Elétricas) — muito cobrado na Petrobras
+- Tipos de condutores e bitolas (seção transversal, corrente máxima)
+- Diagramas unifilares e multifilares
+- Dimensionamento de circuitos (carga, corrente, disjuntor)
+
+**Circuitos Elétricos**
+- Lei de Ohm: V = R.I
+- Leis de Kirchhoff (LKC e LKT)
+- Associação de resistores (série e paralelo)
+- Potência elétrica: P = V.I = R.I² = V²/R
+- Fator de potência (corrente alternada)
+
+**Grandezas e Unidades**
+- Volt, Ampere, Ohm, Watt, kWh
+- Transformadores: relação de transformação
+- Motores elétricos: princípio básico e tipos
+
+---
+
+## 📊 RANKING DE PRIORIDADE (Resumo Final)
+
+| Prioridade | Tema | Por que não pode ignorar |
+|-----------|------|--------------------------|
+| 1° | Interpretação de Texto | 10+ questões, sempre presente |
+| 2° | Porcentagem e Juros | Sempre cai, fórmulas diretas |
+| 3° | Concordância e Regência | 3-4 questões garantidas |
+| 4° | Excel com fórmulas | Questão certa na prova |
+| 5° | Lógica Proposicional | Elimina muita gente — se souber, vantagem |
+| 6° | Segurança da Informação | Toda prova de TI cobra isso |
+| 7° | Estatística Básica | Gráficos e médias — aplicado |
+| 8° | Probabilidade | Frequente em Petrobras e Correios |
+| 9° | NR-10 | Específico e muito cobrado na Petrobras |
+| 10° | Legislação e Ética | 2-4 questões, fáceis se estudar |
+
+---
+
+## 🎯 DICA ESTRATÉGICA CESGRANRIO
+
+A CESGRANRIO tem um padrão claro:
+- **Português** é sempre o bloco maior — quem vai bem aqui, já larga na frente
+- **Matemática** cai com contexto de problema real (não é conta solta)
+- **Informática** é prática — cobra situações reais de uso do computador
+- **Nunca anula questão** — marque sempre, nunca deixe em branco
+- As alternativas têm um **"distrator técnico"** claro — uma alternativa que parece certa mas tem um detalhe errado. Ler todas antes de marcar!
+
+---
+
+*Gerado em Março 2026 | Baseado em análise de provas CESGRANRIO 2010–2024*
+*Atualizar conforme novos editais forem publicados*
