@@ -1127,63 +1127,59 @@ async function iniciarSimulado(modoTreino) {
   }
 }
 
-/* ── Gera questões via Claude API seguindo o EDITAL ── */
-async function gerarQuestoesAPI(qtd = 80) {
+/* ── Gera questões por disciplina (uma chamada por disciplina) ── */
+async function gerarQuestoesAPI(qtd = 40) {
   const nivel = NIVEIS[st.nivel - 1];
-  const temasRecentes = st.temasVistos.slice(-60);
-
-  // Distribui proporcionalmente ao edital (base=40, dobro=80)
+  const temasRecentes = st.temasVistos.slice(-30);
   const fator = qtd / EDITAL.total_questoes;
+
+  // Calcula quantas questões por disciplina
   const dist = EDITAL.disciplinas.map(d => ({
-    nome: d.nome,
-    qtd: Math.round(d.questoes * fator),
-    topicos: d.topicos
+    ...d,
+    qtdQuestoes: Math.max(1, Math.round(d.questoes * fator))
   }));
-  // Ajusta arredondamento para bater no total exato
-  const somaAtual = dist.reduce((a, d) => a + d.qtd, 0);
-  if (somaAtual !== qtd) dist[0].qtd += (qtd - somaAtual);
+  const soma = dist.reduce((a, d) => a + d.qtdQuestoes, 0);
+  if (soma !== qtd) dist[0].qtdQuestoes += (qtd - soma);
 
-  const linhasDist = dist
-    .map(d => `- ${d.nome}: ${d.qtd} questões`)
-    .join('\n');
+  const todas = [];
+  for (let i = 0; i < dist.length; i++) {
+    const disc = dist[i];
+    document.getElementById('loading-sub').textContent =
+      `${disc.nome} (${i + 1}/${dist.length})...`;
+    const qs = await gerarDisciplina(disc, nivel, temasRecentes);
+    todas.push(...qs);
+  }
 
-  const linhasTopicos = dist.map(d =>
-    `${d.nome}:\n${d.topicos.map(t => `  • ${t}`).join('\n')}`
-  ).join('\n\n');
+  return embaralhar(todas);
+}
 
-  const prompt = `Você é um especialista em concursos públicos brasileiros, banca CESGRANRIO, criando um simulado para o concurso de ${EDITAL.cargo} da ${EDITAL.concurso}.
+async function gerarDisciplina(disc, nivel, temasRecentes) {
+  const topicosStr = disc.topicos.map(t => `• ${t}`).join('\n');
+  const avisoLP = disc.nome === 'Língua Portuguesa' && disc.qtdQuestoes >= 3
+    ? '\n- Inclua ao menos 2 questões com texto de apoio para interpretação de texto' : '';
+  const avisoLeg = disc.nome === 'Legislação Específica'
+    ? '\n- Baseie-se na estrutura típica de leis orgânicas, estatutos municipais e regimentos internos de câmaras' : '';
+  const avisoHW = disc.nome === 'Hardware e Manutenção'
+    ? '\n- Priorize cenários práticos: diagnóstico de falha, configuração de rede, segurança, backup' : '';
 
-Gere exatamente ${qtd} questões de múltipla escolha seguindo RIGOROSAMENTE o edital deste concurso.
+  const prompt = `Você é professor especialista em concursos públicos, banca CESGRANRIO.
+Concurso: ${EDITAL.cargo} — ${EDITAL.concurso}
 
-DISTRIBUIÇÃO OBRIGATÓRIA (conforme edital):
-${linhasDist}
+Gere EXATAMENTE ${disc.qtdQuestoes} questões de múltipla escolha sobre: ${disc.nome}
 
-TÓPICOS DO EDITAL por disciplina (as questões DEVEM abordar estes conteúdos):
-${linhasTopicos}
+TÓPICOS a abordar (varie entre eles):
+${topicosStr}
+${temasRecentes.length > 0 ? `\nEvite temas recentes: ${temasRecentes.slice(-15).join(', ')}` : ''}
 
-${temasRecentes.length > 0 ? `Evite repetir estes temas usados recentemente: ${temasRecentes.join(', ')}.` : ''}
+Nível: ${nivel.nome} — ${nivel.prompt}
 
-Nível de dificuldade — ${nivel.nome}: ${nivel.prompt}
+REGRAS OBRIGATÓRIAS:
+- Cada questão DEVE ter "explicacao" com análise de todas as 5 alternativas${avisoLP}${avisoLeg}${avisoHW}
+- Todas as questões devem ser sobre temas diferentes
 
-ATENÇÃO ESPECIAL:
-- Língua Portuguesa: inclua ao menos 2 questões com texto de apoio para interpretação
-- Hardware e Manutenção: questões técnicas e práticas, cenários reais de suporte
-- Legislação Específica: baseie-se na estrutura típica de leis orgânicas, estatutos de servidores e regimentos internos municipais
-- Direito Administrativo: priorize CF/1988, Lei 14.133/2021 e LGPD — temas mais cobrados
-
-Retorne SOMENTE um array JSON válido. Sem texto antes ou depois. Sem markdown. Sem \`\`\`json.
-Cada objeto deve ter EXATAMENTE estes campos:
-{
-  "disciplina": "nome da disciplina (igual à distribuição acima)",
-  "tema": "tema específico da questão",
-  "textoBase": null ou "texto de apoio (obrigatório em questões de interpretação de texto)",
-  "enunciado": "enunciado completo da questão",
-  "alts": {"A": "...", "B": "...", "C": "...", "D": "...", "E": "..."},
-  "gabarito": "letra correta (A, B, C, D ou E)",
-  "dica1": {"area": "área geral do conhecimento", "materia": "matéria específica", "raciocinio": "bússola: o QUE fazer para resolver, sem entregar a resposta"},
-  "dica2": "um passo além: aponta o método ou fórmula, mas não faz a conta",
-  "explicacao": "explicação completa indicando por que cada alternativa está certa ou errada"
-}`;
+Retorne SOMENTE um array JSON. Sem texto extra. Sem markdown.
+Cada objeto com TODOS estes campos:
+{"disciplina":"${disc.nome}","tema":"tema específico","textoBase":null,"enunciado":"enunciado completo","alts":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"gabarito":"A","dica1":{"area":"área","materia":"matéria","raciocinio":"o QUE fazer, sem dar a resposta"},"dica2":"um passo além sem resolver","explicacao":"por que cada alternativa está certa ou errada"}`;
 
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -1195,32 +1191,38 @@ Cada objeto deve ter EXATAMENTE estes campos:
     },
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 16000,
+      max_tokens: 8000,
       messages: [{ role: 'user', content: prompt }]
     })
   });
 
   if (!resp.ok) {
     const txt = await resp.text();
-    throw new Error(`HTTP ${resp.status}: ${txt.slice(0, 200)}`);
+    throw new Error(`HTTP ${resp.status} em ${disc.nome}: ${txt.slice(0, 200)}`);
   }
 
   const data = await resp.json();
-  let texto = data.content[0].text.trim();
+  let texto = data.content[0].text.trim()
+    .replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '').trim();
 
-  // Remove marcadores markdown se presentes
-  texto = texto.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '').trim();
-
-  // Encontra o início do array JSON
   const inicio = texto.indexOf('[');
   const fim = texto.lastIndexOf(']');
-  if (inicio === -1 || fim === -1) throw new Error('Resposta da API não contém JSON válido.');
-  texto = texto.slice(inicio, fim + 1);
+  if (inicio === -1 || fim === -1) throw new Error(`JSON ausente para ${disc.nome}`);
+  const questoes = JSON.parse(texto.slice(inicio, fim + 1));
+  if (!Array.isArray(questoes)) throw new Error(`Resposta inválida para ${disc.nome}`);
 
-  const questoes = JSON.parse(texto);
-  if (!Array.isArray(questoes) || questoes.length === 0) throw new Error('Array de questões vazio.');
-
-  return questoes;
+  // Garante que todos os campos obrigatórios existam
+  return questoes.map(q => ({
+    disciplina: q.disciplina || disc.nome,
+    tema:       q.tema       || disc.nome,
+    textoBase:  q.textoBase  || null,
+    enunciado:  q.enunciado  || '(enunciado não gerado)',
+    alts:       q.alts       || { A: '—', B: '—', C: '—', D: '—', E: '—' },
+    gabarito:   q.gabarito   || 'A',
+    dica1:      q.dica1      || { area: disc.nome, materia: q.tema || disc.nome, raciocinio: 'Analise o contexto da questão.' },
+    dica2:      q.dica2      || 'Revise o conteúdo do tópico.',
+    explicacao: q.explicacao || 'Explicação não disponível.'
+  }));
 }
 
 function embaralhar(arr) {
