@@ -1102,19 +1102,11 @@ async function iniciarSimulado(modoTreino) {
   const totalQ = EDITAL.total_questoes * st.multiplicador;
 
   try {
-    if (temLocal) {
-      const metade = Math.floor(totalQ / 2);
-      document.getElementById('loading-txt').textContent = `Gerando ${metade} questões inéditas + ${metade} do banco de provas...`;
-      document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome} · ${st.multiplicador}×`;
-      const apiQs   = await gerarQuestoesAPI(metade);
-      const reaisQs = localDisp.slice(0, metade);
-      comecarSimulado(embaralhar([...apiQs, ...reaisQs]), false);
-    } else {
-      document.getElementById('loading-txt').textContent = `Gerando ${totalQ} questões inéditas com IA...`;
-      document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome} · ${st.multiplicador}×`;
-      const questoes = await gerarQuestoesAPI(totalQ);
-      comecarSimulado(questoes, false);
-    }
+    // Simulado oficial: sempre 100% gerado pela IA seguindo o edital
+    document.getElementById('loading-txt').textContent = `Gerando ${totalQ} questões seguindo o edital...`;
+    document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome} · ${st.multiplicador}×`;
+    const questoes = await gerarQuestoesAPI(totalQ);
+    comecarSimulado(questoes, false);
   } catch (e) {
     console.error('Erro API:', e);
     document.getElementById('loading-txt').textContent = 'API indisponível — usando banco offline...';
