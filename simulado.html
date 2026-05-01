@@ -80,6 +80,13 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 .countdown-timer.liberado{color:#4ade80;}
 .botoes-dash{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
 .botoes-dash .btn{flex:1;min-width:140px;text-align:center;}
+.mult-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.mult-label{font-size:12px;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-right:4px;}
+.mult-btn{background:rgba(255,255,255,.04);border:1px solid #1a1a5a;border-radius:20px;color:#888;
+  padding:6px 14px;cursor:pointer;font-size:13px;font-family:inherit;transition:all .2s;white-space:nowrap;}
+.mult-btn:hover{border-color:#444;color:#ccc;}
+.mult-btn.active{background:rgba(255,215,0,.12);border-color:#FFD700;color:#FFD700;font-weight:bold;}
+.mult-info{font-size:10px;opacity:.7;margin-left:2px;}
 .grid-notas{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:24px;}
 .nota-card{background:rgba(255,255,255,.03);border:1px solid #1a1a5a;border-radius:10px;padding:12px;text-align:center;}
 .nota-disc{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
@@ -331,6 +338,14 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
         <button class="btn btn-ghost" style="padding:8px 14px;font-size:12px;" onclick="mostrarTela('tela-importar')">📥 Importar PDF</button>
         <button class="btn btn-ghost" style="padding:8px 14px;font-size:12px;" onclick="resetarDominadas()">🔄 Resetar</button>
       </div>
+    </div>
+
+    <!-- Multiplicador de questões -->
+    <div class="mult-row fade">
+      <span class="mult-label">Intensidade:</span>
+      <button class="mult-btn active" id="mult-1" onclick="setMultiplicador(1)">1× <span class="mult-info">40q · peso real</span></button>
+      <button class="mult-btn" id="mult-2" onclick="setMultiplicador(2)">2× <span class="mult-info">80q · peso ½</span></button>
+      <button class="mult-btn" id="mult-3" onclick="setMultiplicador(3)">3× <span class="mult-info">120q · peso ⅓</span></button>
     </div>
 
     <!-- Botões -->
@@ -777,6 +792,7 @@ function carregarEstado() {
   st = {
     apiKey:         localStorage.getItem('simulado_api_key') || '',
     nivel:          parseInt(localStorage.getItem('simulado_nivel') || '1'),
+    multiplicador:  parseInt(localStorage.getItem('simulado_mult') || '1'),
     historico:      JSON.parse(localStorage.getItem('simulado_historico') || '[]'),
     temasVistos:    JSON.parse(localStorage.getItem('simulado_temas_vistos') || '[]'),
     nivelHistorico: JSON.parse(localStorage.getItem('simulado_nivel_hist') || '[]')
@@ -786,9 +802,25 @@ function carregarEstado() {
 function salvarEstado() {
   localStorage.setItem('simulado_api_key',    st.apiKey);
   localStorage.setItem('simulado_nivel',       String(st.nivel));
+  localStorage.setItem('simulado_mult',        String(st.multiplicador));
   localStorage.setItem('simulado_historico',   JSON.stringify(st.historico));
   localStorage.setItem('simulado_temas_vistos',JSON.stringify(st.temasVistos));
   localStorage.setItem('simulado_nivel_hist',  JSON.stringify(st.nivelHistorico));
+}
+
+function setMultiplicador(n) {
+  st.multiplicador = n;
+  salvarEstado();
+  [1, 2, 3].forEach(i => {
+    document.getElementById(`mult-${i}`).classList.toggle('active', i === n);
+  });
+}
+
+// Retorna o peso em pontos de uma questão dado o multiplicador atual
+function pesoQuestao(disciplina) {
+  const disc = EDITAL.disciplinas.find(d => d.nome === disciplina);
+  if (!disc) return 1 / st.multiplicador;
+  return (disc.pontos / disc.questoes) / st.multiplicador;
 }
 
 /* ============================================================
@@ -900,6 +932,11 @@ function salvarChave() {
    ============================================================ */
 function renderDashboard() {
   const nivel = NIVEIS[st.nivel - 1];
+
+  // Sincroniza botões de multiplicador
+  [1, 2, 3].forEach(i => {
+    document.getElementById(`mult-${i}`).classList.toggle('active', i === st.multiplicador);
+  });
 
   // Banner de nível
   document.getElementById('dash-nivel-nome').textContent = nivel.nome;
@@ -1062,19 +1099,20 @@ async function iniciarSimulado(modoTreino) {
   mostrarTela('tela-loading');
   document.getElementById('loading-erro').classList.add('oculto');
 
+  const totalQ = EDITAL.total_questoes * st.multiplicador;
+
   try {
     if (temLocal) {
-      // Mix: 40 inéditas da IA + 40 de provas reais importadas
-      document.getElementById('loading-txt').textContent = 'Gerando 40 questões inéditas + 40 do banco de provas...';
-      document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome}`;
-      const apiQs    = await gerarQuestoesAPI(40);
-      const reaisQs  = localDisp.slice(0, 40);
+      const metade = Math.floor(totalQ / 2);
+      document.getElementById('loading-txt').textContent = `Gerando ${metade} questões inéditas + ${metade} do banco de provas...`;
+      document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome} · ${st.multiplicador}×`;
+      const apiQs   = await gerarQuestoesAPI(metade);
+      const reaisQs = localDisp.slice(0, metade);
       comecarSimulado(embaralhar([...apiQs, ...reaisQs]), false);
     } else {
-      // Sem banco local: gera 80 totalmente via API
-      document.getElementById('loading-txt').textContent = 'Gerando 80 questões inéditas com IA...';
-      document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome}`;
-      const questoes = await gerarQuestoesAPI(80);
+      document.getElementById('loading-txt').textContent = `Gerando ${totalQ} questões inéditas com IA...`;
+      document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome} · ${st.multiplicador}×`;
+      const questoes = await gerarQuestoesAPI(totalQ);
       comecarSimulado(questoes, false);
     }
   } catch (e) {
@@ -1393,13 +1431,20 @@ function calcularCorrecao() {
   const totalAcertos = questoes.filter((q, i) => respostas[i] === q.gabarito).length;
   const totalPct = Math.round(totalAcertos / questoes.length * 100);
 
+  // Pontuação ponderada pelo edital (total máximo = EDITAL.total_pontos, independente do multiplicador)
+  let pontosObtidos = 0;
+  questoes.forEach((q, i) => {
+    if (respostas[i] === q.gabarito) pontosObtidos += pesoQuestao(q.disciplina);
+  });
+  pontosObtidos = Math.round(pontosObtidos * 10) / 10;
+
   // Notas por disciplina em %
   const notas = {};
   Object.entries(discMap).forEach(([d, v]) => {
     notas[d] = Math.round(v.acertos / v.total * 100);
   });
 
-  sessao.ultimoResultado = { discMap, totalAcertos, totalPct, notas };
+  sessao.ultimoResultado = { discMap, totalAcertos, totalPct, pontosObtidos, notas };
 
   // Salva questões erradas no banco do Show do Saber
   salvarErrosNoSDS(questoes, respostas);
@@ -1432,11 +1477,14 @@ function renderCorrecao() {
   const total = sessao.questoes.length;
 
   // Nota geral
-  document.getElementById('nota-geral-txt').textContent = `${totalAcertos} / ${total}`;
+  const { pontosObtidos } = sessao.ultimoResultado;
+  document.getElementById('nota-geral-txt').textContent =
+    sessao.modoTreino ? `${totalAcertos} / ${total}` : `${pontosObtidos} / ${EDITAL.total_pontos} pts`;
   const cls = totalPct >= 70 ? 'verde' : totalPct >= 50 ? 'amarelo' : 'vermelho';
   document.getElementById('nota-geral-txt').className = 'nota-geral ' + cls;
+  const multInfo = st.multiplicador > 1 ? ` · ${st.multiplicador}× (${total}q)` : ` · ${total} questões`;
   document.getElementById('nota-geral-sub').textContent =
-    `${totalPct}% de aproveitamento${sessao.modoTreino ? ' (Modo Treino)' : ''}`;
+    `${totalPct}% de aproveitamento${sessao.modoTreino ? ' (Modo Treino)' : multInfo}`;
 
   // Banner de nível up
   const nivelUpBox = document.getElementById('nivel-up-box');
