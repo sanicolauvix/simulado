@@ -1037,8 +1037,12 @@ async function iniciarSimulado(modoTreino) {
   // ── SIMULADO OFICIAL ──
   const bancoLocal  = carregarBancoLocal();
   const dominadas   = carregarDominadas();
-  const localDisp   = embaralhar(bancoLocal.filter(q => !dominadas.has(idQ(q))));
-  const temLocal    = localDisp.length >= 20; // há questões de provas reais suficientes
+  // Filtra banco local para só usar disciplinas do edital atual
+  const editalDiscs = new Set(EDITAL.disciplinas.map(d => d.nome));
+  const localDisp   = embaralhar(bancoLocal.filter(q =>
+    !dominadas.has(idQ(q)) && editalDiscs.has(q.disciplina)
+  ));
+  const temLocal    = localDisp.length >= 20; // há questões compatíveis suficientes
 
   if (!st.apiKey) {
     // Sem API: usa banco local se tiver questões, senão fallback embutido
