@@ -800,6 +800,8 @@ const BANCO_FALLBACK = [
    ============================================================ */
 let st = {}; // estado global
 
+const MAX_HIST_SIMULADOS = 10;
+
 function carregarEstado() {
   st = {
     apiKey:         localStorage.getItem('simulado_api_key') || '',
@@ -807,7 +809,6 @@ function carregarEstado() {
     multiplicador:  parseInt(localStorage.getItem('simulado_mult') || '1'),
     editalIdx:      parseInt(localStorage.getItem('simulado_edital') || '0'),
     historico:      JSON.parse(localStorage.getItem('simulado_historico') || '[]'),
-    temasVistos:    JSON.parse(localStorage.getItem('simulado_temas_vistos') || '[]'),
     nivelHistorico: JSON.parse(localStorage.getItem('simulado_nivel_hist') || '[]')
   };
 }
@@ -818,8 +819,43 @@ function salvarEstado() {
   localStorage.setItem('simulado_mult',        String(st.multiplicador));
   localStorage.setItem('simulado_edital',      String(st.editalIdx));
   localStorage.setItem('simulado_historico',   JSON.stringify(st.historico));
-  localStorage.setItem('simulado_temas_vistos',JSON.stringify(st.temasVistos));
   localStorage.setItem('simulado_nivel_hist',  JSON.stringify(st.nivelHistorico));
+}
+
+// Salva snapshot leve do simulado (disciplina + tema + início do enunciado)
+function salvarHistoricoQuestoes(questoes) {
+  const chave = 'simulado_hist_q';
+  const hist = JSON.parse(localStorage.getItem(chave) || '[]');
+  const snapshot = {
+    data:      new Date().toLocaleDateString('pt-BR'),
+    editalIdx: st.editalIdx,
+    nivel:     st.nivel,
+    questoes:  questoes.map(q => ({
+      d: q.disciplina,
+      t: q.tema,
+      e: (q.enunciado || '').slice(0, 60)
+    }))
+  };
+  hist.push(snapshot);
+  // Mantém só os últimos MAX_HIST_SIMULADOS
+  if (hist.length > MAX_HIST_SIMULADOS) hist.splice(0, hist.length - MAX_HIST_SIMULADOS);
+  localStorage.setItem(chave, JSON.stringify(hist));
+}
+
+// Retorna temas e fragmentos de enunciado usados para uma disciplina nos últimos simulados
+function historicoDisc(nomeDisciplina) {
+  const hist = JSON.parse(localStorage.getItem('simulado_hist_q') || '[]');
+  const temas = [], enunciados = [];
+  hist.forEach(s => {
+    if (s.editalIdx !== st.editalIdx) return; // só do mesmo edital
+    s.questoes.forEach(q => {
+      if (q.d === nomeDisciplina) {
+        if (q.t && !temas.includes(q.t)) temas.push(q.t);
+        if (q.e && q.e.length > 10) enunciados.push(q.e);
+      }
+    });
+  });
+  return { temas, enunciados };
 }
 
 function setMultiplicador(n) {
@@ -1163,10 +1199,8 @@ async function iniciarSimulado(modoTreino) {
 /* ── Gera questões por disciplina (uma chamada por disciplina) ── */
 async function gerarQuestoesAPI(qtd = 40) {
   const nivel = NIVEIS[st.nivel - 1];
-  const temasRecentes = st.temasVistos.slice(-30);
   const fator = qtd / editalAtivo().total_questoes;
 
-  // Calcula quantas questões por disciplina
   const dist = editalAtivo().disciplinas.map(d => ({
     ...d,
     qtdQuestoes: Math.max(1, Math.round(d.questoes * fator))
@@ -1179,7 +1213,8 @@ async function gerarQuestoesAPI(qtd = 40) {
     const disc = dist[i];
     document.getElementById('loading-sub').textContent =
       `${disc.nome} (${i + 1}/${dist.length})...`;
-    const qs = await gerarDisciplina(disc, nivel, temasRecentes);
+    const hist = historicoDisc(disc.nome); // temas e enunciados já usados
+    const qs = await gerarDisciplina(disc, nivel, hist);
     todas.push(...qs);
   }
 
@@ -1187,7 +1222,7 @@ async function gerarQuestoesAPI(qtd = 40) {
   return todas;
 }
 
-async function gerarDisciplina(disc, nivel, temasRecentes) {
+async function gerarDisciplina(disc, nivel, hist) {
   const topicosStr = disc.topicos.map(t => `• ${t}`).join('\n');
   const avisoLP = disc.nome === 'Língua Portuguesa' && disc.qtdQuestoes >= 3
     ? '\n- Inclua ao menos 2 questões com texto de apoio para interpretação de texto (tamanho conforme o nível)' : '';
@@ -1196,21 +1231,28 @@ async function gerarDisciplina(disc, nivel, temasRecentes) {
   const avisoHW = disc.nome === 'Hardware e Manutenção'
     ? '\n- Priorize cenários práticos: diagnóstico de falha, configuração de rede, segurança, backup' : '';
 
+  const blocoEvitar = hist.temas.length > 0
+    ? `\nTEMAS JÁ USADOS NOS ÚLTIMOS SIMULADOS (não repita):\n${hist.temas.map(t => `• ${t}`).join('\n')}` +
+      (hist.enunciados.length > 0
+        ? `\n\nINÍCIOS DE QUESTÕES JÁ FEITAS (não repita assunto similar):\n${hist.enunciados.slice(-20).map(e => `• "${e}..."`).join('\n')}`
+        : '')
+    : '';
+
   const prompt = `Você é professor especialista em concursos públicos, banca CESGRANRIO.
 Concurso: ${editalAtivo().cargo} — ${editalAtivo().concurso}
 
 Gere EXATAMENTE ${disc.qtdQuestoes} questões de múltipla escolha sobre: ${disc.nome}
 
-TÓPICOS a abordar (varie entre eles):
+TÓPICOS DO EDITAL a abordar (explore todos, varie entre eles):
 ${topicosStr}
-${temasRecentes.length > 0 ? `\nEvite temas recentes: ${temasRecentes.slice(-15).join(', ')}` : ''}
+${blocoEvitar}
 
 Nível: ${nivel.nome} — ${nivel.prompt}
 
 REGRAS OBRIGATÓRIAS:
 - NUNCA use formato certo/errado. Sempre 5 alternativas distintas (A, B, C, D, E) com conteúdo diferente
 - Cada questão DEVE ter "explicacao" com análise de todas as 5 alternativas${avisoLP}${avisoLeg}${avisoHW}
-- Todas as questões devem ser sobre temas diferentes entre si
+- Todas as questões devem ser sobre temas DIFERENTES entre si e dos já usados acima
 
 Retorne SOMENTE um array JSON. Sem texto extra. Sem markdown.
 Cada objeto com TODOS estes campos:
@@ -1286,13 +1328,7 @@ function sorteiarFallback() {
 
 /* ── Começa o simulado com as questões geradas ── */
 function comecarSimulado(questoes, modoTreino) {
-  // Registra temas vistos
-  questoes.forEach(q => {
-    if (q.tema && !st.temasVistos.includes(q.tema)) {
-      st.temasVistos.push(q.tema);
-    }
-  });
-  salvarEstado();
+  if (!modoTreino) salvarHistoricoQuestoes(questoes);
 
   sessao.questoes  = questoes;
   sessao.respostas = new Array(questoes.length).fill(null);
