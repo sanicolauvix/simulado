@@ -340,6 +340,9 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
       </div>
     </div>
 
+    <!-- Seletor de edital -->
+    <div class="mult-row fade" id="edital-row"></div>
+
     <!-- Multiplicador de questões -->
     <div class="mult-row fade">
       <span class="mult-label">Intensidade:</span>
@@ -603,12 +606,15 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 
 <script>
 /* ============================================================
-   EDITAL — CÂMARA MUNICIPAL DE DOMINGOS MARTINS/ES
+   EDITAIS — lista de concursos disponíveis
    ============================================================ */
-const EDITAL = {
+const EDITAIS = [
+{
+  nomeAbrev: "Câmara Dom. Martins",
   concurso: "Câmara Municipal de Domingos Martins/ES",
   cargo: "Técnico em Informática",
   total_questoes: 40,
+  total_pontos: 60,
   disciplinas: [
     { nome: "Língua Portuguesa", questoes: 10, pontos: 20, peso: 2.0, topicos: [
       "Fonologia: encontros vocálicos, dígrafos, ortoépia, divisão silábica, prosódia, acentuação, ortografia",
@@ -663,7 +669,10 @@ const EDITAL = {
       "Backup: armazenamento em discos e fitas; tipos e políticas de backup"
     ]}
   ]
-};
+}
+]; // fim EDITAIS
+
+function editalAtivo() { return EDITAIS[st.editalIdx || 0]; }
 
 /* ============================================================
    CONSTANTES — NÍVEIS DE DIFICULDADE
@@ -793,6 +802,7 @@ function carregarEstado() {
     apiKey:         localStorage.getItem('simulado_api_key') || '',
     nivel:          parseInt(localStorage.getItem('simulado_nivel') || '1'),
     multiplicador:  parseInt(localStorage.getItem('simulado_mult') || '1'),
+    editalIdx:      parseInt(localStorage.getItem('simulado_edital') || '0'),
     historico:      JSON.parse(localStorage.getItem('simulado_historico') || '[]'),
     temasVistos:    JSON.parse(localStorage.getItem('simulado_temas_vistos') || '[]'),
     nivelHistorico: JSON.parse(localStorage.getItem('simulado_nivel_hist') || '[]')
@@ -803,6 +813,7 @@ function salvarEstado() {
   localStorage.setItem('simulado_api_key',    st.apiKey);
   localStorage.setItem('simulado_nivel',       String(st.nivel));
   localStorage.setItem('simulado_mult',        String(st.multiplicador));
+  localStorage.setItem('simulado_edital',      String(st.editalIdx));
   localStorage.setItem('simulado_historico',   JSON.stringify(st.historico));
   localStorage.setItem('simulado_temas_vistos',JSON.stringify(st.temasVistos));
   localStorage.setItem('simulado_nivel_hist',  JSON.stringify(st.nivelHistorico));
@@ -816,9 +827,22 @@ function setMultiplicador(n) {
   });
 }
 
+function setEdital(idx) {
+  st.editalIdx = idx;
+  salvarEstado();
+  EDITAIS.forEach((_, i) => {
+    document.getElementById(`edital-btn-${i}`).classList.toggle('active', i === idx);
+  });
+  // Atualiza o label do multiplicador com o total do novo edital
+  const e = editalAtivo();
+  document.getElementById('mult-1').querySelector('.mult-info').textContent = `${e.total_questoes}q · peso real`;
+  document.getElementById('mult-2').querySelector('.mult-info').textContent = `${e.total_questoes * 2}q · peso ½`;
+  document.getElementById('mult-3').querySelector('.mult-info').textContent = `${e.total_questoes * 3}q · peso ⅓`;
+}
+
 // Retorna o peso em pontos de uma questão dado o multiplicador atual
 function pesoQuestao(disciplina) {
-  const disc = EDITAL.disciplinas.find(d => d.nome === disciplina);
+  const disc = editalAtivo().disciplinas.find(d => d.nome === disciplina);
   if (!disc) return 1 / st.multiplicador;
   return (disc.pontos / disc.questoes) / st.multiplicador;
 }
@@ -933,9 +957,22 @@ function salvarChave() {
 function renderDashboard() {
   const nivel = NIVEIS[st.nivel - 1];
 
-  // Sincroniza botões de multiplicador
+  // Monta seletor de edital
+  const edRow = document.getElementById('edital-row');
+  edRow.innerHTML = '<span class="mult-label">Edital:</span>' +
+    EDITAIS.map((e, i) =>
+      `<button class="mult-btn${i === st.editalIdx ? ' active' : ''}" id="edital-btn-${i}" onclick="setEdital(${i})">${e.nomeAbrev} <span class="mult-info">${e.total_questoes}q · ${e.total_pontos}pts</span></button>`
+    ).join('');
+
+  // Sincroniza botões de multiplicador com o edital ativo
+  const ea = editalAtivo();
   [1, 2, 3].forEach(i => {
-    document.getElementById(`mult-${i}`).classList.toggle('active', i === st.multiplicador);
+    const btn = document.getElementById(`mult-${i}`);
+    btn.classList.toggle('active', i === st.multiplicador);
+    btn.querySelector('.mult-info').textContent =
+      i === 1 ? `${ea.total_questoes}q · peso real` :
+      i === 2 ? `${ea.total_questoes * 2}q · peso ½` :
+               `${ea.total_questoes * 3}q · peso ⅓`;
   });
 
   // Banner de nível
@@ -1075,7 +1112,7 @@ async function iniciarSimulado(modoTreino) {
   const bancoLocal  = carregarBancoLocal();
   const dominadas   = carregarDominadas();
   // Filtra banco local para só usar disciplinas do edital atual
-  const editalDiscs = new Set(EDITAL.disciplinas.map(d => d.nome));
+  const editalDiscs = new Set(editalAtivo().disciplinas.map(d => d.nome));
   const localDisp   = embaralhar(bancoLocal.filter(q =>
     !dominadas.has(idQ(q)) && editalDiscs.has(q.disciplina)
   ));
@@ -1099,12 +1136,13 @@ async function iniciarSimulado(modoTreino) {
   mostrarTela('tela-loading');
   document.getElementById('loading-erro').classList.add('oculto');
 
-  const totalQ = EDITAL.total_questoes * st.multiplicador;
+  const totalQ = editalAtivo().total_questoes * st.multiplicador;
 
   try {
     // Simulado oficial: sempre 100% gerado pela IA seguindo o edital
-    document.getElementById('loading-txt').textContent = `Gerando ${totalQ} questões seguindo o edital...`;
-    document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome} · ${st.multiplicador}×`;
+    const ea = editalAtivo();
+    document.getElementById('loading-txt').textContent = `Gerando ${totalQ} questões inéditas — ${ea.nomeAbrev}`;
+    document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome} · ${st.multiplicador}× · ${ea.total_pontos} pts`;
     const questoes = await gerarQuestoesAPI(totalQ);
     comecarSimulado(questoes, false);
   } catch (e) {
@@ -1123,10 +1161,10 @@ async function iniciarSimulado(modoTreino) {
 async function gerarQuestoesAPI(qtd = 40) {
   const nivel = NIVEIS[st.nivel - 1];
   const temasRecentes = st.temasVistos.slice(-30);
-  const fator = qtd / EDITAL.total_questoes;
+  const fator = qtd / editalAtivo().total_questoes;
 
   // Calcula quantas questões por disciplina
-  const dist = EDITAL.disciplinas.map(d => ({
+  const dist = editalAtivo().disciplinas.map(d => ({
     ...d,
     qtdQuestoes: Math.max(1, Math.round(d.questoes * fator))
   }));
@@ -1155,7 +1193,7 @@ async function gerarDisciplina(disc, nivel, temasRecentes) {
     ? '\n- Priorize cenários práticos: diagnóstico de falha, configuração de rede, segurança, backup' : '';
 
   const prompt = `Você é professor especialista em concursos públicos, banca CESGRANRIO.
-Concurso: ${EDITAL.cargo} — ${EDITAL.concurso}
+Concurso: ${editalAtivo().cargo} — ${editalAtivo().concurso}
 
 Gere EXATAMENTE ${disc.qtdQuestoes} questões de múltipla escolha sobre: ${disc.nome}
 
@@ -1425,7 +1463,7 @@ function calcularCorrecao() {
   const totalAcertos = questoes.filter((q, i) => respostas[i] === q.gabarito).length;
   const totalPct = Math.round(totalAcertos / questoes.length * 100);
 
-  // Pontuação ponderada pelo edital (total máximo = EDITAL.total_pontos, independente do multiplicador)
+  // Pontuação ponderada pelo edital (total máximo = editalAtivo().total_pontos, independente do multiplicador)
   let pontosObtidos = 0;
   questoes.forEach((q, i) => {
     if (respostas[i] === q.gabarito) pontosObtidos += pesoQuestao(q.disciplina);
@@ -1473,7 +1511,7 @@ function renderCorrecao() {
   // Nota geral
   const { pontosObtidos } = sessao.ultimoResultado;
   document.getElementById('nota-geral-txt').textContent =
-    sessao.modoTreino ? `${totalAcertos} / ${total}` : `${pontosObtidos} / ${EDITAL.total_pontos} pts`;
+    sessao.modoTreino ? `${totalAcertos} / ${total}` : `${pontosObtidos} / ${editalAtivo().total_pontos} pts`;
   const cls = totalPct >= 70 ? 'verde' : totalPct >= 50 ? 'amarelo' : 'vermelho';
   document.getElementById('nota-geral-txt').className = 'nota-geral ' + cls;
   const multInfo = st.multiplicador > 1 ? ` · ${st.multiplicador}× (${total}q)` : ` · ${total} questões`;
