@@ -119,6 +119,8 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 .prog-txt{font-size:11px;color:#444;text-align:right;margin-bottom:4px;}
 .prog-fundo{height:4px;background:#12124a;border-radius:2px;overflow:hidden;}
 .prog-fill{height:100%;background:linear-gradient(90deg,#FFD700,#FFA500);transition:width .4s;}
+.nivel-badge{display:inline-block;font-size:10px;color:#FFD700;border:1px solid rgba(255,215,0,.3);
+  border-radius:10px;padding:2px 8px;margin-top:4px;text-align:right;opacity:.8;}
 .btn-encerrar{padding:7px 14px;border:1px solid #2a2a5a;border-radius:8px;
   background:none;color:#555;font-size:12px;cursor:pointer;flex-shrink:0;}
 .btn-encerrar:hover{border-color:#f87171;color:#f87171;}
@@ -395,6 +397,7 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
       <div class="prog-wrap">
         <div class="prog-txt" id="prog-txt">1 / --</div>
         <div class="prog-fundo"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <div class="nivel-badge" id="nivel-badge">Nível 1</div>
       </div>
       <button class="btn-encerrar" onclick="confirmarEncerrar()">Encerrar ▸</button>
     </div>
@@ -679,24 +682,24 @@ function editalAtivo() { return EDITAIS[st.editalIdx || 0]; }
    ============================================================ */
 const NIVEIS = [
   {
-    num: 1, nome: "Aprendizado", timer: 4.5 * 3600,
-    prompt: "Questões introdutórias com enunciados curtos e claros. Alternativas diretas, sem ambiguidade. Temas fundamentais e bem delimitados."
+    num: 1, nome: "Iniciante", timer: 4.5 * 3600,
+    prompt: "Questões introdutórias. Enunciados curtos e diretos (1-2 linhas). Textos de apoio em LP com no máximo 3 linhas, vocabulário simples. Alternativas bem distintas, sem distratores sofisticados. Temas básicos e bem delimitados."
   },
   {
-    num: 2, nome: "Familiar", timer: 4 * 3600,
-    prompt: "Questões de dificuldade moderada, estilo de provas reais simplificadas. Alguns distratores plausíveis mas identificáveis."
+    num: 2, nome: "Básico", timer: 4 * 3600,
+    prompt: "Questões de dificuldade moderada. Enunciados com 2-3 linhas. Textos de apoio em LP com 4-5 linhas, vocabulário cotidiano. Alguns distratores plausíveis mas facilmente eliminados por quem estudou o básico."
   },
   {
     num: 3, nome: "Intermediário", timer: 3.5 * 3600,
-    prompt: "Questões no estilo CESGRANRIO com distratores técnicos plausíveis. Inclua alguns textos de apoio para Português."
+    prompt: "Estilo CESGRANRIO real. Enunciados com 3-4 linhas. Textos de apoio em LP com 6-8 linhas, mistura de vocabulário técnico e jornalístico. Distratores técnicos que exigem atenção. Lógica com pelo menos uma negação. Situações-problema em Matemática."
   },
   {
     num: 4, nome: "Avançado", timer: 10 * 3600 / 3,
-    prompt: "Questões CESGRANRIO completas com distratores sofisticados. Textos de apoio de 5+ linhas em Português. Matemática com contexto de situação-problema."
+    prompt: "Questões desafiadoras estilo CESGRANRIO. Textos de apoio em LP com 8-12 linhas, textos de jornais, editais ou documentos técnicos. Distratores sofisticados com detalhes errados sutis. Dupla negação em Lógica. Hardware e Direito com pegadinhas de banca."
   },
   {
-    num: 5, nome: "Realista 🎯", timer: 3 * 3600,
-    prompt: "Réplica exata do estilo CESGRANRIO: textos jornalísticos/científicos de apoio com 6-8 linhas em Português, dupla negação em Lógica, distratores que parecem corretos mas têm um detalhe errado, situações-problema reais em Matemática. Pressão máxima."
+    num: 5, nome: "Hard 🎯", timer: 3 * 3600,
+    prompt: "Nível máximo — réplica exata de prova real CESGRANRIO. LP: textos científicos/jornalísticos de 12-15 linhas com inferência e subtexto. Lógica: proposições encadeadas com múltiplas negações. Hardware: cenários de falha com múltiplas causas possíveis. Direito: artigos específicos de lei com redação técnica. Todos os distratores parecem corretos — apenas um detalhe diferencia. Pressão máxima de tempo."
   }
 ];
 
@@ -1180,13 +1183,14 @@ async function gerarQuestoesAPI(qtd = 40) {
     todas.push(...qs);
   }
 
-  return embaralhar(todas);
+  // Mantém a ordem do edital — não embaralha entre disciplinas
+  return todas;
 }
 
 async function gerarDisciplina(disc, nivel, temasRecentes) {
   const topicosStr = disc.topicos.map(t => `• ${t}`).join('\n');
   const avisoLP = disc.nome === 'Língua Portuguesa' && disc.qtdQuestoes >= 3
-    ? '\n- Inclua ao menos 2 questões com texto de apoio para interpretação de texto' : '';
+    ? '\n- Inclua ao menos 2 questões com texto de apoio para interpretação de texto (tamanho conforme o nível)' : '';
   const avisoLeg = disc.nome === 'Legislação Específica'
     ? '\n- Baseie-se na estrutura típica de leis orgânicas, estatutos municipais e regimentos internos de câmaras' : '';
   const avisoHW = disc.nome === 'Hardware e Manutenção'
@@ -1204,8 +1208,9 @@ ${temasRecentes.length > 0 ? `\nEvite temas recentes: ${temasRecentes.slice(-15)
 Nível: ${nivel.nome} — ${nivel.prompt}
 
 REGRAS OBRIGATÓRIAS:
+- NUNCA use formato certo/errado. Sempre 5 alternativas distintas (A, B, C, D, E) com conteúdo diferente
 - Cada questão DEVE ter "explicacao" com análise de todas as 5 alternativas${avisoLP}${avisoLeg}${avisoHW}
-- Todas as questões devem ser sobre temas diferentes
+- Todas as questões devem ser sobre temas diferentes entre si
 
 Retorne SOMENTE um array JSON. Sem texto extra. Sem markdown.
 Cada objeto com TODOS estes campos:
@@ -1241,18 +1246,28 @@ Cada objeto com TODOS estes campos:
   const questoes = JSON.parse(texto.slice(inicio, fim + 1));
   if (!Array.isArray(questoes)) throw new Error(`Resposta inválida para ${disc.nome}`);
 
-  // Garante que todos os campos obrigatórios existam
-  return questoes.map(q => ({
-    disciplina: q.disciplina || disc.nome,
-    tema:       q.tema       || disc.nome,
-    textoBase:  q.textoBase  || null,
-    enunciado:  q.enunciado  || '(enunciado não gerado)',
-    alts:       q.alts       || { A: '—', B: '—', C: '—', D: '—', E: '—' },
-    gabarito:   q.gabarito   || 'A',
-    dica1:      q.dica1      || { area: disc.nome, materia: q.tema || disc.nome, raciocinio: 'Analise o contexto da questão.' },
-    dica2:      q.dica2      || 'Revise o conteúdo do tópico.',
-    explicacao: q.explicacao || 'Explicação não disponível.'
-  }));
+  const CERTO_ERRADO = /^(certo|errado|verdadeiro|falso|v|f)$/i;
+
+  return questoes
+    .filter(q => {
+      // Descarta questões de certo/errado
+      if (!q.alts) return false;
+      const vals = Object.values(q.alts);
+      if (vals.length < 5) return false;
+      const ehCertoErrado = vals.filter(v => CERTO_ERRADO.test(String(v).trim())).length >= 2;
+      return !ehCertoErrado;
+    })
+    .map(q => ({
+      disciplina: q.disciplina || disc.nome,
+      tema:       q.tema       || disc.nome,
+      textoBase:  q.textoBase  || null,
+      enunciado:  q.enunciado  || '(enunciado não gerado)',
+      alts:       q.alts,
+      gabarito:   q.gabarito   || 'A',
+      dica1:      q.dica1      || { area: disc.nome, materia: q.tema || disc.nome, raciocinio: 'Analise o contexto da questão.' },
+      dica2:      q.dica2      || 'Revise o conteúdo do tópico.',
+      explicacao: q.explicacao || 'Explicação não disponível.'
+    }));
 }
 
 function embaralhar(arr) {
@@ -1289,6 +1304,8 @@ function comecarSimulado(questoes, modoTreino) {
 
   mostrarTela('tela-simulado');
   document.getElementById('aviso-treino').classList.toggle('oculto', !modoTreino);
+  document.getElementById('nivel-badge').textContent =
+    `Nível ${st.nivel} — ${NIVEIS[st.nivel - 1].nome}`;
 
   renderQuestao();
   iniciarTimer();
