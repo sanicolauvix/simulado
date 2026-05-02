@@ -611,11 +611,79 @@ header{background:linear-gradient(180deg,#0e0e30,#06061a);border-bottom:2px soli
 /* ============================================================
    EDITAIS — lista de concursos disponíveis
    ============================================================ */
+/* ============================================================
+   ESTILOS DE BANCA — como cada organizadora formula questões
+   ============================================================ */
+const ESTILOS_BANCA = {
+  "CESGRANRIO": {
+    descricao: "Banca CESGRANRIO",
+    instrucoes: `Estilo CESGRANRIO:
+- Textos de apoio em Língua Portuguesa com linguagem jornalística ou técnica (6-12 linhas no nível intermediário+)
+- Enunciados situacionais: descreva um cenário real antes de fazer a pergunta
+- Distratores sofisticados: alternativas erradas que parecem plausíveis, com erro sutil de detalhe
+- Matemática e Raciocínio Lógico: enunciados com dados-problema em forma de história ou contexto real
+- Evite perguntas puramente de memorização — prefira aplicação de conceito ou interpretação`
+  },
+  "CESPE": {
+    descricao: "Banca CESPE/CEBRASPE",
+    instrucoes: `Estilo CESPE/CEBRASPE (adaptado para múltipla escolha 5 alternativas):
+- Enunciados precisos e concisos, linguagem técnica e objetiva
+- Alternativas com afirmações completas, cada uma testando um aspecto diferente do tema
+- Frequente uso de termos como "exclusivamente", "apenas", "somente", "necessariamente" para criar distratores
+- Legislação: citação de artigos e incisos específicos com pequenas alterações propositais nos distratores
+- Lógica: uso de dupla negação e inversão de condicionais`
+  },
+  "FCC": {
+    descricao: "Banca FCC",
+    instrucoes: `Estilo FCC (Fundação Carlos Chagas):
+- Enunciados diretos e objetivos, sem rodeios
+- Foco em memorização de conceitos, definições e regras gramaticais
+- Alternativas bem delimitadas, com diferença clara entre certa e erradas
+- Língua Portuguesa: muita gramática normativa, classificação morfológica, análise sintática
+- Distratores comuns: trocar termos semelhantes (ex: "poderá" por "deverá") em questões de legislação`
+  },
+  "FGV": {
+    descricao: "Banca FGV",
+    instrucoes: `Estilo FGV:
+- Questões conceituais e analíticas, exigem raciocínio além da memorização
+- Textos de apoio com temática contemporânea (tecnologia, gestão, política pública)
+- Alternativas que combinam afirmativas: "I e II apenas", "I, II e III", exigindo análise múltipla
+- Matemática: problemas com múltiplas etapas de cálculo
+- Administração e Direito: casos hipotéticos para aplicar a lei`
+  },
+  "VUNESP": {
+    descricao: "Banca VUNESP",
+    instrucoes: `Estilo VUNESP:
+- Questões situacionais e práticas, com cenários do dia a dia da função
+- Língua Portuguesa: textos de jornal/revista com questões de interpretação e gramática no contexto
+- Alternativas com linguagem mais acessível, sem termos excessivamente técnicos
+- Informática: questões práticas de uso de sistemas, atalhos e funcionalidades
+- Distratores: alternativas com informações parcialmente corretas`
+  },
+  "IBFC": {
+    descricao: "Banca IBFC",
+    instrucoes: `Estilo IBFC:
+- Enunciados objetivos e diretos, dificuldade moderada
+- Foco em aplicação prática do conhecimento
+- Alternativas claras e bem distintas entre si
+- Questões de legislação: cópia fiel de artigos com alternativas trocando palavras-chave`
+  },
+  "QUADRIX": {
+    descricao: "Banca QUADRIX",
+    instrucoes: `Estilo QUADRIX:
+- Similar ao CESPE mas com 5 alternativas (A-E)
+- Enunciados com afirmativas diretas e técnicas
+- Muitas questões de legislação com citação de artigos específicos
+- Informática: foco em conceitos e ferramentas atuais`
+  }
+};
+
 const EDITAIS = [
 {
   nomeAbrev: "Câmara Dom. Martins",
   concurso: "Câmara Municipal de Domingos Martins/ES",
   cargo: "Técnico em Informática",
+  banca: "CESGRANRIO",
   total_questoes: 40,
   total_pontos: 60,
   disciplinas: [
@@ -695,11 +763,11 @@ const NIVEIS = [
   },
   {
     num: 4, nome: "Avançado", timer: 10 * 3600 / 3,
-    prompt: "Questões desafiadoras estilo CESGRANRIO. Textos de apoio em LP com 8-12 linhas, textos de jornais, editais ou documentos técnicos. Distratores sofisticados com detalhes errados sutis. Dupla negação em Lógica. Hardware e Direito com pegadinhas de banca."
+    prompt: "Questões desafiadoras estilo CESGRANRIO. Textos de apoio em LP com 8-12 linhas, textos de jornais, editais ou documentos técnicos. Distratores sofisticados com detalhes errados sutis. Dupla negação em Lógica. Disciplinas técnicas com pegadinhas de banca (detalhe errado sutil numa alternativa)."
   },
   {
     num: 5, nome: "Hard 🎯", timer: 3 * 3600,
-    prompt: "Nível máximo — réplica exata de prova real CESGRANRIO. LP: textos científicos/jornalísticos de 12-15 linhas com inferência e subtexto. Lógica: proposições encadeadas com múltiplas negações. Hardware: cenários de falha com múltiplas causas possíveis. Direito: artigos específicos de lei com redação técnica. Todos os distratores parecem corretos — apenas um detalhe diferencia. Pressão máxima de tempo."
+    prompt: "Nível máximo — réplica exata de prova real CESGRANRIO. LP: textos científicos/jornalísticos de 12-15 linhas com inferência e subtexto. Lógica/Matemática: encadeamentos com múltiplas negações ou passos. Disciplinas técnicas: cenários de falha ou situações reais com múltiplas causas possíveis. Legislação: artigos específicos com redação técnica. Todos os distratores parecem corretos — apenas um detalhe diferencia. Pressão máxima de tempo."
   }
 ];
 
@@ -1000,7 +1068,7 @@ function renderDashboard() {
   const edRow = document.getElementById('edital-row');
   edRow.innerHTML = '<span class="mult-label">Edital:</span>' +
     EDITAIS.map((e, i) =>
-      `<button class="mult-btn${i === st.editalIdx ? ' active' : ''}" id="edital-btn-${i}" onclick="setEdital(${i})">${e.nomeAbrev} <span class="mult-info">${e.total_questoes}q · ${e.total_pontos}pts</span></button>`
+      `<button class="mult-btn${i === st.editalIdx ? ' active' : ''}" id="edital-btn-${i}" onclick="setEdital(${i})">${e.nomeAbrev} <span class="mult-info">${e.banca || 'CESGRANRIO'} · ${e.total_questoes}q</span></button>`
     ).join('');
 
   // Sincroniza botões de multiplicador com o edital ativo
@@ -1181,7 +1249,7 @@ async function iniciarSimulado(modoTreino) {
     // Simulado oficial: sempre 100% gerado pela IA seguindo o edital
     const ea = editalAtivo();
     document.getElementById('loading-txt').textContent = `Gerando ${totalQ} questões inéditas — ${ea.nomeAbrev}`;
-    document.getElementById('loading-sub').textContent = `Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome} · ${st.multiplicador}× · ${ea.total_pontos} pts`;
+    document.getElementById('loading-sub').textContent = `${ea.banca || 'CESGRANRIO'} · Nível ${st.nivel} — ${NIVEIS[st.nivel-1].nome} · ${st.multiplicador}× · ${ea.total_pontos} pts`;
     const questoes = await gerarQuestoesAPI(totalQ);
     comecarSimulado(questoes, false);
   } catch (e) {
@@ -1196,7 +1264,7 @@ async function iniciarSimulado(modoTreino) {
   }
 }
 
-/* ── Gera questões por disciplina (uma chamada por disciplina) ── */
+/* ── Gera questões por disciplina (chunks de até CHUNK_MAX por chamada) ── */
 async function gerarQuestoesAPI(qtd = 40) {
   const nivel = NIVEIS[st.nivel - 1];
   const fator = qtd / editalAtivo().total_questoes;
@@ -1208,13 +1276,21 @@ async function gerarQuestoesAPI(qtd = 40) {
   const soma = dist.reduce((a, d) => a + d.qtdQuestoes, 0);
   if (soma !== qtd) dist[0].qtdQuestoes += (qtd - soma);
 
+  // Total de chamadas API (considerando chunks)
+  const totalChamadas = dist.reduce((acc, d) => acc + Math.ceil(d.qtdQuestoes / CHUNK_MAX), 0);
+  let chamadaAtual = 0;
+
   const todas = [];
   for (let i = 0; i < dist.length; i++) {
     const disc = dist[i];
+    const chunks = Math.ceil(disc.qtdQuestoes / CHUNK_MAX);
     document.getElementById('loading-sub').textContent =
-      `${disc.nome} (${i + 1}/${dist.length})...`;
-    const hist = historicoDisc(disc.nome); // temas e enunciados já usados
+      `${disc.nome} (${i + 1}/${dist.length}${chunks > 1 ? `, ${chunks} partes` : ''})...`;
+    const hist = historicoDisc(disc.nome);
     const qs = await gerarDisciplina(disc, nivel, hist);
+    chamadaAtual += chunks;
+    document.getElementById('loading-txt').textContent =
+      `Gerando questões — ${chamadaAtual}/${totalChamadas} chamadas concluídas`;
     todas.push(...qs);
   }
 
@@ -1222,42 +1298,36 @@ async function gerarQuestoesAPI(qtd = 40) {
   return todas;
 }
 
-async function gerarDisciplina(disc, nivel, hist) {
-  const topicosStr = disc.topicos.map(t => `• ${t}`).join('\n');
-  const avisoLP = disc.nome === 'Língua Portuguesa' && disc.qtdQuestoes >= 3
-    ? '\n- Inclua ao menos 2 questões com texto de apoio para interpretação de texto (tamanho conforme o nível)' : '';
-  const avisoLeg = disc.nome === 'Legislação Específica'
-    ? '\n- Baseie-se na estrutura típica de leis orgânicas, estatutos municipais e regimentos internos de câmaras' : '';
-  const avisoHW = disc.nome === 'Hardware e Manutenção'
-    ? '\n- Priorize cenários práticos: diagnóstico de falha, configuração de rede, segurança, backup' : '';
+// Máx de questões por chamada API — evita JSON truncado
+const CHUNK_MAX = 8;
 
-  const blocoEvitar = hist.temas.length > 0
-    ? `\nTEMAS JÁ USADOS NOS ÚLTIMOS SIMULADOS (não repita):\n${hist.temas.map(t => `• ${t}`).join('\n')}` +
-      (hist.enunciados.length > 0
-        ? `\n\nINÍCIOS DE QUESTÕES JÁ FEITAS (não repita assunto similar):\n${hist.enunciados.slice(-20).map(e => `• "${e}..."`).join('\n')}`
-        : '')
-    : '';
+// Regex para detectar certo/errado em alternativas
+const CERTO_ERRADO = /^(certo|errado|verdadeiro|falso|correto|incorreto|c|e|v|f)[.\s]*$/i;
 
-  const prompt = `Você é professor especialista em concursos públicos, banca CESGRANRIO.
-Concurso: ${editalAtivo().cargo} — ${editalAtivo().concurso}
+function filtrarENormalizar(questoes, disc) {
+  return questoes
+    .filter(q => {
+      if (!q.alts) return false;
+      const vals = Object.values(q.alts);
+      if (vals.length < 5) return false;
+      const contCE = vals.filter(v => CERTO_ERRADO.test(String(v).trim())).length;
+      const enuncCE = /\b(certo ou errado|julgue|assinale.*certo|assinale.*errado)\b/i.test(q.enunciado || '');
+      return contCE < 2 && !enuncCE;
+    })
+    .map(q => ({
+      disciplina: q.disciplina || disc.nome,
+      tema:       q.tema       || disc.nome,
+      textoBase:  q.textoBase  || null,
+      enunciado:  q.enunciado  || '(enunciado não gerado)',
+      alts:       q.alts,
+      gabarito:   q.gabarito   || 'A',
+      dica1:      q.dica1      || { area: disc.nome, materia: q.tema || disc.nome, raciocinio: 'Analise o contexto da questão.' },
+      dica2:      q.dica2      || 'Revise o conteúdo do tópico.',
+      explicacao: q.explicacao || 'Explicação não disponível.'
+    }));
+}
 
-Gere EXATAMENTE ${disc.qtdQuestoes} questões de múltipla escolha sobre: ${disc.nome}
-
-TÓPICOS DO EDITAL a abordar (explore todos, varie entre eles):
-${topicosStr}
-${blocoEvitar}
-
-Nível: ${nivel.nome} — ${nivel.prompt}
-
-REGRAS OBRIGATÓRIAS:
-- NUNCA use formato certo/errado. Sempre 5 alternativas distintas (A, B, C, D, E) com conteúdo diferente
-- Cada questão DEVE ter "explicacao" com análise de todas as 5 alternativas${avisoLP}${avisoLeg}${avisoHW}
-- Todas as questões devem ser sobre temas DIFERENTES entre si e dos já usados acima
-
-Retorne SOMENTE um array JSON. Sem texto extra. Sem markdown.
-Cada objeto com TODOS estes campos:
-{"disciplina":"${disc.nome}","tema":"tema específico","textoBase":null,"enunciado":"enunciado completo","alts":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"gabarito":"A","dica1":{"area":"área","materia":"matéria","raciocinio":"o QUE fazer, sem dar a resposta"},"dica2":"um passo além sem resolver","explicacao":"por que cada alternativa está certa ou errada"}`;
-
+async function _chamarAPIDisc(prompt, nomeDisciplina) {
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -1275,7 +1345,7 @@ Cada objeto com TODOS estes campos:
 
   if (!resp.ok) {
     const txt = await resp.text();
-    throw new Error(`HTTP ${resp.status} em ${disc.nome}: ${txt.slice(0, 200)}`);
+    throw new Error(`HTTP ${resp.status} em ${nomeDisciplina}: ${txt.slice(0, 200)}`);
   }
 
   const data = await resp.json();
@@ -1284,32 +1354,80 @@ Cada objeto com TODOS estes campos:
 
   const inicio = texto.indexOf('[');
   const fim = texto.lastIndexOf(']');
-  if (inicio === -1 || fim === -1) throw new Error(`JSON ausente para ${disc.nome}`);
+  if (inicio === -1 || fim === -1) throw new Error(`JSON ausente para ${nomeDisciplina}`);
   const questoes = JSON.parse(texto.slice(inicio, fim + 1));
-  if (!Array.isArray(questoes)) throw new Error(`Resposta inválida para ${disc.nome}`);
+  if (!Array.isArray(questoes)) throw new Error(`Resposta inválida para ${nomeDisciplina}`);
+  return questoes;
+}
 
-  const CERTO_ERRADO = /^(certo|errado|verdadeiro|falso|v|f)$/i;
+function montarPrompt(disc, nivel, hist, qtdNestaChamada) {
+  const ea = editalAtivo();
+  const banca = ea.banca || 'CESGRANRIO';
+  const estiloBanca = ESTILOS_BANCA[banca] || ESTILOS_BANCA['CESGRANRIO'];
 
-  return questoes
-    .filter(q => {
-      // Descarta questões de certo/errado
-      if (!q.alts) return false;
-      const vals = Object.values(q.alts);
-      if (vals.length < 5) return false;
-      const ehCertoErrado = vals.filter(v => CERTO_ERRADO.test(String(v).trim())).length >= 2;
-      return !ehCertoErrado;
-    })
-    .map(q => ({
-      disciplina: q.disciplina || disc.nome,
-      tema:       q.tema       || disc.nome,
-      textoBase:  q.textoBase  || null,
-      enunciado:  q.enunciado  || '(enunciado não gerado)',
-      alts:       q.alts,
-      gabarito:   q.gabarito   || 'A',
-      dica1:      q.dica1      || { area: disc.nome, materia: q.tema || disc.nome, raciocinio: 'Analise o contexto da questão.' },
-      dica2:      q.dica2      || 'Revise o conteúdo do tópico.',
-      explicacao: q.explicacao || 'Explicação não disponível.'
-    }));
+  const topicosStr = disc.topicos.map(t => `• ${t}`).join('\n');
+  const avisoLP = disc.nome === 'Língua Portuguesa' && qtdNestaChamada >= 3
+    ? '\n- Inclua ao menos 1 questão com texto de apoio para interpretação de texto (tamanho conforme o nível)' : '';
+  const avisoLeg = disc.nome === 'Legislação Específica'
+    ? '\n- Baseie-se na estrutura típica de leis orgânicas, estatutos municipais e regimentos internos de câmaras' : '';
+  const avisoHW = disc.nome === 'Hardware e Manutenção'
+    ? '\n- Priorize cenários práticos: diagnóstico de falha, configuração de rede, segurança, backup' : '';
+
+  const blocoEvitar = hist.temas.length > 0
+    ? `\nTEMAS JÁ USADOS NOS ÚLTIMOS SIMULADOS (não repita):\n${hist.temas.map(t => `• ${t}`).join('\n')}` +
+      (hist.enunciados.length > 0
+        ? `\n\nINÍCIOS DE QUESTÕES JÁ FEITAS (não repita assunto similar):\n${hist.enunciados.slice(-20).map(e => `• "${e}..."`).join('\n')}`
+        : '')
+    : '';
+
+  return `Você é professor especialista em concursos públicos.
+Organizadora: ${estiloBanca.descricao}
+Concurso: ${ea.cargo} — ${ea.concurso}
+
+CONTEXTO OBRIGATÓRIO: todas as questões devem ser contextualizadas para este concurso específico.
+NÃO faça NENHUMA referência a empresas, concursos ou organizações que não sejam "${ea.concurso}".
+
+${estiloBanca.instrucoes}
+
+Gere EXATAMENTE ${qtdNestaChamada} questões de múltipla escolha sobre: ${disc.nome}
+
+TÓPICOS DO EDITAL a abordar (explore todos, varie entre eles):
+${topicosStr}
+${blocoEvitar}
+
+Nível de dificuldade: ${nivel.nome} — ${nivel.prompt}
+
+REGRAS OBRIGATÓRIAS:
+- FORMATO PROIBIDO: certo/errado, verdadeiro/falso. Qualquer questão nesse formato será descartada. Sempre 5 alternativas distintas (A, B, C, D, E), cada uma com conteúdo diferente e substantivo
+- Cada questão DEVE ter "explicacao" com análise de todas as 5 alternativas${avisoLP}${avisoLeg}${avisoHW}
+- Todas as questões devem ser sobre temas DIFERENTES entre si e dos já usados acima
+
+Retorne SOMENTE um array JSON válido e completo. Sem texto extra. Sem markdown. Sem comentários.
+Cada objeto com TODOS estes campos:
+{"disciplina":"${disc.nome}","tema":"tema específico","textoBase":null,"enunciado":"enunciado completo","alts":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"gabarito":"A","dica1":{"area":"área","materia":"matéria","raciocinio":"o QUE fazer, sem dar a resposta"},"dica2":"um passo além sem resolver","explicacao":"por que cada alternativa está certa ou errada"}`;
+}
+
+async function gerarDisciplina(disc, nivel, hist) {
+  const total = disc.qtdQuestoes;
+
+  // Se couber num único chunk, faz uma chamada só
+  if (total <= CHUNK_MAX) {
+    const prompt = montarPrompt(disc, nivel, hist, total);
+    const raw = await _chamarAPIDisc(prompt, disc.nome);
+    return filtrarENormalizar(raw, disc);
+  }
+
+  // Quebra em chunks para evitar JSON truncado por limite de tokens
+  const resultado = [];
+  let restante = total;
+  while (restante > 0) {
+    const qtdChunk = Math.min(restante, CHUNK_MAX);
+    const prompt = montarPrompt(disc, nivel, hist, qtdChunk);
+    const raw = await _chamarAPIDisc(prompt, disc.nome);
+    resultado.push(...filtrarENormalizar(raw, disc));
+    restante -= qtdChunk;
+  }
+  return resultado;
 }
 
 function embaralhar(arr) {
