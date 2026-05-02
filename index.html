@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎯 Show do Saber — Simulado CESGRANRIO</title>
+<title>🎯 Show do Saber — Concursos Públicos</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#06061a; color:#fff; font-family:'Segoe UI',Tahoma,sans-serif; min-height:100vh; }
@@ -661,7 +661,7 @@ const banco = [
     alts:{A:"Todos assistiram o jogo na televisão.",B:"Aspiramos à conquista do primeiro lugar.",C:"Ela prefere o café do que o chá.",D:"O aluno obedeceu as instruções do professor.",E:"Avisou os funcionários do atraso e pediu calma."},
     gabarito:"B",
     dica1:{area:"Linguagens — Língua Portuguesa / Gramática",materia:"Regência Verbal — Verbos Transitivos Indiretos",raciocinio:"Para cada verbo, pergunte: ele precisa de <strong>preposição</strong> para ligar ao complemento? O verbo ASPIRAR (almejar) exige qual preposição? Verifique se as demais usam a preposição certa ou errada."},
-    dica2:"Regências dos verbos mais cobrados pela CESGRANRIO:\n• ASSISTIR (presenciar) → 'a': assistiu AO jogo\n• ASPIRAR (almejar) → 'a': aspira À vaga\n• OBEDECER → 'a': obedeceu ÀS regras\n• PREFERIR → rejeita 'do que': prefere X A Y\n\nAgora analise cada alternativa.",
+    dica2:"Regências dos verbos mais cobrados em concursos:\n• ASSISTIR (presenciar) → 'a': assistiu AO jogo\n• ASPIRAR (almejar) → 'a': aspira À vaga\n• OBEDECER → 'a': obedeceu ÀS regras\n• PREFERIR → rejeita 'do que': prefere X A Y\n\nAgora analise cada alternativa.",
     explicacao:"✅ B — 'Aspiramos À conquista' = aspiramos + a(prep.) + a(artigo) + conquista.\n\n❌ A — 'assistiram O jogo' → deve ser 'assistiram AO jogo'.\n❌ C — 'prefere... DO QUE' → deve ser 'prefere o café AO chá'.\n❌ D — 'obedeceu AS' → deve ser 'obedeceu ÀS instruções'."
   },
   {
@@ -716,7 +716,7 @@ const banco = [
     alts:{A:"6",B:"7",C:"8",D:"7,6",E:"9"},
     gabarito:"C",
     dica1:{area:"Matemática — Estatística",materia:"Medidas de Tendência Central — Mediana",raciocinio:"Mediana = <strong>valor que ocupa a posição central</strong> dos dados ordenados. Com 5 valores, qual posição é o centro exato? Localize o valor nessa posição. Não some, não divida — apenas encontre o do meio."},
-    dica2:"Com n valores em ordem crescente:\n• n ímpar: posição central = (n+1)/2\n• n par: média dos dois valores centrais\n\nAqui n=5. Calcule a posição e localize o valor.\n\n⚠️ A alternativa D (7,6) é a MÉDIA ARITMÉTICA — colada no gabarito para confundir. A CESGRANRIO faz isso propositalmente.",
+    dica2:"Com n valores em ordem crescente:\n• n ímpar: posição central = (n+1)/2\n• n par: média dos dois valores centrais\n\nAqui n=5. Calcule a posição e localize o valor.\n\n⚠️ A alternativa D (7,6) é a MÉDIA ARITMÉTICA — colada no gabarito para confundir. Distrator clássico de banca!",
     explicacao:"Dados ordenados: 6, 7, 8, 8, 9\nn=5 → posição central = (5+1)/2 = 3ª posição\n6(1°) 7(2°) 8(3°) ← MEDIANA!\n\n✅ Mediana = 8 (C)\n\n❌ D (7,6) = média aritmética: 38÷5=7,6. Distrator clássico!"
   },
   {
@@ -760,7 +760,7 @@ const banco = [
     alts:{A:"13",B:"40",C:"3",D:"8",E:"Erro de sintaxe"},
     gabarito:"B",
     dica1:{area:"Tecnologia da Informação — Informática",materia:"Planilha Eletrônica — Função SE (condicional)",raciocinio:"Quebre a fórmula em 3 partes: <strong>teste / se verdadeiro / se falso</strong>. Primeiro avalie o teste. Depois execute apenas a parte correspondente ao resultado do teste."},
-    dica2:"Estrutura: =SE(teste; valor_se_verdadeiro; valor_se_falso)\n\n1. Teste: A1 > B1 → 8 > 5 → Verdadeiro ou Falso?\n2. Se Verdadeiro: executa A1*B1 = ?\n3. Se Falso: executa A1+B1 = ?\n\n⚠️ A CESGRANRIO coloca o 'se_falso' (13) como alternativa A para pegar quem lê rápido demais.",
+    dica2:"Estrutura: =SE(teste; valor_se_verdadeiro; valor_se_falso)\n\n1. Teste: A1 > B1 → 8 > 5 → Verdadeiro ou Falso?\n2. Se Verdadeiro: executa A1*B1 = ?\n3. Se Falso: executa A1+B1 = ?\n\n⚠️ A banca coloca o 'se_falso' (13) como alternativa A para pegar quem lê rápido demais.",
     explicacao:"Teste: 8>5 → VERDADEIRO\nExecuta: A1*B1 = 8×5 = 40\n\n✅ Resposta: B (40)\n\n❌ A (13) = A1+B1 = resultado do 'se_falso' — distrator para afobados!\n❌ E — a sintaxe está correta."
   },
   {
@@ -1478,7 +1478,7 @@ async function chamarApiResumo(assunto) {
   const apiKey = localStorage.getItem('simulado_api_key') || '';
   if (!apiKey) throw new Error('Chave API não configurada. Configure no Simulado Semanal.');
 
-  const prompt = `Você é um professor preparatório para concursos públicos da banca CESGRANRIO.
+  const prompt = `Você é um professor preparatório para concursos públicos.
 Gere um resumo de estudo CONCISO (máximo 5 linhas) para o seguinte assunto:
 
 "${assunto}"
